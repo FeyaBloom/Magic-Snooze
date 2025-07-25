@@ -1,67 +1,46 @@
-import { Tabs } from 'expo-router';
-import { Chrome as Home, SquareCheck as CheckSquare, Calendar, FileText } from 'lucide-react-native';
+import { useEffect } from 'react';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useFrameworkReady } from '@/hooks/useFrameworkReady';
+import { useFonts } from 'expo-font';
+import {
+  ComicNeue_400Regular,
+  ComicNeue_700Bold
+} from '@expo-google-fonts/comic-neue';
+import {
+  CabinSketch_400Regular,
+  CabinSketch_700Bold
+} from '@expo-google-fonts/cabin-sketch';
+import * as SplashScreen from 'expo-splash-screen';
 
-export default function TabLayout() {
+SplashScreen.preventAutoHideAsync();
+
+export default function RootLayout() {
+  useFrameworkReady();
+  
+  const [fontsLoaded, fontError] = useFonts({
+    'ComicNeue-Regular': ComicNeue_400Regular,
+    'ComicNeue-Bold': ComicNeue_700Bold,
+    'CabinSketch-Regular': CabinSketch_400Regular,
+    'CabinSketch-Bold': CabinSketch_700Bold,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#FFFFFF',
-          borderTopWidth: 0,
-          elevation: 8,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: -2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
-          height: 85,
-          paddingTop: 10,
-          paddingBottom: 25,
-        },
-        tabBarActiveTintColor: '#8B5CF6',
-        tabBarInactiveTintColor: '#9CA3AF',
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '600',
-          marginTop: 5,
-        },
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Today',
-          tabBarIcon: ({ size, color }) => (
-            <Home size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="tasks"
-        options={{
-          title: 'Tasks',
-          tabBarIcon: ({ size, color }) => (
-            <CheckSquare size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="calendar"
-        options={{
-          title: 'Calendar',
-          tabBarIcon: ({ size, color }) => (
-            <Calendar size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="notes"
-        options={{
-          title: 'Notes',
-          tabBarIcon: ({ size, color }) => (
-            <FileText size={size} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+    <>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="+not-found" />
+      </Stack>
+      <StatusBar style="auto" />
+    </>
   );
 }
