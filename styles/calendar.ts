@@ -108,10 +108,11 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     color: colors.textSecondary,
   },
   today: {
-    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+    borderWidth: 2,
   },
   todayText: {
-    color: '#FFFFFF',
+    color: colors.primary,
     fontWeight: '700',
   },
   completeDay: {
