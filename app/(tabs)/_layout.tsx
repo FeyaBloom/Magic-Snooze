@@ -21,7 +21,7 @@ export default function TabLayout() {
           shadowOpacity: 0.1,
           shadowRadius: 8,
           height: 70,
-          paddingTop: 40,
+          paddingTop: 20,
           paddingBottom: 10,
         },
         tabBarActiveTintColor: colors.primary,
