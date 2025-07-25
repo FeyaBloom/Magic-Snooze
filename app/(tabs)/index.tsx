@@ -380,7 +380,7 @@ function TodayTabContent() {
                 setShowEditModal(true);
               }}
             >
-              <Edit3 size={16} color={colors.textSecondary} />
+             
               <Edit size={16} color={colors.textSecondary} />
             </TouchableOpacity>
             <TouchableOpacity
