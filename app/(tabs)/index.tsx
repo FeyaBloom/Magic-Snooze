@@ -11,7 +11,7 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Plus, Edit, Trash2, Coffee, Moon, Pause, Palette, Sparkles } from 'lucide-react-native';
+import { Plus, CreditCard as Edit, Trash2, Coffee, Moon, Pause, Palette, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, FloatingElement } from '@/components/MagicalFeatures';
 import { useTheme } from '@/components/ThemeProvider';
