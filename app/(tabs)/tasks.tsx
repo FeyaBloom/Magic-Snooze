@@ -11,7 +11,7 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Plus, Edit, Trash2, Calendar, CircleCheck as CheckCircle2 } from 'lucide-react-native';
+import { Plus, CreditCard as Edit, Trash2, Calendar, CircleCheck as CheckCircle2 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
