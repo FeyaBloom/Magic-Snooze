@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const { width: screenWidth } = Dimensions.get('window');
-const dayWidth = (screenWidth - 80) / 7;
+export const dayWidth = (screenWidth - 80) / 7;
 
 export const createCalendarStyles = (colors: any) => StyleSheet.create({
   container: {
@@ -108,11 +108,10 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     color: colors.textSecondary,
   },
   today: {
-    borderColor: colors.primary,
-    borderWidth: 2,
+    backgroundColor: colors.primary,
   },
   todayText: {
-    color: colors.primary,
+    color: '#FFFFFF',
     fontWeight: '700',
   },
   completeDay: {
@@ -235,5 +234,3 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
   },
 });
-
-export { dayWidth };
