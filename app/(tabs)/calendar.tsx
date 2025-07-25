@@ -25,6 +25,13 @@ interface DailyProgress {
   snoozed: boolean;
 }
 
+const getLocalDateString = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export default function CalendarTab() {
   const { colors } = useTheme();
   const styles = createCalendarStyles(colors);
@@ -37,29 +44,21 @@ export default function CalendarTab() {
 
   const loadProgressData = async () => {
     try {
-      const getLocalDateString = (date: Date) => {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-      };
-
       const year = currentMonth.getFullYear();
       const month = currentMonth.getMonth();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
-      
+
       const progress: Record<string, DailyProgress> = {};
-      
+
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day);
         const dateString = getLocalDateString(date);
-        
         const dayProgress = await AsyncStorage.getItem(`progress_${dateString}`);
         if (dayProgress) {
           progress[dateString] = JSON.parse(dayProgress);
         }
       }
-      
+
       setProgressData(progress);
     } catch (error) {
       console.error('Error loading progress data:', error);
@@ -68,53 +67,41 @@ export default function CalendarTab() {
 
   const navigateMonth = (direction: 'prev' | 'next') => {
     const newMonth = new Date(currentMonth);
-    if (direction === 'prev') {
-      newMonth.setMonth(newMonth.getMonth() - 1);
-    } else {
-      newMonth.setMonth(newMonth.getMonth() + 1);
-    }
+    newMonth.setMonth(newMonth.getMonth() + (direction === 'next' ? 1 : -1));
     setCurrentMonth(newMonth);
   };
 
   const getDayStatus = (dateString: string) => {
     const progress = progressData[dateString];
     if (!progress) return 'none';
-    
     if (progress.snoozed) return 'snoozed';
-    
     const totalTasks = progress.morningTotal + progress.eveningTotal;
     const completedTasks = progress.morningDone + progress.eveningDone;
-    
     if (completedTasks === 0) return 'none';
     if (completedTasks === totalTasks) return 'complete';
     return 'partial';
   };
 
   const renderCalendar = () => {
-    const getLocalDateString = (date: Date) => {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    };
-
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
     const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
     const startDate = new Date(firstDay);
-    startDate.setDate(startDate.getDate() - firstDay.getDay());
-    
+    startDate.setDate(startDate.getDate() - startDate.getDay());
+
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 41);
+
     const days = [];
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
-    for (let d = new Date(startDate); d <= lastDay; d.setDate(d.getDate() + 1)) {
+
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
       const dateString = getLocalDateString(d);
       const isCurrentMonth = d.getMonth() === month;
-      const isToday = d.getTime() === today.getTime();
+      const isToday = getLocalDateString(d) === getLocalDateString(today);
       const dayStatus = getDayStatus(dateString);
-      
+
       days.push(
         <View key={dateString} style={[styles.dayContainer, { width: dayWidth }]}>
           <View style={[
@@ -129,7 +116,7 @@ export default function CalendarTab() {
               styles.dayText,
               !isCurrentMonth && styles.otherMonthText,
               isToday && styles.todayText,
-              (dayStatus === 'complete' || dayStatus === 'partial' || dayStatus === 'snoozed') && styles.statusDayText,
+              (dayStatus !== 'none') && styles.statusDayText,
             ]}>
               {d.getDate()}
             </Text>
@@ -144,7 +131,7 @@ export default function CalendarTab() {
         </View>
       );
     }
-    
+
     return days;
   };
 
@@ -158,27 +145,20 @@ export default function CalendarTab() {
   };
 
   const getMonthStats = () => {
-    const getLocalDateString = (date: Date) => {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    };
-
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
+
     let completeDays = 0;
     let partialDays = 0;
     let snoozedDays = 0;
     let totalDays = 0;
-    
+
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month, day);
       const dateString = getLocalDateString(date);
       const status = getDayStatus(dateString);
-      
+
       if (status !== 'none') {
         totalDays++;
         if (status === 'complete') completeDays++;
@@ -186,22 +166,19 @@ export default function CalendarTab() {
         else if (status === 'snoozed') snoozedDays++;
       }
     }
-    
+
     return { completeDays, partialDays, snoozedDays, totalDays };
   };
 
   const monthStats = getMonthStats();
-  const monthName = currentMonth.toLocaleDateString('en-US', { 
-    month: 'long', 
-    year: 'numeric' 
+  const monthName = currentMonth.toLocaleDateString('en-US', {
+    month: 'long',
+    year: 'numeric',
   });
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={colors.background}
-        style={styles.gradient}
-      >
+      <LinearGradient colors={colors.background} style={styles.gradient}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>Your Journey 📅</Text>
@@ -225,13 +202,8 @@ export default function CalendarTab() {
               </TouchableOpacity>
             </View>
 
-            <View style={styles.weekDaysContainer}>
-              {renderWeekDays()}
-            </View>
-
-            <View style={styles.daysContainer}>
-              {renderCalendar()}
-            </View>
+            <View style={styles.weekDaysContainer}>{renderWeekDays()}</View>
+            <View style={styles.daysContainer}>{renderCalendar()}</View>
           </View>
 
           <View style={styles.legendContainer}>
