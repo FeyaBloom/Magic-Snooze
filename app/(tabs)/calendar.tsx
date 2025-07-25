@@ -11,6 +11,8 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from '@/components/ThemeProvider';
+import { createCalendarStyles, dayWidth } from '@/styles/calendar';
 
 interface DailyProgress {
   date: string;
@@ -23,10 +25,9 @@ interface DailyProgress {
   snoozed: boolean;
 }
 
-const { width: screenWidth } = Dimensions.get('window');
-const dayWidth = (screenWidth - 40) / 7;
-
 export default function CalendarTab() {
+  const { colors } = useTheme();
+  const styles = createCalendarStyles(colors);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [progressData, setProgressData] = useState<Record<string, DailyProgress>>({});
 
@@ -198,7 +199,7 @@ export default function CalendarTab() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={['#F3E5FF', '#E5F3FF', '#FFE5E5']}
+        colors={colors.background}
         style={styles.gradient}
       >
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
@@ -213,14 +214,14 @@ export default function CalendarTab() {
                 style={styles.navButton}
                 onPress={() => navigateMonth('prev')}
               >
-                <ChevronLeft size={24} color="#8B5CF6" />
+                <ChevronLeft size={24} color={colors.primary} />
               </TouchableOpacity>
               <Text style={styles.monthTitle}>{monthName}</Text>
               <TouchableOpacity
                 style={styles.navButton}
                 onPress={() => navigateMonth('next')}
               >
-                <ChevronRight size={24} color="#8B5CF6" />
+                <ChevronRight size={24} color={colors.primary} />
               </TouchableOpacity>
             </View>
 
@@ -285,219 +286,3 @@ export default function CalendarTab() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  gradient: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  header: {
-    padding: 20,
-    paddingTop: 40,
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#6B7280',
-    textAlign: 'center',
-  },
-  calendarContainer: {
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginBottom: 20,
-    borderRadius: 16,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  monthHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  navButton: {
-    padding: 8,
-    borderRadius: 20,
-    backgroundColor: '#F3E5FF',
-  },
-  monthTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#374151',
-  },
-  weekDaysContainer: {
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  weekDayText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#6B7280',
-    textAlign: 'center',
-  },
-  daysContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  dayContainer: {
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  dayCell: {
-    width: dayWidth * 0.8,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  dayText: {
-    fontSize: 16,
-    color: '#374151',
-    fontWeight: '500',
-  },
-  otherMonth: {
-    opacity: 0.3,
-  },
-  otherMonthText: {
-    color: '#9CA3AF',
-  },
-  today: {
-    backgroundColor: '#8B5CF6',
-  },
-  todayText: {
-    color: '#FFFFFF',
-    fontWeight: '700',
-  },
-  completeDay: {
-    backgroundColor: '#EC4899',
-  },
-  partialDay: {
-    backgroundColor: '#F59E0B',
-  },
-  snoozedDay: {
-    backgroundColor: '#8B5CF6',
-  },
-  statusDayText: {
-    color: '#FFFFFF',
-    fontWeight: '700',
-  },
-  statusDot: {
-    position: 'absolute',
-    top: 2,
-    right: 2,
-  },
-  statusEmoji: {
-    fontSize: 12,
-  },
-  legendContainer: {
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginBottom: 20,
-    borderRadius: 16,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  legendTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  legendGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '48%',
-    marginBottom: 12,
-  },
-  legendDot: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    marginRight: 8,
-  },
-  completeLegend: {
-    backgroundColor: '#EC4899',
-  },
-  partialLegend: {
-    backgroundColor: '#F59E0B',
-  },
-  snoozedLegend: {
-    backgroundColor: '#8B5CF6',
-  },
-  noneLegend: {
-    backgroundColor: '#E5E7EB',
-  },
-  legendText: {
-    fontSize: 14,
-    color: '#374151',
-    flex: 1,
-  },
-  statsContainer: {
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginBottom: 20,
-    borderRadius: 16,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  statsTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  statsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  statItem: {
-    width: '48%',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  statNumber: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#8B5CF6',
-    marginBottom: 4,
-  },
-  statLabel: {
-    fontSize: 14,
-    color: '#6B7280',
-    textAlign: 'center',
-  },
-});

@@ -11,8 +11,10 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Plus, CreditCard as Edit3, Trash2, Calendar, CircleCheck as CheckCircle2 } from 'lucide-react-native';
+import { Plus, Edit, Trash2, Calendar, CircleCheck as CheckCircle2 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from '@/components/ThemeProvider';
+import { createTasksStyles } from '@/styles/tasks';
 
 interface Task {
   id: string;
@@ -23,6 +25,8 @@ interface Task {
 }
 
 export default function TasksTab() {
+  const { colors } = useTheme();
+  const styles = createTasksStyles(colors);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -147,7 +151,7 @@ export default function TasksTab() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={['#E5F9E5', '#FFE5E5', '#E5F3FF']}
+        colors={colors.background}
         style={styles.gradient}
       >
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
@@ -201,7 +205,7 @@ export default function TasksTab() {
                         setShowEditModal(true);
                       }}
                     >
-                      <Edit3 size={16} color="#6B7280" />
+                      <Edit size={16} color={colors.textSecondary} />
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={styles.actionButton}
@@ -348,213 +352,3 @@ export default function TasksTab() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  gradient: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  header: {
-    padding: 20,
-    paddingTop: 40,
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#6B7280',
-    textAlign: 'center',
-  },
-  addTaskButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#EC4899',
-    marginHorizontal: 20,
-    marginBottom: 24,
-    paddingVertical: 16,
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  addTaskText: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    fontWeight: '600',
-    marginLeft: 8,
-  },
-  taskSection: {
-    marginHorizontal: 20,
-    marginBottom: 24,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 12,
-  },
-  taskContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  completedTaskContainer: {
-    backgroundColor: '#F9FAFB',
-  },
-  checkbox: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: '#D1D5DB',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-    marginTop: 2,
-  },
-  checkboxCompleted: {
-    backgroundColor: '#EC4899',
-    borderColor: '#EC4899',
-  },
-  taskContent: {
-    flex: 1,
-  },
-  taskText: {
-    fontSize: 16,
-    color: '#374151',
-    lineHeight: 22,
-    marginBottom: 4,
-  },
-  taskTextCompleted: {
-    textDecorationLine: 'line-through',
-    color: '#9CA3AF',
-  },
-  dueDateContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 4,
-  },
-  dueDateText: {
-    fontSize: 14,
-    color: '#6B7280',
-    marginLeft: 4,
-  },
-  overdue: {
-    color: '#EF4444',
-    fontWeight: '600',
-  },
-  dueToday: {
-    color: '#F59E0B',
-    fontWeight: '600',
-  },
-  completedDueDate: {
-    color: '#9CA3AF',
-  },
-  taskActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  actionButton: {
-    padding: 8,
-    marginLeft: 4,
-  },
-  emptyState: {
-    alignItems: 'center',
-    marginTop: 60,
-    paddingHorizontal: 40,
-  },
-  emptyStateText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#6B7280',
-    marginBottom: 8,
-  },
-  emptyStateSubtext: {
-    fontSize: 16,
-    color: '#9CA3AF',
-    textAlign: 'center',
-    lineHeight: 22,
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  modalContent: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 24,
-    width: '100%',
-    maxWidth: 400,
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    color: '#374151',
-    marginBottom: 16,
-    minHeight: 60,
-    textAlignVertical: 'top',
-  },
-  modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  modalButton: {
-    flex: 1,
-    paddingVertical: 12,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  cancelButton: {
-    backgroundColor: '#F3F4F6',
-    marginRight: 8,
-  },
-  saveButton: {
-    backgroundColor: '#EC4899',
-    marginLeft: 8,
-  },
-  cancelButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#6B7280',
-  },
-  saveButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-});

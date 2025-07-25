@@ -11,8 +11,10 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Plus, CreditCard as Edit3, Trash2, Search, BookOpen } from 'lucide-react-native';
+import { Plus, Edit, Trash2, Search, BookOpen } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from '@/components/ThemeProvider';
+import { createNotesStyles } from '@/styles/notes';
 
 interface Note {
   id: string;
@@ -23,6 +25,8 @@ interface Note {
 }
 
 export default function NotesTab() {
+  const { colors } = useTheme();
+  const styles = createNotesStyles(colors);
   const [notes, setNotes] = useState<Note[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -156,7 +160,7 @@ export default function NotesTab() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={['#FFE5E5', '#F3E5FF', '#E5F3FF']}
+        colors={colors.background}
         style={styles.gradient}
       >
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
@@ -209,7 +213,7 @@ export default function NotesTab() {
                         setShowEditModal(true);
                       }}
                     >
-                      <Edit3 size={16} color="#6B7280" />
+                     <Edit size={16} color={colors.textSecondary} />
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={styles.actionButton}
@@ -332,7 +336,7 @@ export default function NotesTab() {
                   style={styles.editFromViewButton}
                   onPress={openEditFromView}
                 >
-                  <Edit3 size={20} color="#8B5CF6" />
+                  <Edit size={20} color={colors.primary} />
                 </TouchableOpacity>
               </View>
               <Text style={styles.viewDate}>
@@ -359,247 +363,3 @@ export default function NotesTab() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  gradient: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  header: {
-    padding: 20,
-    paddingTop: 40,
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#6B7280',
-    textAlign: 'center',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginBottom: 20,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
-    color: '#374151',
-    marginLeft: 12,
-  },
-  addNoteButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#EC4899',
-    marginHorizontal: 20,
-    marginBottom: 24,
-    paddingVertical: 16,
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  addNoteText: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    fontWeight: '600',
-    marginLeft: 8,
-  },
-  notesContainer: {
-    paddingHorizontal: 20,
-  },
-  noteCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  noteHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 8,
-  },
-  noteTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#374151',
-    flex: 1,
-    marginRight: 8,
-  },
-  noteDate: {
-    fontSize: 12,
-    color: '#9CA3AF',
-  },
-  notePreview: {
-    fontSize: 14,
-    color: '#6B7280',
-    lineHeight: 20,
-    marginBottom: 12,
-  },
-  noteActions: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  actionButton: {
-    padding: 8,
-    marginLeft: 8,
-  },
-  emptyState: {
-    alignItems: 'center',
-    marginTop: 60,
-    paddingHorizontal: 40,
-  },
-  emptyStateText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#6B7280',
-    marginTop: 16,
-    marginBottom: 8,
-  },
-  emptyStateSubtext: {
-    fontSize: 16,
-    color: '#9CA3AF',
-    textAlign: 'center',
-    lineHeight: 22,
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  modalContent: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 24,
-    width: '100%',
-    maxWidth: 400,
-    maxHeight: '80%',
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#374151',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  titleInput: {
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    color: '#374151',
-    marginBottom: 16,
-  },
-  contentInput: {
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    color: '#374151',
-    marginBottom: 20,
-    minHeight: 120,
-    textAlignVertical: 'top',
-  },
-  modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  modalButton: {
-    flex: 1,
-    paddingVertical: 12,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  cancelButton: {
-    backgroundColor: '#F3F4F6',
-    marginRight: 8,
-  },
-  saveButton: {
-    backgroundColor: '#EC4899',
-    marginLeft: 8,
-  },
-  cancelButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#6B7280',
-  },
-  saveButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-  viewHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 8,
-  },
-  viewTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#374151',
-    flex: 1,
-    marginRight: 12,
-  },
-  editFromViewButton: {
-    padding: 8,
-    backgroundColor: '#F3E5FF',
-    borderRadius: 20,
-  },
-  viewDate: {
-    fontSize: 14,
-    color: '#9CA3AF',
-    marginBottom: 16,
-  },
-  viewContent: {
-    flex: 1,
-    marginBottom: 20,
-  },
-  viewText: {
-    fontSize: 16,
-    color: '#374151',
-    lineHeight: 24,
-  },
-  closeButton: {
-    backgroundColor: '#8B5CF6',
-  },
-  closeButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-});

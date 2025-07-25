@@ -11,10 +11,11 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Plus, CreditCard as Edit3, Trash2, Coffee, Moon, Pause, Palette, Sparkles } from 'lucide-react-native';
+import { Plus, Edit, Trash2, Coffee, Moon, Pause, Palette, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, FloatingElement } from '@/components/MagicalFeatures';
-import { ThemeProvider, useTheme } from '@/components/ThemeProvider';
+import { useTheme } from '@/components/ThemeProvider';
+import { createTodayStyles } from '@/styles/today';
 
 interface RoutineStep {
   id: string;
@@ -35,6 +36,7 @@ interface DailyProgress {
 
 function TodayTabContent() {
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
+  const styles = createTodayStyles(colors);
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
   const [eveningRoutine, setEveningRoutine] = useState<RoutineStep[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -379,6 +381,7 @@ function TodayTabContent() {
               }}
             >
               <Edit3 size={16} color={colors.textSecondary} />
+              <Edit size={16} color={colors.textSecondary} />
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.actionButton}
@@ -393,40 +396,7 @@ function TodayTabContent() {
   );
 
   const dynamicStyles = StyleSheet.create({
-    gradient: {
-      flex: 1,
-    },
-    title: {
-      fontSize: 24,
-      fontWeight: '700',
-      color: colors.text,
-      textAlign: 'center',
-      marginBottom: 8,
-      fontFamily: 'ComicNeue-Bold',
-    },
-    subtitle: {
-      fontSize: 16,
-      color: colors.textSecondary,
-      textAlign: 'center',
-      fontFamily: 'ComicNeue-Regular',
-    },
-    addTaskButton: {
-      backgroundColor: colors.primary,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 12,
-      paddingHorizontal: 20,
-      borderRadius: 20,
-      marginBottom: 12,
-    },
-    addTaskText: {
-      color: '#FFFFFF',
-      fontSize: 16,
-      fontWeight: '600',
-      marginLeft: 8,
-      fontFamily: 'ComicNeue-Regular',
-    },
+    // Removed - now using styles from createTodayStyles
   });
 
   return (
@@ -434,16 +404,17 @@ function TodayTabContent() {
       <LinearGradient
         colors={colors.background}
         style={dynamicStyles.gradient}
+        style={styles.gradient}
       >
         <>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View>
           <View style={styles.header}>
             <FloatingElement duration={3000}>
-              <Text style={dynamicStyles.title}>Good day, beautiful soul 🌸</Text>
+              <Text style={styles.title}>Good day, beautiful soul 🌸</Text>
             </FloatingElement>
             <FloatingElement duration={4000}>
-              <Text style={dynamicStyles.subtitle}>
+              <Text style={styles.subtitle}>
               {isSnoozed ? 'You\'re taking a gentle break today' : 'Take it one step at a time'}
               </Text>
             </FloatingElement>
@@ -460,19 +431,19 @@ function TodayTabContent() {
 
           <View style={styles.magicalControls}>
             <FloatingElement duration={3500}>
-              <TouchableOpacity style={dynamicStyles.addTaskButton} onPress={() => setShowTinyVictories(true)}>
+              <TouchableOpacity style={styles.addTaskButton} onPress={() => setShowTinyVictories(true)}>
                 <Sparkles size={20} color="#FFFFFF" />
-                <Text style={dynamicStyles.addTaskText}>Tiny Victories</Text>
+                <Text style={styles.addTaskText}>Tiny Victories</Text>
               </TouchableOpacity>
             </FloatingElement>
             
             <View style={styles.themeControls}>
               <FloatingElement duration={4500}>
                 <TouchableOpacity
-                  style={[styles.themeButton, { backgroundColor: colors.surface }]}
+                  style={styles.themeButton}
                   onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
                 >
-                  <Text style={[styles.themeButtonText, { color: colors.text, fontFamily: 'ComicNeue-Regular' }]}>
+                  <Text style={styles.themeButtonText}>
                     {currentTheme === 'daydream' ? '🌙 Night Forest' : '☁️ Daydream'}
                   </Text>
                 </TouchableOpacity>
@@ -484,7 +455,7 @@ function TodayTabContent() {
                   onPress={toggleMessyMode}
                 >
                   <Palette size={16} color="#FFFFFF" />
-                  <Text style={[styles.themeButtonText, { color: '#FFFFFF', marginLeft: 4, fontFamily: 'ComicNeue-Regular' }]}>
+                  <Text style={[styles.themeButtonText, { color: '#FFFFFF', marginLeft: 4 }]}>
                     Messy Mode
                   </Text>
                 </TouchableOpacity>
@@ -646,270 +617,6 @@ function TodayTabContent() {
 
 export default function TodayTab() {
   return (
-    <ThemeProvider>
-      <TodayTabContent />
-    </ThemeProvider>
+    <TodayTabContent />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  routineSection: {
-    marginHorizontal: 20,
-    marginBottom: 24,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 16,
-    padding: 20,
-  },
-  checkbox: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: '#D1D5DB',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-  },
-  checkboxCompleted: {
-    backgroundColor: '#8B5CF6',
-    borderColor: '#8B5CF6',
-  },
-  checkboxDisabled: {
-    backgroundColor: '#F3F4F6',
-    borderColor: '#E5E7EB',
-  },
-  checkmark: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  snoozeButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginBottom: 20,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  magicalControls: {
-    marginHorizontal: 20,
-    marginBottom: 20,
-  },
-  themeControls: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 12,
-  },
-  themeButton: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 12,
-    marginHorizontal: 4,
-  },
-  themeButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  floatingDecoration: {
-    position: 'absolute',
-    top: 150,
-    right: 40,
-    zIndex: 1,
-  },
-  floatingEmoji: {
-    fontSize: 28,
-    opacity: 0.7,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  header: {
-    padding: 20,
-    paddingTop: 40,
-    alignItems: 'center',
-  },
-  snoozeText: {
-    fontSize: 16,
-    color: '#8B5CF6',
-    fontWeight: '600',
-    marginLeft: 8,
-  },
-  resumeButton: {
-    backgroundColor: '#8B5CF6',
-    marginHorizontal: 20,
-    marginBottom: 20,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    alignItems: 'center',
-  },
-  resumeText: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    fontWeight: '600',
-  },
-  routineHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  routineTitle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  routineTitleText: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginLeft: 8,
-    fontFamily: 'ComicNeue-Bold',
-  },
-  stepContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  addButton: {
-    borderRadius: 20,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  stepText: {
-    flex: 1,
-    fontSize: 16,
-    lineHeight: 22,
-    marginLeft: 12,
-  },
-  stepTextCompleted: {
-    textDecorationLine: 'line-through',
-    color: '#9CA3AF',
-  },
-  stepTextDisabled: {
-    color: '#9CA3AF',
-  },
-  stepActions: {
-    flexDirection: 'row',
-  },
-  actionButton: {
-    padding: 8,
-    marginLeft: 4,
-  },
-  progressSection: {
-    marginHorizontal: 20,
-    marginBottom: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 16,
-    padding: 20,
-  },
-  progressStats: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  progressStat: {
-    alignItems: 'center',
-  },
-  progressTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  progressLabel: {
-    fontSize: 14,
-    marginBottom: 4,
-  },
-  progressValue: {
-    fontSize: 20,
-    fontWeight: '700',
-  },
-  closeVictoriesButton: {
-    backgroundColor: '#EC4899',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 20,
-    alignSelf: 'center',
-    marginTop: 20,
-  },
-  closeVictoriesText: {
-    color: '#FFFFFF',
-    fontWeight: '600',
-    fontFamily: 'ComicNeue-Regular',
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  modalContent: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 24,
-    width: '100%',
-    maxWidth: 400,
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    marginBottom: 16,
-    textAlign: 'center',
-    color: '#374151',
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    color: '#374151',
-    marginBottom: 20,
-    minHeight: 60,
-    textAlignVertical: 'top',
-  },
-  modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  modalButton: {
-    flex: 1,
-    paddingVertical: 12,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  cancelButton: {
-    backgroundColor: '#F3F4F6',
-    marginRight: 8,
-  },
-  cancelButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#6B7280',
-  },
-  saveButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-  saveButton: {
-    backgroundColor: '#8B5CF6',
-    marginLeft: 8,
-  },
-});

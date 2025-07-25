@@ -1,29 +1,36 @@
 import { Tabs } from 'expo-router';
 import { Chrome as Home, SquareCheck as CheckSquare, Calendar, FileText } from 'lucide-react-native';
+import { useTheme } from '@/components/ThemeProvider';
 
 export default function TabLayout() {
+  const { colors } = useTheme();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarPosition: 'top',
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
+          backgroundColor: colors.surface,
           borderTopWidth: 0,
+          borderBottomWidth: 1,
+          borderBottomColor: colors.primary + '20',
           elevation: 8,
           shadowColor: '#000',
-          shadowOffset: { width: 0, height: -2 },
+          shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.1,
           shadowRadius: 8,
-          height: 85,
-          paddingTop: 10,
-          paddingBottom: 25,
+          height: 90,
+          paddingTop: 40,
+          paddingBottom: 10,
         },
-        tabBarActiveTintColor: '#8B5CF6',
-        tabBarInactiveTintColor: '#9CA3AF',
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.textSecondary,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
-          marginTop: 5,
+          marginTop: 4,
+          fontFamily: 'ComicNeue-Bold',
         },
       }}>
       <Tabs.Screen
