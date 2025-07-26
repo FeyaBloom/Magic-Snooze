@@ -1,99 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from 'react-native';
-import { Sparkles, Heart, Star, Zap } from 'lucide-react-native';
+// magicUI.tsx — version: not embarrassing
+
+import React, { useState, useEffect, useMemo } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  Dimensions,
+} from 'react-native';
+import { Sparkles, Star } from 'lucide-react-native';
+import ConfettiCannon from 'react-native-confetti-cannon';
+import { useTheme } from '@/components/ThemeProvider';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-interface FloatingElementProps {
-  children: React.ReactNode;
-  duration?: number;
-}
+// ---- FLOATING BACKGROUNDS ----
+export const FloatingBackground: React.FC = () => {
+  const { theme } = useTheme();
 
-export const FloatingElement: React.FC<FloatingElementProps> = ({ children, duration = 3000 }) => {
-  const translateY = new Animated.Value(0);
-  const opacity = new Animated.Value(0.7);
-
-  useEffect(() => {
-    const animate = () => {
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(translateY, {
-            toValue: -20,
-            duration: duration / 2,
-            useNativeDriver: true,
-          }),
-          Animated.timing(translateY, {
-            toValue: 0,
-            duration: duration / 2,
-            useNativeDriver: true,
-          }),
-        ])
-      ).start();
-
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(opacity, {
-            toValue: 1,
-            duration: duration / 4,
-            useNativeDriver: true,
-          }),
-          Animated.timing(opacity, {
-            toValue: 0.7,
-            duration: duration / 2,
-            useNativeDriver: true,
-          }),
-          Animated.timing(opacity, {
-            toValue: 1,
-            duration: duration / 4,
-            useNativeDriver: true,
-          }),
-        ])
-      ).start();
-    };
-
-    animate();
-  }, []);
-
-  return (
-    <Animated.View
-      style={{
-        transform: [{ translateY }],
-        opacity,
-      }}
-    >
-      {children}
-    </Animated.View>
-  );
+  if (theme === 'daydream') {
+    return <FloatingClouds />;
+  } else if (theme === 'nightforest') {
+    return <GentleStars />;
+  } else {
+    return null;
+  }
 };
 
-interface MagicalCheckboxProps {
-  completed: boolean;
-  onPress: () => void;
-  disabled?: boolean;
-}
+const FloatingClouds = () => (
+  <Animated.View style={StyleSheet.absoluteFillObject} pointerEvents="none">
+    {/* insert non-laggy floating cloud SVGs or light effects */}
+  </Animated.View>
+);
 
-export const MagicalCheckbox: React.FC<MagicalCheckboxProps> = ({ completed, onPress, disabled }) => {
-  const [sparkles, setSparkles] = useState<Array<{ id: number; x: number; y: number }>>([]);
-  const scaleAnim = new Animated.Value(1);
+const GentleStars = () => (
+  <Animated.View style={StyleSheet.absoluteFillObject} pointerEvents="none">
+    {/* insert subtle floating stars or twinkle effect */}
+  </Animated.View>
+);
 
-  const createSparkles = () => {
-    if (!completed) return;
-    
-    const newSparkles = Array.from({ length: 5 }, (_, i) => ({
-      id: Date.now() + i,
-      x: Math.random() * 100 - 50,
-      y: Math.random() * 100 - 50,
-    }));
-    
-    setSparkles(newSparkles);
-    
-    setTimeout(() => setSparkles([]), 1000);
-  };
+// ---- MAGIC SPARKLE ON CHECKBOX ----
+export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
+  const [sparkles, setSparkles] = useState([]);
+  const scaleAnim = useMemo(() => new Animated.Value(1), []);
 
   const handlePress = () => {
     if (disabled) return;
-    
-    // Bounce animation
+
     Animated.sequence([
       Animated.timing(scaleAnim, {
         toValue: 1.2,
@@ -105,13 +59,21 @@ export const MagicalCheckbox: React.FC<MagicalCheckboxProps> = ({ completed, onP
         duration: 100,
         useNativeDriver: true,
       }),
-    ]).start();
+    ]).start(() => {
+      if (!completed) triggerSparkles();
+    });
 
     onPress();
-    
-    if (!completed) {
-      setTimeout(createSparkles, 150);
-    }
+  };
+
+  const triggerSparkles = () => {
+    const newSparkles = Array.from({ length: 4 }, (_, i) => ({
+      id: Date.now() + i,
+      x: Math.random() * 24 - 12,
+      y: Math.random() * 24 - 12,
+    }));
+    setSparkles(newSparkles);
+    setTimeout(() => setSparkles([]), 1000);
   };
 
   return (
@@ -126,22 +88,12 @@ export const MagicalCheckbox: React.FC<MagicalCheckboxProps> = ({ completed, onP
         disabled={disabled}
       >
         <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-          {completed && <Sparkles size={20} color="#f59e0b" />} 
-       
+          {completed && <Sparkles size={20} color="#f59e0b" />}
         </Animated.View>
       </TouchableOpacity>
-      
-      {sparkles.map((sparkle) => (
-        <Animated.View
-          key={sparkle.id}
-          style={[
-            styles.sparkle,
-            {
-              left: sparkle.x,
-              top: sparkle.y,
-            },
-          ]}
-        >
+
+      {sparkles.map((s) => (
+        <Animated.View key={s.id} style={[styles.sparkle, { left: s.x, top: s.y }]}>
           <Sparkles size={12} color="#FFD700" />
         </Animated.View>
       ))}
@@ -149,56 +101,62 @@ export const MagicalCheckbox: React.FC<MagicalCheckboxProps> = ({ completed, onP
   );
 };
 
-interface TinyVictoryProps {
-  onVictoryPress: (victory: string) => void;
-}
+// ---- TINY VICTORY W/ CONFETTI ----
+export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
+  const [confettiTrigger, setConfettiTrigger] = useState(0);
 
-export const TinyVictoryTracker: React.FC<TinyVictoryProps> = ({ onVictoryPress }) => {
   const victories = [
-    { text: "Got out of bed", emoji: "🛏️" },
-    { text: "Drank water", emoji: "💧" },
-    { text: "Took a deep breath", emoji: "🌬️" },
-    { text: "Didn't scream", emoji: "😌" },
-    { text: "Pet an animal", emoji: "🐱" },
-    { text: "Looked at the sky", emoji: "☁️" },
-    { text: "Smiled at something", emoji: "😊" },
-    { text: "Ate something", emoji: "🍎" },
+    { text: 'Got out of bed', emoji: '🛏️' },
+    { text: 'Drank water', emoji: '💧' },
+    { text: 'Took a deep breath', emoji: '🌬️' },
+    { text: "Didn't scream", emoji: '😌' },
+    { text: 'Pet an animal', emoji: '🐱' },
+    { text: 'Looked at the sky', emoji: '☁️' },
+    { text: 'Smiled at something', emoji: '😊' },
+    { text: 'Ate something', emoji: '🍎' },
   ];
+
+  const handleVictory = (text: string) => {
+    onVictoryPress(text);
+    setConfettiTrigger((prev) => prev + 1);
+  };
 
   return (
     <View style={styles.tinyVictoryContainer}>
       <Text style={styles.tinyVictoryTitle}>Tiny Victories ✨</Text>
       <Text style={styles.tinyVictorySubtitle}>Celebrate the small wins!</Text>
+
       <View style={styles.victoryGrid}>
-        {victories.map((victory, index) => (
+        {victories.map((v, index) => (
           <TouchableOpacity
             key={index}
             style={styles.victoryButton}
-            onPress={() => onVictoryPress(victory.text)}
+            onPress={() => handleVictory(v.text)}
           >
-            <Text style={styles.victoryEmoji}>{victory.emoji}</Text>
-            <Text style={styles.victoryText}>{victory.text}</Text>
+            <Text style={styles.victoryEmoji}>{v.emoji}</Text>
+            <Text style={styles.victoryText}>{v.text}</Text>
           </TouchableOpacity>
         ))}
       </View>
+
+      {confettiTrigger > 0 && (
+        <ConfettiCannon count={20} origin={{ x: screenWidth / 2, y: -10 }} fadeOut autoStart />
+      )}
     </View>
   );
 };
 
-interface SurprisePromptProps {
-  onDismiss: () => void;
-}
-
-export const SurprisePrompt: React.FC<SurprisePromptProps> = ({ onDismiss }) => {
+// ---- SURPRISE PROMPT (NO CONFETTI) ----
+export const SurprisePrompt = ({ onDismiss }: any) => {
   const prompts = [
-    "Wanna write a poem instead of doing tasks? 📝",
-    "Draw your to-do list as monsters! 👹",
-    "What if you danced for 30 seconds? 💃",
-    "Time to make a weird face in the mirror? 🤪",
-    "How about humming your favorite song? 🎵",
-    "Want to text someone you love? 💕",
-    "Maybe stretch like a cat? 🐱",
-    "Feel like making up a story about your day? 📚",
+    'Wanna write a poem instead of doing tasks? 📝',
+    'Draw your to-do list as monsters! 👹',
+    'What if you danced for 30 seconds? 💃',
+    'Time to make a weird face in the mirror? 🤪',
+    'How about humming your favorite song? 🎵',
+    'Want to text someone you love? 💕',
+    'Maybe stretch like a cat? 🐱',
+    'Feel like making up a story about your day? 📚',
   ];
 
   const [currentPrompt] = useState(prompts[Math.floor(Math.random() * prompts.length)]);
@@ -206,9 +164,7 @@ export const SurprisePrompt: React.FC<SurprisePromptProps> = ({ onDismiss }) => 
   return (
     <View style={styles.promptOverlay}>
       <View style={styles.promptContainer}>
-        <FloatingElement>
-          <Star size={24} color="#FFD700" />
-        </FloatingElement>
+        <Star size={24} color="#FFD700" />
         <Text style={styles.promptText}>{currentPrompt}</Text>
         <View style={styles.promptButtons}>
           <TouchableOpacity style={styles.promptButton} onPress={onDismiss}>
@@ -223,12 +179,9 @@ export const SurprisePrompt: React.FC<SurprisePromptProps> = ({ onDismiss }) => 
   );
 };
 
+// ---- STYLES ----
 const styles = StyleSheet.create({
-  checkboxContainer: {
-    position: 'relative',
-    width: 32,
-    height: 32,
-  },
+  checkboxContainer: { position: 'relative', width: 32, height: 32 },
   magicalCheckbox: {
     width: 32,
     height: 32,
@@ -237,23 +190,17 @@ const styles = StyleSheet.create({
     borderColor: '#D1D5DB',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF'+`50`,
+    backgroundColor: '#FFFFFF50',
   },
   magicalCheckboxCompleted: {
-    backgroundColor: '#Ffffff'+ `50`,
-    borderColor: '#f59e0b'+`50`,
+    backgroundColor: '#FFFFFF50',
+    borderColor: '#f59e0b50',
   },
   magicalCheckboxDisabled: {
     backgroundColor: '#F3F4F6',
     borderColor: '#E5E7EB',
   },
-  magicalCheckmark: {
-    fontSize: 16,
-  },
-  sparkle: {
-    position: 'absolute',
-    zIndex: 10,
-  },
+  sparkle: { position: 'absolute', zIndex: 10 },
   tinyVictoryContainer: {
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
@@ -293,10 +240,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     alignItems: 'center',
   },
-  victoryEmoji: {
-    fontSize: 20,
-    marginBottom: 4,
-  },
+  victoryEmoji: { fontSize: 20, marginBottom: 4 },
   victoryText: {
     fontSize: 12,
     color: '#374151',
@@ -330,25 +274,14 @@ const styles = StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
     lineHeight: 24,
   },
-  promptButtons: {
-    flexDirection: 'row',
-    gap: 12,
-  },
+  promptButtons: { flexDirection: 'row', gap: 12 },
   promptButton: {
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
     backgroundColor: '#F3F4F6',
   },
-  promptButtonPrimary: {
-    backgroundColor: '#EC4899',
-  },
-  promptButtonText: {
-    color: '#6B7280',
-    fontFamily: 'ComicNeue-Regular',
-  },
-  promptButtonTextPrimary: {
-    color: '#FFFFFF',
-    fontFamily: 'ComicNeue-Regular',
-  },
+  promptButtonPrimary: { backgroundColor: '#EC4899' },
+  promptButtonText: { color: '#6B7280', fontFamily: 'ComicNeue-Regular' },
+  promptButtonTextPrimary: { color: '#FFFFFF', fontFamily: 'ComicNeue-Regular' },
 });
