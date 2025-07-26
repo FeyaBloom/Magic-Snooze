@@ -108,7 +108,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     color: colors.textSecondary,
   },
   today: {
-    backgroundColor: colors.primary + '30',
+    backgroundColor: colors.primary + '40',
   },
   todayText: {
     color: '#FFFFFF',
