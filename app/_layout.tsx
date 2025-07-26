@@ -3,6 +3,8 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import {AppBackground} from "@/component/AppBackground"
+
 import { useFonts } from 'expo-font';
 import {
   ComicNeue_400Regular,
