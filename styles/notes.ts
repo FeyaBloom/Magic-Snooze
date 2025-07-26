@@ -155,7 +155,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     padding: 20,
   },
   modalContent: {
-    backgroundColor: colors.Secondary,
+    backgroundColor: colors.surface,
     borderRadius: 20,
     padding: 24,
     width: '100%',
