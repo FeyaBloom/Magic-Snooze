@@ -142,7 +142,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   emptyStateSubtext: {
     fontSize: 16,
-    color: colors.textSecondary,
+    color: colors.surface,
     textAlign: 'center',
     lineHeight: 22,
     fontFamily: 'ComicNeue-Regular',
@@ -155,7 +155,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     padding: 20,
   },
   modalContent: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.Secondary,
     borderRadius: 20,
     padding: 24,
     width: '100%',
