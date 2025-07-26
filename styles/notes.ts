@@ -265,7 +265,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
   },
   closeButton: {
-    backgroundColor: colors.primary,
+    backgroundColor: white,
     borderRadius: 12,
     paddingVertical: 12,
     paddingHorizontal: 24,
