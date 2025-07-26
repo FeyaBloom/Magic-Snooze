@@ -142,7 +142,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   emptyStateSubtext: {
     fontSize: 16,
-    color: colors.surface,
+    color: colors.secondary,
     textAlign: 'center',
     lineHeight: 22,
     fontFamily: 'ComicNeue-Regular',
