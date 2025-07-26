@@ -209,7 +209,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     justifyContent: 'center',
   },
   cancelButton: {
-    backgroundColor: '#F3F4F6',
+    backgroundColor: colors.textSecondary,
     marginRight: 8,
   },
   saveButton: {
