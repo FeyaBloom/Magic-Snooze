@@ -190,7 +190,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     fontSize: 16,
-    color: '#374151',
+    color: colors.textSecondary,
     marginBottom: 16,
     minHeight: 60,
     textAlignVertical: 'top',
