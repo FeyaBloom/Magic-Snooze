@@ -268,7 +268,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
-    borderColor: '#D1D5DB',
+    borderColor: colors.textSecondary,
     borderRadius: 12,
     padding: 16,
     fontSize: 16,
