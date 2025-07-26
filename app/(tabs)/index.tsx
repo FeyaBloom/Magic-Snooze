@@ -466,22 +466,7 @@ function TodayTabContent() {
            
           )}
 
-         
-            <View style={styles.floatingDecoration}>
-              <Text style={styles.floatingEmoji}>🍃</Text>
-            </View>
-        
-
-     
-            <View style={[styles.floatingDecoration, { top: 200, left: 20 }]}>
-              <Text style={styles.floatingEmoji}>✨</Text>
-            </View>
-         
-
-         
-            <View style={[styles.floatingDecoration, { top: 300, right: 50 }]}>
-              <Text style={styles.floatingEmoji}>🌸</Text>
-            </View>
+           
          
             {renderRoutineSection(
               'Morning Routine',
