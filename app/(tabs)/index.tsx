@@ -407,9 +407,7 @@ function TodayTabContent() {
         style={dynamicStyles.gradient}
         style={styles.gradient}
       >
-        {/* 🌤 Волшебный фон */}
-      {theme === 'daydream' && <FloatingCloud />}
-      {theme === 'nightforest' && <GentleStars />}
+        
         <>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View>
