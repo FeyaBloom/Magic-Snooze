@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     borderColor: '#D1D5DB',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FFFFFF'+`50`,
   },
   magicalCheckboxCompleted: {
     backgroundColor: '#F59E0B'+ `50`,
