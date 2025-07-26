@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   },
   sparkle: { position: 'absolute', zIndex: 10 },
   tinyVictoryContainer: {
-    backgroundColor: colors.surface,
+    backgroundColor: `#ffffff`,
     borderRadius: 20,
     padding: 20,
     margin: 20,
