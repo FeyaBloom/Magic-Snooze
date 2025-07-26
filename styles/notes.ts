@@ -270,6 +270,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     alignSelf: `center`,
+    marginTop: 12,
   },
   closeButtonText: {
     fontSize: 16,
