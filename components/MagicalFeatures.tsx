@@ -126,7 +126,8 @@ export const MagicalCheckbox: React.FC<MagicalCheckboxProps> = ({ completed, onP
         disabled={disabled}
       >
         <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-          {completed && <Text style={styles.magicalCheckmark}>✨</Text>}
+          {completed && <Sparkles size={20} color="#FFFFFF" />} 
+       
         </Animated.View>
       </TouchableOpacity>
       
