@@ -274,7 +274,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   closeButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: colors.textSecondary,
+    color: `#ffffff`,
     fontFamily: 'ComicNeue-Regular',
   },
 });
