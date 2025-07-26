@@ -22,7 +22,106 @@ function TodayTabContent() {
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
   const styles = createTodayStyles(colors);
 
-  // ... все стейты остаются как есть ...
+  const [morningRoutine, setMorningRoutine] = useState([]);
+  const [eveningRoutine, setEveningRoutine] = useState([]);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [newStepText, setNewStepText] = useState('');
+  const [currentRoutine, setCurrentRoutine] = useState('');
+  const [editingStep, setEditingStep] = useState(null);
+  const [showTinyVictories, setShowTinyVictories] = useState(false);
+  const [showSurprisePrompt, setShowSurprisePrompt] = useState(false);
+  const [celebratedVictories, setCelebratedVictories] = useState([]);
+  const [todayProgress, setTodayProgress] = useState(null);
+  const [isSnoozed, setIsSnoozed] = useState(false);
+
+  const snoozeToday = () => {
+    setIsSnoozed(!isSnoozed);
+  };
+
+  const loadData = async () => {
+    try {
+      const morningData = await AsyncStorage.getItem('morningRoutine');
+      const eveningData = await AsyncStorage.getItem('eveningRoutine');
+      const snoozeData = await AsyncStorage.getItem('isSnoozed');
+      
+      if (morningData) setMorningRoutine(JSON.parse(morningData));
+      if (eveningData) setEveningRoutine(JSON.parse(eveningData));
+      if (snoozeData) setIsSnoozed(JSON.parse(snoozeData));
+    } catch (error) {
+      console.error('Error loading data:', error);
+    }
+  };
+
+  const saveData = async () => {
+    try {
+      await AsyncStorage.setItem('morningRoutine', JSON.stringify(morningRoutine));
+      await AsyncStorage.setItem('eveningRoutine', JSON.stringify(eveningRoutine));
+      await AsyncStorage.setItem('isSnoozed', JSON.stringify(isSnoozed));
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
+  };
+
+  const loadCelebratedVictories = async () => {
+    try {
+      const victories = await AsyncStorage.getItem('celebratedVictories');
+      if (victories) setCelebratedVictories(JSON.parse(victories));
+    } catch (error) {
+      console.error('Error loading victories:', error);
+    }
+  };
+
+  const celebrateVictory = async (victory) => {
+    const newVictories = [...celebratedVictories, victory];
+    setCelebratedVictories(newVictories);
+    try {
+      await AsyncStorage.setItem('celebratedVictories', JSON.stringify(newVictories));
+    } catch (error) {
+      console.error('Error saving victory:', error);
+    }
+  };
+
+  const toggleStep = (stepId, routineType) => {
+    if (routineType === 'morning') {
+      setMorningRoutine(prev => prev.map(step => 
+        step.id === stepId ? { ...step, completed: !step.completed } : step
+      ));
+    } else {
+      setEveningRoutine(prev => prev.map(step => 
+        step.id === stepId ? { ...step, completed: !step.completed } : step
+      ));
+    }
+  };
+
+  const deleteStep = (stepId, routineType) => {
+    if (routineType === 'morning') {
+      setMorningRoutine(prev => prev.filter(step => step.id !== stepId));
+    } else {
+      setEveningRoutine(prev => prev.filter(step => step.id !== stepId));
+    }
+  };
+
+  const resetDailyCheckboxes = () => {
+    setMorningRoutine(prev => prev.map(step => ({ ...step, completed: false })));
+    setEveningRoutine(prev => prev.map(step => ({ ...step, completed: false })));
+  };
+
+  useEffect(() => {
+    saveData();
+  }, [morningRoutine, eveningRoutine, isSnoozed]);
+
+  useEffect(() => {
+    const morningDone = morningRoutine.filter(step => step.completed).length;
+    const eveningDone = eveningRoutine.filter(step => step.completed).length;
+    
+    setTodayProgress({
+      morningDone,
+      morningTotal: morningRoutine.length,
+      eveningDone,
+      eveningTotal: eveningRoutine.length,
+    });
+  }, [morningRoutine, eveningRoutine]);
 
   useEffect(() => {
     loadData();
