@@ -219,7 +219,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   cancelButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#6B7280',
+    color: '#ffffff',
     fontFamily: 'ComicNeue-Regular',
   },
   saveButtonText: {
