@@ -13,6 +13,7 @@ import { Sparkles, Star } from 'lucide-react-native';
 import ConfettiCannon from 'react-native-confetti-cannon';
 import { useTheme } from '@/components/ThemeProvider';
 
+
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // ---- FLOATING BACKGROUNDS ----
@@ -104,7 +105,7 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
 // ---- TINY VICTORY W/ CONFETTI ----
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const [confettiTrigger, setConfettiTrigger] = useState(0);
-
+ const { colors } = useTheme();
   const victories = [
     { text: 'Got out of bed', emoji: '🛏️' },
     { text: 'Drank water', emoji: '💧' },
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
   },
   sparkle: { position: 'absolute', zIndex: 10 },
   tinyVictoryContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: ,
     borderRadius: 20,
     padding: 20,
     margin: 20,
