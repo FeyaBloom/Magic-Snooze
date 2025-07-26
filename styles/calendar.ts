@@ -53,7 +53,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
   navButton: {
     padding: 8,
     borderRadius: 20,
-    backgroundColor: colors.primary + '20',
+    backgroundColor: colors.secondary + '20',
     width: 48,
     height: 48,
     justifyContent: 'center',
