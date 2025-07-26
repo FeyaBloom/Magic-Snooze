@@ -221,7 +221,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   progressValue: {
     fontSize: 20,
     fontWeight: '700',
-    color: colors.primary,
+    color: colors.secondary,
     fontFamily: 'ComicNeue-Bold',
   },
   floatingDecoration: {
