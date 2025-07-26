@@ -17,9 +17,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt } from '@/components/MagicalFeatures';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTodayStyles } from '@/styles/today';
+import { FloatingClouds, GentleStars } from '@/components/MagicFeatures';
 
 function TodayTabContent() {
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
+  {theme === 'daydream' && <FloatingClouds />}
+{theme === 'nightforest' && <GentleStars />}
   const styles = createTodayStyles(colors);
 
   const [morningRoutine, setMorningRoutine] = useState([]);
