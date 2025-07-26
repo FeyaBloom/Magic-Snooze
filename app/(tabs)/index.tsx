@@ -159,20 +159,30 @@ function TodayTabContent() {
           {renderRoutineSection('Evening Routine', eveningRoutine, 'evening', <Moon size={20} color="#8B5CF6" />)}
 
           {todayProgress && (
-            <View style={[styles.progressSection, { backgroundColor: colors.surface }]}>
-              <Text style={styles.progressTitle}>Today's Progress ✨</Text>
-              <View style={styles.progressStats}>
-                <View style={styles.progressStat}>
-                  <Text style={styles.progressLabel}>Morning</Text>
-                  <Text style={styles.progressValue}>{todayProgress.morningDone}/{todayProgress.morningTotal}</Text>
-                </View>
-                <View style={styles.progressStat}>
-                  <Text style={styles.progressLabel}>Evening</Text>
-                  <Text style={styles.progressValue}>{todayProgress.eveningDone}/{todayProgress.eveningTotal}</Text>
-                </View>
-              </View>
-            </View>
-          )}
+  <View style={[styles.progressSection, { backgroundColor: colors.surface }]}>
+    <Text style={[styles.progressTitle, { color: colors.text, fontFamily: 'ComicNeue-Bold' }]}>
+      Today's Progress ✨
+    </Text>
+    <View style={styles.progressStats}>
+      <View style={styles.progressStat}>
+        <Text style={[styles.progressLabel, { color: colors.textSecondary, fontFamily: 'ComicNeue-Regular' }]}>
+          Morning
+        </Text>
+        <Text style={[styles.progressValue, { color: colors.primary, fontFamily: 'ComicNeue-Bold' }]}>
+          {todayProgress.morningDone}/{todayProgress.morningTotal}
+        </Text>
+      </View>
+      <View style={styles.progressStat}>
+        <Text style={[styles.progressLabel, { color: colors.textSecondary, fontFamily: 'ComicNeue-Regular' }]}>
+          Evening
+        </Text>
+        <Text style={[styles.progressValue, { color: colors.primary, fontFamily: 'ComicNeue-Bold' }]}>
+          {todayProgress.eveningDone}/{todayProgress.eveningTotal}
+        </Text>
+      </View>
+    </View>
+  </View>
+)}
         </ScrollView>
 
         {showTinyVictories && (
