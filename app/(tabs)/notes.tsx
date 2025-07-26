@@ -348,7 +348,7 @@ export default function NotesTab() {
                 </Text>
               </ScrollView>
               <TouchableOpacity
-                style={[styles.modalButton, styles.closeButton]}
+                style={[styles.closeButton]}
                 onPress={() => {
                   setShowViewModal(false);
                   setViewingNote(null);
