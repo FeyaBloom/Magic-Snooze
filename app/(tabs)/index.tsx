@@ -53,6 +53,26 @@ function TodayTabContent() {
     } catch (error) {
       console.error('Error loading data:', error);
     }
+    if (!morningData) {
+  const defaultMorning = [
+    { id: '1', text: 'Gentle stretch or movement', completed: false },
+    { id: '2', text: 'Mindful breathing (2 minutes)', completed: false },
+    { id: '3', text: 'Set one gentle intention for today', completed: false },
+  ];
+  setMorningRoutine(defaultMorning);
+  await AsyncStorage.setItem('morningRoutine', JSON.stringify(defaultMorning));
+}
+
+if (!eveningData) {
+  const defaultEvening = [
+    { id: '1', text: 'Reflect on one positive moment', completed: false },
+    { id: '2', text: 'Gentle self-care activity', completed: false },
+    { id: '3', text: 'Prepare for tomorrow with kindness', completed: false },
+  ];
+  setEveningRoutine(defaultEvening);
+  await AsyncStorage.setItem('eveningRoutine', JSON.stringify(defaultEvening));
+}
+
   };
 
   const saveData = async () => {
