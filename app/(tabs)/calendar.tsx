@@ -83,57 +83,71 @@ export default function CalendarTab() {
   };
 
   const renderCalendar = () => {
-    const year = currentMonth.getFullYear();
-    const month = currentMonth.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const startDate = new Date(firstDay);
-    startDate.setDate(startDate.getDate() - startDate.getDay());
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const startDay = firstDay.getDay(); // 0 (Sun) - 6 (Sat)
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 41);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-    const days = [];
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+  const daysArray = [];
 
-    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-      const dateString = getLocalDateString(d);
-      const isCurrentMonth = d.getMonth() === month;
-      const isToday = getLocalDateString(d) === getLocalDateString(today);
-      const dayStatus = getDayStatus(dateString);
+  // total 42 cells (6 weeks x 7 days)
+  for (let i = 0; i < 42; i++) {
+    const date = new Date(year, month, 1);
+    date.setDate(i - startDay + 1);
 
-      days.push(
-        <View key={dateString} style={[styles.dayContainer, { width: dayWidth }]}>
-          <View style={[
-            styles.dayCell,
-            !isCurrentMonth && styles.otherMonth,
-            isToday && styles.today,
-            dayStatus === 'complete' && styles.completeDay,
-            dayStatus === 'partial' && styles.partialDay,
-            dayStatus === 'snoozed' && styles.snoozedDay,
+    const dateString = getLocalDateString(date);
+    const isCurrentMonth = date.getMonth() === month;
+    const isToday = getLocalDateString(date) === getLocalDateString(today);
+    const dayStatus = getDayStatus(dateString);
+
+    daysArray.push(
+      <View key={dateString} style={[styles.dayContainer, { width: dayWidth }]}>
+        <View style={[
+          styles.dayCell,
+          !isCurrentMonth && styles.otherMonth,
+          isToday && styles.today,
+          dayStatus === 'complete' && styles.completeDay,
+          dayStatus === 'partial' && styles.partialDay,
+          dayStatus === 'snoozed' && styles.snoozedDay,
+        ]}>
+          <Text style={[
+            styles.dayText,
+            !isCurrentMonth && styles.otherMonthText,
+            isToday && styles.todayText,
+            dayStatus !== 'none' && styles.statusDayText,
           ]}>
-            <Text style={[
-              styles.dayText,
-              !isCurrentMonth && styles.otherMonthText,
-              isToday && styles.todayText,
-              (dayStatus !== 'none') && styles.statusDayText,
-            ]}>
-              {d.getDate()}
+            {date.getDate()}
+          </Text>
+        </View>
+        {dayStatus !== 'none' && (
+          <View style={styles.statusDot}>
+            <Text style={styles.statusEmoji}>
+              {dayStatus === 'complete' ? '✨' : dayStatus === 'partial' ? '🌟' : '💤'}
             </Text>
           </View>
-          {dayStatus !== 'none' && (
-            <View style={styles.statusDot}>
-              <Text style={styles.statusEmoji}>
-                {dayStatus === 'complete' ? '✨' : dayStatus === 'partial' ? '🌟' : '💤'}
-              </Text>
-            </View>
-          )}
-        </View>
-      );
-    }
+        )}
+      </View>
+    );
+  }
 
-    return days;
-  };
+  // split into 6 rows of 7 days
+  const rows = [];
+  for (let i = 0; i < 6; i++) {
+    const week = daysArray.slice(i * 7, i * 7 + 7);
+    rows.push(
+      <View key={i} style={{ flexDirection: 'row' }}>
+        {week}
+      </View>
+    );
+  }
+
+  return rows;
+};
+
 
   const renderWeekDays = () => {
     const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
