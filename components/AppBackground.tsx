@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
-import { FloatingCloud, GentleStars } from '@/components/MagicFX';
+import { FloatingCloud, GentleStars } from '@/components/MagicalFeatures';
 
 export default function AppBackground() {
   const { theme } = useTheme();
