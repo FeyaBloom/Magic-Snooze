@@ -13,7 +13,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Plus, Pencil as Edit, Trash2, Coffee, Moon, Pause, Palette, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, FloatingElement } from '@/components/MagicalFeatures';
+import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, } from '@/components/MagicalFeatures';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTodayStyles } from '@/styles/today';
 
@@ -409,36 +409,32 @@ function TodayTabContent() {
         <>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View>
-          <View style={styles.header}>
-            <FloatingElement duration={3000}>
-              <Text style={styles.title}>Good day, beautiful soul 🌸</Text>
-            </FloatingElement>
-            <FloatingElement duration={4000}>
+          <View style={styles.header}>       
+              <Text style={styles.title}>Good day, beautiful soul 🌸</Text>          
               <Text style={styles.subtitle}>
               {isSnoozed ? 'You\'re taking a gentle break today' : 'Take it one step at a time'}
               </Text>
-            </FloatingElement>
           </View>
 
           {!isSnoozed && (
-            <FloatingElement duration={5000}>
+           
               <TouchableOpacity style={styles.snoozeButton} onPress={snoozeToday}>
                 <Pause size={20} color="#8B5CF6" />
                 <Text style={[styles.snoozeText, { fontFamily: 'ComicNeue-Regular' }]}>Snooze Today</Text>
               </TouchableOpacity>
-            </FloatingElement>
+           
           )}
 
           <View style={styles.magicalControls}>
-            <FloatingElement duration={3500}>
+           
               <TouchableOpacity style={styles.addTaskButton} onPress={() => setShowTinyVictories(true)}>
                 <Sparkles size={20} color="#FFFFFF" />
                 <Text style={styles.addTaskText}>Tiny Victories</Text>
               </TouchableOpacity>
-            </FloatingElement>
+           
             
             <View style={styles.themeControls}>
-              <FloatingElement duration={4500}>
+             
                 <TouchableOpacity
                   style={styles.themeButton}
                   onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
@@ -447,9 +443,8 @@ function TodayTabContent() {
                     {currentTheme === 'daydream' ? '🌙 Night Forest' : '☁️ Daydream'}
                   </Text>
                 </TouchableOpacity>
-              </FloatingElement>
-              
-              <FloatingElement duration={3800}>
+                          
+             
                 <TouchableOpacity
                   style={[styles.themeButton, { backgroundColor: colors.accent }]}
                   onPress={toggleMessyMode}
@@ -459,55 +454,52 @@ function TodayTabContent() {
                     Messy Mode
                   </Text>
                 </TouchableOpacity>
-              </FloatingElement>
+             
             </View>
           </View>
 
           {isSnoozed && (
-            <FloatingElement duration={2500}>
+           
               <TouchableOpacity style={styles.resumeButton} onPress={snoozeToday}>
                 <Text style={[styles.resumeText, { fontFamily: 'ComicNeue-Regular' }]}>Resume Today</Text>
               </TouchableOpacity>
-            </FloatingElement>
+           
           )}
 
-          <FloatingElement duration={6000}>
+         
             <View style={styles.floatingDecoration}>
               <Text style={styles.floatingEmoji}>🍃</Text>
             </View>
-          </FloatingElement>
+        
 
-          <FloatingElement duration={7000}>
+     
             <View style={[styles.floatingDecoration, { top: 200, left: 20 }]}>
               <Text style={styles.floatingEmoji}>✨</Text>
             </View>
-          </FloatingElement>
+         
 
-          <FloatingElement duration={5500}>
+         
             <View style={[styles.floatingDecoration, { top: 300, right: 50 }]}>
               <Text style={styles.floatingEmoji}>🌸</Text>
             </View>
-          </FloatingElement>
-          <FloatingElement duration={4200}>
+         
             {renderRoutineSection(
               'Morning Routine',
               morningRoutine,
               'morning',
               <Coffee size={20} color="#F59E0B" />
             )}
-          </FloatingElement>
-
-          <FloatingElement duration={3700}>
+         
             {renderRoutineSection(
               'Evening Routine',
               eveningRoutine,
               'evening',
               <Moon size={20} color="#8B5CF6" />
             )}
-          </FloatingElement>
+          
 
           {todayProgress && (
-            <FloatingElement duration={4800}>
+           
               <View style={[styles.progressSection, { backgroundColor: colors.surface }]}>
                 <Text style={[styles.progressTitle, { color: colors.text, fontFamily: 'ComicNeue-Bold' }]}>Today's Progress ✨</Text>
                 <View style={styles.progressStats}>
@@ -525,7 +517,7 @@ function TodayTabContent() {
                   </View>
                 </View>
               </View>
-            </FloatingElement>
+          
           )}
           </View>
         </ScrollView>
