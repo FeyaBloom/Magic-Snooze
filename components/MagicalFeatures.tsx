@@ -12,6 +12,9 @@ import {
 import { Sparkles, Star } from 'lucide-react-native';
 import ConfettiCannon from 'react-native-confetti-cannon';
 import { useTheme } from '@/components/ThemeProvider';
+import { createMagicStyles } from '@/styles/magic';
+const { colors } = useTheme();
+const styles = createMagicStyles(colors);
 
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
