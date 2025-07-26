@@ -245,7 +245,7 @@ function TodayTabContent() {
     );
     
     setRoutine(updated);
-    await AsyncStorage.setItem(${routine}Routine, JSON.stringify(updated));
+    await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
     
     const otherRoutine = routine === 'morning' ? eveningRoutine : morningRoutine;
     saveProgress(
