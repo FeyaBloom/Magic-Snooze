@@ -99,7 +99,6 @@ function TodayTabContent() {
 
   const loadCelebratedVictories = async () => {
     try {
-      const victories = await AsyncStorage.getItem(victories_${getLocalDateString()});
       const victories = await AsyncStorage.getItem(`victories_${getLocalDateString()}`);
       if (victories) {
         setCelebratedVictories(JSON.parse(victories));
