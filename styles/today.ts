@@ -224,12 +224,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     color: colors.secondary,
     fontFamily: 'ComicNeue-Bold',
   },
-  floatingDecoration: {
-    position: 'absolute',
-    top: 150,
-    right: 40,
-    zIndex: 1,
-  },
+  
   floatingEmoji: {
     fontSize: 28,
     opacity: 0.7,
@@ -257,7 +252,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     padding: 20,
   },
   modalContent: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.surface,
     borderRadius: 20,
     padding: 24,
     width: '100%',
