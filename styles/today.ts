@@ -263,7 +263,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     fontWeight: '700',
     marginBottom: 16,
     textAlign: 'center',
-    color: '#374151',
+    color: colors.text,
     fontFamily: 'ComicNeue-Bold',
   },
   textInput: {
