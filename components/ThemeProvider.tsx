@@ -15,7 +15,7 @@ interface ThemeColors {
 
 const themes: Record<ThemeMode, ThemeColors> = {
   daydream: {
-    primary: '#8B5CF6',// #EC4899',
+    primary: '#EC4899',
     secondary: '#8B5CF6',
     background: ['#FFE5E5', '#E5F3FF', '#F3E5FF'],
     surface: '#FFFFFF',
