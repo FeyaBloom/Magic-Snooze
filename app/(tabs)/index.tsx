@@ -13,9 +13,10 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Plus, Pencil as Edit, Trash2, Coffee, Moon, Pause, Palette, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, } from '@/components/MagicalFeatures';
+import { FloatingCloud, GentleStars, MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, } from '@/components/MagicalFeatures';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTodayStyles } from '@/styles/today';
+
 
 interface RoutineStep {
   id: string;
@@ -406,6 +407,9 @@ function TodayTabContent() {
         style={dynamicStyles.gradient}
         style={styles.gradient}
       >
+        {/* 🌤 Волшебный фон */}
+      {theme === 'daydream' && <FloatingCloud />}
+      {theme === 'nightforest' && <GentleStars />}
         <>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View>
