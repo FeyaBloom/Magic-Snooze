@@ -241,7 +241,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   editFromViewButton: {
     padding: 8,
-    backgroundColor: '#F3E5FF',
+    backgroundColor: colors.secondary,
     borderRadius: 20,
     width: 48,
     height: 48,
