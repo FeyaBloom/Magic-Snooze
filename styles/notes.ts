@@ -187,7 +187,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     fontSize: 16,
-    color: '#374151',
+    color: colors.text,
     marginBottom: 20,
     minHeight: 120,
     textAlignVertical: 'top',
