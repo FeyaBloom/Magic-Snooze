@@ -165,7 +165,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   modalTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: colors.textsecondary,
+    color: colors.textprimary,
     marginBottom: 16,
     textAlign: 'center',
     fontFamily: 'ComicNeue-Bold',
