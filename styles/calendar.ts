@@ -223,7 +223,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
   statNumber: {
     fontSize: 24,
     fontWeight: '700',
-    color: colors.primary,
+    color: colors.secondary,
     marginBottom: 4,
     fontFamily: 'ComicNeue-Bold',
   },
