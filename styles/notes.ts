@@ -234,7 +234,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   viewTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#374151',
+    color: colors.text,
     flex: 1,
     marginRight: 12,
     fontFamily: 'ComicNeue-Bold',
@@ -260,7 +260,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   viewText: {
     fontSize: 16,
-    color: '#374151',
+    color: colors.text,
     lineHeight: 24,
     fontFamily: 'ComicNeue-Regular',
   },
