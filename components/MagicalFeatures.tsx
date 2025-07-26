@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
   },
   magicalCheckboxCompleted: {
     backgroundColor: '#F59E0B'+ `50`,
-    borderColor: '#EC4899',
+    borderColor: '#EC4899'+`50`,
   },
   magicalCheckboxDisabled: {
     backgroundColor: '#F3F4F6',
