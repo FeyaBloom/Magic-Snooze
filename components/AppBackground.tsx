@@ -12,3 +12,6 @@ export default function AppBackground() {
     </View>
   );
 }
+
+
+export { AppBackground }
