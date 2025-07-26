@@ -250,7 +250,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   viewDate: {
     fontSize: 14,
-    color: colors.textSecondary,
+    color: colors.secondary,
     marginBottom: 16,
     fontFamily: 'ComicNeue-Regular',
   },
