@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   magicalCheckboxCompleted: {
-    backgroundColor: '#F59E0B',
+    backgroundColor: '#F59E0B'+ `20`,
     borderColor: '#EC4899',
   },
   magicalCheckboxDisabled: {
