@@ -55,7 +55,7 @@ function TodayTabContent() {
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
-    return ${year}-${month}-${day};
+    return `${year}-${month}-${day}`;
   };
 
   const today = getLocalDateString();
@@ -100,6 +100,7 @@ function TodayTabContent() {
   const loadCelebratedVictories = async () => {
     try {
       const victories = await AsyncStorage.getItem(victories_${getLocalDateString()});
+      const victories = await AsyncStorage.getItem(`victories_${getLocalDateString()}`);
       if (victories) {
         setCelebratedVictories(JSON.parse(victories));
       }
@@ -112,9 +113,9 @@ function TodayTabContent() {
     try {
       const newVictories = [...celebratedVictories, victory];
       setCelebratedVictories(newVictories);
-      await AsyncStorage.setItem(victories_${getLocalDateString()}, JSON.stringify(newVictories));
+      await AsyncStorage.setItem(`victories_${getLocalDateString()}`, JSON.stringify(newVictories));
       
-      Alert.alert('🎉 Victory!', You ${victory.toLowerCase()}! That's amazing!, [
+      Alert.alert('🎉 Victory!', `You ${victory.toLowerCase()}! That's amazing!`, [
         { text: 'Yay!', style: 'default' }
       ]);
     } catch (error) {
@@ -152,7 +153,7 @@ function TodayTabContent() {
       
       const morningData = await AsyncStorage.getItem('morningRoutine');
       const eveningData = await AsyncStorage.getItem('eveningRoutine');
-      const progressData = await AsyncStorage.getItem(progress_${currentDate});
+      const progressData = await AsyncStorage.getItem(`progress_${currentDate}`);
       
       if (morningData) {
         const parsedMorning = JSON.parse(morningData);
@@ -227,7 +228,7 @@ function TodayTabContent() {
         snoozed: isSnoozed,
       };
       
-      await AsyncStorage.setItem(progress_${today}, JSON.stringify(progress));
+      await AsyncStorage.setItem(`progress_${today}`, JSON.stringify(progress));
       setTodayProgress(progress);
     } catch (error) {
       console.error('Error saving progress:', error);
@@ -268,7 +269,7 @@ function TodayTabContent() {
     
     const updated = [...routine, newStep];
     setRoutine(updated);
-    await AsyncStorage.setItem(${currentRoutine}Routine, JSON.stringify(updated));
+    await AsyncStorage.setItem(`${currentRoutine}Routine`, JSON.stringify(updated));
     
     setNewStepText('');
     setShowAddModal(false);
@@ -285,7 +286,7 @@ function TodayTabContent() {
     );
     
     setRoutine(updated);
-    await AsyncStorage.setItem(${currentRoutine}Routine, JSON.stringify(updated));
+    await AsyncStorage.setItem(`${currentRoutine}Routine`, JSON.stringify(updated));
     
     setNewStepText('');
     setEditingStep(null);
@@ -307,7 +308,7 @@ function TodayTabContent() {
             
             const updated = updateRoutine.filter(step => step.id !== stepId);
             setRoutine(updated);
-            await AsyncStorage.setItem(${routine}Routine, JSON.stringify(updated));
+            await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
           },
         },
       ]
@@ -330,7 +331,7 @@ function TodayTabContent() {
         snoozed: newSnoozed,
       };
       
-      await AsyncStorage.setItem(progress_${today}, JSON.stringify(progress));
+      await AsyncStorage.setItem(`progress_${today}`, JSON.stringify(progress));
       setTodayProgress(progress);
     } catch (error) {
       console.error('Error snoozing day:', error);
