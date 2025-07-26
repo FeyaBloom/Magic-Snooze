@@ -1,11 +1,8 @@
-// magicUI.tsx — version: not embarrassing
-
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   Animated,
   Dimensions,
 } from 'react-native';
@@ -13,39 +10,33 @@ import { Sparkles, Star } from 'lucide-react-native';
 import ConfettiCannon from 'react-native-confetti-cannon';
 import { useTheme } from '@/components/ThemeProvider';
 import { createMagicStyles } from '@/styles/magic';
-const { colors } = useTheme();
-const styles = createMagicStyles(colors);
 
-
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { width: screenWidth } = Dimensions.get('window');
 
 // ---- FLOATING BACKGROUNDS ----
 export const FloatingBackground: React.FC = () => {
   const { theme } = useTheme();
-
-  if (theme === 'daydream') {
-    return <FloatingClouds />;
-  } else if (theme === 'nightforest') {
-    return <GentleStars />;
-  } else {
-    return null;
-  }
+  if (theme === 'daydream') return <FloatingClouds />;
+  if (theme === 'nightforest') return <GentleStars />;
+  return null;
 };
 
 const FloatingClouds = () => (
-  <Animated.View style={StyleSheet.absoluteFillObject} pointerEvents="none">
-    {/* insert non-laggy floating cloud SVGs or light effects */}
+  <Animated.View style={{ ...StyleSheet.absoluteFillObject }} pointerEvents="none">
+    {/* TODO: Insert floating clouds */}
   </Animated.View>
 );
 
 const GentleStars = () => (
-  <Animated.View style={StyleSheet.absoluteFillObject} pointerEvents="none">
-    {/* insert subtle floating stars or twinkle effect */}
+  <Animated.View style={{ ...StyleSheet.absoluteFillObject }} pointerEvents="none">
+    {/* TODO: Insert gentle stars */}
   </Animated.View>
 );
 
 // ---- MAGIC SPARKLE ON CHECKBOX ----
 export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
+  const { colors } = useTheme();
+  const styles = createMagicStyles(colors);
   const [sparkles, setSparkles] = useState([]);
   const scaleAnim = useMemo(() => new Animated.Value(1), []);
 
@@ -53,16 +44,8 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
     if (disabled) return;
 
     Animated.sequence([
-      Animated.timing(scaleAnim, {
-        toValue: 1.2,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-      Animated.timing(scaleAnim, {
-        toValue: 1,
-        duration: 100,
-        useNativeDriver: true,
-      }),
+      Animated.timing(scaleAnim, { toValue: 1.2, duration: 100, useNativeDriver: true }),
+      Animated.timing(scaleAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
     ]).start(() => {
       if (!completed) triggerSparkles();
     });
@@ -92,13 +75,13 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
         disabled={disabled}
       >
         <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-          {completed && <Sparkles size={20} color="#f59e0b" />}
+          {completed && <Sparkles size={20} color={colors.accent} />}
         </Animated.View>
       </TouchableOpacity>
 
       {sparkles.map((s) => (
         <Animated.View key={s.id} style={[styles.sparkle, { left: s.x, top: s.y }]}>
-          <Sparkles size={12} color="#FFD700" />
+          <Sparkles size={12} color={colors.accent} />
         </Animated.View>
       ))}
     </View>
@@ -107,8 +90,10 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
 
 // ---- TINY VICTORY W/ CONFETTI ----
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
+  const { colors } = useTheme();
+  const styles = createMagicStyles(colors);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
- const { colors } = useTheme();
+
   const victories = [
     { text: 'Got out of bed', emoji: '🛏️' },
     { text: 'Drank water', emoji: '💧' },
@@ -132,11 +117,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
 
       <View style={styles.victoryGrid}>
         {victories.map((v, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.victoryButton}
-            onPress={() => handleVictory(v.text)}
-          >
+          <TouchableOpacity key={index} style={styles.victoryButton} onPress={() => handleVictory(v.text)}>
             <Text style={styles.victoryEmoji}>{v.emoji}</Text>
             <Text style={styles.victoryText}>{v.text}</Text>
           </TouchableOpacity>
@@ -152,6 +133,9 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
 
 // ---- SURPRISE PROMPT (NO CONFETTI) ----
 export const SurprisePrompt = ({ onDismiss }: any) => {
+  const { colors } = useTheme();
+  const styles = createMagicStyles(colors);
+
   const prompts = [
     'Wanna write a poem instead of doing tasks? 📝',
     'Draw your to-do list as monsters! 👹',
@@ -168,7 +152,7 @@ export const SurprisePrompt = ({ onDismiss }: any) => {
   return (
     <View style={styles.promptOverlay}>
       <View style={styles.promptContainer}>
-        <Star size={24} color="#FFD700" />
+        <Star size={24} color={colors.accent} />
         <Text style={styles.promptText}>{currentPrompt}</Text>
         <View style={styles.promptButtons}>
           <TouchableOpacity style={styles.promptButton} onPress={onDismiss}>
@@ -182,4 +166,3 @@ export const SurprisePrompt = ({ onDismiss }: any) => {
     </View>
   );
 };
-
