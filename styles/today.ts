@@ -118,7 +118,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   snoozeText: {
     fontSize: 16,
-    color: colors.primary,
+    color: colors.secondary,
     fontWeight: '600',
     marginLeft: 8,
     fontFamily: 'ComicNeue-Regular',
