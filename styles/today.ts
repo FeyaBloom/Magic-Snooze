@@ -215,7 +215,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   progressLabel: {
     fontSize: 14,
     marginBottom: 4,
-    color: colors.textSecondary,
+    color: colors.Secondary,
     fontFamily: 'ComicNeue-Regular',
   },
   progressValue: {
