@@ -124,7 +124,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
   },
   resumeButton: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
     marginHorizontal: 20,
     marginBottom: 20,
     paddingVertical: 12,
