@@ -170,7 +170,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     padding: 20,
   },
   modalContent: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.surface,
     borderRadius: 20,
     padding: 24,
     width: '100%',
