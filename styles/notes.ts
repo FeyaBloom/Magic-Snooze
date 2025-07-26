@@ -266,7 +266,8 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   closeButton: {
     backgroundColor: colors.primary,
-    borderradius: 12,
+    borderRadius: 12,
+    paddingVertical: 12,
   },
   closeButtonText: {
     fontSize: 16,
