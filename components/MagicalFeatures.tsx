@@ -92,22 +92,22 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const { colors } = useTheme();
   const styles = createMagicStyles(colors);
-  const [confettiTrigger, setConfettiTrigger] = useState(0);
+  const [confettiIndex, setConfettiIndex] = useState<number | null>(null);
 
   const victories = [
     { text: 'Got out of bed', emoji: '🛏️' },
     { text: 'Drank water', emoji: '💧' },
     { text: 'Took a deep breath', emoji: '🌬️' },
-    { text: "Didn't scream", emoji: '😌' },
+    { text: `Was being patient`, emoji: '😌' },
     { text: 'Pet an animal', emoji: '🐱' },
     { text: 'Looked at the sky', emoji: '☁️' },
     { text: 'Smiled at something', emoji: '😊' },
     { text: 'Ate something', emoji: '🍎' },
   ];
 
-  const handleVictory = (text: string) => {
+  const handleVictory = (index:number, text: string) => {
     onVictoryPress(text);
-    setConfettiTrigger((prev) => prev + 1);
+    setConfettiIndex(index);
   };
 
   return (
@@ -117,15 +117,21 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
 
       <View style={styles.victoryGrid}>
         {victories.map((v, index) => (
-          <TouchableOpacity key={index} style={styles.victoryButton} onPress={() => handleVictory(v.text)}>
+          <TouchableOpacity key={index} style={styles.victoryButton} onPress={() => handleVictory(index, v.text)}>
             <Text style={styles.victoryEmoji}>{v.emoji}</Text>
             <Text style={styles.victoryText}>{v.text}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      {confettiTrigger > 0 && (
-        <ConfettiCannon count={20} origin={{ x: screenWidth / 2, y: -10 }} fadeOut autoStart />
+      {confettiIndex> === index && (
+        <ConfettiCannon 
+          key={index + `-` + Date.now()}
+          count={20} 
+          origin={{ x: screenWidth / 2, y: -10 }} 
+          fadeOut autoStart
+          onAnimationEnd={() => setConfettiIndex(null)}
+          />
       )}
     </View>
   );
