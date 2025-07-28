@@ -76,7 +76,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
   },
   notesContainer: {
-    paddingHorizontal: 120,
+    paddingHorizontal: 20,
   },
   noteCard: {
     backgroundColor: colors.surface,
