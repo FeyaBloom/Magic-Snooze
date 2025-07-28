@@ -160,7 +160,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     padding: 24,
     width: '100%',
     maxWidth: 400,
-    mixHeight: '80%',
+    maxHeight: '80%',
   },
   modalTitle: {
     fontSize: 20,
