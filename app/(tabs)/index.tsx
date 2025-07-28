@@ -371,6 +371,7 @@ function TodayTabContent() {
           ]}>
             {step.text}
           </Text>
+          
           <View style={styles.stepActions}>
             <TouchableOpacity
               style={styles.actionButton}
@@ -380,16 +381,14 @@ function TodayTabContent() {
                 setNewStepText(step.text);
                 setShowEditModal(true);
               }}
-            >
-             
-              <Edit size={16} color={colors.textSecondary} />
+            >          
+              <Edit style={[
+              styles.stepText, {fontSize:`16`, color: colors.textSecondary}, 
+              isSnoozed && styles.stepTextDisabled
+              ]}/>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.actionButton}
-              onPress={() => deleteStep(step.id, routineType)}
-            >
-              <Trash2 size={16} color="#EF4444" />
-            </TouchableOpacity>
+            
+           
           </View>
         </View>
       ))}
