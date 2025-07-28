@@ -561,7 +561,7 @@ function TodayTabContent() {
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
               
-              <TouchableOpacity style={styles.deleteButton} onPress={() => deleteStep(stepId)} > 
+              <TouchableOpacity style={styles.deleteButton} onPress={() => deleteStep(step.id)} > 
                 <Trash2 size={20} color={colors.error} /> </TouchableOpacity>
               
               <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}>Edit Step</Text>
