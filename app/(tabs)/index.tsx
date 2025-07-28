@@ -383,10 +383,7 @@ function TodayTabContent() {
               }}
               disabled={isSnoozed}
             >          
-              <Edit style={[
-              styles.stepText, {fontSize:`16`, color: colors.textSecondary}, 
-              isSnoozed && styles.stepTextDisabled
-              ]}/>
+              <Edit size={16} color=colors.textSecondary}/>
             </TouchableOpacity>
             
            
