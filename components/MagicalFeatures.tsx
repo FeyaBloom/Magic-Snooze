@@ -21,17 +21,11 @@ export const FloatingBackground: React.FC = () => {
   return null;
 };
 
-const FloatingClouds = () => (
-  <Animated.View style={{ ...StyleSheet.absoluteFillObject }} pointerEvents="none">
-    {/* TODO: Insert floating clouds */}
-  </Animated.View>
-);
 
-const GentleStars = () => (
-  <Animated.View style={{ ...StyleSheet.absoluteFillObject }} pointerEvents="none">
-    {/* TODO: Insert gentle stars */}
-  </Animated.View>
-);
+    const FloatingClouds = () => ( <LottieView source={FloatingCloudJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
+const GentleStars = () => ( <LottieView source={GentleStarsJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
+
+
 
 // ---- MAGIC SPARKLE ON CHECKBOX ----
 export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
