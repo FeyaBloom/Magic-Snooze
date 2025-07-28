@@ -390,8 +390,6 @@ function TodayTabContent() {
               ]}
               />
             </TouchableOpacity>
-            
-           
           </View>
         </View>
       ))}
@@ -560,12 +558,9 @@ function TodayTabContent() {
         <Modal visible={showEditModal} animationType="slide" transparent>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              
               <TouchableOpacity style={styles.deleteButton} onPress={() => deleteStep(step.id)} > 
                 <Trash2 size={20} color={colors.error} /> </TouchableOpacity>
-              
               <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}>Edit Step</Text>
-              
               <TextInput
                 style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
                 placeholder="Enter a gentle step..."
