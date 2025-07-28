@@ -7,7 +7,7 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
     height: 32,
     borderRadius: 16,
     borderWidth: 3,
-    borderColor: colors.textSecondary,
+    borderColor: colors.Secondary,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.surfaceTransparent,
