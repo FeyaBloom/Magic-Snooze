@@ -14,7 +14,7 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
   },
   magicalCheckboxCompleted: {
     backgroundColor: colors.primaryTransparent,
-    borderColor: colors.primary,
+    borderColor: colors.accent,
   },
   magicalCheckboxDisabled: {
     backgroundColor: colors.disabled,
