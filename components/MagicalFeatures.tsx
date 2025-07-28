@@ -121,7 +121,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
             <Text style={styles.victoryEmoji}>{v.emoji}</Text>
             <Text style={styles.victoryText}>{v.text}</Text>
         
-            {confettiIndex> === index && (
+            {confettiIndex> == index && (
         <ConfettiCannon 
           key={index + `-` + Date.now()}
           count={20} 
