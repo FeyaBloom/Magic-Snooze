@@ -18,7 +18,7 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
   },
   magicalCheckboxDisabled: {
     backgroundColor: colors.disabled,
-    borderColor: colors.secondary + `10`,
+    borderColor: colors.secondary + `20`,
   },
   sparkle: { position: 'absolute', zIndex: 10 },
 
