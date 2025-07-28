@@ -190,7 +190,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     fontSize: 16,
     color: colors.text,
     marginBottom: 20,
-    minHeight: 120,
+    
     textAlignVertical: 'top',
     fontFamily: 'ComicNeue-Regular',
   },
