@@ -19,7 +19,7 @@ const themes: Record<ThemeMode, ThemeColors> = {
     secondary: '#8B5CF6',
     background: ['#FFE5E5', '#E5F3FF', '#F3E5FF'],
     surface: '#FFFFFF',
-    text: '#374151',
+    text: '#6d6d6d',
     textSecondary: '#6B7280',
     accent: '#F59E0B',
   },
