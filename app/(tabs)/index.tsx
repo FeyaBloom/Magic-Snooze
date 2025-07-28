@@ -381,6 +381,7 @@ function TodayTabContent() {
                 setNewStepText(step.text);
                 setShowEditModal(true);
               }}
+              disabled={isSnoozed}
             >          
               <Edit style={[
               styles.stepText, {fontSize:`16`, color: colors.textSecondary}, 
