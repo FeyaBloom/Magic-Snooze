@@ -257,7 +257,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   viewContent: {
     flex: 1,
     marginBottom: 20,
-    minHeight: 120,
+    minHeight: 220,
   },
   viewText: {
     fontSize: 16,
