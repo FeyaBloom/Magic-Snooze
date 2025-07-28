@@ -22,7 +22,7 @@ export default function TabLayout() {
           shadowRadius: 8,
           height: 75,
           paddingTop: 8,
-          paddingBottom: 10,
+          paddingBottom: 8,
         },
         tabBarActiveTintColor: colors.secondary,
         tabBarInactiveTintColor: colors.textSecondary,
