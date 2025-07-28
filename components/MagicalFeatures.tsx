@@ -120,11 +120,8 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
           <TouchableOpacity key={index} style={styles.victoryButton} onPress={() => handleVictory(index, v.text)}>
             <Text style={styles.victoryEmoji}>{v.emoji}</Text>
             <Text style={styles.victoryText}>{v.text}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      {confettiIndex> === index && (
+        
+            {confettiIndex> === index && (
         <ConfettiCannon 
           key={index + `-` + Date.now()}
           count={20} 
@@ -133,6 +130,11 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
           onAnimationEnd={() => setConfettiIndex(null)}
           />
       )}
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      
     </View>
   );
 };
