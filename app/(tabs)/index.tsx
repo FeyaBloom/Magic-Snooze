@@ -383,11 +383,9 @@ function TodayTabContent() {
               }}
               disabled={isSnoozed}
             >          
-              <Edit style={[
-            styles.stepText,
-            { color: colors.text, fontFamily: 'ComicNeue-Regular' },
-              isSnoozed && styles.stepTextDisabled,
-              ]}
+              <Edit 
+                size={16} 
+                color={isSnoozed ? colors.textSecondary + '50' : colors.textSecondary} 
               />
             </TouchableOpacity>
           </View>
@@ -558,8 +556,9 @@ function TodayTabContent() {
         <Modal visible={showEditModal} animationType="slide" transparent>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <TouchableOpacity style={styles.deleteButton} onPress={() => deleteStep(step.id)} > 
-                <Trash2 size={20} color={colors.error} /> </TouchableOpacity>
+              <TouchableOpacity onPress={() => editingStep && currentRoutine && deleteStep(editingStep.id, currentRoutine)}>
+                <Trash2 size={20} color="#EF4444" />
+              </TouchableOpacity>
               <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}>Edit Step</Text>
               <TextInput
                 style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
