@@ -216,7 +216,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   cancelButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#6B7280',
+    color: colors.textSecondary,
     fontFamily: 'ComicNeue-Regular',
   },
   saveButtonText: {
