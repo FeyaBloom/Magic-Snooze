@@ -152,7 +152,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: 50,
   },
   modalContent: {
     backgroundColor: colors.surface,
