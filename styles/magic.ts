@@ -55,7 +55,7 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
   },
   victoryButton: {
     width: '48%',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
     borderRadius: 12,
     padding: 12,
     marginBottom: 8,
