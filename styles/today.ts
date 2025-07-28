@@ -86,7 +86,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     color: colors.textSecondary,
   },
   stepTextDisabled: {
-    color: colors.textSecondary,
+    color: colors.textSecondary + `50`,
   },
   stepActions: {
     flexDirection: 'row',
