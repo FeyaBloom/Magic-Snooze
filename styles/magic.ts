@@ -1,3 +1,7 @@
+import LottieView from 'lottie-react-native'; 
+import FloatingCloudJSON from '@/assets/animations/floating-cloud.json'; 
+import GentleStarsJSON from '@/assets/animations/gentle-stars.json'; 
+
 import { StyleSheet } from 'react-native';
 
 export const createMagicStyles = (colors: any) => StyleSheet.create({
