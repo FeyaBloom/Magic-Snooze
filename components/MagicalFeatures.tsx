@@ -17,18 +17,18 @@ import GentleStarsJSON from '@/assets/animations/gentle-stars.json';
 const { width: screenWidth } = Dimensions.get('window');
 
 // ---- FLOATING BACKGROUNDS ----
-export const FloatingBackground: React.FC = () => {
-  const { theme } = useTheme();
-  if (theme === 'daydream') return <FloatingClouds />;
-  if (theme === 'nightforest') return <GentleStars />;
-  return null;
-};
 
 
 const FloatingClouds = () => ( <LottieView source={FloatingCloudJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
 
 const GentleStars = () => ( <LottieView source={GentleStarsJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
 
+export const FloatingBackground: React.FC = () => {
+  const { theme } = useTheme();
+  if (theme === 'daydream') return <FloatingClouds />;
+  if (theme === 'nightforest') return <GentleStars />;
+  return null;
+};
 
 
 // ---- MAGIC SPARKLE ON CHECKBOX ----
