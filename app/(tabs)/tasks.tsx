@@ -287,13 +287,13 @@ export default function TasksTab() {
                 multiline
                 autoFocus
               />
-              <TextInput
-                style={styles.textInput}
+              <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}>  <TextInput
+                style={styles.datePickerText}
                 placeholder="Due date (optional) - YYYY-MM-DD"
-                value={newTaskDueDate}
+                value={dueDate.toLocaleDateString()}
                 onChangeText={setNewTaskDueDate}
               />
-              <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}> <Text style={styles.datePickerText}> {dueDate.toLocaleDateString()} </Text> </TouchableOpacity> 
+            </TouchableOpacity> 
               <View style={styles.modalButtons}>
                 <TouchableOpacity
                   style={[styles.modalButton, styles.cancelButton]}
