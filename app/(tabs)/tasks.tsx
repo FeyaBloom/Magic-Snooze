@@ -356,7 +356,7 @@ export default function TasksTab() {
             </View>
           </View>
         </Modal>
-        <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" date={dueDate} onConfirm={handleConfirm} onCancel={hideDatePicker} theme={ThemeMode === 'nightforest' ? 'dark' : 'light'} /> 
+        <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" date={dueDate} onConfirm={handleConfirm} onCancel={hideDatePicker} themeVariant={ThemeMode === 'nightforest' ? 'dark' : 'light'} /> 
       </LinearGradient>
     </SafeAreaView>
   );
