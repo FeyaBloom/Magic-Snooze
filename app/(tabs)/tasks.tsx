@@ -10,6 +10,8 @@ import {
   Modal,
   Alert,
 } from 'react-native';
+import {themes} from "@/components/ThemeProvider";
+
 import { LinearGradient } from 'expo-linear-gradient';
 import { Plus, Pencil as Edit, Trash2, Calendar, CircleCheck as CheckCircle2 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -354,7 +356,7 @@ export default function TasksTab() {
             </View>
           </View>
         </Modal>
-        <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" date={dueDate} onConfirm={handleConfirm} onCancel={hideDatePicker} themeVariant={ThemeMode === 'nightforest' ? 'dark' : 'light'} /> 
+        <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" date={dueDate} onConfirm={handleConfirm} onCancel={hideDatePicker} theme={ThemeMode === 'nightforest' ? 'dark' : 'light'} /> 
       </LinearGradient>
     </SafeAreaView>
   );
