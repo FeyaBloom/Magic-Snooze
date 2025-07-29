@@ -25,7 +25,8 @@ export const FloatingBackground: React.FC = () => {
 };
 
 
-    const FloatingClouds = () => ( <LottieView source={FloatingCloudJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
+const FloatingClouds = () => ( <LottieView source={FloatingCloudJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
+
 const GentleStars = () => ( <LottieView source={GentleStarsJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
 
 
