@@ -10,6 +10,9 @@ import { Sparkles, Star } from 'lucide-react-native';
 import ConfettiCannon from 'react-native-confetti-cannon';
 import { useTheme } from '@/components/ThemeProvider';
 import { createMagicStyles } from '@/styles/magic';
+import LottieView from 'lottie-react-native'; 
+import FloatingCloudJSON from '@/assets/animations/floating-cloud.json'; 
+import GentleStarsJSON from '@/assets/animations/gentle-stars.json'; 
 
 const { width: screenWidth } = Dimensions.get('window');
 
