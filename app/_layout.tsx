@@ -41,7 +41,7 @@ export default function RootLayout() {
   return (
     <>
       <ThemeProvider>
-        <AppBackground /> {/* 🍭 Волшебный фон */}
+        <FloatingBackground /> {/* 🍭 Волшебный фон */}
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
