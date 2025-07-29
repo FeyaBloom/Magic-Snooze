@@ -33,6 +33,11 @@ export default function TasksTab() {
   const [newTaskText, setNewTaskText] = useState('');
   const [newTaskDueDate, setNewTaskDueDate] = useState('');
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [dueDate, setDueDate] = useState(new Date()); 
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false); 
+  const showDatePicker = () => setDatePickerVisibility(true); 
+  const hideDatePicker = () => setDatePickerVisibility(false); 
+  const handleConfirm = (date: Date) => { setDueDate(date); hideDatePicker(); }; 
 
   useEffect(() => {
     loadTasks();
@@ -286,6 +291,7 @@ export default function TasksTab() {
                 value={newTaskDueDate}
                 onChangeText={setNewTaskDueDate}
               />
+              <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}> <Text style={styles.datePickerText}> {dueDate.toLocaleDateString()} </Text> </TouchableOpacity> 
               <View style={styles.modalButtons}>
                 <TouchableOpacity
                   style={[styles.modalButton, styles.cancelButton]}
@@ -348,6 +354,7 @@ export default function TasksTab() {
             </View>
           </View>
         </Modal>
+        <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" date={dueDate} onConfirm={handleConfirm} onCancel={hideDatePicker} themeVariant={theme === 'nightforest' ? 'dark' : 'light'} /> 
       </LinearGradient>
     </SafeAreaView>
   );
