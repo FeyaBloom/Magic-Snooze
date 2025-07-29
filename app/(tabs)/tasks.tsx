@@ -15,7 +15,7 @@ import { Plus, Pencil as Edit, Trash2, Calendar, CircleCheck as CheckCircle2 } f
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
-
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 interface Task {
   id: string;
   text: string;
