@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
+  StyleSheet,
 } from 'react-native';
 import { Sparkles, Star } from 'lucide-react-native';
 import ConfettiCannon from 'react-native-confetti-cannon';
@@ -19,13 +20,13 @@ const { width: screenWidth } = Dimensions.get('window');
 // ---- FLOATING BACKGROUNDS ----
 
 
-const FloatingClouds = () => ( <LottieView source={FloatingCloudJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
+export const FloatingCloud = () => ( <LottieView source={FloatingCloudJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
 
-const GentleStars = () => ( <LottieView source={GentleStarsJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
+export const GentleStars = () => ( <LottieView source={GentleStarsJSON} autoPlay loop style={StyleSheet.absoluteFillObject} /> ); 
 
 export const FloatingBackground: React.FC = () => {
   const { theme } = useTheme();
-  if (theme === 'daydream') return <FloatingClouds />;
+  if (theme === 'daydream') return <FloatingCloud />;
   if (theme === 'nightforest') return <GentleStars />;
   return null;
 };
