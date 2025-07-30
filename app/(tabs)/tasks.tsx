@@ -238,6 +238,7 @@ export default function TasksTab() {
                   </TouchableOpacity>
                   
                   <View style={styles.taskContent}>
+                    
                     <Text style={[styles.taskText, styles.taskTextCompleted]}>
                       {task.text}
                     </Text>
