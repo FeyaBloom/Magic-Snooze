@@ -67,7 +67,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Bold',
   },
   taskContainer: {
-    flexDirection: 'row',
+   // flexDirection: 'row',
     alignItems: 'flex-start',
     backgroundColor: colors.surface,
     padding: 16,
