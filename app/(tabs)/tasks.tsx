@@ -125,7 +125,9 @@ export default function TasksTab() {
           style: 'destructive',
           onPress: async () => {
             const updatedTasks = tasks.filter(task => task.id !== taskId);
-            await saveTasks(updatedTasks);
+            await saveTasks(updatedTasks);          
+            setShowEditModal(false);
+            setEditingЕфыл(null);
           },
         },
       ]
