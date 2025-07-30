@@ -288,7 +288,7 @@ export default function TasksTab() {
                 autoFocus
               />
               <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}>  
-                <Text style={styles.datePickerText}>
+                <Text style={styles.dueDateText}>
                 {dueDate ? dueDate.toLocaleDateString() : `Due date (optional) - YYYY-MM-DD`}
               </Text>
             </TouchableOpacity> 
