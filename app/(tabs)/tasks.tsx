@@ -241,15 +241,8 @@ export default function TasksTab() {
                     <Text style={[styles.taskText, styles.taskTextCompleted]}>
                       {task.text}
                     </Text>
-                    {task.dueDate && (
-                      <View style={styles.dueDateContainer}>
-                        <Calendar size={12} color="#9CA3AF" />
-                        <Text style={[styles.dueDateText, styles.completedDueDate]}>
-                          {formatDate(task.dueDate)}
-                        </Text>
-                      </View>
-                    )}
-                  <View style={styles.taskActions}>
+                     <View style={styles.taskActions}>
+                    
                     <TouchableOpacity
                       style={styles.actionButton}
                   
@@ -258,6 +251,15 @@ export default function TasksTab() {
                       <Trash2 size={16} color="#EF4444" />
                     </TouchableOpacity>
                   </View>
+                    {task.dueDate && (
+                      <View style={styles.dueDateContainer}>
+                        <Calendar size={12} color="#9CA3AF" />
+                        <Text style={[styles.dueDateText, styles.completedDueDate]}>
+                          {formatDate(task.dueDate)}
+                        </Text>
+                      </View>
+                    )}
+                 
                      </View>
                 </View>
               ))}
