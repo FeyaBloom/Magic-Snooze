@@ -252,14 +252,7 @@ export default function TasksTab() {
                     )}
                   </View>
                   
-                  <View style={styles.taskActions}>
-                    <TouchableOpacity
-                      style={styles.actionButton}
-                      onPress={() => deleteTask(task.id)}
-                    >
-                      <Trash2 size={16} color="#EF4444" />
-                    </TouchableOpacity>
-                  </View>
+                  
                 </View>
               ))}
             </View>
@@ -318,9 +311,14 @@ export default function TasksTab() {
         <Modal visible={showEditModal} animationType="slide" transparent>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <TouchableOpacity onPress={() => editingStep && currentRoutine && deleteStep(editingStep.id, currentRoutine)}>
-                <Trash2 size={20} color="#EF4444" />
+              <TouchableOpacity onPress={() => (deleteTask.id)}>
+                <Trash2 size={16} color="#EF4444" />
               </TouchableOpacity>
+
+
+
+
+              
               <Text style={styles.modalTitle}>Edit Task</Text>
               <TextInput
                 style={styles.textInput}
