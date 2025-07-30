@@ -12,7 +12,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    zIndex: 1,
+    zIndex: 5,
   },
   header: {
     padding: 20,
