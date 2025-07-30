@@ -263,6 +263,7 @@ export default function TasksTab() {
               ))}
             </View>
           )}
+            </View>
 
           {tasks.length === 0 && (
             <View style={styles.emptyState}>
