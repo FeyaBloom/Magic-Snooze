@@ -157,7 +157,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     width: 48,
     height: 48,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'right',
   },
   emptyState: {
     alignItems: 'center',
