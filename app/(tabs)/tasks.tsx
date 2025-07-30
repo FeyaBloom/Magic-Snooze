@@ -214,12 +214,7 @@ export default function TasksTab() {
                     >
                       <Edit size={16} color={colors.textSecondary} />
                     </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.actionButton}
-                      onPress={() => deleteTask(task.id)}
-                    >
-                      <Trash2 size={16} color="#EF4444" />
-                    </TouchableOpacity>
+                   
                   </View>
                 </View>
               ))}
@@ -251,7 +246,12 @@ export default function TasksTab() {
                       </View>
                     )}
                   </View>
-                  
+                   <TouchableOpacity
+                      style={styles.actionButton}
+                      onPress={() => deleteTask(task.id)}
+                    >
+                      <Trash2 size={16} color="#EF4444" />
+                    </TouchableOpacity>
                   
                 </View>
               ))}
@@ -314,8 +314,6 @@ export default function TasksTab() {
               <TouchableOpacity onPress={() => (deleteTask.id)}>
                 <Trash2 size={16} color="#EF4444" />
               </TouchableOpacity>
-
-
 
 
               
