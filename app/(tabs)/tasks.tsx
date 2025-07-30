@@ -39,7 +39,11 @@ export default function TasksTab() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false); 
   const showDatePicker = () => setDatePickerVisibility(true); 
   const hideDatePicker = () => setDatePickerVisibility(false); 
-  const handleConfirm = (date: Date) => { setDueDate(date); hideDatePicker(); }; 
+  const handleConfirm = (date: Date) => { 
+    setDueDate(date); 
+    setNewTaskDueDate(date.toISOString()); 
+    hideDatePicker(); 
+  };
 
   useEffect(() => {
     loadTasks();
@@ -280,11 +284,11 @@ export default function TasksTab() {
                 multiline
                 autoFocus
               />
-              <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}>  
-                <Text style={styles.dueDateText} onChangeText={setNewTaskDueDate}>
-                {dueDate ? dueDate.toLocaleDateString() : `Due date (optional)`}
-              </Text>
-            </TouchableOpacity> 
+              <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}>
+                <Text style={styles.dueDateText}>
+                  {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
+                </Text>
+              </TouchableOpacity>
               
               <View style={styles.modalButtons}>
                 <TouchableOpacity
@@ -311,12 +315,20 @@ export default function TasksTab() {
         <Modal visible={showEditModal} animationType="slide" transparent>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <TouchableOpacity onPress={() => deleteTask (task.id)}>
+              <TouchableOpacity 
+                style={styles.deleteButton} 
+                onPress={() => {
+                  if (editingTask) {
+                    deleteTask(editingTask.id);
+                    setShowEditModal(false);
+                    setEditingTask(null);
+                    setNewTaskText('');
+                    setNewTaskDueDate('');
+                  }
+                }}
+              >
                 <Trash2 size={16} color="#EF4444" />
               </TouchableOpacity>
-
-               </View>
-
               
               <Text style={styles.modalTitle}>Edit Task</Text>
               <TextInput
@@ -327,15 +339,12 @@ export default function TasksTab() {
                 multiline
                 autoFocus
               />
-              <TextInput
-                style={styles.textInput}
-                placeholder="Due date (optional)"
-                value={newTaskDueDate}
-                onChangeText={setNewTaskDueDate}
-              />
-               <Text style={styles.dueDateText} onChangeText={setNewTaskDueDate}>
-                {dueDate ? dueDate.toLocaleDateString() : `Due date (optional)`}
-              </Text>
+              <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}>
+                <Text style={styles.dueDateText}>
+                  {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
+                </Text>
+              </TouchableOpacity>
+              
               <View style={styles.modalButtons}>
                 <TouchableOpacity
                   style={[styles.modalButton, styles.cancelButton]}
@@ -358,7 +367,14 @@ export default function TasksTab() {
             </View>
           </View>
         </Modal>
-        <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" date={dueDate} onConfirm={handleConfirm} onCancel={hideDatePicker} themeVariant={theme === 'nightforest' ? 'dark' : 'light'} /> 
+        <DateTimePickerModal 
+          isVisible={isDatePickerVisible} 
+          mode="date" 
+          date={dueDate} 
+          onConfirm={handleConfirm} 
+          onCancel={hideDatePicker} 
+          themeVariant={colors.theme === 'nightforest' ? 'dark' : 'light'} 
+        />
       </LinearGradient>
     </SafeAreaView>
   );
