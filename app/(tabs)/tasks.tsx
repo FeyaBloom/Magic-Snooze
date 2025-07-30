@@ -333,6 +333,9 @@ export default function TasksTab() {
                 value={newTaskDueDate}
                 onChangeText={setNewTaskDueDate}
               />
+               <Text style={styles.dueDateText} onChangeText={setNewTaskDueDate}>
+                {dueDate ? dueDate.toLocaleDateString() : `Due date (optional) - YYYY-MM-DD`}
+              </Text>
               <View style={styles.modalButtons}>
                 <TouchableOpacity
                   style={[styles.modalButton, styles.cancelButton]}
