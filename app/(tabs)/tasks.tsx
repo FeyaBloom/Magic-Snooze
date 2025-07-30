@@ -257,7 +257,7 @@ export default function TasksTab() {
                     {task.dueDate && (
                       <View style={styles.dueDateContainer}>
                         <Calendar size={12} color="#9CA3AF" />
-                        <Text style={[styles.listDateText, styles.completedDueDate]}>
+                        <Text style={[styles.dueDateText, styles.completedDueDate]}>
                           {formatDate(task.dueDate)}
                         </Text>
                       </View>
