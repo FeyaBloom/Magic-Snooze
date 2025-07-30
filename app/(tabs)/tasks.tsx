@@ -258,12 +258,13 @@ export default function TasksTab() {
                       <Trash2 size={16} color="#EF4444" />
                     </TouchableOpacity>
                   </View>
-                   
+                     </View>
                 </View>
               ))}
             </View>
+              
           )}
-            </View>
+          
 
           {tasks.length === 0 && (
             <View style={styles.emptyState}>
