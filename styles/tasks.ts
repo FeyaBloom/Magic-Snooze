@@ -139,11 +139,15 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     marginBottom: 16,
   },
 
+listDateText: {
+ fontSize: 16,
+    color: colors.textSecondary,
+    fontFamily: 'ComicNeue-Regular',
+    alignItems: 'center',
+    marginBottom: 16, 
+}
 
-
-
-
-  
+ 
   overdue: {
     color: '#EF4444',
     fontWeight: '600',
