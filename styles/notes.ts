@@ -159,9 +159,8 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     borderRadius: 20,
     padding: 24,
     width: '90%',
-    minHeight: 200,
     maxWidth: 400,
-    maxHeight: '80%',
+    maxHeight: '90%',
     alignSelf: 'center',
   },
   deleteButton: {
@@ -266,9 +265,8 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
   },
   viewContent: {
-    flex: 1,
     marginBottom: 20,
-    minHeight: 120,
+    maxHeight: 220,
   },
   viewText: {
     fontSize: 16,
