@@ -197,7 +197,7 @@ export default function TasksTab() {
                       <View style={styles.dueDateContainer}>
                         <Calendar size={12} color="#6B7280" />
                         <Text style={[
-                          styles.dueDateText,
+                          styles.listDateText,
                           isOverdue(task.dueDate) && !task.completed && styles.overdue,
                           isDueToday(task.dueDate) && !task.completed && styles.dueToday,
                         ]}>
