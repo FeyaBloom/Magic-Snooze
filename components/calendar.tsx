@@ -1,70 +1,185 @@
-"use client"
+import React from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
+import { ChevronLeft, ChevronRight } from 'lucide-react-native';
+import { useTheme } from '@/components/ThemeProvider';
 
-import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
-
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/button"
-
-export type CalendarProps = React.ComponentProps<typeof DayPicker>
-
-function Calendar({
-  className,
-  classNames,
-  showOutsideDays = true,
-  ...props
-}: CalendarProps) {
-  return (
-    <DayPicker
-      showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
-      classNames={{
-        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-        month: "space-y-4",
-        caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-sm font-medium",
-        nav: "space-x-1 flex items-center",
-        nav_button: cn(
-          buttonVariants({ variant: "outline" }),
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
-        ),
-        nav_button_previous: "absolute left-1",
-        nav_button_next: "absolute right-1",
-        table: "w-full border-collapse space-y-1",
-        head_row: "flex",
-        head_cell:
-          "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]",
-        row: "flex w-full mt-2",
-        cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-        day: cn(
-          buttonVariants({ variant: "ghost" }),
-          "h-9 w-9 p-0 font-normal aria-selected:opacity-100"
-        ),
-        day_range_end: "day-range-end",
-        day_selected:
-          "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-        day_today: "bg-accent text-accent-foreground",
-        day_outside:
-          "day-outside text-muted-foreground aria-selected:bg-accent/50 aria-selected:text-muted-foreground",
-        day_disabled: "text-muted-foreground opacity-50",
-        day_range_middle:
-          "aria-selected:bg-accent aria-selected:text-accent-foreground",
-        day_hidden: "invisible",
-        ...classNames,
-      }}
-      components={{
-        IconLeft: ({ className, ...props }) => (
-          <ChevronLeft className={cn("h-4 w-4", className)} {...props} />
-        ),
-        IconRight: ({ className, ...props }) => (
-          <ChevronRight className={cn("h-4 w-4", className)} {...props} />
-        ),
-      }}
-      {...props}
-    />
-  )
+interface CustomCalendarHeaderProps {
+  onPrev: () => void;
+  onNext: () => void;
+  monthLabel: string;
 }
-Calendar.displayName = "Calendar"
 
-export { Calendar }
+const CustomCalendarHeader: React.FC<CustomCalendarHeaderProps> = ({ onPrev, onNext, monthLabel }) => {
+  const { colors } = useTheme();
+
+  return (
+    <View style={styles.headerContainer}>
+      <TouchableOpacity onPress={onPrev} style={styles.navButton}>
+        <ChevronLeft size={20} color={colors.text} />
+      </TouchableOpacity>
+      <Text style={[styles.headerText, { color: colors.text }]}>{monthLabel}</Text>
+      <TouchableOpacity onPress={onNext} style={styles.navButton}>
+        <ChevronRight size={20} color={colors.text} />
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+  },
+  headerText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  navButton: {
+    padding: 4,
+  },
+});
+
+export default CustomCalendarHeader;
+
+
+const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
+interface Props {
+  selectedDate: Date;
+  onSelect: (date: Date) => void;
+}
+
+export const CustomCalendar: React.FC<Props> = ({ selectedDate, onSelect }) => {
+  const { colors } = useTheme();
+  const [currentMonth, setCurrentMonth] = React.useState(new Date(selectedDate));
+
+  const getDaysInMonth = (date: Date) => {
+    const start = new Date(date.getFullYear(), date.getMonth(), 1);
+    const end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const days = [];
+
+    for (let i = 1; i <= end.getDate(); i++) {
+      days.push(new Date(date.getFullYear(), date.getMonth(), i));
+    }
+
+    return { days, startDay: start.getDay() };
+  };
+
+  const prevMonth = () => {
+    const prev = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1);
+    setCurrentMonth(prev);
+  };
+
+  const nextMonth = () => {
+    const next = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1);
+    setCurrentMonth(next);
+  };
+
+  const { days, startDay } = getDaysInMonth(currentMonth);
+
+  return (
+    <View style={[styles.calendarContainer, { backgroundColor: colors.surface }]}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={prevMonth}>
+          <ChevronLeft size={20} color={colors.text} />
+        </TouchableOpacity>
+        <Text style={[styles.headerText, { color: colors.text }]}>
+          {currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}
+        </Text>
+        <TouchableOpacity onPress={nextMonth}>
+          <ChevronRight size={20} color={colors.text} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.weekRow}>
+        {weekDays.map((day, idx) => (
+          <Text key={idx} style={[styles.weekDay, { color: colors.textSecondary }]}>
+            {day}
+          </Text>
+        ))}
+      </View>
+
+      <View style={styles.daysContainer}>
+        {Array(startDay)
+          .fill(null)
+          .map((_, i) => (
+            <View key={`empty-${i}`} style={styles.dayCell} />
+          ))}
+        {days.map((day, idx) => {
+          const isSelected =
+            day.toDateString() === selectedDate.toDateString();
+
+          return (
+            <TouchableOpacity
+              key={idx}
+              style={[
+                styles.dayCell,
+                isSelected && {
+                  backgroundColor: colors.primary,
+                  borderRadius: 999,
+                },
+              ]}
+              onPress={() => onSelect(day)}
+            >
+              <Text
+                style={{
+                  color: isSelected ? '#fff' : colors.text,
+                  textAlign: 'center',
+                }}
+              >
+                {day.getDate()}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  calendarContainer: {
+    borderRadius: 12,
+    padding: 16,
+    elevation: 2,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  headerText: {
+    fontSize: 16,
+    fontWeight: '600',
+    textTransform: 'capitalize',
+  },
+  weekRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
+  weekDay: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 12,
+  },
+  daysContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  dayCell: {
+    width: `${100 / 7}%`,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
