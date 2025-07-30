@@ -11,7 +11,7 @@ import {
   Alert,
 } from 'react-native';
 import {theme} from "@/components/ThemeProvider";
-
+import {FloatingBackground} from "@/components/MagicalFeatures";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Plus, Pencil as Edit, Trash2, Calendar, CircleCheck as CheckCircle2 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
