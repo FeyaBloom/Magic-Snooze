@@ -131,13 +131,14 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D1D5DB',
     borderRadius: 12,
+    padding: 16,
     fontSize: 16,
     color: colors.textSecondary,
     marginLeft: 4,
     fontFamily: 'ComicNeue-Regular',
-     flexDirection: 'row',
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: 16,
   },
 
 
