@@ -560,6 +560,8 @@ function TodayTabContent() {
               <TouchableOpacity onPress={() => {
             editingStep && currentRoutine && deleteStep(editingStep.id, currentRoutine);
             setShowEditModal(false);
+            setNewStepText('');
+            setEditingStep(null);
       }}
                 >
                 <Trash2 size={20} color="#EF4444" />
