@@ -121,7 +121,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
      flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 4,
+    marginBottom: 4,
   },
   overdue: {
     color: '#EF4444',
