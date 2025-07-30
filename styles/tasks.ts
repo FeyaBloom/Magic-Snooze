@@ -145,7 +145,7 @@ listDateText: {
     fontFamily: 'ComicNeue-Regular',
     alignItems: 'center',
     marginBottom: 16, 
-}
+},
 
  
   overdue: {
