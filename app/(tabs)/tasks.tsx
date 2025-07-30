@@ -127,7 +127,7 @@ export default function TasksTab() {
             const updatedTasks = tasks.filter(task => task.id !== taskId);
             await saveTasks(updatedTasks);          
             setShowEditModal(false);
-            setEditingЕфыл(null);
+            setEditingTask(null);
           },
         },
       ]
