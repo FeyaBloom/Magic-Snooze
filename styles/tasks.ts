@@ -128,7 +128,10 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     marginTop: 4,
   },
   dueDateText: {
-    fontSize: 14,
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+    borderRadius: 12,
+    fontSize: 16,
     color: colors.textSecondary,
     marginLeft: 4,
     fontFamily: 'ComicNeue-Regular',
@@ -136,6 +139,14 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
     marginBottom: 4,
   },
+
+
+
+
+
+
+
+  
   overdue: {
     color: '#EF4444',
     fontWeight: '600',
