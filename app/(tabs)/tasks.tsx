@@ -311,7 +311,7 @@ export default function TasksTab() {
         <Modal visible={showEditModal} animationType="slide" transparent>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <TouchableOpacity onPress={() => (deleteTask.id)}>
+              <TouchableOpacity onPress={() => deleteTask (task.id)}>
                 <Trash2 size={16} color="#EF4444" />
               </TouchableOpacity>
 
