@@ -315,6 +315,7 @@ export default function TasksTab() {
                 <Trash2 size={16} color="#EF4444" />
               </TouchableOpacity>
 
+               </View>
 
               
               <Text style={styles.modalTitle}>Edit Task</Text>
