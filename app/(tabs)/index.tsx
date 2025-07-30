@@ -557,7 +557,11 @@ function TodayTabContent() {
         <Modal visible={showEditModal} animationType="slide" transparent>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <TouchableOpacity onPress={() => editingStep && currentRoutine && deleteStep(editingStep.id, currentRoutine)}>
+              <TouchableOpacity onPress={() => {
+            editingStep && currentRoutine && deleteStep(editingStep.id, currentRoutine);
+            setShowEditModal(false);
+      }}
+                >
                 <Trash2 size={20} color="#EF4444" />
               </TouchableOpacity>
               <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}>Edit Step</Text>
