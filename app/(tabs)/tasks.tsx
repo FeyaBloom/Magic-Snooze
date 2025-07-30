@@ -292,6 +292,7 @@ export default function TasksTab() {
                 {dueDate ? dueDate.toLocaleDateString() : `Due date (optional) - YYYY-MM-DD`}
               </Text>
             </TouchableOpacity> 
+              
               <View style={styles.modalButtons}>
                 <TouchableOpacity
                   style={[styles.modalButton, styles.cancelButton]}
