@@ -289,7 +289,7 @@ export default function TasksTab() {
               />
               <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}>  
                 <Text style={styles.dueDateText} onChangeText={setNewTaskDueDate}>
-                {dueDate ? dueDate.toLocaleDateString() : `Due date (optional) - YYYY-MM-DD`}
+                {dueDate ? dueDate.toLocaleDateString() : `Due date (optional)`}
               </Text>
             </TouchableOpacity> 
               
@@ -329,12 +329,12 @@ export default function TasksTab() {
               />
               <TextInput
                 style={styles.textInput}
-                placeholder="Due date (optional) - YYYY-MM-DD"
+                placeholder="Due date (optional)"
                 value={newTaskDueDate}
                 onChangeText={setNewTaskDueDate}
               />
                <Text style={styles.dueDateText} onChangeText={setNewTaskDueDate}>
-                {dueDate ? dueDate.toLocaleDateString() : `Due date (optional) - YYYY-MM-DD`}
+                {dueDate ? dueDate.toLocaleDateString() : `Due date (optional)`}
               </Text>
               <View style={styles.modalButtons}>
                 <TouchableOpacity
