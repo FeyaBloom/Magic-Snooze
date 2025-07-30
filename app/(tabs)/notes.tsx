@@ -46,7 +46,6 @@ export default function NotesTab() {
       const notesData = await AsyncStorage.getItem('personalNotes');
       if (notesData) {
         const parsedNotes = JSON.parse(notesData);
-        // Sort notes by most recent first
         parsedNotes.sort((a: Note, b: Note) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
         setNotes(parsedNotes);
       }
@@ -97,9 +96,7 @@ export default function NotesTab() {
       note.id === editingNote.id ? updatedNote : note
     );
 
-    // Sort again to bring updated note to top
     updatedNotes.sort((a: Note, b: Note) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-    
     await saveNotes(updatedNotes);
 
     setNoteTitle('');
@@ -120,6 +117,8 @@ export default function NotesTab() {
           onPress: async () => {
             const updatedNotes = notes.filter(note => note.id !== noteId);
             await saveNotes(updatedNotes);
+            setShowEditModal(false);
+            setEditingNote(null);
           },
         },
       ]
@@ -213,14 +212,9 @@ export default function NotesTab() {
                         setShowEditModal(true);
                       }}
                     >
-                     <Edit size={16} color={colors.textSecondary} />
+                      <Edit size={16} color={colors.textSecondary} />
                     </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.actionButton}
-                      onPress={() => deleteNote(note.id)}
-                    >
-                      <Trash2 size={16} color="#EF4444" />
-                    </TouchableOpacity>
+                    {/* Удаление только в модалке! */}
                   </View>
                 </TouchableOpacity>
               ))}
@@ -286,6 +280,16 @@ export default function NotesTab() {
         <Modal visible={showEditModal} animationType="slide" transparent>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
+              <TouchableOpacity 
+                style={styles.deleteButton}
+                onPress={() => {
+                  if (editingNote) {
+                    deleteNote(editingNote.id);
+                  }
+                }}
+              >
+                <Trash2 size={16} color="#EF4444" />
+              </TouchableOpacity>
               <Text style={styles.modalTitle}>Edit Note</Text>
               <TextInput
                 style={styles.titleInput}
@@ -348,7 +352,7 @@ export default function NotesTab() {
                 </Text>
               </ScrollView>
               <TouchableOpacity
-                style={[styles.closeButton]}
+                style={styles.closeButton}
                 onPress={() => {
                   setShowViewModal(false);
                   setViewingNote(null);
