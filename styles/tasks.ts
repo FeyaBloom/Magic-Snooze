@@ -108,7 +108,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   deleteButtonInline: {
     padding: 4,
-    marginLeft: 8,
+    alignItems: `right`,
   },
   taskText: {
     fontSize: 16,
