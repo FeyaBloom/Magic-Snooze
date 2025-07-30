@@ -400,12 +400,11 @@ function TodayTabContent() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FloatingCloud />
       <LinearGradient
         colors={colors.background}
-        style={dynamicStyles.gradient}
         style={styles.gradient}
       >
+        <FloatingBackground />
         
         <>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>

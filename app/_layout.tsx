@@ -42,11 +42,11 @@ export default function RootLayout() {
   return (
     <>
       <ThemeProvider>
-        <FloatingBackground /> {/* 🍭 Волшебный фон */}
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
+        <FloatingBackground />
         <StatusBar style="auto" />
       </ThemeProvider>
     </>
