@@ -149,14 +149,14 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   taskActions: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'right',
   },
   actionButton: {
     padding: 8,
     marginLeft: 4,
     width: 48,
     height: 48,
-    
+    justifyContent: 'center',
     alignItems: 'right',
   },
   emptyState: {
