@@ -149,15 +149,15 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   taskActions: {
     flexDirection: 'row',
-    alignItems: 'right',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  flexWrap: 'nowrap',
+  gap: 8,
   },
   actionButton: {
-    padding: 8,
-    marginLeft: 4,
-    width: 48,
-    height: 48,
-    justifyContent: 'center',
-    alignItems: 'right',
+    padding: 4,
+    alignItems: `right`,
+    marginRight: 28,
   },
   emptyState: {
     alignItems: 'center',
