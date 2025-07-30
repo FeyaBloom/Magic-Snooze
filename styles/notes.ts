@@ -59,7 +59,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
     marginHorizontal: 20,
     marginBottom: 24,
     paddingVertical: 16,
