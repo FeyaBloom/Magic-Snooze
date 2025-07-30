@@ -243,16 +243,7 @@ export default function TasksTab() {
                     <Text style={[styles.taskText, styles.taskTextCompleted, { flex: 1 }]}>
                       {task.text}
                     </Text>
-                     <View style={styles.taskActions}>
                     
-                    <TouchableOpacity
-                      style={styles.deleteButtonInline}
-                      onPress={() => deleteTask(task.id)}
-                    >
-                      <Trash2 size={16} color="#EF4444" />
-                    </TouchableOpacity>
-                       
-                  </View>
                     
                     {task.dueDate && (
                       <View style={styles.dueDateContainer}>
@@ -262,7 +253,17 @@ export default function TasksTab() {
                         </Text>
                       </View>
                     )}
-                 
+                    
+                  <View style={styles.taskActions}>
+                    
+                    <TouchableOpacity
+                      style={styles.deleteButtonInline}
+                      onPress={() => deleteTask(task.id)}
+                    >
+                      <Trash2 size={16} color="#EF4444" />
+                    </TouchableOpacity>
+                       
+                  </View>
                      </View>
                 </View>
               ))}
