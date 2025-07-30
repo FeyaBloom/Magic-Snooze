@@ -96,7 +96,16 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     borderColor: colors.primary,
   },
   taskContent: {
-    flex: 1,
+   // flex: 1,
+    flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  flexWrap: 'nowrap',
+  gap: 8,
+  },
+  deleteButtonInline: {
+    padding: 4,
+    marginLeft: 8,
   },
   taskText: {
     fontSize: 16,
