@@ -144,7 +144,7 @@ listDateText: {
     color: colors.textSecondary,
     fontFamily: 'ComicNeue-Regular',
     alignItems: 'center',
-    marginBottom: 2, 
+   // marginBottom: 2, 
 },
 
  
