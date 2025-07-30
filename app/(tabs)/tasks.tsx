@@ -17,8 +17,8 @@ import { Plus, Pencil as Edit, Trash2, Calendar, CircleCheck as CheckCircle2 } f
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
+import Calendar from '@/components/calendar'; 
 interface Task {
   id: string;
   text: string;
@@ -37,15 +37,10 @@ export default function TasksTab() {
   const [newTaskDueDate, setNewTaskDueDate] = useState('');
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [dueDate, setDueDate] = useState(new Date());
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [showEditCalendar, setShowEditCalendar] = useState(false);
 
-  const showDatePicker = () => setDatePickerVisibility(true);
-  const hideDatePicker = () => setDatePickerVisibility(false);
-  const handleConfirm = (date: Date) => {
-    setDueDate(date);
-    setNewTaskDueDate(date.toISOString());
-    hideDatePicker();
-  };
 
   useEffect(() => {
     loadTasks();
@@ -286,11 +281,20 @@ export default function TasksTab() {
                 multiline
                 autoFocus
               />
-              <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}>
+              <TouchableOpacity onPress={setShowCalendar(v => !v)} style={styles.datePickerButton}>
                 <Text style={styles.dueDateText}>
                   {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
                 </Text>
               </TouchableOpacity>
+{showCalendar && (
+                <Calendar
+                  selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+                  onSelect={date => {
+                    setNewTaskDueDate(date.toISOString());
+                    setShowCalendar(false);
+                  }}
+                />
+              )}
 
               <View style={styles.modalButtons}>
                 <TouchableOpacity
@@ -338,11 +342,22 @@ export default function TasksTab() {
                 multiline
                 autoFocus
               />
-              <TouchableOpacity onPress={showDatePicker} style={styles.datePickerButton}>
+              <TouchableOpacity 
+onPress={() => setShowEditCalendar(v => !v)} style={styles.datePickerButton}>
                 <Text style={styles.dueDateText}>
                   {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
                 </Text>
               </TouchableOpacity>
+
+{showEditCalendar && (
+                <Calendar
+                  selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+                  onSelect={date => {
+                    setNewTaskDueDate(date.toISOString());
+                    setShowEditCalendar(false);
+                  }}
+                />
+              )}
 
               <View style={styles.modalButtons}>
                 <TouchableOpacity
@@ -366,14 +381,7 @@ export default function TasksTab() {
             </View>
           </View>
         </Modal>
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          date={dueDate}
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-          themeVariant={colors.theme === 'nightforest' ? 'dark' : 'light'}
-        />
+        
       </LinearGradient>
     </SafeAreaView>
   );
