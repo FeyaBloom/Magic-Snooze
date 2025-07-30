@@ -321,11 +321,7 @@ export default function TasksTab() {
                 onPress={() => {
                   if (editingTask) {
                     deleteTask(editingTask.id);
-                    setShowEditModal(false);
-                    setEditingTask(null);
-                    setNewTaskText('');
-                    setNewTaskDueDate('');
-                  }
+                    }
                 }}
               >
                 <Trash2 size={16} color="#EF4444" />
