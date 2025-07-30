@@ -9,12 +9,12 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   gradient: {
     flex: 1,
     zIndex: -20,
-    position: 'absolute'
+    
   },
   scrollView: {
     flex: 1,
     zIndex: 5,
-    position: 'absolute'
+    
   },
   header: {
     padding: 20,
