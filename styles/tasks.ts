@@ -140,11 +140,11 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
 
 listDateText: {
- fontSize: 16,
+ fontSize: 12,
     color: colors.textSecondary,
     fontFamily: 'ComicNeue-Regular',
     alignItems: 'center',
-    marginBottom: 16, 
+    marginBottom: 4, 
 },
 
  
