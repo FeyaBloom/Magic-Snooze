@@ -6,12 +6,11 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   gradient: {
     flex: 1,
-     zIndex: -20,
-    
+    zIndex: -20,
   },
   scrollView: {
     flex: 1,
-     zIndex: 5,
+    zIndex: 5,
   },
   header: {
     padding: 20,
@@ -68,7 +67,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   taskContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center', // БЫЛО: 'flex-start'
     backgroundColor: colors.surface,
     padding: 16,
     borderRadius: 12,
@@ -99,17 +98,15 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     borderColor: colors.primary,
   },
   taskContent: {
-   // flex: 1,
-    flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  flexWrap: 'nowrap',
-  gap: 8,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    // gap: 8, // gap не поддерживается официально в RN, убери!
   },
   deleteButtonInline: {
     padding: 4,
-    alignItems: `right`,
-    marginRight: 28,
+    alignItems: 'center',
+    // marginRight: 28, // у кнопки действия не нужно!
   },
   taskText: {
     fontSize: 16,
@@ -117,6 +114,8 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     lineHeight: 22,
     marginBottom: 4,
     fontFamily: 'ComicNeue-Regular',
+    flexShrink: 1,
+    flexWrap: 'wrap',
   },
   taskTextCompleted: {
     textDecorationLine: 'line-through',
@@ -138,16 +137,13 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
   },
-
-listDateText: {
- fontSize: 12,
+  listDateText: {
+    fontSize: 12,
     color: colors.textSecondary,
     fontFamily: 'ComicNeue-Regular',
     alignItems: 'center',
     marginLeft: 4, 
-},
-
- 
+  },
   overdue: {
     color: '#EF4444',
     fontWeight: '600',
@@ -162,14 +158,13 @@ listDateText: {
   taskActions: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-  flexWrap: 'nowrap',
-  gap: 8,
+    // justifyContent: 'space-between', // не нужно для кнопки!
+    // gap: 8, // убери, не поддерживается
+    // marginLeft: 8, // если хочешь добавить небольшой отступ от текста
   },
   actionButton: {
     padding: 4,
-    alignItems: `right`,
-    marginRight: 28,
+    alignItems: 'center',
   },
   emptyState: {
     alignItems: 'center',
