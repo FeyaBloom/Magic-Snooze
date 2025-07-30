@@ -23,7 +23,6 @@ const { width: screenWidth } = Dimensions.get('window');
 export const FloatingCloud = () => ( <LottieView source={FloatingCloudJSON} autoPlay loop style={StyleSheet.absoluteFillObject,  {zIndex: -10}}
  /> );
 
-export const GentleStars = () => ( <LottieView source={GentleStarsJSON} autoPlay loop style={StyleSheet.absoluteFillObject, {zIndex: -10}} /> ); 
 export const GentleStars = () => ( <LottieView source={GentleStarsJSON} autoPlay loop style={[StyleSheet.absoluteFillObject, {zIndex: 1}]} /> );
 
 export const FloatingBackground: React.FC = () => {
