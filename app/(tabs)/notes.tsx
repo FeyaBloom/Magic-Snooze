@@ -3,7 +3,6 @@ import {
   View,
   Text,
   ScrollView,
-  StyleSheet,
   SafeAreaView,
   TouchableOpacity,
   TextInput,
@@ -214,7 +213,7 @@ export default function NotesTab() {
                     >
                       <Edit size={16} color={colors.textSecondary} />
                     </TouchableOpacity>
-                    {/* Удаление только в модалке! */}
+                    {/* Кнопка удаления только в модалке */}
                   </View>
                 </TouchableOpacity>
               ))}
@@ -346,7 +345,11 @@ export default function NotesTab() {
               <Text style={styles.viewDate}>
                 {viewingNote && formatDate(viewingNote.updatedAt)}
               </Text>
-              <ScrollView style={styles.viewContent} showsVerticalScrollIndicator={false}>
+              <ScrollView
+                style={styles.viewContent}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{paddingBottom: 8}}
+              >
                 <Text style={styles.viewText}>
                   {viewingNote?.content}
                 </Text>
