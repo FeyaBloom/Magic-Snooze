@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
 interface Task {
   id: string;
   text: string;
@@ -35,14 +36,15 @@ export default function TasksTab() {
   const [newTaskText, setNewTaskText] = useState('');
   const [newTaskDueDate, setNewTaskDueDate] = useState('');
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-  const [dueDate, setDueDate] = useState(new Date()); 
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false); 
-  const showDatePicker = () => setDatePickerVisibility(true); 
-  const hideDatePicker = () => setDatePickerVisibility(false); 
-  const handleConfirm = (date: Date) => { 
-    setDueDate(date); 
-    setNewTaskDueDate(date.toISOString()); 
-    hideDatePicker(); 
+  const [dueDate, setDueDate] = useState(new Date());
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => setDatePickerVisibility(true);
+  const hideDatePicker = () => setDatePickerVisibility(false);
+  const handleConfirm = (date: Date) => {
+    setDueDate(date);
+    setNewTaskDueDate(date.toISOString());
+    hideDatePicker();
   };
 
   useEffect(() => {
@@ -109,7 +111,6 @@ export default function TasksTab() {
     const updatedTasks = tasks.map(task =>
       task.id === taskId ? { ...task, completed: !task.completed } : task
     );
-
     await saveTasks(updatedTasks);
   };
 
@@ -165,7 +166,7 @@ export default function TasksTab() {
         colors={colors.background}
         style={styles.gradient}
       >
-         <FloatingBackground style={styles.floatingBackgroundStyle} />
+        <FloatingBackground style={styles.floatingBackgroundStyle} />
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>Your Tasks 🎯</Text>
@@ -188,7 +189,6 @@ export default function TasksTab() {
                   >
                     {task.completed && <CheckCircle2 size={20} color="#FFFFFF" />}
                   </TouchableOpacity>
-                  
                   <View style={styles.taskContent}>
                     <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>
                       {task.text}
@@ -205,8 +205,7 @@ export default function TasksTab() {
                         </Text>
                       </View>
                     )}
-                  
-                  
+                  </View>
                   <View style={styles.taskActions}>
                     <TouchableOpacity
                       style={styles.deleteButtonInline}
@@ -217,9 +216,8 @@ export default function TasksTab() {
                         setShowEditModal(true);
                       }}
                     >
-                   <Edit size={16} color={colors.textSecondary} />
+                      <Edit size={16} color={colors.textSecondary} />
                     </TouchableOpacity>
-                  </View>
                   </View>
                 </View>
               ))}
@@ -237,13 +235,10 @@ export default function TasksTab() {
                   >
                     <CheckCircle2 size={20} color="#FFFFFF" />
                   </TouchableOpacity>
-                  
                   <View style={styles.taskContent}>
-                    
-                    <Text style={[styles.taskText, styles.taskTextCompleted, { flex: 1 }]}>
+                    <Text style={[styles.taskText, styles.taskTextCompleted]}>
                       {task.text}
                     </Text>
-                                        
                     {task.dueDate && (
                       <View style={styles.dueDateContainer}>
                         <Calendar size={12} color="#9CA3AF" />
@@ -252,24 +247,19 @@ export default function TasksTab() {
                         </Text>
                       </View>
                     )}
-                    
+                  </View>
                   <View style={styles.taskActions}>
-                    
                     <TouchableOpacity
                       style={styles.deleteButtonInline}
                       onPress={() => deleteTask(task.id)}
                     >
                       <Trash2 size={16} color="#EF4444" />
                     </TouchableOpacity>
-                       
                   </View>
-                     </View>
                 </View>
               ))}
             </View>
-              
           )}
-          
 
           {tasks.length === 0 && (
             <View style={styles.emptyState}>
@@ -281,6 +271,7 @@ export default function TasksTab() {
           )}
         </ScrollView>
 
+        {/* Add Task Modal */}
         <Modal visible={showAddModal} animationType="slide" transparent>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
@@ -298,7 +289,7 @@ export default function TasksTab() {
                   {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
                 </Text>
               </TouchableOpacity>
-              
+
               <View style={styles.modalButtons}>
                 <TouchableOpacity
                   style={[styles.modalButton, styles.cancelButton]}
@@ -321,11 +312,12 @@ export default function TasksTab() {
           </View>
         </Modal>
 
+        {/* Edit Task Modal */}
         <Modal visible={showEditModal} animationType="slide" transparent>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <TouchableOpacity 
-                style={styles.deleteButton} 
+              <TouchableOpacity
+                style={styles.deleteButton}
                 onPress={() => {
                   if (editingTask) {
                     deleteTask(editingTask.id);
@@ -338,7 +330,7 @@ export default function TasksTab() {
               >
                 <Trash2 size={16} color="#EF4444" />
               </TouchableOpacity>
-              
+
               <Text style={styles.modalTitle}>Edit Task</Text>
               <TextInput
                 style={styles.textInput}
@@ -353,7 +345,7 @@ export default function TasksTab() {
                   {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
                 </Text>
               </TouchableOpacity>
-              
+
               <View style={styles.modalButtons}>
                 <TouchableOpacity
                   style={[styles.modalButton, styles.cancelButton]}
@@ -376,13 +368,13 @@ export default function TasksTab() {
             </View>
           </View>
         </Modal>
-        <DateTimePickerModal 
-          isVisible={isDatePickerVisible} 
-          mode="date" 
-          date={dueDate} 
-          onConfirm={handleConfirm} 
-          onCancel={hideDatePicker} 
-          themeVariant={colors.theme === 'nightforest' ? 'dark' : 'light'} 
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          date={dueDate}
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+          themeVariant={colors.theme === 'nightforest' ? 'dark' : 'light'}
         />
       </LinearGradient>
     </SafeAreaView>
