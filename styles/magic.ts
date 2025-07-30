@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native';
 export const createMagicStyles = (colors: any) => StyleSheet.create({
   checkboxContainer: { position: 'relative', width: 32, height: 32 },
  
-  floatingBackgroundStyle {
+  floatingBackgroundStyle: {
   zIndex: -1,
   }
   magicalCheckbox: {
