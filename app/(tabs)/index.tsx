@@ -310,6 +310,8 @@ function TodayTabContent() {
             const updated = updateRoutine.filter(step => step.id !== stepId);
             setRoutine(updated);
             await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
+             setShowEditModal(false);
+            setEditingStep(null);
           },
         },
       ]
