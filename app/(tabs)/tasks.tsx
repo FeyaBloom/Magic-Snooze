@@ -241,16 +241,17 @@ export default function TasksTab() {
                     <Text style={[styles.taskText, styles.taskTextCompleted]}>
                       {task.text}
                     </Text>
-                     <View style={styles.taskActions}>
+                     <View style={styles.noteActions}>
                     
                     <TouchableOpacity
                       style={styles.actionButton}
-                  
                       onPress={() => deleteTask(task.id)}
                     >
                       <Trash2 size={16} color="#EF4444" />
                     </TouchableOpacity>
+                       
                   </View>
+                    
                     {task.dueDate && (
                       <View style={styles.dueDateContainer}>
                         <Calendar size={12} color="#9CA3AF" />
