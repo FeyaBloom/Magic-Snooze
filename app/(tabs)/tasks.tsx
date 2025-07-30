@@ -239,13 +239,13 @@ export default function TasksTab() {
                   
                   <View style={styles.taskContent}>
                     
-                    <Text style={[styles.taskText, styles.taskTextCompleted]}>
+                    <Text style={[styles.taskText, styles.taskTextCompleted, { flex: 1 }]}>
                       {task.text}
                     </Text>
                      <View style={styles.taskActions}>
                     
                     <TouchableOpacity
-                      style={styles.deleteButton}
+                      style={styles.deleteButtonInline}
                       onPress={() => deleteTask(task.id)}
                     >
                       <Trash2 size={16} color="#EF4444" />
