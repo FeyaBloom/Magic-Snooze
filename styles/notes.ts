@@ -29,7 +29,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'ComicNeue-Regular',
   },
-  searchContainer: {
+ searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.surface,
@@ -51,6 +51,9 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     marginLeft: 12,
     fontFamily: 'ComicNeue-Regular',
+    height: '100%',
+    paddingVertical: 0,
+    textAlignVertical: 'center',
   },
   addNoteButton: {
     flexDirection: 'row',
