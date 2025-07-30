@@ -9,7 +9,8 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
  
   floatingBackgroundStyle: {
   zIndex: -1,
-   position: 'absolute'  
+   position: 'absolute',
+    top: 0, left: 0, right: 0, bottom: 0,
   },
   magicalCheckbox: {
     width: 32,
