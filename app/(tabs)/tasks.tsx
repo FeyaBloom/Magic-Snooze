@@ -205,7 +205,7 @@ export default function TasksTab() {
                         </Text>
                       </View>
                     )}
-                  </View>
+                  
                   
                   <View style={styles.taskActions}>
                     <TouchableOpacity
@@ -217,9 +217,9 @@ export default function TasksTab() {
                         setShowEditModal(true);
                       }}
                     >
-                      <Edit size={16} color={colors.textSecondary} />
+                   <Edit size={16} color={colors.textSecondary} />
                     </TouchableOpacity>
-                   
+                  </View>
                   </View>
                 </View>
               ))}
