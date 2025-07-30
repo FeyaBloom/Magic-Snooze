@@ -136,7 +136,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     color: colors.textSecondary,
     marginLeft: 4,
     fontFamily: 'ComicNeue-Regular',
-    flexDirection: 'row',
+   // flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
   },
