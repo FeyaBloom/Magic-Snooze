@@ -244,7 +244,7 @@ export default function TasksTab() {
                      <View style={styles.taskActions}>
                     
                     <TouchableOpacity
-                      style={styles.actionButton}
+                      style={styles.deleteButton}
                       onPress={() => deleteTask(task.id)}
                     >
                       <Trash2 size={16} color="#EF4444" />
