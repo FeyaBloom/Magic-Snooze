@@ -243,8 +243,7 @@ export default function TasksTab() {
                     <Text style={[styles.taskText, styles.taskTextCompleted, { flex: 1 }]}>
                       {task.text}
                     </Text>
-                    
-                    
+                                        
                     {task.dueDate && (
                       <View style={styles.dueDateContainer}>
                         <Calendar size={12} color="#9CA3AF" />
