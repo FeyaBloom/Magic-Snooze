@@ -405,7 +405,7 @@ function TodayTabContent() {
         colors={colors.background}
         style={styles.gradient}
       >
-        <FloatingBackground />
+        
         
         <>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
