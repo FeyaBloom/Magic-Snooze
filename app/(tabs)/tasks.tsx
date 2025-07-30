@@ -209,7 +209,7 @@ export default function TasksTab() {
                   
                   <View style={styles.taskActions}>
                     <TouchableOpacity
-                      style={styles.actionButton}
+                      style={styles.deleteButtonInline}
                       onPress={() => {
                         setEditingTask(task);
                         setNewTaskText(task.text);
