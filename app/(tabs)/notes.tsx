@@ -14,7 +14,7 @@ import { Plus, Pencil as Edit, Trash2, Search, BookOpen } from 'lucide-react-nat
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createNotesStyles } from '@/styles/notes';
-import {FloatingBackground} from '@/components/MagicalFeatures ';
+import {FloatingBackground} from '@/components/MagicalFeatures';
 
 interface Note {
   id: string;
