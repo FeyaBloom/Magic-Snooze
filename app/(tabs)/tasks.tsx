@@ -230,8 +230,7 @@ export default function TasksTab() {
               <Text style={styles.sectionTitle}>Completed Tasks <Sparkles size={20} color={colors.text} /></Text>
               {completedTasks.map(task => (
                 <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
-                  
- <MagicalCheckbox
+                   <MagicalCheckbox
             completed={task.completed}
             onPress={() => toggleTask(task.id)}
             
