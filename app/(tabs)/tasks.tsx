@@ -164,7 +164,7 @@ export default function TasksTab() {
         colors={colors.background}
         style={styles.gradient}
       >
-        <FloatingBackground style={styles.floatingBackgroundStyle} />
+       
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>Your Tasks 🎯</Text>
