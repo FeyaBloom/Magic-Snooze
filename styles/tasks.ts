@@ -90,7 +90,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     borderColor: '#D1D5DB',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
+    marginRight: 22,
     marginTop: 2,
   },
   checkboxCompleted: {
