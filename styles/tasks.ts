@@ -82,21 +82,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     backgroundColor: colors.surface,
     opacity: 0.7,
   },
-  checkbox: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: '#D1D5DB',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 22,
-    marginTop: 2,
-  },
-  checkboxCompleted: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-  },
+  
   taskContent: {
     flex: 1,
     flexDirection: 'column',
