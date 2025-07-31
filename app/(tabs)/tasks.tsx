@@ -3,17 +3,17 @@ import {
   View,
   Text,
   ScrollView,
-  StyleSheet,
   SafeAreaView,
   TouchableOpacity,
   TextInput,
   Modal,
   Alert,
+  StyleSheet,
 } from 'react-native';
 import { theme } from "@/components/ThemeProvider";
 import { MagicalCheckbox, FloatingBackground } from "@/components/MagicalFeatures";
 import { LinearGradient } from 'expo-linear-gradient';
-import { Plus, Pencil as Edit, Trash2, Calendar, CircleCheck as CheckCircle2, Sparkles } from 'lucide-react-native';
+import { Plus, Pencil as Edit, Trash2, Calendar, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
@@ -139,7 +139,8 @@ export default function TasksTab() {
     });
   };
 
-  const isOverdue = (dueDate: string) => {
+  const isOverdue = (dueDate?: string) => {
+    if (!dueDate) return false;
     const today = new Date();
     const due = new Date(dueDate);
     today.setHours(0, 0, 0, 0);
@@ -147,7 +148,8 @@ export default function TasksTab() {
     return due < today;
   };
 
-  const isDueToday = (dueDate: string) => {
+  const isDueToday = (dueDate?: string) => {
+    if (!dueDate) return false;
     const today = new Date();
     const due = new Date(dueDate);
     today.setHours(0, 0, 0, 0);
@@ -159,229 +161,231 @@ export default function TasksTab() {
   const activeTasks = tasks.filter(task => !task.completed);
 
   return (
-    <SafeAreaView style={[styles.container, {position: 'relative'}]}>
-      <LinearGradient colors={colors.background}  
-        style={[styles.gradient, {zIndex:-20}]}      
-      >
-      <FloatingBackground style={[styles.floatingBackgroundStyle, {zIndex:-10}]} />
-        <ScrollView style={[styles.scrollView, {zIndex:0}]} showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Your Tasks 🎯</Text>
-            <Text style={styles.subtitle}>One step at a time, you've got this!</Text>
-          </View>
+    <SafeAreaView style={[styles.container, { position: 'relative', flex: 1 }]}>
+      {/* LinearGradient - фон приложения */}
+      <LinearGradient
+        colors={colors.background}
+        style={[styles.gradient, StyleSheet.absoluteFillObject, { zIndex: 0 }]}
+      />
+      {/* FloatingBackground - плавающие анимации между фоном и контентом */}
+      <FloatingBackground />
+      {/* Контент (ScrollView и задачи) */}
+      <ScrollView style={[styles.scrollView, { zIndex: 1 }]} showsVerticalScrollIndicator={false}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Your Tasks 🎯</Text>
+          <Text style={styles.subtitle}>One step at a time, you've got this!</Text>
+        </View>
 
-          <TouchableOpacity style={styles.addTaskButton} onPress={() => setShowAddModal(true)}>
-            <Plus size={24} color="#FFFFFF" />
-            <Text style={styles.addTaskText}>Add New Task</Text>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.addTaskButton} onPress={() => setShowAddModal(true)}>
+          <Plus size={24} color="#FFFFFF" />
+          <Text style={styles.addTaskText}>Add New Task</Text>
+        </TouchableOpacity>
 
-          {activeTasks.length > 0 && (
-            <View style={styles.taskSection}>
-              <Text style={styles.sectionTitle}>Active Tasks</Text>
-              {activeTasks.map(task => (
-                <View key={task.id} style={styles.taskContainer}>
-                  <MagicalCheckbox
-                    completed={task.completed}
-                    onPress={() => toggleTask(task.id)}
-                  />
-                  <View style={styles.taskContent}>
-                    <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>
-                      {task.text}
-                    </Text>
-                    {task.dueDate && (
-                      <View style={styles.dueDateContainer}>
-                        <Calendar size={12} color="#6B7280" />
-                        <Text style={[
-                          styles.listDateText,
-                          task.dueDate && !task.completed && isOverdue(task.dueDate) && styles.overdue,
-                          task.dueDate && !task.completed && isDueToday(task.dueDate) && styles.dueToday,
-                        ]}>
-                          {formatDate(task.dueDate)}
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-                  <View style={styles.taskActions}>
-                    <TouchableOpacity
-                      style={styles.deleteButtonInline}
-                      onPress={() => {
-                        setEditingTask(task);
-                        setNewTaskText(task.text);
-                        setNewTaskDueDate(task.dueDate || '');
-                        setShowEditModal(true);
-                      }}
-                    >
-                      <Edit size={16} color={colors.textSecondary} />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              ))}
-            </View>
-          )}
-
-          {completedTasks.length > 0 && (
-            <View style={styles.taskSection}>
-              <Text style={styles.sectionTitle}>Completed Tasks <Sparkles size={20} color={colors.text} /></Text>
-              {completedTasks.map(task => (
-                <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
-                  <MagicalCheckbox
-                    completed={task.completed}
-                    onPress={() => toggleTask(task.id)}
-                  />
-                  <View style={styles.taskContent}>
-                    <Text style={[styles.taskText, styles.taskTextCompleted]}>
-                      {task.text}
-                    </Text>
-                    {task.dueDate && (
-                      <View style={styles.dueDateContainer}>
-                        <Calendar size={12} color="#9CA3AF" />
-                        <Text style={[styles.listDateText, styles.completedDueDate]}>
-                          {formatDate(task.dueDate)}
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-                  <View style={styles.taskActions}>
-                    <TouchableOpacity
-                      style={styles.deleteButtonInline}
-                      onPress={() => deleteTask(task.id)}
-                    >
-                      <Trash2 size={16} color="#EF4444" />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              ))}
-            </View>
-          )}
-
-          {tasks.length === 0 && (
-            <View style={styles.emptyState}>
-              <Text style={styles.emptyStateText}>No tasks yet</Text>
-              <Text style={styles.emptyStateSubtext}>
-                Add your first task to get started on your journey
-              </Text>
-            </View>
-          )}
-        </ScrollView>
-
-        {/* Add Task Modal */}
-        <Modal visible={showAddModal} animationType="slide" transparent>
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Add New Task</Text>
-              <TextInput
-                style={styles.textInput}
-                placeholder="What would you like to accomplish?"
-                value={newTaskText}
-                onChangeText={setNewTaskText}
-                multiline
-                autoFocus
-              />
-              <TouchableOpacity onPress={() => setShowCalendar(v => !v)} style={styles.datePickerButton}>
-                <Text style={styles.dueDateText}>
-                  {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
-                </Text>
-              </TouchableOpacity>
-              {showCalendar && (
-                <CustomCalendar
-                  selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
-                  onSelect={date => {
-                    setNewTaskDueDate(date.toISOString());
-                    setShowCalendar(false);
-                  }}
+        {activeTasks.length > 0 && (
+          <View style={styles.taskSection}>
+            <Text style={styles.sectionTitle}>Active Tasks</Text>
+            {activeTasks.map(task => (
+              <View key={task.id} style={styles.taskContainer}>
+                <MagicalCheckbox
+                  checked={task.completed}
+                  onPress={() => toggleTask(task.id)}
                 />
-              )}
-
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={() => {
-                    setShowAddModal(false);
-                    setNewTaskText('');
-                    setNewTaskDueDate('');
-                    setShowCalendar(false);
-                  }}
-                >
-                  <Text style={styles.cancelButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.saveButton]}
-                  onPress={addTask}
-                >
-                  <Text style={styles.saveButtonText}>Add Task</Text>
-                </TouchableOpacity>
+                <View style={styles.taskContent}>
+                  <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>
+                    {task.text}
+                  </Text>
+                  {task.dueDate && (
+                    <View style={styles.dueDateContainer}>
+                      <Calendar size={12} color="#6B7280" />
+                      <Text style={[
+                        styles.listDateText,
+                        !task.completed && isOverdue(task.dueDate) && styles.overdue,
+                        !task.completed && isDueToday(task.dueDate) && styles.dueToday,
+                      ]}>
+                        {formatDate(task.dueDate)}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+                <View style={styles.taskActions}>
+                  <TouchableOpacity
+                    style={styles.deleteButtonInline}
+                    onPress={() => {
+                      setEditingTask(task);
+                      setNewTaskText(task.text);
+                      setNewTaskDueDate(task.dueDate || '');
+                      setShowEditModal(true);
+                    }}
+                  >
+                    <Edit size={16} color={colors.textSecondary} />
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
+            ))}
           </View>
-        </Modal>
+        )}
 
-        {/* Edit Task Modal */}
-        <Modal visible={showEditModal} animationType="slide" transparent>
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
+        {completedTasks.length > 0 && (
+          <View style={styles.taskSection}>
+            <Text style={styles.sectionTitle}>Completed Tasks <Sparkles size={20} color={colors.text} /></Text>
+            {completedTasks.map(task => (
+              <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
+                <MagicalCheckbox
+                  checked={task.completed}
+                  onPress={() => toggleTask(task.id)}
+                />
+                <View style={styles.taskContent}>
+                  <Text style={[styles.taskText, styles.taskTextCompleted]}>
+                    {task.text}
+                  </Text>
+                  {task.dueDate && (
+                    <View style={styles.dueDateContainer}>
+                      <Calendar size={12} color="#9CA3AF" />
+                      <Text style={[styles.listDateText, styles.completedDueDate]}>
+                        {formatDate(task.dueDate)}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+                <View style={styles.taskActions}>
+                  <TouchableOpacity
+                    style={styles.deleteButtonInline}
+                    onPress={() => deleteTask(task.id)}
+                  >
+                    <Trash2 size={16} color="#EF4444" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ))}
+          </View>
+        )}
+
+        {tasks.length === 0 && (
+          <View style={styles.emptyState}>
+            <Text style={styles.emptyStateText}>No tasks yet</Text>
+            <Text style={styles.emptyStateSubtext}>
+              Add your first task to get started on your journey
+            </Text>
+          </View>
+        )}
+      </ScrollView>
+
+      {/* Add Task Modal */}
+      <Modal visible={showAddModal} animationType="slide" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Add New Task</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="What would you like to accomplish?"
+              value={newTaskText}
+              onChangeText={setNewTaskText}
+              multiline
+              autoFocus
+            />
+            <TouchableOpacity onPress={() => setShowCalendar(v => !v)} style={styles.datePickerButton}>
+              <Text style={styles.dueDateText}>
+                {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
+              </Text>
+            </TouchableOpacity>
+            {showCalendar && (
+              <CustomCalendar
+                selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+                onSelect={date => {
+                  setNewTaskDueDate(date.toISOString());
+                  setShowCalendar(false);
+                }}
+              />
+            )}
+
+            <View style={styles.modalButtons}>
               <TouchableOpacity
-                style={styles.deleteButton}
+                style={[styles.modalButton, styles.cancelButton]}
                 onPress={() => {
-                  if (editingTask) {
-                    deleteTask(editingTask.id);
-                  }
+                  setShowAddModal(false);
+                  setNewTaskText('');
+                  setNewTaskDueDate('');
+                  setShowCalendar(false);
                 }}
               >
-                <Trash2 size={16} color="#EF4444" />
+                <Text style={styles.cancelButtonText}>Cancel</Text>
               </TouchableOpacity>
-
-              <Text style={styles.modalTitle}>Edit Task</Text>
-              <TextInput
-                style={styles.textInput}
-                placeholder="What would you like to accomplish?"
-                value={newTaskText}
-                onChangeText={setNewTaskText}
-                multiline
-                autoFocus
-              />
               <TouchableOpacity
-                onPress={() => setShowEditCalendar(v => !v)}
-                style={styles.datePickerButton}
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={addTask}
               >
-                <Text style={styles.dueDateText}>
-                  {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
-                </Text>
+                <Text style={styles.saveButtonText}>Add Task</Text>
               </TouchableOpacity>
-              {showEditCalendar && (
-                <CustomCalendar
-                  selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
-                  onSelect={date => {
-                    setNewTaskDueDate(date.toISOString());
-                    setShowEditCalendar(false);
-                  }}
-                />
-              )}
-
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={() => {
-                    setShowEditModal(false);
-                    setNewTaskText('');
-                    setNewTaskDueDate('');
-                    setEditingTask(null);
-                    setShowEditCalendar(false);
-                  }}
-                >
-                  <Text style={styles.cancelButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.saveButton]}
-                  onPress={editTask}
-                >
-                  <Text style={styles.saveButtonText}>Save</Text>
-                </TouchableOpacity>
-              </View>
             </View>
           </View>
-        </Modal>
+        </View>
+      </Modal>
 
-      </LinearGradient>
+      {/* Edit Task Modal */}
+      <Modal visible={showEditModal} animationType="slide" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => {
+                if (editingTask) {
+                  deleteTask(editingTask.id);
+                }
+              }}
+            >
+              <Trash2 size={16} color="#EF4444" />
+            </TouchableOpacity>
+
+            <Text style={styles.modalTitle}>Edit Task</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="What would you like to accomplish?"
+              value={newTaskText}
+              onChangeText={setNewTaskText}
+              multiline
+              autoFocus
+            />
+            <TouchableOpacity
+              onPress={() => setShowEditCalendar(v => !v)}
+              style={styles.datePickerButton}
+            >
+              <Text style={styles.dueDateText}>
+                {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
+              </Text>
+            </TouchableOpacity>
+            {showEditCalendar && (
+              <CustomCalendar
+                selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+                onSelect={date => {
+                  setNewTaskDueDate(date.toISOString());
+                  setShowEditCalendar(false);
+                }}
+              />
+            )}
+
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => {
+                  setShowEditModal(false);
+                  setNewTaskText('');
+                  setNewTaskDueDate('');
+                  setEditingTask(null);
+                  setShowEditCalendar(false);
+                }}
+              >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={editTask}
+              >
+                <Text style={styles.saveButtonText}>Save</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
