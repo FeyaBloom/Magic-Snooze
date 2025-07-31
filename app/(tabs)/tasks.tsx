@@ -179,19 +179,9 @@ export default function TasksTab() {
             <View style={styles.taskSection}>
               <Text style={styles.sectionTitle}>Active Tasks</Text>
               {activeTasks.map(task => (
-                <View key={task.id} style={styles.taskContainer}>
-                  <TouchableOpacity
-                    style={[styles.checkbox, task.completed && styles.checkboxCompleted]}
-                    onPress={() => toggleTask(task.id)}
-                  >
-                    {task.completed && <CheckCircle2 size={20} color="#FFFFFF" />}                   
-                  </TouchableOpacity>
-                  
-                  
-          <MagicalCheckbox
+                <View key={task.id} style={styles.taskContainer}>                            <MagicalCheckbox             
             completed={task.completed}
-            onPress={() => toggleTask(task.id)}
-            style={[styles.checkbox, task.completed && styles.checkboxCompleted]}
+            onPress={() => toggleTask(task.id)}           
           />
                   <View style={styles.taskContent}>
                     <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>
