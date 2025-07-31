@@ -185,6 +185,10 @@ export default function TasksTab() {
                     onPress={() => toggleTask(task.id)}
                   >
                     {task.completed && <CheckCircle2 size={20} color="#FFFFFF" />}
+
+
+
+                    
                   </TouchableOpacity>
                   <View style={styles.taskContent}>
                     <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>
@@ -232,6 +236,12 @@ export default function TasksTab() {
                   >
                     <CheckCircle2 size={20} color="#FFFFFF" />
                   </TouchableOpacity>
+ <MagicalCheckbox
+            completed={task.completed}
+            onPress={() => toggleTask(task.id)}
+            
+          />
+                  
                   <View style={styles.taskContent}>
                     <Text style={[styles.taskText, styles.taskTextCompleted]}>
                       {task.text}
