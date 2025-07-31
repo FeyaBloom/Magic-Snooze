@@ -487,7 +487,7 @@ function TodayTabContent() {
           {todayProgress && (
            
               <View style={[styles.progressSection, { backgroundColor: colors.surface }, { color: colors.text}]}>
-                <Text style={[styles.progressTitle, { color: colors.text}]}>Today's Progress <Sparkles size={20} color={`colors.text`} /></Text>
+                <Text style={[styles.progressTitle, { color: colors.text}]}>Today's Progress <Sparkles size={20} /></Text>
                 <View style={styles.progressStats}>
                   <View style={styles.progressStat}>
                     <Text style={[styles.progressLabel, { color: colors.textSecondary, fontFamily: 'ComicNeue-Regular' }]}>Morning</Text>
