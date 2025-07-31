@@ -30,22 +30,7 @@ const CustomCalendarHeader: React.FC<CustomCalendarHeaderProps> = ({ onPrev, onN
   );
 };
 
-const styles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-  },
-  headerText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  navButton: {
-    padding: 4,
-  },
-});
+
 
 export default CustomCalendarHeader;
 
@@ -146,6 +131,16 @@ export const CustomCalendar: React.FC<Props> = ({ selectedDate, onSelect }) => {
 };
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+  },
+  navButton: {
+    padding: 4,
+  },
   calendarContainer: {
     borderRadius: 12,
     padding: 16,
