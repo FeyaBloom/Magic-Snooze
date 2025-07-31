@@ -67,7 +67,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   taskContainer: {
     flexDirection: 'row',
-    alignItems: 'center', // БЫЛО: 'flex-start'
+    alignItems: 'center', 
     backgroundColor: colors.surface,
     padding: 16,
     borderRadius: 12,
