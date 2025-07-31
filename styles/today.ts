@@ -8,7 +8,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   gradient: {
     flex: 1,
-    zIndex: -20,
+    zIndex: 0,
     
   },
   scrollView: {
