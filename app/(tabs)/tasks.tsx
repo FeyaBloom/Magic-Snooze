@@ -160,11 +160,10 @@ export default function TasksTab() {
 
   return (
     <SafeAreaView style={[styles.container, {position: 'relative'}]}>
-      <LinearGradient
-        colors={colors.background}
-        style={styles.gradient}
+      <LinearGradient colors={colors.background}  
+        style={[styles.gradient, {zIndex:-20}]}      
       >
-        <FloatingBackground style={styles.floatingBackgroundStyle} />
+      <FloatingBackground style={[styles.floatingBackgroundStyle, {zIndex:-10}]} />
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>Your Tasks 🎯</Text>
