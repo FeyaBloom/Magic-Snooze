@@ -87,7 +87,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    marginLeft: 4,
+    marginLeft: 8,
     // gap: 8, // gap не поддерживается официально в RN, убери!
   },
   deleteButtonInline: {
