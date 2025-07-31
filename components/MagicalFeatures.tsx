@@ -58,6 +58,8 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
       Animated.timing(scaleAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
     ]).start(() => {
       if (!completed)  onPress();
+    });
+  };
   
   return (
     <View style={styles.checkboxContainer}>
@@ -70,14 +72,13 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
         onPress={handlePress}
         disabled={disabled}
       >
-
- <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
+        <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
           {completed && <Sparkles size={20} color={colors.accent} />}
-        </Animated.View>        
+        </Animated.View>
       </TouchableOpacity>     
     </View>
-  )});
-    };
+  );
+};
 // ---- TINY VICTORY W/ CONFETTI ----
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const { colors } = useTheme();
