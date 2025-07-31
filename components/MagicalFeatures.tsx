@@ -64,15 +64,7 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
     onPress();
   };
 
-  const triggerSparkles = () => {
-    const newSparkles = Array.from({ length: 4 }, (_, i) => ({
-      id: Date.now() + i,
-      x: Math.random() * 24 - 12,
-      y: Math.random() * 24 - 12,
-    }));
-    setSparkles(newSparkles);
-    setTimeout(() => setSparkles([]), 1000);
-  };
+
 
   return (
     <View style={styles.checkboxContainer}>
