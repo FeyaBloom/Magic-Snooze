@@ -191,7 +191,7 @@ export default function TasksTab() {
           <MagicalCheckbox
             completed={task.completed}
             onPress={() => toggleTask(task.id)}
-           
+            style={[styles.checkbox, task.completed && styles.checkboxCompleted]}
           />
                   <View style={styles.taskContent}>
                     <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>
