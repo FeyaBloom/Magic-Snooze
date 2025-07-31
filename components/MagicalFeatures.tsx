@@ -61,7 +61,7 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
       if (!completed) 
 
     onPress();
-  };
+  
 
  
 
