@@ -19,12 +19,25 @@ const { width: screenWidth } = Dimensions.get('window');
 
 // ---- FLOATING BACKGROUNDS ----
 
-  const FloatingCloud = () => ( <LottieView source={FloatingCloudJSON} autoPlay loop style={StyleSheet.absoluteFillObject,  {zIndex: -1, position: 'absolute'}}
- /> ); 
-  const GentleStars = () => ( <LottieView source={GentleStarsJSON} autoPlay loop style={[StyleSheet.absoluteFillObject, {zIndex: -1, position: 'absolute'}]} /> );
+  const FloatingCloud = () => (
+  <LottieView
+    source={FloatingCloudJSON}
+    autoPlay
+    loop
+    style={[StyleSheet.absoluteFillObject, {zIndex: -1}]}
+  />
+);
+const GentleStars = () => (
+  <LottieView
+    source={GentleStarsJSON}
+    autoPlay
+    loop
+    style={[StyleSheet.absoluteFillObject, {zIndex: -1}]}
+  />
+);
 
-export const FloatingBackground: React.FC = () => {
- const { currentTheme } = useTheme();
+export const FloatingBackground: React.FC<{ style?: any }> = ({ style }) => {
+  const { currentTheme } = useTheme();
   if (currentTheme === 'daydream') return <FloatingCloud />;
   if (currentTheme === 'nightforest') return <GentleStars />;
   return null;
