@@ -81,7 +81,7 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
      
     </View>
   );
-}
+}}
 
 // ---- TINY VICTORY W/ CONFETTI ----
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
