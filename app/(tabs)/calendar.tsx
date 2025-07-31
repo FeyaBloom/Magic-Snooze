@@ -13,6 +13,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles, dayWidth } from '@/styles/calendar';
+import {FloatingBackground} from '@/components/MagicalFeatures ';
 
 interface DailyProgress {
   date: string;
@@ -126,7 +127,7 @@ export default function CalendarTab() {
         {dayStatus !== 'none' && (
           <View style={styles.statusDot}>
             <Text style={styles.statusEmoji}>
-              {dayStatus === 'complete' ? '✨' : dayStatus === 'partial' ? '🌟' : '💤'}
+              {dayStatus === 'complete' ? '🏆' : dayStatus === 'partial' ? '🌟' : '💤'}
             </Text>
           </View>
         )}
@@ -193,6 +194,7 @@ export default function CalendarTab() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={colors.background} style={styles.gradient}>
+          <FloatingBackground />
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>Your Journey 📅</Text>
