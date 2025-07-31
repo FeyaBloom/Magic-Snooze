@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
 
-import Calendar from '@/components/calendar'; 
+import CustomCalendar from '@/components/calendar'; 
 interface Task {
   id: string;
   text: string;
@@ -290,7 +290,7 @@ setShowCalendar(false);
                 </Text>
               </TouchableOpacity>
 {showCalendar && (
-                <Calendar
+                <CustomCalendar
                   selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
                   onSelect={date => {
                     setNewTaskDueDate(date.toISOString());
@@ -354,7 +354,7 @@ onPress={() => setShowEditCalendar(v => !v)} style={styles.datePickerButton}>
               </TouchableOpacity>
 
 {showEditCalendar && (
-                <Calendar
+                <CustomCalendar
                   selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
                   onSelect={date => {
                     setNewTaskDueDate(date.toISOString());
