@@ -159,7 +159,7 @@ export default function TasksTab() {
   const activeTasks = tasks.filter(task => !task.completed);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView {[styles.container, {position: 'relative'}]}>
       <LinearGradient
         colors={colors.background}
         style={styles.gradient}
