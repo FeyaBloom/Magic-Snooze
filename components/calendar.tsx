@@ -8,64 +8,44 @@ import {
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 
-interface CustomCalendarHeaderProps {
-  onPrev: () => void;
-  onNext: () => void;
-  monthLabel: string;
-}
-
-const CustomCalendarHeader: React.FC<CustomCalendarHeaderProps> = ({ onPrev, onNext, monthLabel }) => {
-  const { colors } = useTheme();
-
-  return (
-    <View style={styles.headerContainer}>
-      <TouchableOpacity onPress={onPrev} style={styles.navButton}>
-        <ChevronLeft size={20} color={colors.text} />
-      </TouchableOpacity>
-      <Text style={[styles.headerText, { color: colors.text }]}>{monthLabel}</Text>
-      <TouchableOpacity onPress={onNext} style={styles.navButton}>
-        <ChevronRight size={20} color={colors.text} />
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-
-
-export default CustomCalendarHeader;
-
-
 const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
-interface Props {
-  selectedDate: Date;
+interface CalendarProps {
+  selected?: Date;
   onSelect: (date: Date) => void;
 }
 
-export const CustomCalendar: React.FC<Props> = ({ selectedDate, onSelect }) => {
+export const CustomCalendar: React.FC<CalendarProps> = ({
+  selected,
+  onSelect,
+}) => {
   const { colors } = useTheme();
-  const [currentMonth, setCurrentMonth] = React.useState(new Date(selectedDate));
+  // Текущий месяц по выбранной дате или сегодняшнему дню
+  const [currentMonth, setCurrentMonth] = React.useState<Date>(selected ? new Date(selected) : new Date());
+
+  React.useEffect(() => {
+    if (selected) {
+      setCurrentMonth(new Date(selected));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected?.toDateString()]); // обновляем месяц если выбрана новая дата
 
   const getDaysInMonth = (date: Date) => {
     const start = new Date(date.getFullYear(), date.getMonth(), 1);
     const end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     const days = [];
-
     for (let i = 1; i <= end.getDate(); i++) {
       days.push(new Date(date.getFullYear(), date.getMonth(), i));
     }
-
     return { days, startDay: start.getDay() };
   };
 
   const prevMonth = () => {
-    const prev = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1);
-    setCurrentMonth(prev);
+    setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   };
 
   const nextMonth = () => {
-    const next = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1);
-    setCurrentMonth(next);
+    setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
   };
 
   const { days, startDay } = getDaysInMonth(currentMonth);
@@ -99,9 +79,7 @@ export const CustomCalendar: React.FC<Props> = ({ selectedDate, onSelect }) => {
             <View key={`empty-${i}`} style={styles.dayCell} />
           ))}
         {days.map((day, idx) => {
-          const isSelected =
-            day.toDateString() === selectedDate.toDateString();
-
+          const isSelected = selected && day.toDateString() === selected.toDateString();
           return (
             <TouchableOpacity
               key={idx}
@@ -130,17 +108,9 @@ export const CustomCalendar: React.FC<Props> = ({ selectedDate, onSelect }) => {
   );
 };
 
+export default CustomCalendar;
+
 const styles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-  },
-  navButton: {
-    padding: 4,
-  },
   calendarContainer: {
     borderRadius: 12,
     padding: 16,
