@@ -13,7 +13,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles, dayWidth } from '@/styles/calendar';
-import {FloatingBackground} from '@/components/MagicalFeatures ';
+import {FloatingBackground} from "@/components/MagicalFeatures";
 
 interface DailyProgress {
   date: string;
