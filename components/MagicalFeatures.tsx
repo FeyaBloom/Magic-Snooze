@@ -24,7 +24,7 @@ const { width: screenWidth } = Dimensions.get('window');
     source={FloatingCloudJSON}
     autoPlay
     loop
-    style={[StyleSheet.absoluteFillObject, {zIndex: -10}]}
+    style={[StyleSheet.absoluteFillObject, {zIndex: 1}]}
   />
 );
 const GentleStars = () => (
@@ -32,7 +32,7 @@ const GentleStars = () => (
     source={GentleStarsJSON}
     autoPlay
     loop
-    style={[StyleSheet.absoluteFillObject, {zIndex: -10}]}
+    style={[StyleSheet.absoluteFillObject, {zIndex: 1}]}
   />
 );
 
