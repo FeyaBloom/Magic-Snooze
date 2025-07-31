@@ -14,6 +14,7 @@ import { Plus, Pencil as Edit, Trash2, Search, BookOpen } from 'lucide-react-nat
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createNotesStyles } from '@/styles/notes';
+import {FloatingBackground} from '@/components/MagicalFeatures ';
 
 interface Note {
   id: string;
@@ -161,6 +162,7 @@ export default function NotesTab() {
         colors={colors.background}
         style={styles.gradient}
       >
+          <FloatingBackground />
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>Your Notes 📝</Text>
