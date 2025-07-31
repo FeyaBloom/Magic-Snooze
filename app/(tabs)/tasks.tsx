@@ -10,15 +10,15 @@ import {
   Modal,
   Alert,
 } from 'react-native';
-import {theme} from "@/components/ThemeProvider";
-import {FloatingBackground} from "@/components/MagicalFeatures";
+import { theme } from "@/components/ThemeProvider";
+import { FloatingBackground } from "@/components/MagicalFeatures";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Plus, Pencil as Edit, Trash2, Calendar, CircleCheck as CheckCircle2 } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
+import CustomCalendar from '@/components/calendar';
 
-import CustomCalendar from '@/components/calendar'; 
 interface Task {
   id: string;
   text: string;
@@ -36,11 +36,9 @@ export default function TasksTab() {
   const [newTaskText, setNewTaskText] = useState('');
   const [newTaskDueDate, setNewTaskDueDate] = useState('');
   const [editingTask, setEditingTask] = useState<Task | null>(null);
- //const [dueDate, setDueDate] = useState(new Date());
-  
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [showEditCalendar, setShowEditCalendar] = useState(false);
 
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [showEditCalendar, setShowEditCalendar] = useState(false);
 
   useEffect(() => {
     loadTasks();
@@ -101,7 +99,7 @@ export default function TasksTab() {
     setNewTaskDueDate('');
     setEditingTask(null);
     setShowEditModal(false);
-setShowCalendar(false);
+    setShowEditCalendar(false);
   };
 
   const toggleTask = async (taskId: string) => {
@@ -122,10 +120,10 @@ setShowCalendar(false);
           style: 'destructive',
           onPress: async () => {
             const updatedTasks = tasks.filter(task => task.id !== taskId);
-            await saveTasks(updatedTasks);          
+            await saveTasks(updatedTasks);
             setShowEditModal(false);
             setEditingTask(null);
-setShowCalendar(false);
+            setShowEditCalendar(false);
           },
         },
       ]
@@ -198,8 +196,8 @@ setShowCalendar(false);
                         <Calendar size={12} color="#6B7280" />
                         <Text style={[
                           styles.listDateText,
-                          isOverdue(task.dueDate) && !task.completed && styles.overdue,
-                          isDueToday(task.dueDate) && !task.completed && styles.dueToday,
+                          task.dueDate && !task.completed && isOverdue(task.dueDate) && styles.overdue,
+                          task.dueDate && !task.completed && isDueToday(task.dueDate) && styles.dueToday,
                         ]}>
                           {formatDate(task.dueDate)}
                         </Text>
@@ -284,20 +282,20 @@ setShowCalendar(false);
                 multiline
                 autoFocus
               />
-              <TouchableOpacity onPress={setShowCalendar(v => !v)} style={styles.datePickerButton}>
+              <TouchableOpacity onPress={() => setShowCalendar(v => !v)} style={styles.datePickerButton}>
                 <Text style={styles.dueDateText}>
                   {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
                 </Text>
               </TouchableOpacity>
-{showCalendar && (
-                <CustomCalendar
-                  selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
-                  onSelect={date => {
-                    setNewTaskDueDate(date.toISOString());
-                    setShowCalendar(false);
-                  }}
-                />
-              )}
+              {showCalendar && (
+                <CustomCalendar
+                  selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+                  onSelect={date => {
+                    setNewTaskDueDate(date.toISOString());
+                    setShowCalendar(false);
+                  }}
+                />
+              )}
 
               <View style={styles.modalButtons}>
                 <TouchableOpacity
@@ -331,7 +329,7 @@ setShowCalendar(false);
                 onPress={() => {
                   if (editingTask) {
                     deleteTask(editingTask.id);
-                    }
+                  }
                 }}
               >
                 <Trash2 size={16} color="#EF4444" />
@@ -346,22 +344,23 @@ setShowCalendar(false);
                 multiline
                 autoFocus
               />
-              <TouchableOpacity 
-onPress={() => setShowEditCalendar(v => !v)} style={styles.datePickerButton}>
+              <TouchableOpacity
+                onPress={() => setShowEditCalendar(v => !v)}
+                style={styles.datePickerButton}
+              >
                 <Text style={styles.dueDateText}>
                   {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
                 </Text>
               </TouchableOpacity>
-
-{showEditCalendar && (
-                <CustomCalendar
-                  selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
-                  onSelect={date => {
-                    setNewTaskDueDate(date.toISOString());
-                    setShowEditCalendar(false);
-                  }}
-                />
-              )}
+              {showEditCalendar && (
+                <CustomCalendar
+                  selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+                  onSelect={date => {
+                    setNewTaskDueDate(date.toISOString());
+                    setShowEditCalendar(false);
+                  }}
+                />
+              )}
 
               <View style={styles.modalButtons}>
                 <TouchableOpacity
@@ -371,7 +370,7 @@ onPress={() => setShowEditCalendar(v => !v)} style={styles.datePickerButton}>
                     setNewTaskText('');
                     setNewTaskDueDate('');
                     setEditingTask(null);
-                    setShowCalendar(false);
+                    setShowEditCalendar(false);
                   }}
                 >
                   <Text style={styles.cancelButtonText}>Cancel</Text>
@@ -386,7 +385,7 @@ onPress={() => setShowEditCalendar(v => !v)} style={styles.datePickerButton}>
             </View>
           </View>
         </Modal>
-        
+
       </LinearGradient>
     </SafeAreaView>
   );
