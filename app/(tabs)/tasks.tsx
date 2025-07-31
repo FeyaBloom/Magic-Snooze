@@ -179,6 +179,7 @@ export default function TasksTab() {
             <View style={styles.taskSection}>
               <Text style={styles.sectionTitle}>Active Tasks</Text>
               {activeTasks.map(task => (
+                <View key={task.id} style={styles.taskContainer}>
                   <MagicalCheckbox
                     completed={task.completed}
                     onPress={() => toggleTask(task.id)}
