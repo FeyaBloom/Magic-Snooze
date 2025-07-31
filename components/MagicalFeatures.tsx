@@ -76,8 +76,7 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
         </Animated.View>        
       </TouchableOpacity>     
     </View>
-  )
-});
+  )});
     }
 // ---- TINY VICTORY W/ CONFETTI ----
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
