@@ -184,12 +184,15 @@ export default function TasksTab() {
                     style={[styles.checkbox, task.completed && styles.checkboxCompleted]}
                     onPress={() => toggleTask(task.id)}
                   >
-                    {task.completed && <CheckCircle2 size={20} color="#FFFFFF" />}
-
-
-
-                    
+                    {task.completed && <CheckCircle2 size={20} color="#FFFFFF" />}                   
                   </TouchableOpacity>
+                  
+                  <View key={step.id} style={styles.stepContainer}>
+          <MagicalCheckbox
+            completed={step.completed}
+            onPress={() => toggleStep(step.id, routineType)}
+            disabled={isSnoozed}
+          />
                   <View style={styles.taskContent}>
                     <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>
                       {task.text}
