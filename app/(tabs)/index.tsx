@@ -395,9 +395,7 @@ function TodayTabContent() {
     </View>
   );
 
-  const dynamicStyles = StyleSheet.create({
-    // Removed - now using styles from createTodayStyles
-  });
+  
 
   return (
     <SafeAreaView style={styles.container}>
