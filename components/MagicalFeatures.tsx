@@ -53,7 +53,6 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
 
   const handlePress = () => {
     if (disabled) return;
-
     Animated.sequence([
       Animated.timing(scaleAnim, { toValue: 1.2, duration: 100, useNativeDriver: true }),
       Animated.timing(scaleAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
@@ -78,8 +77,8 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
       </TouchableOpacity>     
     </View>
   )
-}
-             ;}
+};
+    }
 // ---- TINY VICTORY W/ CONFETTI ----
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const { colors } = useTheme();
