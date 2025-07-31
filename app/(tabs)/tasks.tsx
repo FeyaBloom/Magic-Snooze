@@ -83,6 +83,7 @@ export default function TasksTab() {
     setNewTaskText('');
     setNewTaskDueDate('');
     setShowAddModal(false);
+    setShowCalendar(false);
   };
 
   const editTask = async () => {
@@ -100,6 +101,7 @@ export default function TasksTab() {
     setNewTaskDueDate('');
     setEditingTask(null);
     setShowEditModal(false);
+setShowCalendar(false);
   };
 
   const toggleTask = async (taskId: string) => {
@@ -123,6 +125,7 @@ export default function TasksTab() {
             await saveTasks(updatedTasks);          
             setShowEditModal(false);
             setEditingTask(null);
+setShowCalendar(false);
           },
         },
       ]
@@ -303,6 +306,7 @@ export default function TasksTab() {
                     setShowAddModal(false);
                     setNewTaskText('');
                     setNewTaskDueDate('');
+                    setShowCalendar(false);
                   }}
                 >
                   <Text style={styles.cancelButtonText}>Cancel</Text>
@@ -367,6 +371,7 @@ onPress={() => setShowEditCalendar(v => !v)} style={styles.datePickerButton}>
                     setNewTaskText('');
                     setNewTaskDueDate('');
                     setEditingTask(null);
+                    setShowCalendar(false);
                   }}
                 >
                   <Text style={styles.cancelButtonText}>Cancel</Text>
