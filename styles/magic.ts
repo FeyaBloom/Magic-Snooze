@@ -8,7 +8,7 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
   checkboxContainer: { position: 'relative', width: 32, height: 32 },
  
   floatingBackgroundStyle: {
-  zIndex: -1,
+  zIndex: -10,
    position: 'absolute',
     top: 0, left: 0, right: 0, bottom: 0,
   },
