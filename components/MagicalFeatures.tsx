@@ -85,9 +85,9 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
         onPress={handlePress}
         disabled={disabled}
       >
-        <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-          {completed && <Sparkles size={20} color={colors.accent} />}
-        </Animated.View>
+
+
+        
       </TouchableOpacity>
 
       {sparkles.map((s) => (
