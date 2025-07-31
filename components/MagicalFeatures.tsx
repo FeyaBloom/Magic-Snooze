@@ -46,7 +46,8 @@ export const FloatingBackground: React.FC<{ style?: any }> = ({ style }) => {
 
 // ---- MAGIC SPARKLE ON CHECKBOX ----
 export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
-  const { colors } = useTheme();
+ const theme = useMemo(() => useTheme(), []);
+  const { colors } = theme;
   const styles = createMagicStyles(colors);
   const [sparkles, setSparkles] = useState([]);
   const scaleAnim = useMemo(() => new Animated.Value(1), []);
