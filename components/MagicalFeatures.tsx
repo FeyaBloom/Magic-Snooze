@@ -74,15 +74,12 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
 
  <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
           {completed && <Sparkles size={20} color={colors.accent} />}
-        </Animated.View>
-        
-      </TouchableOpacity>
-
-     
+        </Animated.View>        
+      </TouchableOpacity>     
     </View>
   )
 }
-             }
+             ;}
 // ---- TINY VICTORY W/ CONFETTI ----
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const { colors } = useTheme();
