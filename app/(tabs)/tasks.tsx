@@ -179,10 +179,10 @@ export default function TasksTab() {
             <View style={styles.taskSection}>
               <Text style={styles.sectionTitle}>Active Tasks</Text>
               {activeTasks.map(task => (
-                <View key={task.id} style={styles.taskContainer}>                            <MagicalCheckbox             
-            completed={task.completed}
-            onPress={() => toggleTask(task.id)}           
-          />
+                  <MagicalCheckbox
+                    completed={task.completed}
+                    onPress={() => toggleTask(task.id)}
+                  />
                   <View style={styles.taskContent}>
                     <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>
                       {task.text}
@@ -223,12 +223,10 @@ export default function TasksTab() {
               <Text style={styles.sectionTitle}>Completed Tasks <Sparkles size={20} color={colors.text} /></Text>
               {completedTasks.map(task => (
                 <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
-                   <MagicalCheckbox
-            completed={task.completed}
-            onPress={() => toggleTask(task.id)}
-            
-          />
-                  
+                  <MagicalCheckbox
+                    completed={task.completed}
+                    onPress={() => toggleTask(task.id)}
+                  />
                   <View style={styles.taskContent}>
                     <Text style={[styles.taskText, styles.taskTextCompleted]}>
                       {task.text}
