@@ -57,7 +57,7 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
       Animated.timing(scaleAnim, { toValue: 1.2, duration: 100, useNativeDriver: true }),
       Animated.timing(scaleAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
     ]).start(() => {
-      if (!completed)  onPress();
+       onPress();
     });
   };
   
