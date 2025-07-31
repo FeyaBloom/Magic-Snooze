@@ -116,9 +116,7 @@ function TodayTabContent() {
       setCelebratedVictories(newVictories);
       await AsyncStorage.setItem(`victories_${getLocalDateString()}`, JSON.stringify(newVictories));
       
-      Alert.alert('🎉 Victory!', `You ${victory.toLowerCase()}! That's amazing!`, [
-        { text: 'Yay!', style: 'default' }
-      ]);
+    //  Alert.alert('🎉 Victory!', `You ${victory.toLowerCase()}! That's amazing!`, [        { text: 'Yay!', style: 'default' }      ]);
     } catch (error) {
       console.error('Error saving victory:', error);
     }
