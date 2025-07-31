@@ -36,7 +36,7 @@ export default function TasksTab() {
   const [newTaskText, setNewTaskText] = useState('');
   const [newTaskDueDate, setNewTaskDueDate] = useState('');
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-  const [dueDate, setDueDate] = useState(new Date());
+ //const [dueDate, setDueDate] = useState(new Date());
   
   const [showCalendar, setShowCalendar] = useState(false);
   const [showEditCalendar, setShowEditCalendar] = useState(false);
