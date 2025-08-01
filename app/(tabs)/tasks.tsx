@@ -272,6 +272,7 @@ export default function TasksTab() {
               <TextInput
                 style={styles.textInput}
                 placeholder="What would you like to accomplish?"
+                placeholderTextColor={colors.textSecondary}
                 value={newTaskText}
                 onChangeText={setNewTaskText}
                 multiline
@@ -334,6 +335,7 @@ export default function TasksTab() {
               <TextInput
                 style={styles.textInput}
                 placeholder="What would you like to accomplish?"
+                placeholderTextColor={colors.textSecondary}
                 value={newTaskText}
                 onChangeText={setNewTaskText}
                 multiline
