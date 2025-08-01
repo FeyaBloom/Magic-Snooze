@@ -206,6 +206,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
+    opacity: 0.75,
   },
   statsTitle: {
     fontSize: 18,
