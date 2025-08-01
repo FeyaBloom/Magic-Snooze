@@ -45,7 +45,7 @@ export default function CalendarTab() {
 
   useEffect(() => {
   loadProgressData();
-}, []);
+});
 
   const loadProgressData = async () => {
     try {
