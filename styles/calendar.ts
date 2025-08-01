@@ -90,6 +90,7 @@ disabledDayText: {
   weekDaysContainer: {
     flexDirection: 'row',
     marginBottom: 10,
+    alignItems: 'center',
   },
   weekDayText: {
     fontSize: 14,
