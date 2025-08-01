@@ -18,7 +18,7 @@ export default function TabLayout() {
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.1,
-          shadowRadius: 4,
+          shadowRadius: 8,
           height: 75,
           paddingTop: 16,
           paddingBottom: 6,
@@ -27,7 +27,7 @@ export default function TabLayout() {
         tabBarInactiveTintColor: colors.textSecondary,
         tabBarLabelStyle: {
           fontSize: 12,
-          fontWeight: '600',
+          fontWeight: '300',
           marginTop: 4,
           fontFamily: 'ComicNeue-Bold',
         },
