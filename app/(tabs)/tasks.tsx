@@ -365,8 +365,7 @@ export default function TasksTab() {
               </Text>
             </TouchableOpacity>
             {showEditCalendar && (
-              <CustomCalendar
-                <Calendar
+              <CustomCalendar               
           mode="compact"
           selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
           onDateSelect={(date) => {
