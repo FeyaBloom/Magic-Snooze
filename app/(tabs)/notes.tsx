@@ -245,12 +245,14 @@ export default function NotesTab() {
               <TextInput
                 style={styles.titleInput}
                 placeholder="Note title (optional)"
+                placeholderTextColor={colors.textSecondary}
                 value={noteTitle}
                 onChangeText={setNoteTitle}
               />
               <TextInput
                 style={styles.contentInput}
                 placeholder="What's on your mind?"
+                placeholderTextColor={colors.textSecondary}
                 value={noteContent}
                 onChangeText={setNoteContent}
                 multiline
@@ -296,12 +298,14 @@ export default function NotesTab() {
               <TextInput
                 style={styles.titleInput}
                 placeholder="Note title (optional)"
+                placeholderTextColor={colors.textSecondary}
                 value={noteTitle}
                 onChangeText={setNoteTitle}
               />
               <TextInput
                 style={styles.contentInput}
                 placeholder="What's on your mind?"
+                placeholderTextColor={colors.textSecondary}
                 value={noteContent}
                 onChangeText={setNoteContent}
                 multiline
