@@ -119,10 +119,10 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     fontWeight: '700',
   },
   completeDay: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.accent,
   },
   partialDay: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
   },
   snoozedDay: {
     backgroundColor: colors.secondary,
