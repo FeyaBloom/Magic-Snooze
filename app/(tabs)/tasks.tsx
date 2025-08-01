@@ -17,7 +17,7 @@ import { Plus, Pencil as Edit, Trash2, Calendar, CircleCheck as CheckCircle2, Sp
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
-import CustomCalendar from '@/components/calendar';
+import CustomCalendar from '@/components/customCalendar';
 
 interface Task {
   id: string;
