@@ -211,7 +211,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center',
     color: colors.text,
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   progressStats: {
     flexDirection: 'row',
