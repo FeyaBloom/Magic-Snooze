@@ -526,6 +526,7 @@ function TodayTabContent() {
               <TextInput
                 style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
                 placeholder="Enter a gentle step..."
+                placeholderTextColor={colors.textSecondary}
                 value={newStepText}
                 onChangeText={setNewStepText}
                 multiline
@@ -567,6 +568,7 @@ function TodayTabContent() {
               <TextInput
                 style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
                 placeholder="Enter a gentle step..."
+                placeholderTextColor={colors.textSecondary}
                 value={newStepText}
                 onChangeText={setNewStepText}
                 multiline
