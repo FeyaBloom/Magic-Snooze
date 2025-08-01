@@ -23,13 +23,13 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     marginBottom: 8,
     textAlign: 'center',
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   subtitle: {
     fontSize: 16,
     color: colors.textSecondary,
     textAlign: 'center',
-    fontFamily: 'ComicNeue-Regular',
+    fontFamily: 'CabinSketch-Regular',
   },
   addTaskButton: {
     flexDirection: 'row',
