@@ -63,7 +63,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     fontWeight: '700',
     color: colors.text,
     marginBottom: 12,
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   taskContainer: {
     flexDirection: 'row',
@@ -147,9 +147,6 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   taskActions: {
     flexDirection: 'row',
     alignItems: 'center',
-    // justifyContent: 'space-between', // не нужно для кнопки!
-    // gap: 8, // убери, не поддерживается
-    // marginLeft: 8, // если хочешь добавить небольшой отступ от текста
   },
   actionButton: {
     padding: 4,
@@ -165,7 +162,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     fontWeight: '600',
     color: colors.textSecondary,
     marginBottom: 8,
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   emptyStateSubtext: {
     fontSize: 16,
@@ -193,7 +190,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   textInput: {
     borderWidth: 1,
