@@ -174,7 +174,7 @@ export default function Calendar({
           style={styles.navButton}
           onPress={() => navigateMonth('next')}
         >
-          <ChevronRight size={24} color={colors.secondary} />
+          <ChevronRight size={24} color={colors.primary} />
         </TouchableOpacity>
       </View>
 
