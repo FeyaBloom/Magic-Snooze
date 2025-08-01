@@ -157,223 +157,241 @@ export default function NotesTab() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={colors.background}
-        style={styles.gradient}
-      >
-          <FloatingBackground />
-        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Your Notes 📝</Text>
-            <Text style={styles.subtitle}>Capture your thoughts and ideas</Text>
-          </View>
-
-          <View style={styles.searchContainer}>
-            <Search size={20} color="#6B7280" />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Search your notes..."
-              placeholderTextColor={colors.textSecondary}
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-            />
-          </View>
-
-          <TouchableOpacity style={styles.addNoteButton} onPress={() => setShowAddModal(true)}>
-            <Plus size={24} color="#FFFFFF" />
-            <Text style={styles.addNoteText}>Add New Note</Text>
-          </TouchableOpacity>
-
-          {filteredNotes.length > 0 ? (
-            <View style={styles.notesContainer}>
-              {filteredNotes.map(note => (
-                <TouchableOpacity
-                  key={note.id}
-                  style={styles.noteCard}
-                  onPress={() => openNote(note)}
-                >
-                  <View style={styles.noteHeader}>
-                    <Text style={styles.noteTitle} numberOfLines={1}>
-                      {note.title}
-                    </Text>
-                    <Text style={styles.noteDate}>
-                      {formatDate(note.updatedAt)}
-                    </Text>
-                  </View>
-                  <Text style={styles.notePreview} numberOfLines={3}>
-                    {note.content}
-                  </Text>
-                  <View style={styles.noteActions}>
-                    <TouchableOpacity
-                      style={styles.actionButton}
-                      onPress={() => {
-                        setEditingNote(note);
-                        setNoteTitle(note.title);
-                        setNoteContent(note.content);
-                        setShowEditModal(true);
-                      }}
-                    >
-                      <Edit size={16} color={colors.textSecondary} />
-                    </TouchableOpacity>
-                    {/* Кнопка удаления только в модалке */}
-                  </View>
-                </TouchableOpacity>
-              ))}
+    <>
+      <SafeAreaView style={styles.container}>
+        <LinearGradient
+          colors={colors.background}
+          style={styles.gradient}
+        >
+            <FloatingBackground />
+          <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+            <View style={styles.header}>
+              <Text style={styles.title}>Your Notes 📝</Text>
+              <Text style={styles.subtitle}>Capture your thoughts and ideas</Text>
             </View>
-          ) : (
-            <View style={styles.emptyState}>
-              <BookOpen size={48} color="#9CA3AF" />
-              <Text style={styles.emptyStateText}>
-                {searchQuery ? 'No notes found' : 'No notes yet'}
-              </Text>
-              <Text style={styles.emptyStateSubtext}>
-                {searchQuery 
-                  ? 'Try searching for something else' 
-                  : 'Start capturing your thoughts and ideas'
-                }
-              </Text>
-            </View>
-          )}
-        </ScrollView>
 
-        {/* Add Note Modal */}
-        <Modal visible={showAddModal} animationType="slide" transparent>
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Add New Note</Text>
+            <View style={styles.searchContainer}>
+              <Search size={20} color="#6B7280" />
               <TextInput
-                style={styles.titleInput}
-                placeholder="Note title (optional)"
+                style={styles.searchInput}
+                placeholder="Search your notes..."
                 placeholderTextColor={colors.textSecondary}
-                value={noteTitle}
-                onChangeText={setNoteTitle}
+                value={searchQuery}
+                onChangeText={setSearchQuery}
               />
-              <TextInput
-                style={styles.contentInput}
-                placeholder="What's on your mind?"
-                placeholderTextColor={colors.textSecondary}
-                value={noteContent}
-                onChangeText={setNoteContent}
-                multiline
-                autoFocus
-              />
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={() => {
-                    setShowAddModal(false);
-                    setNoteTitle('');
-                    setNoteContent('');
-                  }}
-                >
-                  <Text style={styles.cancelButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.saveButton]}
-                  onPress={addNote}
-                >
-                  <Text style={styles.saveButtonText}>Save Note</Text>
-                </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity style={styles.addNoteButton} onPress={() => setShowAddModal(true)}>
+              <Plus size={24} color="#FFFFFF" />
+              <Text style={styles.addNoteText}>Add New Note</Text>
+            </TouchableOpacity>
+
+            {filteredNotes.length > 0 ? (
+              <View style={styles.notesContainer}>
+                {filteredNotes.map(note => (
+                  <TouchableOpacity
+                    key={note.id}
+                    style={styles.noteCard}
+                    onPress={() => openNote(note)}
+                  >
+                    <View style={styles.noteHeader}>
+                      <Text style={styles.noteTitle} numberOfLines={1}>
+                        {note.title}
+                      </Text>
+                      <Text style={styles.noteDate}>
+                        {formatDate(note.updatedAt)}
+                      </Text>
+                    </View>
+                    <Text style={styles.notePreview} numberOfLines={3}>
+                      {note.content}
+                    </Text>
+                    <View style={styles.noteActions}>
+                      <TouchableOpacity
+                        style={styles.actionButton}
+                        onPress={() => {
+                          setEditingNote(note);
+                          setNoteTitle(note.title);
+                          setNoteContent(note.content);
+                          setShowEditModal(true);
+                        }}
+                      >
+                        <Edit size={16} color={colors.textSecondary} />
+                      </TouchableOpacity>
+                      {/* Кнопка удаления только в модалке */}
+                    </View>
+                  </TouchableOpacity>
+                ))}
               </View>
-            </View>
-          </View>
-        </Modal>
-
-        {/* Edit Note Modal */}
-        <Modal visible={showEditModal} animationType="slide" transparent>
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <TouchableOpacity 
-                style={styles.deleteButton}
-                onPress={() => {
-                  if (editingNote) {
-                    deleteNote(editingNote.id);
+            ) : (
+              <View style={styles.emptyState}>
+                <BookOpen size={48} color="#9CA3AF" />
+                <Text style={styles.emptyStateText}>
+                  {searchQuery ? 'No notes found' : 'No notes yet'}
+                </Text>
+                <Text style={styles.emptyStateSubtext}>
+                  {searchQuery 
+                    ? 'Try searching for something else' 
+                    : 'Start capturing your thoughts and ideas'
                   }
-                }}
-              >
-                <Trash2 size={16} color="#EF4444" />
-              </TouchableOpacity>
-              <Text style={styles.modalTitle}>Edit Note</Text>
-              <TextInput
-                style={styles.titleInput}
-                placeholder="Note title (optional)"
-                placeholderTextColor={colors.textSecondary}
-                value={noteTitle}
-                onChangeText={setNoteTitle}
-              />
-              <TextInput
-                style={styles.contentInput}
-                placeholder="What's on your mind?"
-                placeholderTextColor={colors.textSecondary}
-                value={noteContent}
-                onChangeText={setNoteContent}
-                multiline
-                autoFocus
-              />
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={() => {
-                    setShowEditModal(false);
-                    setNoteTitle('');
-                    setNoteContent('');
-                    setEditingNote(null);
-                  }}
-                >
-                  <Text style={styles.cancelButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.saveButton]}
-                  onPress={editNote}
-                >
-                  <Text style={styles.saveButtonText}>Save Changes</Text>
-                </TouchableOpacity>
+                </Text>
               </View>
-            </View>
-          </View>
-        </Modal>
+            )}
+          </ScrollView>
+        </LinearGradient>
+   
 
-        {/* View Note Modal */}
-        <Modal visible={showViewModal} animationType="slide" transparent>
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <View style={styles.viewHeader}>
-                <Text style={styles.viewTitle} numberOfLines={2}>
-                  {viewingNote?.title}
-                </Text>
-                <TouchableOpacity
-                  style={styles.editFromViewButton}
-                  onPress={openEditFromView}
-                >
-                  <Edit size={20} color={colors.primary} />
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.viewDate}>
-                {viewingNote && formatDate(viewingNote.updatedAt)}
-              </Text>
-              <ScrollView
-                style={styles.viewContent}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{paddingBottom: 8}}
-              >
-                <Text style={styles.viewText}>
-                  {viewingNote?.content}
-                </Text>
-              </ScrollView>
+      {/* Add Note Modal */}
+      <Modal 
+        visible={showAddModal} 
+        animationType="slide" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Add New Note</Text>
+            <TextInput
+              style={styles.titleInput}
+              placeholder="Note title (optional)"
+              placeholderTextColor={colors.textSecondary}
+              value={noteTitle}
+              onChangeText={setNoteTitle}
+            />
+            <TextInput
+              style={styles.contentInput}
+              placeholder="What's on your mind?"
+              placeholderTextColor={colors.textSecondary}
+              value={noteContent}
+              onChangeText={setNoteContent}
+              multiline
+              autoFocus
+            />
+            <View style={styles.modalButtons}>
               <TouchableOpacity
-                style={styles.closeButton}
+                style={[styles.modalButton, styles.cancelButton]}
                 onPress={() => {
-                  setShowViewModal(false);
-                  setViewingNote(null);
+                  setShowAddModal(false);
+                  setNoteTitle('');
+                  setNoteContent('');
                 }}
               >
-                <Text style={styles.closeButtonText}>Close</Text>
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={addNote}
+              >
+                <Text style={styles.saveButtonText}>Save Note</Text>
               </TouchableOpacity>
             </View>
           </View>
-        </Modal>
-      </LinearGradient>
-    </SafeAreaView>
+        </View>
+      </Modal>
+
+      {/* Edit Note Modal */}
+      <Modal 
+        visible={showEditModal} 
+        animationType="slide" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity 
+              style={styles.deleteButton}
+              onPress={() => {
+                if (editingNote) {
+                  deleteNote(editingNote.id);
+                }
+              }}
+            >
+              <Trash2 size={16} color="#EF4444" />
+            </TouchableOpacity>
+            <Text style={styles.modalTitle}>Edit Note</Text>
+            <TextInput
+              style={styles.titleInput}
+              placeholder="Note title (optional)"
+              placeholderTextColor={colors.textSecondary}
+              value={noteTitle}
+              onChangeText={setNoteTitle}
+            />
+            <TextInput
+              style={styles.contentInput}
+              placeholder="What's on your mind?"
+              placeholderTextColor={colors.textSecondary}
+              value={noteContent}
+              onChangeText={setNoteContent}
+              multiline
+              autoFocus
+            />
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => {
+                  setShowEditModal(false);
+                  setNoteTitle('');
+                  setNoteContent('');
+                  setEditingNote(null);
+                }}
+              >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={editNote}
+              >
+                <Text style={styles.saveButtonText}>Save Changes</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* View Note Modal */}
+      <Modal 
+        visible={showViewModal} 
+        animationType="slide" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <View style={styles.viewHeader}>
+              <Text style={styles.viewTitle} numberOfLines={2}>
+                {viewingNote?.title}
+              </Text>
+              <TouchableOpacity
+                style={styles.editFromViewButton}
+                onPress={openEditFromView}
+              >
+                <Edit size={20} color={colors.primary} />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.viewDate}>
+              {viewingNote && formatDate(viewingNote.updatedAt)}
+            </Text>
+            <ScrollView
+              style={styles.viewContent}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{paddingBottom: 8}}
+            >
+              <Text style={styles.viewText}>
+                {viewingNote?.content}
+              </Text>
+            </ScrollView>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => {
+                setShowViewModal(false);
+                setViewingNote(null);
+              }}
+            >
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+           </SafeAreaView>
+    </>
   );
 }
