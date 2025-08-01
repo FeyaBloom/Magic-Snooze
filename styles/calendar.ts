@@ -82,6 +82,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
   daysContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    opacity: 0.5,
   },
   dayContainer: {
     width: dayWidth,
