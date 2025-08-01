@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import {useFocusEffect} from "@react-navigation/native";
+import {useCallback} from "react"
 import {
   View,
   Text,
@@ -37,9 +39,10 @@ export default function CalendarTab() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [progressData, setProgressData] = useState<Record<string, DailyProgress>>({});
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback() => {
     loadProgressData();
-  }, [currentMonth]);
+  }, []);
 
   const loadProgressData = async () => {
     try {
