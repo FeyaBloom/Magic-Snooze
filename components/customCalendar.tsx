@@ -36,7 +36,7 @@ const getLocalDateString = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
-export default function CustomCalendar({
+export default function Calendar({
   selectedDate,
   onDateSelect,
   customDayRenderer,
@@ -148,15 +148,11 @@ export default function CustomCalendar({
 
   const renderWeekDays = () => {
     const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    return (
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        {weekDays.map((day) => (
-          <Text key={day} style={[styles.weekDayText, { width: dayWidth }]}>
-            {day}
-          </Text>
-        ))}
-      </View>
-    );
+    return weekDays.map((day) => (
+      <Text key={day} style={[styles.weekDayText, { width: dayWidth }]}>
+        {day}
+      </Text>
+    ));
   };
 
   const monthName = currentMonth.toLocaleDateString('en-US', {
@@ -165,7 +161,7 @@ export default function CustomCalendar({
   });
 
   return (
-    <View style={styles.calendarContainer}>
+    <View style={[styles.calendarContainer, { alignItems: 'center' }]}>
       <View style={styles.monthHeader}>
         <TouchableOpacity
           style={styles.navButton}
@@ -182,8 +178,14 @@ export default function CustomCalendar({
         </TouchableOpacity>
       </View>
 
-      <View style={styles.weekDaysContainer}>{renderWeekDays()}</View>
-      <View style={styles.daysContainer}>{renderCalendar()}</View>
+      <View style={styles.weekDaysContainer}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          {renderWeekDays()}
+        </View>
+      </View>
+      <View style={styles.daysContainer}>
+        {renderCalendar()}
+      </View>
     </View>
   );
 }
