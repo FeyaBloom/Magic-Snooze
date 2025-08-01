@@ -1,150 +1,274 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
+  Dimensions,
 } from 'react-native';
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 
-const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-
 interface CalendarProps {
-  selected?: Date;
-  onSelect: (date: Date) => void;
+  selectedDate?: Date;
+  onDateSelect?: (date: Date) => void;
+  showNavigation?: boolean;
+  showHeader?: boolean;
+  mode?: 'full' | 'compact';
+  minDate?: Date;
+  maxDate?: Date;
+  customDayRenderer?: (date: Date, isSelected: boolean, isToday: boolean, isCurrentMonth: boolean) => React.ReactNode;
+  initialDate?: Date;
 }
 
-export const CustomCalendar: React.FC<CalendarProps> = ({
-  selected,
-  onSelect,
-}) => {
-  const { colors } = useTheme();
-  // Текущий месяц по выбранной дате или сегодняшнему дню
-  const [currentMonth, setCurrentMonth] = React.useState<Date>(selected ? new Date(selected) : new Date());
-
-  React.useEffect(() => {
-    if (selected) {
-      setCurrentMonth(new Date(selected));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected?.toDateString()]); // обновляем месяц если выбрана новая дата
-
-  const getDaysInMonth = (date: Date) => {
-    const start = new Date(date.getFullYear(), date.getMonth(), 1);
-    const end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    const days = [];
-    for (let i = 1; i <= end.getDate(); i++) {
-      days.push(new Date(date.getFullYear(), date.getMonth(), i));
-    }
-    return { days, startDay: start.getDay() };
-  };
-
-  const prevMonth = () => {
-    setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
-  };
-
-  const nextMonth = () => {
-    setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
-  };
-
-  const { days, startDay } = getDaysInMonth(currentMonth);
-
-  return (
-    <View style={[styles.calendarContainer, { backgroundColor: colors.surface }]}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={prevMonth}>
-          <ChevronLeft size={20} color={colors.text} />
-        </TouchableOpacity>
-        <Text style={[styles.headerText, { color: colors.text }]}>
-          {currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}
-        </Text>
-        <TouchableOpacity onPress={nextMonth}>
-          <ChevronRight size={20} color={colors.text} />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.weekRow}>
-        {weekDays.map((day, idx) => (
-          <Text key={idx} style={[styles.weekDay, { color: colors.textSecondary }]}>
-            {day}
-          </Text>
-        ))}
-      </View>
-
-      <View style={styles.daysContainer}>
-        {Array(startDay)
-          .fill(null)
-          .map((_, i) => (
-            <View key={`empty-${i}`} style={styles.dayCell} />
-          ))}
-        {days.map((day, idx) => {
-          const isSelected = selected && day.toDateString() === selected.toDateString();
-          return (
-            <TouchableOpacity
-              key={idx}
-              style={[
-                styles.dayCell,
-                isSelected && {
-                  backgroundColor: colors.primary,
-                  borderRadius: 999,
-                },
-              ]}
-              onPress={() => onSelect(day)}
-            >
-              <Text
-                style={{
-                  color: isSelected ? '#fff' : colors.text,
-                  textAlign: 'center',
-                }}
-              >
-                {day.getDate()}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-    </View>
-  );
+const getLocalDateString = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 };
 
-export default CustomCalendar;
+export default function Calendar({
+  selectedDate,
+  onDateSelect,
+  showNavigation = true,
+  showHeader = true,
+  mode = 'full',
+  minDate,
+  maxDate,
+  customDayRenderer,
+  initialDate = new Date(),
+}: CalendarProps) {
+  const { colors } = useTheme();
+  const [currentMonth, setCurrentMonth] = useState(initialDate);
 
-const styles = StyleSheet.create({
-  calendarContainer: {
-    borderRadius: 12,
-    padding: 16,
-    elevation: 2,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  headerText: {
-    fontSize: 16,
-    fontWeight: '600',
-    textTransform: 'capitalize',
-  },
-  weekRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 4,
-  },
-  weekDay: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 12,
-  },
-  daysContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  dayCell: {
-    width: `${100 / 7}%`,
-    paddingVertical: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  const screenWidth = Dimensions.get('window').width;
+  const dayWidth = mode === 'compact' ? 
+    (screenWidth - 80) / 7 : // Для модалки - меньше padding
+    (screenWidth - 40) / 7;  // Для полной версии
+
+  const navigateMonth = (direction: 'prev' | 'next') => {
+    const newMonth = new Date(currentMonth);
+    newMonth.setMonth(newMonth.getMonth() + (direction === 'next' ? 1 : -1));
+    setCurrentMonth(newMonth);
+  };
+
+  const isDateDisabled = (date: Date) => {
+    if (minDate && date < minDate) return true;
+    if (maxDate && date > maxDate) return true;
+    return false;
+  };
+
+  const handleDatePress = (date: Date) => {
+    if (isDateDisabled(date) || !onDateSelect) return;
+    onDateSelect(date);
+  };
+
+  const renderCalendar = () => {
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const startDay = firstDay.getDay(); // 0 (Sun) - 6 (Sat)
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const daysArray = [];
+
+    // total 42 cells (6 weeks x 7 days)
+    for (let i = 0; i < 42; i++) {
+      const date = new Date(year, month, 1);
+      date.setDate(i - startDay + 1);
+
+      const dateString = getLocalDateString(date);
+      const isCurrentMonth = date.getMonth() === month;
+      const isToday = getLocalDateString(date) === getLocalDateString(today);
+      const isSelected = selectedDate && getLocalDateString(date) === getLocalDateString(selectedDate);
+      const disabled = isDateDisabled(date);
+
+      daysArray.push(
+        <TouchableOpacity
+          key={dateString}
+          style={[
+            styles.dayContainer,
+            { width: dayWidth },
+            disabled && styles.disabledDay,
+          ]}
+          onPress={() => handleDatePress(date)}
+          disabled={disabled}
+        >
+          {customDayRenderer ? (
+            customDayRenderer(date, !!isSelected, isToday, isCurrentMonth)
+          ) : (
+            <View style={[
+              styles.dayCell,
+              !isCurrentMonth && styles.otherMonth,
+              isToday && styles.today,
+              isSelected && styles.selectedDay,
+              disabled && styles.disabledDayCell,
+            ]}>
+              <Text style={[
+                styles.dayText,
+                !isCurrentMonth && styles.otherMonthText,
+                isToday && styles.todayText,
+                isSelected && styles.selectedDayText,
+                disabled && styles.disabledDayText,
+              ]}>
+                {date.getDate()}
+              </Text>
+            </View>
+          )}
+        </TouchableOpacity>
+      );
+    }
+
+    // split into 6 rows of 7 days
+    const rows = [];
+    for (let i = 0; i < 6; i++) {
+      const week = daysArray.slice(i * 7, i * 7 + 7);
+      rows.push(
+        <View key={i} style={{ flexDirection: 'row' }}>
+          {week}
+        </View>
+      );
+    }
+
+    return rows;
+  };
+
+  const renderWeekDays = () => {
+    const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return weekDays.map((day) => (
+      <Text key={day} style={[styles.weekDayText, { width: dayWidth }]}>
+        {day}
+      </Text>
+    ));
+  };
+
+  const monthName = currentMonth.toLocaleDateString('en-US', {
+    month: 'long',
+    year: 'numeric',
+  });
+
+  const styles = {
+    container: {
+      backgroundColor: colors.cardBackground,
+      borderRadius: mode === 'compact' ? 12 : 16,
+      padding: mode === 'compact' ? 12 : 16,
+      marginVertical: mode === 'compact' ? 8 : 16,
+    },
+    monthHeader: {
+      flexDirection: 'row' as const,
+      justifyContent: 'space-between' as const,
+      alignItems: 'center' as const,
+      marginBottom: 16,
+    },
+    navButton: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      backgroundColor: colors.surface,
+      justifyContent: 'center' as const,
+      alignItems: 'center' as const,
+    },
+    monthTitle: {
+      fontSize: mode === 'compact' ? 18 : 20,
+      fontWeight: '600' as const,
+      color: colors.text,
+    },
+    weekDaysContainer: {
+      flexDirection: 'row' as const,
+      marginBottom: 8,
+    },
+    weekDayText: {
+      textAlign: 'center' as const,
+      fontSize: 12,
+      fontWeight: '600' as const,
+      color: colors.textSecondary,
+      paddingVertical: 8,
+    },
+    daysContainer: {
+      gap: 4,
+    },
+    dayContainer: {
+      alignItems: 'center' as const,
+      justifyContent: 'center' as const,
+      height: dayWidth * 0.9,
+    },
+    dayCell: {
+      width: dayWidth * 0.8,
+      height: dayWidth * 0.8,
+      borderRadius: (dayWidth * 0.8) / 2,
+      justifyContent: 'center' as const,
+      alignItems: 'center' as const,
+      backgroundColor: 'transparent',
+    },
+    dayText: {
+      fontSize: mode === 'compact' ? 14 : 16,
+      fontWeight: '500' as const,
+      color: colors.text,
+    },
+    otherMonth: {
+      opacity: 0.3,
+    },
+    otherMonthText: {
+      color: colors.textSecondary,
+    },
+    today: {
+      backgroundColor: colors.primary + '20',
+      borderWidth: 2,
+      borderColor: colors.primary,
+    },
+    todayText: {
+      color: colors.primary,
+      fontWeight: '700' as const,
+    },
+    selectedDay: {
+      backgroundColor: colors.primary,
+    },
+    selectedDayText: {
+      color: '#FFFFFF',
+      fontWeight: '700' as const,
+    },
+    disabledDay: {
+      opacity: 0.3,
+    },
+    disabledDayCell: {
+      backgroundColor: colors.surface + '50',
+    },
+    disabledDayText: {
+      color: colors.textSecondary,
+    },
+  };
+
+  return (
+    <View style={styles.container}>
+      {showHeader && showNavigation && (
+        <View style={styles.monthHeader}>
+          <TouchableOpacity
+            style={styles.navButton}
+            onPress={() => navigateMonth('prev')}
+          >
+            <ChevronLeft size={20} color={colors.text} />
+          </TouchableOpacity>
+          <Text style={styles.monthTitle}>{monthName}</Text>
+          <TouchableOpacity
+            style={styles.navButton}
+            onPress={() => navigateMonth('next')}
+          >
+            <ChevronRight size={20} color={colors.text} />
+          </TouchableOpacity>
+        </View>
+      )}
+      
+      {showHeader && !showNavigation && (
+        <Text style={[styles.monthTitle, { textAlign: 'center', marginBottom: 16 }]}>
+          {monthName}
+        </Text>
+      )}
+
+      <View style={styles.weekDaysContainer}>{renderWeekDays()}</View>
+      <View style={styles.daysContainer}>{renderCalendar()}</View>
+    </View>
+  );
+}
