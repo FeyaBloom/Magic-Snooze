@@ -43,6 +43,10 @@ export default function CalendarTab() {
     loadProgressData();
   }, [currentMonth]);
 
+  useEffect(() => {
+  loadProgressData();
+}, []);
+
   const loadProgressData = async () => {
     try {
       const year = currentMonth.getFullYear();
