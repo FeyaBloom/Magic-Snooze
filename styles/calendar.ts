@@ -65,6 +65,7 @@ disabledDayText: {
     shadowRadius: 8,
     elevation: 3,
     opacity: 0.75,
+    alignItems: 'center',
   },
   monthHeader: {
     flexDirection: 'row',
