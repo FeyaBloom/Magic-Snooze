@@ -43,7 +43,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     padding: 20,
     shadowColor: '#cccccc',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
     opacity: 0.7,
