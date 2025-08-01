@@ -197,10 +197,10 @@ disabledDayText: {
     marginBottom: 12,
   },
   legendDot: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    marginRight: 8,
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    marginRight: 6,
   },
   completeLegend: {
     backgroundColor: colors.accent,
