@@ -506,97 +506,111 @@ function TodayTabContent() {
           </View>
         </ScrollView>
         
-        {showTinyVictories && (
-          <Modal visible={showTinyVictories} animationType="slide" transparent>
-            <View style={styles.modalOverlay}>
-              <TinyVictoryTracker onVictoryPress={celebrateVictory} />
-              <TouchableOpacity style={styles.closeVictoriesButton} onPress={() => setShowTinyVictories(false)}>
-                <Text style={styles.closeVictoriesText}>Close</Text>
-              </TouchableOpacity>
-            </View>
-          </Modal>
-        )}
-        
         {showSurprisePrompt && <SurprisePrompt onDismiss={() => setShowSurprisePrompt(false)} />}
-
-        <Modal visible={showAddModal} animationType="slide" transparent>
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}>Add New Step</Text>
-              <TextInput
-                style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
-                placeholder="Enter a gentle step..."
-                placeholderTextColor={colors.textSecondary}
-                value={newStepText}
-                onChangeText={setNewStepText}
-                multiline
-                autoFocus
-              />
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={() => {
-                    setShowAddModal(false);
-                    setNewStepText('');
-                  }}
-                >
-                  <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.saveButton]}
-                  onPress={addStep}
-                >
-                  <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Add Step</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </Modal>
-
-        <Modal visible={showEditModal} animationType="slide" transparent>
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <TouchableOpacity onPress={() => {
-          
-        editingStep && currentRoutine && deleteStep(editingStep.id, currentRoutine);
-            
-      }}
-                >
-                <Trash2 size={20} color="#EF4444" />
-              </TouchableOpacity>
-              <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}>Edit Step</Text>
-              <TextInput
-                style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
-                placeholder="Enter a gentle step..."
-                placeholderTextColor={colors.textSecondary}
-                value={newStepText}
-                onChangeText={setNewStepText}
-                multiline
-                autoFocus
-              />
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={() => {
-                    setShowEditModal(false);
-                    setNewStepText('');
-                    setEditingStep(null);
-                  }}
-                >
-                  <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.saveButton]}
-                  onPress={editStep}
-                >
-                  <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Save</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </Modal>
         </>
       </LinearGradient>
+
+      {/* Все модалки вынесены сюда, за пределы LinearGradient */}
+      <Modal 
+        visible={showTinyVictories} 
+        animationType="slide" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <TinyVictoryTracker onVictoryPress={celebrateVictory} />
+          <TouchableOpacity style={styles.closeVictoriesButton} onPress={() => setShowTinyVictories(false)}>
+            <Text style={styles.closeVictoriesText}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+      <Modal 
+        visible={showAddModal} 
+        animationType="slide" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}>Add New Step</Text>
+            <TextInput
+              style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
+              placeholder="Enter a gentle step..."
+              placeholderTextColor={colors.textSecondary}
+              value={newStepText}
+              onChangeText={setNewStepText}
+              multiline
+              autoFocus
+            />
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => {
+                  setShowAddModal(false);
+                  setNewStepText('');
+                }}
+              >
+                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={addStep}
+              >
+                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Add Step</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal 
+        visible={showEditModal} 
+        animationType="slide" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity 
+              style={styles.deleteButton}
+              onPress={() => {
+                editingStep && currentRoutine && deleteStep(editingStep.id, currentRoutine);
+              }}
+            >
+              <Trash2 size={20} color="#EF4444" />
+            </TouchableOpacity>
+            <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}>Edit Step</Text>
+            <TextInput
+              style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
+              placeholder="Enter a gentle step..."
+              placeholderTextColor={colors.textSecondary}
+              value={newStepText}
+              onChangeText={setNewStepText}
+              multiline
+              autoFocus
+            />
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => {
+                  setShowEditModal(false);
+                  setNewStepText('');
+                  setEditingStep(null);
+                }}
+              >
+                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={editStep}
+              >
+                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Save</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
