@@ -95,7 +95,7 @@ export default function CustomCalendar({
       const disabled = isDateDisabled(date);
 
       if (customDayRenderer) {
-        // Кастомный рендеринг (для CalendarTab с отметками)
+        // Кастомный рендеринг (для CalendarTab с отметками) - дни НЕ кликабельные
         daysArray.push(
           <View key={dateString} style={[styles.dayContainer, { width: dayWidth }]}>
             {customDayRenderer(date, isCurrentMonth, isToday, !!isSelected, styles)}
@@ -137,7 +137,7 @@ export default function CustomCalendar({
     for (let i = 0; i < 6; i++) {
       const week = daysArray.slice(i * 7, i * 7 + 7);
       rows.push(
-        <View key={i} style={{ flexDirection: 'row' }}>
+        <View key={i} style={{ flexDirection: 'row', justifyContent: 'center' }}>
           {week}
         </View>
       );
@@ -148,11 +148,15 @@ export default function CustomCalendar({
 
   const renderWeekDays = () => {
     const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    return weekDays.map((day) => (
-      <Text key={day} style={[styles.weekDayText, { width: dayWidth }]}>
-        {day}
-      </Text>
-    ));
+    return (
+      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        {weekDays.map((day) => (
+          <Text key={day} style={[styles.weekDayText, { width: dayWidth }]}>
+            {day}
+          </Text>
+        ))}
+      </View>
+    );
   };
 
   const monthName = currentMonth.toLocaleDateString('en-US', {
