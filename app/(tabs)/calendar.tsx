@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles } from '@/styles/calendar';
 import { FloatingBackground } from "@/components/MagicalFeatures";
-import Calendar from '@/components/Calendar';
+import CustomCalendar from '@/components/customCalendar';
 
 interface DailyProgress {
   date: string;
@@ -149,7 +149,7 @@ export default function CalendarTab() {
             <Text style={styles.subtitle}>Every step counts, every day matters</Text>
           </View>
 
-          <Calendar
+          <CustomCalendar
             customDayRenderer={customDayRenderer}
             initialMonth={currentMonth}
             onMonthChange={(date) => {
