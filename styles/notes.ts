@@ -122,6 +122,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     lineHeight: 20,
     marginBottom: 12,
     fontFamily: 'ComicNeue-Regular',
+    opacity: 1,
   },
   noteActions: {
     flexDirection: 'row',
