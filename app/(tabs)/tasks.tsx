@@ -291,16 +291,12 @@ export default function TasksTab() {
             </TouchableOpacity>
             {showCalendar && (
               <CustomCalendar              
-          mode="compact"
-          selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
-          onDateSelect={(date) => {
-            setNewTaskDueDate(date.toISOString());
-            setShowCalendar(false);
-          }}
-          showNavigation={true}
-          showHeader={true}
-          minDate={new Date()} // Только будущие даты, если нужно
-        
+         selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+  onDateSelect={(date) => {
+    setNewTaskDueDate(date.toISOString());
+    setShowCalendar(false);
+  }}
+  minDate={new Date()}
               />
             )}
 
@@ -366,15 +362,12 @@ export default function TasksTab() {
             </TouchableOpacity>
             {showEditCalendar && (
               <CustomCalendar               
-          mode="compact"
-          selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
-          onDateSelect={(date) => {
-            setNewTaskDueDate(date.toISOString());
-            setShowCalendar(false);
-          }}
-          showNavigation={true}
-          showHeader={true}
-          minDate={new Date()} // Только будущие даты, если нужно
+         selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+  onDateSelect={(date) => {
+    setNewTaskDueDate(date.toISOString());
+    setShowCalendar(false);
+  }}
+  minDate={new Date()}
         />
             )}
 
