@@ -93,7 +93,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-    opacity: 0.8,
+    opacity: 0.7,
   },
   noteHeader: {
     flexDirection: 'row',
