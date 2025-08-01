@@ -89,7 +89,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
     { text: 'Got out of bed', emoji: '🛏️' },
     { text: 'Drank water', emoji: '💧' },
     { text: 'Took a deep breath', emoji: '🌬️' },
-    { text: `Was being patient`, emoji: '😌' },
+    { text: `Was patient`, emoji: '😌' },
     { text: 'Pet an animal', emoji: '🐱' },
     { text: 'Looked at the sky', emoji: '☁️' },
     { text: 'Smiled at something', emoji: '😊' },
