@@ -102,6 +102,7 @@ disabledDayText: {
     textAlign: 'center',
     width: dayWidth,
     fontFamily: 'ComicNeue-Bold',
+    alignItems: 'center',
   },
   daysContainer: {
     flexDirection: 'row',
