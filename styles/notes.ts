@@ -100,6 +100,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginBottom: 8,
+    opacity: 1,
   },
   noteTitle: {
     fontSize: 16,
