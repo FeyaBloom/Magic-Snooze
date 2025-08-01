@@ -109,7 +109,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     flex: 1,
     marginRight: 8,
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
     opacity: 1,
   },
   noteDate: {
@@ -148,7 +148,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     color: colors.textSecondary,
     marginTop: 16,
     marginBottom: 8,
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   emptyStateSubtext: {
     fontSize: 16,
@@ -185,7 +185,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   titleInput: {
     borderWidth: 1,
@@ -256,7 +256,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     flex: 1,
     marginRight: 12,
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   editFromViewButton: {
     padding: 8,
