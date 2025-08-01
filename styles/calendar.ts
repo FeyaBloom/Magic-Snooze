@@ -81,7 +81,8 @@ disabledDayText: {
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
   monthTitle: {
     fontSize: 20,
