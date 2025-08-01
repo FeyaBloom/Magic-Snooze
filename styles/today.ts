@@ -67,11 +67,11 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   addButton: {
     borderRadius: 20,
-    width: 48,
-    height: 48,
+    width: 40,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.primary + `30`,
+    backgroundColor: colors.secondary + `30`,
   },
   stepContainer: {
     flexDirection: 'row',
