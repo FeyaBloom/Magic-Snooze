@@ -296,7 +296,6 @@ export default function TasksTab() {
     setNewTaskDueDate(date.toISOString());
     setShowCalendar(false);
   }}
-  minDate={new Date()}
               />
             )}
 
