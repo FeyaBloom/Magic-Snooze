@@ -145,7 +145,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     marginBottom: 20,
     borderRadius: 16,
     padding: 20,
-    shadowColor: '#ccc',
+    shadowColor: '#cccccc',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
