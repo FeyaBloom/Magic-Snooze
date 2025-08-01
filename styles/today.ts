@@ -27,7 +27,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     textAlign: 'center',
     marginBottom: 8,
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   subtitle: {
     fontSize: 16,
