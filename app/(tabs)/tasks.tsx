@@ -163,7 +163,7 @@ export default function TasksTab() {
       <LinearGradient colors={colors.background}  
         style={styles.gradient}      
       >
-                <FloatingBackground />
+        <FloatingBackground />
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>Your Tasks 🎯</Text>
@@ -263,127 +263,135 @@ export default function TasksTab() {
             </View>
           )}
         </ScrollView>
+      </LinearGradient>
 
-        {/* Add Task Modal */}
-        <Modal visible={showAddModal} animationType="slide" transparent>
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Add New Task</Text>
-              <TextInput
-                style={styles.textInput}
-                placeholder="What would you like to accomplish?"
-                placeholderTextColor={colors.textSecondary}
-                value={newTaskText}
-                onChangeText={setNewTaskText}
-                multiline
-                autoFocus
+      {/* Все модалки вынесены сюда, за пределы LinearGradient */}
+      <Modal 
+        visible={showAddModal} 
+        animationType="slide" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Add New Task</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="What would you like to accomplish?"
+              placeholderTextColor={colors.textSecondary}
+              value={newTaskText}
+              onChangeText={setNewTaskText}
+              multiline
+              autoFocus
+            />
+            <TouchableOpacity onPress={() => setShowCalendar(v => !v)} style={styles.datePickerButton}>
+              <Text style={styles.dueDateText}>
+                {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
+              </Text>
+            </TouchableOpacity>
+            {showCalendar && (
+              <CustomCalendar
+                selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+                onSelect={date => {
+                  setNewTaskDueDate(date.toISOString());
+                  setShowCalendar(false);
+                }}
               />
-              <TouchableOpacity onPress={() => setShowCalendar(v => !v)} style={styles.datePickerButton}>
-                <Text style={styles.dueDateText}>
-                  {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
-                </Text>
-              </TouchableOpacity>
-              {showCalendar && (
-                <CustomCalendar
-                  selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
-                  onSelect={date => {
-                    setNewTaskDueDate(date.toISOString());
-                    setShowCalendar(false);
-                  }}
-                />
-              )}
+            )}
 
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={() => {
-                    setShowAddModal(false);
-                    setNewTaskText('');
-                    setNewTaskDueDate('');
-                    setShowCalendar(false);
-                  }}
-                >
-                  <Text style={styles.cancelButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.saveButton]}
-                  onPress={addTask}
-                >
-                  <Text style={styles.saveButtonText}>Add Task</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </Modal>
-
-        {/* Edit Task Modal */}
-        <Modal visible={showEditModal} animationType="slide" transparent>
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
+            <View style={styles.modalButtons}>
               <TouchableOpacity
-                style={styles.deleteButton}
+                style={[styles.modalButton, styles.cancelButton]}
                 onPress={() => {
-                  if (editingTask) {
-                    deleteTask(editingTask.id);
-                  }
+                  setShowAddModal(false);
+                  setNewTaskText('');
+                  setNewTaskDueDate('');
+                  setShowCalendar(false);
                 }}
               >
-                <Trash2 size={16} color="#EF4444" />
+                <Text style={styles.cancelButtonText}>Cancel</Text>
               </TouchableOpacity>
-
-              <Text style={styles.modalTitle}>Edit Task</Text>
-              <TextInput
-                style={styles.textInput}
-                placeholder="What would you like to accomplish?"
-                placeholderTextColor={colors.textSecondary}
-                value={newTaskText}
-                onChangeText={setNewTaskText}
-                multiline
-                autoFocus
-              />
               <TouchableOpacity
-                onPress={() => setShowEditCalendar(v => !v)}
-                style={styles.datePickerButton}
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={addTask}
               >
-                <Text style={styles.dueDateText}>
-                  {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
-                </Text>
+                <Text style={styles.saveButtonText}>Add Task</Text>
               </TouchableOpacity>
-              {showEditCalendar && (
-                <CustomCalendar
-                  selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
-                  onSelect={date => {
-                    setNewTaskDueDate(date.toISOString());
-                    setShowEditCalendar(false);
-                  }}
-                />
-              )}
-
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={() => {
-                    setShowEditModal(false);
-                    setNewTaskText('');
-                    setNewTaskDueDate('');
-                    setEditingTask(null);
-                    setShowEditCalendar(false);
-                  }}
-                >
-                  <Text style={styles.cancelButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.saveButton]}
-                  onPress={editTask}
-                >
-                  <Text style={styles.saveButtonText}>Save</Text>
-                </TouchableOpacity>
-              </View>
             </View>
           </View>
-        </Modal>
+        </View>
+      </Modal>
 
-      </LinearGradient>
+      <Modal 
+        visible={showEditModal} 
+        animationType="slide" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => {
+                if (editingTask) {
+                  deleteTask(editingTask.id);
+                }
+              }}
+            >
+              <Trash2 size={16} color="#EF4444" />
+            </TouchableOpacity>
+
+            <Text style={styles.modalTitle}>Edit Task</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="What would you like to accomplish?"
+              placeholderTextColor={colors.textSecondary}
+              value={newTaskText}
+              onChangeText={setNewTaskText}
+              multiline
+              autoFocus
+            />
+            <TouchableOpacity
+              onPress={() => setShowEditCalendar(v => !v)}
+              style={styles.datePickerButton}
+            >
+              <Text style={styles.dueDateText}>
+                {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
+              </Text>
+            </TouchableOpacity>
+            {showEditCalendar && (
+              <CustomCalendar
+                selected={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+                onSelect={date => {
+                  setNewTaskDueDate(date.toISOString());
+                  setShowEditCalendar(false);
+                }}
+              />
+            )}
+
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => {
+                  setShowEditModal(false);
+                  setNewTaskText('');
+                  setNewTaskDueDate('');
+                  setEditingTask(null);
+                  setShowEditCalendar(false);
+                }}
+              >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={editTask}
+              >
+                <Text style={styles.saveButtonText}>Save</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
