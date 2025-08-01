@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles } from '@/styles/calendar';
 import { FloatingBackground } from "@/components/MagicalFeatures";
-import Calendar from '@/components/сalendar'; // Путь к новому компоненту
+import CustomCalendar from '@/components/сalendar'; // Путь к новому компоненту
 
 interface DailyProgress {
   date: string;
