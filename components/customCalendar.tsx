@@ -183,7 +183,7 @@ export default function Calendar({
           {renderWeekDays()}
         </View>
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+      <View style={[styles.daysContainer, { flexDirection: 'row', justifyContent: 'center' }]}>
         {renderCalendar()}
       </View>
     </View>
