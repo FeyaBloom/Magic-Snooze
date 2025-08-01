@@ -116,7 +116,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
         <ConfettiCannon 
           key={index + `-` + Date.now()}
           count={20} 
-          origin={{ x: screenWidth / 2, y: -50 }} 
+          origin={{ x: screenWidth, y: -10 }} 
           fadeOut autoStart
           onAnimationEnd={() => setConfettiIndex(null)}
           />
