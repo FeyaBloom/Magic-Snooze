@@ -104,7 +104,7 @@ disabledDayText: {
   daysContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    
+    textAlign: 'center',
   },
   dayContainer: {
     width: dayWidth,
