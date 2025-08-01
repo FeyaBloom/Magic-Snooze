@@ -196,11 +196,12 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: 16,
     padding: 20,
-    shadowColor: '#000',
+    shadowColor: '#cccccc',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
+    opacity: 0.75,
   },
   progressTitle: {
     fontSize: 18,
