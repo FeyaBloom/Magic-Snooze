@@ -74,7 +74,7 @@ disabledDayText: {
     marginBottom: 20,
   },
   navButton: {
-    padding: 38,
+    padding: 18,
     borderRadius: 20,
     backgroundColor: colors.secondary + '20',
     width: 30,
