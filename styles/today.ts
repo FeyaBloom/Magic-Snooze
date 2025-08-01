@@ -46,7 +46,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
-    opacity: 0.9,
+    opacity: 0.7,
   },
   routineHeader: {
     flexDirection: 'row',
