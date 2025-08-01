@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles } from '@/styles/calendar';
 import { FloatingBackground } from "@/components/MagicalFeatures";
-import CustomCalendar from '@/components/customCalendar'; // Путь к новому компоненту
+import Calendar from '@/components/Calendar';
 
 interface DailyProgress {
   date: string;
@@ -76,37 +76,38 @@ export default function CalendarTab() {
   };
 
   // Кастомный рендерер дней с отметками прогресса
-  const customDayRenderer = (date: Date, isSelected: boolean, isToday: boolean, isCurrentMonth: boolean) => {
+  const customDayRenderer = (date: Date, isCurrentMonth: boolean, isToday: boolean, isSelected: boolean, calendarStyles: any) => {
     const dateString = getLocalDateString(date);
     const dayStatus = getDayStatus(dateString);
 
     return (
-      <View style={{ alignItems: 'center' }}>
+      <>
         <View style={[
-          styles.dayCell,
-          !isCurrentMonth && styles.otherMonth,
-          isToday && styles.today,
-          dayStatus === 'complete' && styles.completeDay,
-          dayStatus === 'partial' && styles.partialDay,
-          dayStatus === 'snoozed' && styles.snoozedDay,
+          calendarStyles.dayCell,
+          !isCurrentMonth && calendarStyles.otherMonth,
+          isToday && calendarStyles.today,
+          dayStatus === 'complete' && calendarStyles.completeDay,
+          dayStatus === 'partial' && calendarStyles.partialDay,
+          dayStatus === 'snoozed' && calendarStyles.snoozedDay,
         ]}>
           <Text style={[
-            styles.dayText,
-            !isCurrentMonth && styles.otherMonthText,
-            isToday && styles.todayText,
-            dayStatus !== 'none' && styles.statusDayText,
+            calendarStyles.dayText,
+            // Цвет текста: текущий месяц темнее, остальные светлее
+            isCurrentMonth ? { color: colors.text } : calendarStyles.otherMonthText,
+            isToday && calendarStyles.todayText,
+            dayStatus !== 'none' && calendarStyles.statusDayText,
           ]}>
             {date.getDate()}
           </Text>
         </View>
         {dayStatus !== 'none' && (
-          <View style={styles.statusDot}>
-            <Text style={styles.statusEmoji}>
+          <View style={calendarStyles.statusDot}>
+            <Text style={calendarStyles.statusEmoji}>
               {dayStatus === 'complete' ? '🏆' : dayStatus === 'partial' ? '🌟' : '💤'}
             </Text>
           </View>
         )}
-      </View>
+      </>
     );
   };
 
@@ -148,15 +149,11 @@ export default function CalendarTab() {
             <Text style={styles.subtitle}>Every step counts, every day matters</Text>
           </View>
 
-          <CustomCalendar
-            initialDate={currentMonth}
-            showNavigation={true}
-            showHeader={true}
-            mode="full"
+          <Calendar
             customDayRenderer={customDayRenderer}
-            onDateSelect={(date) => {
-              // Здесь можно добавить логику при выборе даты, если нужно
-              setCurrentMonth(new Date(date.getFullYear(), date.getMonth(), 1));
+            initialMonth={currentMonth}
+            onMonthChange={(date) => {
+              setCurrentMonth(date);
             }}
           />
 
