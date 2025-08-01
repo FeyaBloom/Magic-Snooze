@@ -167,7 +167,7 @@ export default function Calendar({
           style={styles.navButton}
           onPress={() => navigateMonth('prev')}
         >
-          <ChevronLeft size={24} color={colors.secondary} />
+          <ChevronLeft size={20} color={colors.secondary} />
         </TouchableOpacity>
         <Text style={styles.monthTitle}>{monthName}</Text>
         <TouchableOpacity
