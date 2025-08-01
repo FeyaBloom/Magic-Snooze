@@ -77,6 +77,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
+    opacity: 0.5,
   },
   completedTaskContainer: {
     backgroundColor: colors.surface,
@@ -88,7 +89,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     marginLeft: 8,
-    opacity: 0.5,
+    
     // gap: 8, // gap не поддерживается официально в RN, убери!
   },
   deleteButtonInline: {
