@@ -71,7 +71,7 @@ disabledDayText: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 20,
+    marginBottom: 20,
   },
   navButton: {
     padding: 18,
@@ -81,6 +81,7 @@ disabledDayText: {
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 20,
   },
   monthTitle: {
     fontSize: 20,
