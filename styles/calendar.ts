@@ -15,6 +15,25 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     flex: 1,
     zIndex: 5,
   },
+  // Добавьте только эти стили в ваш createCalendarStyles:
+
+selectedDay: {
+  backgroundColor: colors.primary,
+},
+
+selectedDayText: {
+  color: '#FFFFFF',
+  fontWeight: '700',
+},
+
+disabledDay: {
+  opacity: 0.3,
+},
+
+disabledDayText: {
+  color: colors.textSecondary,
+  opacity: 0.5,
+},
   header: {
     padding: 20,
     paddingTop: 20,
