@@ -66,7 +66,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: colors.text,
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   weekDaysContainer: {
     flexDirection: 'row',
