@@ -250,7 +250,7 @@ export default function CalendarTab() {
 
           {monthStats.totalDays > 0 && (
             <View style={styles.statsContainer}>
-              <Text style={styles.statsTitle}>Monthly Progress</Text>
+              <Text style={styles.statsTitle}>Monthly Progress <Sparkles size={20} color={colors.text} /></Text>
               <View style={styles.statsGrid}>
                 <View style={styles.statItem}>
                   <Text style={styles.statNumber}>{monthStats.completeDays}</Text>
