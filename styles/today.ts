@@ -33,7 +33,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     fontSize: 16,
     color: colors.textSecondary,
     textAlign: 'center',
-    fontFamily: 'ComicNeue-Regular',
+    fontFamily: 'CabinSketch-Regular',
   },
   routineSection: {
     marginHorizontal: 20,
