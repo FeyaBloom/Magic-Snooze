@@ -148,7 +148,7 @@ export default function CalendarTab() {
             <Text style={styles.subtitle}>Every step counts, every day matters</Text>
           </View>
 
-          <Calendar
+          <CustomCalendar
             initialDate={currentMonth}
             showNavigation={true}
             showHeader={true}
