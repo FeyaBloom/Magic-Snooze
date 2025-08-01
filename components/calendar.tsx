@@ -27,7 +27,7 @@ const getLocalDateString = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
-export default function Calendar({
+export default function CustomCalendar({
   selectedDate,
   onDateSelect,
   showNavigation = true,
