@@ -71,7 +71,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     height: 48,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primary + `30`,
   },
   stepContainer: {
     flexDirection: 'row',
