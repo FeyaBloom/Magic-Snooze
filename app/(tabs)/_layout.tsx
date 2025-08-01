@@ -13,7 +13,7 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopWidth: 0,
-          borderBottomWidth: 1,
+          borderBottomWidth: 0,
           borderBottomColor: colors.secondary + '50',
           elevation: 8,
           shadowColor: '#000',
