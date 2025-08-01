@@ -174,6 +174,7 @@ export default function NotesTab() {
             <TextInput
               style={styles.searchInput}
               placeholder="Search your notes..."
+              placeholderTextColor={colors.textSecondary}
               value={searchQuery}
               onChangeText={setSearchQuery}
             />
