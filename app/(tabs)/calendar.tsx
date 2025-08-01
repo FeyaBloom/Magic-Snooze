@@ -40,9 +40,10 @@ export default function CalendarTab() {
   const [progressData, setProgressData] = useState<Record<string, DailyProgress>>({});
 
   useFocusEffect(
-    useCallback() => {
+    useCallback(() => {
     loadProgressData();
-  }, []);
+  }, [])
+  );
 
   const loadProgressData = async () => {
     try {
