@@ -178,10 +178,10 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     marginRight: 8,
   },
   completeLegend: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.accent,
   },
   partialLegend: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
   },
   snoozedLegend: {
     backgroundColor: colors.secondary,
