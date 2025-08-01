@@ -107,7 +107,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: colors.text,
-    flex: 1,
+   // flex: 1,
     marginRight: 8,
     fontFamily: 'ComicNeue-Bold',
     opacity: 1,
