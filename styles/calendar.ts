@@ -183,7 +183,7 @@ disabledDayText: {
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   legendGrid: {
     flexDirection: 'row',
@@ -239,7 +239,7 @@ disabledDayText: {
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   statsGrid: {
     flexDirection: 'row',
