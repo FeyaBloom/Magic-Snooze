@@ -18,7 +18,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 14,
+    fontSize: 24,
     fontWeight: '700',
     color: colors.text,
     marginBottom: 8,
