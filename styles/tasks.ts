@@ -77,11 +77,11 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-    opacity: 0.5,
+    opacity: 0.8,
   },
   completedTaskContainer: {
     backgroundColor: colors.surface,
-    opacity: 0.7,
+    opacity: 0.5,
   },
   
   taskContent: {
