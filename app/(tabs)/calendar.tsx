@@ -227,7 +227,7 @@ export default function CalendarTab() {
             <View style={styles.legendGrid}>
               <View style={styles.legendItem}>
                 <View style={[styles.legendDot, styles.completeLegend]} />
-                <Text style={styles.legendText}>Complete Day ✨</Text>
+                <Text style={styles.legendText}>Complete Day 🏆</Text>
               </View>
               <View style={styles.legendItem}>
                 <View style={[styles.legendDot, styles.partialLegend]} />
