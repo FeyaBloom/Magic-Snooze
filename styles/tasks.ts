@@ -16,6 +16,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     alignItems: 'center',
+    fontFamily: 'CabinSketch-Bold',
   },
   title: {
     fontSize: 24,
