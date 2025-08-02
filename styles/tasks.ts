@@ -162,7 +162,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
 //    fontWeight: '600',
     color: colors.textSecondary,
     marginBottom: 8,
-    fontFamily: 'CabinSketch-Bold',
+    fontFamily: 'CabinSketch-Regular',
   },
   emptyStateSubtext: {
     fontSize: 16,
