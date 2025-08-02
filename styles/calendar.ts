@@ -183,7 +183,7 @@ disabledDayText: {
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
-    fontFamily: 'CabinSketch-Bold',
+    fontFamily: 'CabinSketch-Regular',
   },
   legendGrid: {
     flexDirection: 'row',
