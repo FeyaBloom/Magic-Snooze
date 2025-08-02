@@ -49,16 +49,14 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     textAlign: 'center',
     marginBottom: 4,
-    fontFamily: 'CabinSketch-Bold',
-   // fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Regular',
   },
   tinyVictorySubtitle: {
     fontSize: 14,
     color: colors.textSecondary,
     textAlign: 'center',
     marginBottom: 16,
-    fontFamily: 'CabinSketch-Bold',
-   // fontFamily: 'ComicNeue-Regular',
+    fontFamily: 'CabinSketch-Regular',
   },
   victoryGrid: {
     flexDirection: 'row',
