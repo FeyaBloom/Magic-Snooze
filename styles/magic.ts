@@ -49,7 +49,8 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     textAlign: 'center',
     marginBottom: 4,
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'CabinSketch-Bold',
+   // fontFamily: 'ComicNeue-Bold',
   },
   tinyVictorySubtitle: {
     fontSize: 14,
