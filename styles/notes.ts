@@ -181,7 +181,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '1000',
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
