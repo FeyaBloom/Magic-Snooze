@@ -53,12 +53,12 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
-    fontFamily: 'CabinSketch-Bold',
+  //  fontFamily: 'CabinSketch-Bold',
   },
   routineTitle: {
     flexDirection: 'row',
     alignItems: 'center',
-    fontFamily: 'CabinSketch-Bold',
+ //   fontFamily: 'CabinSketch-Bold',
   },
   routineTitleText: {
     fontSize: 18,
