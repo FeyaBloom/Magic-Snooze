@@ -64,7 +64,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     fontSize: 18,
     fontWeight: '1000',
     marginLeft: 8,
-    fontFamily: 'ComicNeue-Bold',
+   // fontFamily: 'ComicNeue-Bold',
     color: colors.text,
   },
   addButton: {
