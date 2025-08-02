@@ -62,7 +62,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   routineTitleText: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: '1000',
     marginLeft: 8,
     fontFamily: 'ComicNeue-Bold',
     color: colors.text,
