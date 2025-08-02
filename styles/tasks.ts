@@ -16,8 +16,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     alignItems: 'center',
-   // fontFamily: 'CabinSketch-Bold',
-  },
+ },
   title: {
     fontSize: 24,
     fontWeight: '1000',
@@ -61,10 +60,10 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: '1000',
     color: colors.text,
     marginBottom: 12,
-    fontFamily: 'CabinSketch-Bold',
+    fontFamily: 'CabinSketch-Regular',
   },
   taskContainer: {
     flexDirection: 'row',
