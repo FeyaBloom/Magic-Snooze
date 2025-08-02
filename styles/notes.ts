@@ -148,7 +148,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     color: colors.textSecondary,
     marginTop: 16,
     marginBottom: 8,
-    fontFamily: 'CabinSketch-Bold',
+    fontFamily: 'CabinSketch-Regular',
   },
   emptyStateSubtext: {
     fontSize: 16,
