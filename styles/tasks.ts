@@ -20,7 +20,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: '1000',
+  //  fontWeight: '1000',
     color: colors.text,
     marginBottom: 8,
     textAlign: 'center',
