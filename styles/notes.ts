@@ -185,7 +185,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
-    fontFamily: 'CabinSketch-Bold',
+    fontFamily: 'CabinSketch-Regular',
   },
   titleInput: {
     borderWidth: 1,
