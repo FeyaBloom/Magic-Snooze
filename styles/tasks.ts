@@ -16,7 +16,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     alignItems: 'center',
-    fontFamily: 'CabinSketch-Bold',
+   // fontFamily: 'CabinSketch-Bold',
   },
   title: {
     fontSize: 24,
@@ -24,7 +24,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     marginBottom: 8,
     textAlign: 'center',
-    fontFamily: 'CabinSketch-Bold',
+ //   fontFamily: 'CabinSketch-Bold',
   },
   subtitle: {
     fontSize: 16,
