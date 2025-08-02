@@ -86,7 +86,7 @@ disabledDayText: {
   },
   monthTitle: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '1000',
     color: colors.text,
     fontFamily: 'CabinSketch-Bold',
   },
