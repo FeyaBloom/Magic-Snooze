@@ -159,7 +159,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   emptyStateText: {
     fontSize: 20,
-//    fontWeight: '600',
+    fontWeight: '600',
     color: colors.textSecondary,
     marginBottom: 8,
     fontFamily: 'CabinSketch-Regular',
@@ -186,11 +186,11 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '1000',
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
-    fontFamily: 'CabinSketch-Bold',
+    fontFamily: 'CabinSketch-Regular',
   },
   textInput: {
     borderWidth: 1,
