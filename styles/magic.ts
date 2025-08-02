@@ -57,7 +57,8 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
     color: colors.textSecondary,
     textAlign: 'center',
     marginBottom: 16,
-    fontFamily: 'ComicNeue-Regular',
+    fontFamily: 'CabinSketch-Bold',
+   // fontFamily: 'ComicNeue-Regular',
   },
   victoryGrid: {
     flexDirection: 'row',
