@@ -235,7 +235,7 @@ disabledDayText: {
   },
   statsTitle: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: '1000',
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
