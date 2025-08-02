@@ -256,7 +256,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     color: colors.text,
     flex: 1,
     marginRight: 12,
-    fontFamily: 'CabinSketch-Bold',
+    fontFamily: 'CabinSketch-Regular',
   },
   editFromViewButton: {
     padding: 8,
