@@ -72,11 +72,11 @@ export default function SettingsTab() {
 
         <TouchableOpacity
           style={styles.row}
-          onPress={() => Linking.openURL('https://t.me/feya_bloom')}
+          onPress={() => Linking.openURL('https://portfolio-feya-bloom.webflow.io/')}
         >
           <View>
             <Text style={styles.label}>Contact the Creator</Text>
-            <Text style={styles.description}>t.me/feya_bloom</Text>
+            <Text style={styles.description}>Text me</Text>
           </View>
           <Globe color={colors.textSecondary} size={20} />
         </TouchableOpacity>
