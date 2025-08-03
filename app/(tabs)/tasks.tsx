@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
 import CustomCalendar from '@/components/customCalendar';
-
+import { ConfirmDialog } from "@/components/confirmDialog";
 interface Task {
   id: string;
   text: string;
