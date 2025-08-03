@@ -36,7 +36,12 @@ export default function NotesTab() {
   const [editingNote, setEditingNote] = useState<Note | null>(null);
   const [viewingNote, setViewingNote] = useState<Note | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-
+ const [confirmDialog, setConfirmDialog] = useState({
+  visible: false,
+  title: '',
+  message: '',
+  onConfirm: () => {},
+});
   useEffect(() => {
     loadNotes();
   }, []);
