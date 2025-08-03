@@ -396,6 +396,17 @@ export default function NotesTab() {
           </View>
         </View>
       </Modal>
+
+         <ConfirmDialog
+        visible={confirmDialog.visible}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        onConfirm={() => {
+          confirmDialog.onConfirm();
+          setConfirmDialog(d => ({ ...d, visible: false }));
+        }}
+        onCancel={() => setConfirmDialog(d => ({ ...d, visible: false }))}
+      />
            </SafeAreaView>
     </>
   );
