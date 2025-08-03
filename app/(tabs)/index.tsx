@@ -619,7 +619,7 @@ function TodayTabContent() {
   );
 }
 
-<ConfirmDialog
+<confirmDialog
   visible={confirmDialog.visible}
   title={confirmDialog.title}
   message={confirmDialog.message}
