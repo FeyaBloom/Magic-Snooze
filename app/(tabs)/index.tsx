@@ -109,6 +109,13 @@ function TodayTabContent() {
       console.error('Error loading victories:', error);
     }
   };
+  
+  const [confirmDialog, setConfirmDialog] = useState({
+  visible: false,
+  title: '',
+  message: '',
+  onConfirm: () => {},
+});
 
   const celebrateVictory = async (victory: string) => {
     try {
@@ -292,29 +299,25 @@ function TodayTabContent() {
     setShowEditModal(false);
   };
 
-  const deleteStep = async (stepId: string, routine: 'morning' | 'evening') => {
-    Alert.alert(
-      'Delete Step',
-      'Are you sure you want to delete this step?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            const updateRoutine = routine === 'morning' ? morningRoutine : eveningRoutine;
-            const setRoutine = routine === 'morning' ? setMorningRoutine : setEveningRoutine;
-            
-            const updated = updateRoutine.filter(step => step.id !== stepId);
-            setRoutine(updated);
-            await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
-             setShowEditModal(false);
-            setEditingStep(null);
-          },
-        },
-      ]
-    );
-  };
+ const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
+  setConfirmDialog({
+    visible: true,
+    title: 'Delete Step',
+    message: 'Are you sure you want to delete this step?',
+    onConfirm: async () => {
+      const updateRoutine = routine === 'morning' ? morningRoutine : eveningRoutine;
+      const setRoutine = routine === 'morning' ? setMorningRoutine : setEveningRoutine;
+
+      const updated = updateRoutine.filter(step => step.id !== stepId);
+      setRoutine(updated);
+      await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
+
+      setShowEditModal(false);
+      setEditingStep(null);
+    },
+  });
+};
+
 
   const snoozeToday = async () => {
     const newSnoozed = !isSnoozed;
@@ -614,6 +617,17 @@ function TodayTabContent() {
     </SafeAreaView>
   );
 }
+
+<ConfirmDialog
+  visible={confirmDialog.visible}
+  title={confirmDialog.title}
+  message={confirmDialog.message}
+  onConfirm={() => {
+    confirmDialog.onConfirm();
+    setConfirmDialog(d => ({ ...d, visible: false }));
+  }}
+  onCancel={() => setConfirmDialog(d => ({ ...d, visible: false }))}
+/>
 
 export default function TodayTab() {
   return (
