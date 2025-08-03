@@ -17,7 +17,7 @@ import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, } from '@/componen
 import { useTheme } from '@/components/ThemeProvider';
 import { createTodayStyles } from '@/styles/today';
 import {FloatingBackground} from "@/components/MagicalFeatures";
-import {confirmDialog} from "@/components/confirmDialog";
+import { ConfirmDialog } from "@/components/confirmDialog";
 
 
 interface RoutineStep {
@@ -615,20 +615,20 @@ function TodayTabContent() {
           </View>
         </View>
       </Modal>
+
+      <ConfirmDialog
+        visible={confirmDialog.visible}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        onConfirm={() => {
+          confirmDialog.onConfirm();
+          setConfirmDialog(d => ({ ...d, visible: false }));
+        }}
+        onCancel={() => setConfirmDialog(d => ({ ...d, visible: false }))}
+      />
     </SafeAreaView>
   );
 }
-
-<confirmDialog
-  visible={confirmDialog.visible}
-  title={confirmDialog.title}
-  message={confirmDialog.message}
-  onConfirm={() => {
-    confirmDialog.onConfirm();
-    setConfirmDialog(d => ({ ...d, visible: false }));
-  }}
-  onCancel={() => setConfirmDialog(d => ({ ...d, visible: false }))}
-/>
 
 export default function TodayTab() {
   return (
