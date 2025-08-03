@@ -113,27 +113,21 @@ export default function TasksTab() {
     );
     await saveTasks(updatedTasks);
   };
-
-  const deleteTask = async (taskId: string) => {
-    Alert.alert(
-      'Delete Task',
-      'Are you sure you want to delete this task?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            const updatedTasks = tasks.filter(task => task.id !== taskId);
+ const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
+  setConfirmDialog({
+    visible: true,
+    title: 'Delete Task',
+    message: 'Are you sure you want to delete this task?',
+    onConfirm: async () => {
+      const updatedTasks = tasks.filter(task => task.id !== taskId);
             await saveTasks(updatedTasks);
             setShowEditModal(false);
             setEditingTask(null);
             setShowEditCalendar(false);
-          },
-        },
-      ]
-    );
-  };
+    },
+  });
+};
+  
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
