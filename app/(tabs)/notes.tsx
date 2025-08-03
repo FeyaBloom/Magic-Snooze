@@ -117,7 +117,7 @@ export default function NotesTab() {
     message: 'Are you sure you want to delete this note?',
     onConfirm: async () => {
       const updatedNotes = notes.filter(note => note.id !== noteId);
-            await saveNotess(updatedNotess);
+            await saveNotes(updatedNotes);
             setShowEditModal(false);
             setEditingNote(null);
     },
