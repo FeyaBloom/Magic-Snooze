@@ -114,7 +114,7 @@ export default function TasksTab() {
     await saveTasks(updatedTasks);
   };
   
- const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
+ const deleteTask = (taskId: string) => {
   setConfirmDialog({
     visible: true,
     title: 'Delete Task',
