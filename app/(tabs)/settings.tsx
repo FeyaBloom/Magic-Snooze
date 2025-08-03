@@ -4,6 +4,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { LinearGradient } from 'expo-linear-gradient';
 import { createSettingsStyles } from '@/styles/settings';
 import { Globe, Heart, Languages, LogIn, User2 } from 'lucide-react-native';
+import {FloatingBackground} from "@/components/MagicalFeatures";
 
 export default function SettingsTab() {
   const { colors, themeName, toggleTheme } = useTheme();
