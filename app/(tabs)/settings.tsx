@@ -73,7 +73,7 @@ export default function SettingsTab() {
 
         <TouchableOpacity
           style={styles.row}
-          onPress={() => Linking.openURL('https://www.buymeacoffee.com/feya')}
+          onPress={() => Linking.openURL('https://www.buymeacoffee.com/feyabloom')}
         >
           <View>
             <Text style={styles.label}>Support this app</Text>
