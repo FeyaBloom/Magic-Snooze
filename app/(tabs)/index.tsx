@@ -52,7 +52,12 @@ function TodayTabContent() {
   const [todayProgress, setTodayProgress] = useState<DailyProgress | null>(null);
   const [isSnoozed, setIsSnoozed] = useState(false);
   const [celebratedVictories, setCelebratedVictories] = useState<string[]>([]);
-
+ const [confirmDialog, setConfirmDialog] = useState({
+  visible: false,
+  title: '',
+  message: '',
+  onConfirm: () => {},
+});
   const getLocalDateString = () => {
     const now = new Date();
     const year = now.getFullYear();
@@ -111,12 +116,7 @@ function TodayTabContent() {
     }
   };
   
-  const [confirmDialog, setConfirmDialog] = useState({
-  visible: false,
-  title: '',
-  message: '',
-  onConfirm: () => {},
-});
+ 
 
   const celebrateVictory = async (victory: string) => {
     try {
