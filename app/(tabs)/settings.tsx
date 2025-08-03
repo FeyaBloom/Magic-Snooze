@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Linking, Switch } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
+import { LinearGradient } from 'expo-linear-gradient';
 import { createSettingsStyles } from '@/styles/settings';
 import { Globe, Heart, Languages, LogIn, User2 } from 'lucide-react-native';
 
