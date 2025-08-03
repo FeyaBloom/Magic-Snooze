@@ -39,7 +39,12 @@ export default function TasksTab() {
 
   const [showCalendar, setShowCalendar] = useState(false);
   const [showEditCalendar, setShowEditCalendar] = useState(false);
-
+ const [confirmDialog, setConfirmDialog] = useState({
+  visible: false,
+  title: '',
+  message: '',
+  onConfirm: () => {},
+});
   useEffect(() => {
     loadTasks();
   }, []);
