@@ -17,7 +17,7 @@ import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, } from '@/componen
 import { useTheme } from '@/components/ThemeProvider';
 import { createTodayStyles } from '@/styles/today';
 import {FloatingBackground} from "@/components/MagicalFeatures";
-import {ConfirmDialog} from "@/components/confirmDialog";
+import {confirmDialog} from "@/components/confirmDialog";
 
 
 interface RoutineStep {
