@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
 
-export const ConfirmDialog = ({
+export const confirmDialog = ({
   visible,
   title,
   message,
