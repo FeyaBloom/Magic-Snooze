@@ -110,26 +110,21 @@ export default function NotesTab() {
     setShowEditModal(false);
   };
 
-  const deleteNote = async (noteId: string) => {
-    Alert.alert(
-      'Delete Note',
-      'Are you sure you want to delete this note?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            const updatedNotes = notes.filter(note => note.id !== noteId);
-            await saveNotes(updatedNotes);
+  const deleteNote = (noteId: string) => {
+  setConfirmDialog({
+    visible: true,
+    title: 'Delete Task',
+    message: 'Are you sure you want to delete this task?',
+    onConfirm: async () => {
+      const updatedNotes = notes.filter(note => note.id !== noteId);
+            await saveNotess(updatedNotess);
             setShowEditModal(false);
             setEditingNote(null);
-          },
-        },
-      ]
-    );
-  };
-
+    },
+  });
+};
+ 
+ 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
