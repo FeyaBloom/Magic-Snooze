@@ -103,7 +103,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
 
   return (
     <View style={styles.tinyVictoryContainer}>
-      <Text style={styles.tinyVictoryTitle}>Tiny Victories  <Sparkles size={20} color=colors.primary /></Text>
+      <Text style={styles.tinyVictoryTitle}>Tiny Victories  <Sparkles size={20} color={colors.primary} /></Text>
       <Text style={styles.tinyVictorySubtitle}>Celebrate the small wins!</Text>
 
       <View style={styles.victoryGrid}>
