@@ -9,6 +9,14 @@ export default function SettingsTab() {
   const styles = createSettingsStyles(colors);
 
   return (
+
+    <SafeAreaView style={styles.container}>
+      <LinearGradient
+        colors={colors.background}
+        style={styles.gradient}>
+
+          <FloatingBackground />
+
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Settings & About ⚙️</Text>
 
@@ -83,5 +91,7 @@ export default function SettingsTab() {
         </TouchableOpacity>
       </View>
     </ScrollView>
+</LinearGradient>
+</SafeAreaView>
   );
 }
