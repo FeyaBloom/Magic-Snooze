@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createNotesStyles } from '@/styles/notes';
 import {FloatingBackground} from "@/components/MagicalFeatures";
-
+import { ConfirmDialog } from "@/components/confirmDialog";
 interface Note {
   id: string;
   title: string;
