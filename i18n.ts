@@ -7,6 +7,7 @@ import { NativeModules, Platform } from 'react-native';
 // Локальные ресурсы
 import en from './locales/en.json';
 import ru from './locales/ru.json';
+import es from './locales/es.json';
 
 const languageDetector = {
   type: 'languageDetector',
