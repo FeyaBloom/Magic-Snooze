@@ -307,26 +307,25 @@ function TodayTabContent() {
     setShowEditModal(false);
   };
 
-const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
-    setConfirmDialog({
-      visible: true,
-      title: t('today.deleteStep'),
-      message: t('today.deleteStepConfirm'),
-      onConfirm: async () => {
-        const updateRoutine = routine === 'morning' ? morningRoutine : eveningRoutine;
-        const setRoutine = routine === 'morning' ? setMorningRoutine : setEveningRoutine;
+ const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
+  setConfirmDialog({
+    visible: true,
+    title: 'Delete Step',
+    message: 'Are you sure you want to delete this step?',
+    onConfirm: async () => {
+      const updateRoutine = routine === 'morning' ? morningRoutine : eveningRoutine;
+      const setRoutine = routine === 'morning' ? setMorningRoutine : setEveningRoutine;
 
-        const updated = updateRoutine.filter(step => step.id !== stepId);
-        setRoutine(updated);
-        await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
+      const updated = updateRoutine.filter(step => step.id !== stepId);
+      setRoutine(updated);
+      await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
 
-        setShowEditModal(false);
-        setEditingStep(null);
-      },
-    });
-  };
-
-
+      setShowEditModal(false);
+      setEditingStep(null);
+    },
+  });
+};
+ 
 
   const snoozeToday = async () => {
     const newSnoozed = !isSnoozed;
@@ -409,28 +408,32 @@ const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
 
 
 
- return (
+  return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient colors={colors.background} style={styles.gradient}>
-        <FloatingBackground />
-
+      <LinearGradient
+        colors={colors.background}
+        style={styles.gradient}
+      >
+        
+          <FloatingBackground />
         <>
-          <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-            <View style={styles.header}>
-              <Text style={styles.title}>{t('today.title')}</Text>
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+          <View>
+          <View style={styles.header}>       
+              <Text style={styles.title}>Good day, beautiful soul 🌸</Text>          
               <Text style={styles.subtitle}>
-                {isSnoozed ? t('today.subtitleSnoozed') : t('today.subtitle')}
+              {isSnoozed ? 'You\'re taking a gentle break today' : 'Take it one step at a time'}
               </Text>
-            </View>
+          </View>
 
-            {!isSnoozed && (
+          {!isSnoozed && (
+           
               <TouchableOpacity style={styles.snoozeButton} onPress={snoozeToday}>
                 <Pause size={20} color="#8B5CF6" />
-                <Text style={[styles.snoozeText, { fontFamily: 'ComicNeue-Regular' }]}>
-                  {t('today.snoozeToday')}
-                </Text>
+                <Text style={[styles.snoozeText, { fontFamily: 'ComicNeue-Regular' }]}>Snooze Today</Text>
               </TouchableOpacity>
-            )}
+           
+          )}
 
           <View style={styles.magicalControls}>
            
