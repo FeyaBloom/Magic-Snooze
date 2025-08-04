@@ -5,7 +5,8 @@ import { View, ActivityIndicator } from 'react-native';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import {FloatingBackground} from "@/components/MagicalFeatures"
-
+import { I18nextProvider } from 'react-i18next';
+import i18n from '@/i18n';
 
 import { useFonts } from 'expo-font';
 import {
