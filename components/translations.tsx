@@ -124,35 +124,5 @@ export const translations = {
         selectLanguage: 'Seleziona lingua'
       }
     }
-  },
-  ja: {
-    settings: {
-      // ... существующие переводы
-      language: {
-        title: '言語',
-        currently: '現在',
-        selectLanguage: '言語を選択'
-      }
-    }
-  },
-  ko: {
-    settings: {
-      // ... существующие переводы
-      language: {
-        title: '언어',
-        currently: '현재',
-        selectLanguage: '언어 선택'
-      }
-    }
-  },
-  zh: {
-    settings: {
-      // ... существующие переводы
-      language: {
-        title: '语言',
-        currently: '当前',
-        selectLanguage: '选择语言'
-      }
-    }
-  }
+  }  
 };
