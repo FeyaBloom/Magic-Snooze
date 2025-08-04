@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Chrome as Home, SquareCheck as CheckSquare, Calendar, FileText } from 'lucide-react-native';
+import { Chrome as Home, SquareCheck as CheckSquare, Calendar, FileText, Cog } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 
 export default function TabLayout() {
@@ -73,7 +73,7 @@ export default function TabLayout() {
     <Tabs.Screen name="settings" options={{
           title: 'Settings',
           tabBarIcon: ({ size, color }) => (
-            <FileText size={size} color={color} />
+            <Cog size={size} color={color} />
           ),
         }}
 />
