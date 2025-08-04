@@ -439,7 +439,7 @@ function TodayTabContent() {
            
               <TouchableOpacity style={styles.addTaskButton} onPress={() => setShowTinyVictories(true)}>
                 <Sparkles size={20} color="#FFFFFF" />
-                <Text style={styles.addTaskText}>Tiny Victories</Text>
+                 <Text style={styles.addTaskText}>{t('today.tinyVictories')}</Text>
               </TouchableOpacity>
            
             
