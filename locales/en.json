@@ -68,7 +68,7 @@
     "supportApp": {
       "title": "Support this app",
       "description": "Send a magical donation 💰"
-    }
+    },
     "languages": {
     "en": { "name": "English", "native": "English", "flag": "🇺🇸" },
     "ru": { "name": "Russian", "native": "Русский", "flag": "🇷🇺" },
