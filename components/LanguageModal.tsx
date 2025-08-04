@@ -7,10 +7,10 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-import { useLanguage, Language, LanguageCode } from '@/components/LanguageProvider';
+//import { useLanguage, Language, LanguageCode } from '@/components/LanguageProvider';
 import { useTheme } from '@/components/ThemeProvider';
 import { Check } from 'lucide-react-native';
-
+import i18n from '@/i18n';
 interface LanguageModalProps {
   visible: boolean;
   onClose: () => void;
@@ -20,11 +20,11 @@ export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }
   const { colors } = useTheme();
   const { currentLanguage, setLanguage, availableLanguages, t } = useLanguage();
 
-  const handleLanguageSelect = async (languageCode: LanguageCode) => {
-    await changeLanguage(languageCode);
-    onClose();
-  };
 
+const handleLanguageSelect = async (languageCode) => {
+  await i18n.changeLanguage(languageCode);
+  onClose();
+  
   const renderLanguageItem = ({ item }: { item: Language }) => {
     const isSelected = currentLanguage === item.code;
     
