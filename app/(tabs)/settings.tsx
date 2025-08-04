@@ -42,8 +42,10 @@ const currentLanguageCode = i18n.language;
               </TouchableOpacity>
             </View>
             
-            <TouchableOpacity 
-              
+            <TouchableOpacity  
+               style={styles.themeButton}
+                onPress={useTranslation}
+              >
               <View>
                 <Text style={styles.label}>{t('settings.language.title')}</Text>
                 <Text style={styles.description}>
@@ -52,6 +54,7 @@ const currentLanguageCode = i18n.language;
               </View>
               <Languages color={colors.textSecondary} size={20} />
             </TouchableOpacity>
+          
           </View>
           
           <View style={styles.section}>
