@@ -41,7 +41,7 @@ export default function SettingsTab() {
             </View>
             
             <TouchableOpacity 
-              style={styles.row}
+              
               <View>
                 <Text style={styles.label}>{t('settings.language.title')}</Text>
                 <Text style={styles.description}>
