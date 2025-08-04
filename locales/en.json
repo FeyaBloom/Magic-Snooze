@@ -66,6 +66,6 @@
       },
       "supportApp": {
         "title": 'Support this app',
-        description: 'Send a magical donation 💰',
+        "description": 'Send a magical donation 💰',
       }
     }
