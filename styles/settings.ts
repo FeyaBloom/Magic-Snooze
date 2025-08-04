@@ -3,16 +3,35 @@ import { StyleSheet } from 'react-native';
 export const createSettingsStyles = (colors: any) =>
   StyleSheet.create({
     container: {
-      flex: 1,
-      padding: 20,
-    },
-    title: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      color: colors.text,
-      marginBottom: 20,
-      fontFamily: 'CabinSketch-Bold',
-    },
+    flex: 1,
+  },
+  gradient: {
+    flex: 1,
+    zIndex: 0,
+  },
+  scrollView: {
+    flex: 1,
+    zIndex: 5,
+  },
+  header: {
+    padding: 20,
+    paddingTop: 20,
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '1000',
+    color: colors.text,
+    marginBottom: 8,
+    textAlign: 'center',
+    fontFamily: 'CabinSketch-Bold',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    fontFamily: 'CabinSketch-Regular',
+  },
     section: {
       marginBottom: 30,
     },
