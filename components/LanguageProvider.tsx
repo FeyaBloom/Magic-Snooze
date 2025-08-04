@@ -153,7 +153,7 @@ const translations: Record<LanguageCode, any> = {
       },
       manageProfile: {
         title: 'Управление профилем',
-        description: 'Просмотр или редактирование данных пользователя',
+        description: 'Просмотр и редактирование данных',
       },
       contactSupport: 'Контакты и поддержка',
       contactCreator: {
