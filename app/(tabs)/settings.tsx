@@ -42,8 +42,6 @@ export default function SettingsTab() {
             
             <TouchableOpacity 
               style={styles.row}
-              onPress={() => setLanguageModalVisible(true)}
-            >
               <View>
                 <Text style={styles.label}>{t('settings.language.title')}</Text>
                 <Text style={styles.description}>
