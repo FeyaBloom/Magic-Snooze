@@ -402,8 +402,7 @@ function TodayTabContent() {
     </View>
   );
 
-   const { t, getCurrentLanguage } = useLanguage();
-  const currentLanguageInfo = getCurrentLanguage();
+
 
   return (
     <SafeAreaView style={styles.container}>
