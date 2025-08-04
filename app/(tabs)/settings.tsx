@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Linking, SafeAreaView } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
-import { useLanguage } from '@/components/LanguageProvider';
 import { LinearGradient } from 'expo-linear-gradient';
 import { createSettingsStyles } from '@/styles/settings';
 import { Globe, Heart, Languages, LogIn, User as User2, Paintbrush } from 'lucide-react-native';
 import { FloatingBackground } from "@/components/MagicalFeatures";
-import { LanguageModal } from '@/components/LanguageModal';
+
 
 export default function SettingsTab() {
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
-  const { t, getCurrentLanguage } = useLanguage();
-  const [languageModalVisible, setLanguageModalVisible] = useState(false);
-  
   const styles = createSettingsStyles(colors);
-  const currentLanguageInfo = getCurrentLanguage();
+  
 
   return (
     <SafeAreaView style={styles.container}>
