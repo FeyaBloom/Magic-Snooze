@@ -34,6 +34,8 @@
     "expo-system-ui": "~5.0.5",
     "expo-web-browser": "~14.1.5",
     "i18next": "^25.3.2",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "i18next-http-backend": "^3.0.2",
     "lottie-react-native": "^7.2.4",
     "lucide-react-native": "^0.475.0",
     "react": "19.0.0",
