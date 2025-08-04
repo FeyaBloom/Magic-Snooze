@@ -409,32 +409,28 @@ const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
 
 
 
-  return (
+ return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={colors.background}
-        style={styles.gradient}
-      >
-        
-          <FloatingBackground />
-        <>
-        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-          <View>
-          <View style={styles.header}>       
-              <Text style={styles.title}>Good day, beautiful soul 🌸</Text>          
-              <Text style={styles.subtitle}>
-              {isSnoozed ? 'You\'re taking a gentle break today' : 'Take it one step at a time'}
-              </Text>
-          </View>
+      <LinearGradient colors={colors.background} style={styles.gradient}>
+        <FloatingBackground />
 
-          {!isSnoozed && (
-           
+        <>
+          <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+            <View style={styles.header}>
+              <Text style={styles.title}>{t('today.title')}</Text>
+              <Text style={styles.subtitle}>
+                {isSnoozed ? t('today.subtitleSnoozed') : t('today.subtitle')}
+              </Text>
+            </View>
+
+            {!isSnoozed && (
               <TouchableOpacity style={styles.snoozeButton} onPress={snoozeToday}>
                 <Pause size={20} color="#8B5CF6" />
-                <Text style={[styles.snoozeText, { fontFamily: 'ComicNeue-Regular' }]}>Snooze Today</Text>
+                <Text style={[styles.snoozeText, { fontFamily: 'ComicNeue-Regular' }]}>
+                  {t('today.snoozeToday')}
+                </Text>
               </TouchableOpacity>
-           
-          )}
+            )}
 
           <View style={styles.magicalControls}>
            
