@@ -450,7 +450,7 @@ function TodayTabContent() {
                   onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
                 >
                   <Text style={styles.themeButtonText}>
-                    {currentTheme === 'daydream' ? '🌙 Night Forest' : '☁️ Daydream'}
+                    {currentTheme === 'daydream' ? t('today.dayDream') : t('today.nightForest')}
                   </Text>
                 </TouchableOpacity>
                           
