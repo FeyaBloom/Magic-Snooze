@@ -80,7 +80,7 @@ export default function SettingsTab() {
           
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Contact & Support</Text>
+        <Text style={styles.sectionTitle}>{t('settings.contactSupport')}</Text>
 
         <TouchableOpacity
           style={styles.row}
