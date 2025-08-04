@@ -21,7 +21,7 @@ import { createTodayStyles } from '@/styles/today';
 import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
 
-
+const { t } = i18n;
 
 interface RoutineStep {
   id: string;
