@@ -8,9 +8,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
+import { Check } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
-import { Check } from 'lucide-react-native';
 
 interface LanguageModalProps {
   visible: boolean;
@@ -19,17 +19,17 @@ interface LanguageModalProps {
 
 const languageCodes = ['en', 'ru', 'es', 'fr', 'de', 'it'];
 
-const languages = languageCodes.map((code) => ({
-  code,
-  flag: t(`languages.${code}.flag`),
-  name: t(`languages.${code}.name`),
-  nativeName: t(`languages.${code}.native`)
-}));
-
 export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }) => {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const currentLanguage = i18n.language;
+
+  const languages = languageCodes.map((code) => ({
+    code,
+    flag: t(`languages.${code}.flag`),
+    name: t(`languages.${code}.name`),
+    nativeName: t(`languages.${code}.native`)
+  }));
 
   const handleLanguageSelect = async (languageCode: string) => {
     await i18n.changeLanguage(languageCode);
@@ -168,7 +168,7 @@ export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }
           </View>
 
           <FlatList
-            data={availableLanguages}
+            data={languages}
             keyExtractor={(item) => item.code}
             renderItem={renderLanguageItem}
             style={styles.languageList}
