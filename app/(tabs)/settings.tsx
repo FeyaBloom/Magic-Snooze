@@ -7,6 +7,7 @@ import { Globe, Heart, Languages, LogIn, User as User2, Paintbrush } from 'lucid
 import { FloatingBackground } from "@/components/MagicalFeatures";
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
+import {LanguageModal} from "@/components/LanguageModal"
 
 export default function SettingsTab() {
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
