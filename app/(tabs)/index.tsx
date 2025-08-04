@@ -41,6 +41,8 @@ interface DailyProgress {
 }
 
 function TodayTabContent() {
+   const currentLanguageCode = i18n.language;
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
   const styles = createTodayStyles(colors);
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
