@@ -1,75 +1,76 @@
 {
-    common: {
-      cancel: 'Cancelar',
-      save: 'Guardar',
-      delete: 'Eliminar',
-      edit: 'Editar',
-      add: 'Añadir',
-      close: 'Cerrar',
-      confirm: 'Confirmar',
-      yes: 'Sí',
-      no: 'No',
+  "common": {
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Añadir",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "today": {
+    "title": "Buen día, alma hermosa 🌸",
+    "subtitle": "Ve paso a paso",
+    "subtitleSnoozed": "Te estás tomando un descanso suave hoy",
+    "snoozeToday": "Aplazar hoy",
+    "resumeToday": "Reanudar hoy",
+    "tinyVictories": "Pequeñas victorias",
+    "morningRoutine": "Rutina matutina",
+    "eveningRoutine": "Rutina nocturna",
+    "todaysProgress": "Progreso de hoy",
+    "morning": "Mañana",
+    "evening": "Noche",
+    "addNewStep": "Añadir nuevo paso",
+    "editStep": "Editar paso",
+    "enterGentleStep": "Introduce un paso suave...",
+    "addStep": "Añadir paso",
+    "deleteStep": "Eliminar paso",
+    "deleteStepConfirm": "¿Estás seguro de que quieres eliminar este paso?",
+    "defaultMorning": {
+      "stretch": "Estiramiento suave o movimiento",
+      "breathing": "Respiración consciente (2 minutos)",
+      "intention": "Establece una intención suave para hoy"
     },
-    today: {
-      title: 'Buen día, alma hermosa 🌸',
-      subtitle: 'Ve paso a paso',
-      subtitleSnoozed: 'Te estás tomando un descanso suave hoy',
-      snoozeToday: 'Aplazar hoy',
-      resumeToday: 'Reanudar hoy',
-      tinyVictories: 'Pequeñas victorias',
-      morningRoutine: 'Rutina matutina',
-      eveningRoutine: 'Rutina nocturna',
-      todaysProgress: 'Progreso de hoy',
-      morning: 'Mañana',
-      evening: 'Noche',
-      addNewStep: 'Añadir nuevo paso',
-      editStep: 'Editar paso',
-      enterGentleStep: 'Introduce un paso suave...',
-      addStep: 'Añadir paso',
-      deleteStep: 'Eliminar paso',
-      deleteStepConfirm: '¿Estás seguro de que quieres eliminar este paso?',
-      defaultMorning: {
-        stretch: 'Estiramiento suave o movimiento',
-        breathing: 'Respiración consciente (2 minutos)',
-        intention: 'Establece una intención suave para hoy',
-      },
-      defaultEvening: {
-        reflect: 'Reflexiona sobre un momento positivo',
-        selfCare: 'Actividad suave de autocuidado',
-        prepare: 'Prepárate para mañana con bondad',
-      },
+    "defaultEvening": {
+      "reflect": "Reflexiona sobre un momento positivo",
+      "selfCare": "Actividad suave de autocuidado",
+      "prepare": "Prepárate para mañana con bondad"
+    }
+  },
+  "settings": {
+    "title": "Configuración y Acerca de ⚙️",
+    "appPreferences": "Preferencias de la aplicación",
+    "messyMode": {
+      "title": "Modo caótico",
+      "description": "Mezclar colores del tema actual"
     },
-    settings: {
-      title: 'Configuración y Acerca de ⚙️',
-      appPreferences: 'Preferencias de la aplicación',
-      messyMode: {
-        title: 'Modo caótico',
-        description: 'Mezclar colores del tema actual',
-      },
-      language: {
-        title: 'Idioma',
-        currently: 'Actual',
-        selectLanguage: 'Seleccionar idioma',
-      },
-      account: 'Cuenta',
-      connectGoogle: {
-        title: 'Conectar cuenta de Google',
-        description: 'Sincronizar progreso y tareas',
-      },
-      manageProfile: {
-        title: 'Gestionar perfil',
-        description: 'Ver o editar detalles del usuario',
-      },
-      contactSupport: 'Contacto y soporte',
-      contactCreator: {
-        title: 'Contactar al creador',
-        description: 'Escríbeme',
-      },
-      supportApp: {
-        title: 'Apoyar esta aplicación',
-        description: 'Enviar una donación mágica 💰',
-      },
+    "language": {
+      "title": "Idioma",
+      "currently": "Actual",
+      "selectLanguage": "Seleccionar idioma"
     },
+    "account": "Cuenta",
+    "connectGoogle": {
+      "title": "Conectar cuenta de Google",
+      "description": "Sincronizar progreso y tareas"
+    },
+    "manageProfile": {
+      "title": "Gestionar perfil",
+      "description": "Ver o editar detalles del usuario"
+    },
+    "contactSupport": "Contacto y soporte",
+    "contactCreator": {
+      "title": "Contactar al creador",
+      "description": "Escríbeme"
+    },
+    "supportApp": {
+      "title": "Apoyar esta aplicación",
+      "description": "Enviar una donación mágica 💰"
+    }
+  }
+
 "languages": {
   "en": { "name": "Ingles", "native": "English", "flag": "🇺🇸" },
   "ru": { "name": "Ruso", "native": "Русский", "flag": "🇷🇺" },
