@@ -547,7 +547,7 @@ function TodayTabContent() {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}>Add New Step</Text>
+            <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}> {t('today.addNewStep')}</Text>
             <TextInput
               style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
               placeholder="Enter a gentle step..."
