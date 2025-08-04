@@ -24,7 +24,14 @@ export default function SettingsTab() {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>App Preferences</Text>
-
+ <TouchableOpacity
+                  style={styles.themeButton}
+                  onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
+                >
+                  <Text style={styles.themeButtonText}>
+                    {currentTheme === 'daydream' ? '🌙 Night Forest' : '☁️ Daydream'}
+                  </Text>
+                </TouchableOpacity>
         <View style={styles.row}>
           <View>
             <Text style={styles.label}>Dark Theme</Text>
