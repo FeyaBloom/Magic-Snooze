@@ -11,7 +11,8 @@ import i18n from '@/i18n';
 export default function SettingsTab() {
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
   const styles = createSettingsStyles(colors);
-  
+  const { t } = useTranslation();
+const currentLanguageCode = i18n.language;
 
   return (
     <SafeAreaView style={styles.container}>
