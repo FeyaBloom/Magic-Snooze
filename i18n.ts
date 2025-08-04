@@ -38,6 +38,7 @@ i18n
     fallbackLng: 'en',
     resources: {
       en: { translation: en },
+      es: { translation: es },
       ru: { translation: ru },
     },
     interpolation: {
