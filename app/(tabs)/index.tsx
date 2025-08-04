@@ -310,8 +310,8 @@ function TodayTabContent() {
  const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
   setConfirmDialog({
     visible: true,
-    title: 'Delete Step',
-    message: 'Are you sure you want to delete this step?',
+     title: t('today.deleteStep'),
+      message: t('today.deleteStepConfirm'),
     onConfirm: async () => {
       const updateRoutine = routine === 'morning' ? morningRoutine : eveningRoutine;
       const setRoutine = routine === 'morning' ? setMorningRoutine : setEveningRoutine;
