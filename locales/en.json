@@ -70,7 +70,7 @@
       "description": "Send a magical donation 💰"
     },
   },
-},
+
 "languages": {
   "en": { "name": "English", "native": "English", "flag": "🇺🇸" },
   "ru": { "name": "Russian", "native": "Русский", "flag": "🇷🇺" },
@@ -78,4 +78,5 @@
   "fr": { "name": "French", "native": "Français", "flag": "🇫🇷" },
   "de": { "name": "German", "native": "Deutsch", "flag": "🇩🇪" },
   "it": { "name": "Italian", "native": "Italiano", "flag": "🇮🇹" }
+}
 }
