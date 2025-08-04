@@ -1,4 +1,12 @@
 {
+  "languages": {
+  "en": { "name": "Ingles", "native": "English", "flag": "🇺🇸" },
+  "ru": { "name": "Ruso", "native": "Русский", "flag": "🇷🇺" },
+  "es": { "name": "Español", "native": "Español", "flag": "🇪🇸" },
+  "fr": { "name": "Frances", "native": "Français", "flag": "🇫🇷" },
+  "de": { "name": "Aleman", "native": "Deutsch", "flag": "🇩🇪" },
+  "it": { "name": "Italiano", "native": "Italiano", "flag": "🇮🇹" },
+},
   "common": {
     "cancel": "Cancelar",
     "save": "Guardar",
