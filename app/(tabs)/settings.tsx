@@ -98,7 +98,7 @@ export default function SettingsTab() {
           onPress={() => Linking.openURL('https://www.buymeacoffee.com/feyabloom')}
         >
           <View>
-            <Text style={styles.label}>Support this app</Text>
+            <Text style={styles.label}>{t('settings.supportApp.title')}</Text>
             <Text style={styles.description}>Send a magical donation 💰</Text>
           </View>
           <Heart color={colors.textSecondary} size={20} />
