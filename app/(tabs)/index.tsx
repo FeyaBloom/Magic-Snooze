@@ -475,15 +475,15 @@ function TodayTabContent() {
 
            
          
-            {renderRoutineSection(
-              'Morning Routine',
+           {renderRoutineSection(
+              t('today.morningRoutine'),
               morningRoutine,
               'morning',
               <Coffee size={20} color="#F59E0B" />
             )}
-         
+
             {renderRoutineSection(
-              'Evening Routine',
+              t('today.eveningRoutine'),
               eveningRoutine,
               'evening',
               <Moon size={20} color="#8B5CF6" />
