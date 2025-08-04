@@ -88,7 +88,7 @@ export default function SettingsTab() {
         >
           <View>
             <Text style={styles.label}>{t('settings.contactCreator.title')}</Text>
-            <Text style={styles.description}>Text me</Text>
+            <Text style={styles.description}>{t('settings.contactCreator.description')}</Text>
           </View>
           <Globe color={colors.textSecondary} size={20} />
         </TouchableOpacity>
