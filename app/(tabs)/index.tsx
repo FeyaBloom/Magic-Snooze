@@ -447,10 +447,8 @@ function TodayTabContent() {
                   </Text>
                 </TouchableOpacity>
                           
-              <TouchableOpacity
-                
+              <TouchableOpacity            
                 >
-                  
                   <Text>
                     {`Settings button`}
                   </Text>
