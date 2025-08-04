@@ -447,16 +447,15 @@ function TodayTabContent() {
                   </Text>
                 </TouchableOpacity>
                           
-             
-                <TouchableOpacity
-                  style={[styles.themeButton, { backgroundColor: colors.accent }]}
-                  onPress={toggleMessyMode}
+              <TouchableOpacity
+                
                 >
-                  <Palette size={16} color="#FFFFFF" />
-                  <Text style={[styles.themeButtonText, { color: '#FFFFFF', marginLeft: 4 }]}>
-                    Messy Mode
+                  
+                  <Text>
+                    {`Settings button`}
                   </Text>
                 </TouchableOpacity>
+               
              
             </View>
           </View>
