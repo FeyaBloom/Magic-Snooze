@@ -87,7 +87,7 @@ export default function SettingsTab() {
           onPress={() => Linking.openURL('https://portfolio-feya-bloom.webflow.io/')}
         >
           <View>
-            <Text style={styles.label}>Contact the Creator</Text>
+            <Text style={styles.label}>{t('settings.contactCreator.title')}</Text>
             <Text style={styles.description}>Text me</Text>
           </View>
           <Globe color={colors.textSecondary} size={20} />
