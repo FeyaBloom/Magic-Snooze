@@ -430,7 +430,7 @@ function TodayTabContent() {
            
               <TouchableOpacity style={styles.snoozeButton} onPress={snoozeToday}>
                 <Pause size={20} color="#8B5CF6" />
-                <Text style={[styles.snoozeText, { fontFamily: 'ComicNeue-Regular' }]}>Snooze Today</Text>
+                <Text style={[styles.snoozeText, { fontFamily: 'ComicNeue-Regular' }]}>{t('today.snoozeToday')}</Text>
               </TouchableOpacity>
            
           )}
