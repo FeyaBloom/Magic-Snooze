@@ -49,7 +49,7 @@ const currentLanguageCode = i18n.language;
               <View>
                 <Text style={styles.label}>{t('settings.language.title')}</Text>
                 <Text style={styles.description}>
-                  {t('settings.language.currently')}: {currentLanguageInfo.flag} {currentLanguageInfo.name}
+                  {t('settings.language.currently')}: {currentLanguageCode} {currentLanguageInfo.name}
                 </Text>
               </View>
               <Languages color={colors.textSecondary} size={20} />
