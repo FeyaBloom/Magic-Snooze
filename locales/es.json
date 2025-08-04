@@ -58,4 +58,38 @@
   "it": { "name": "Italiano", "native": "Italiano", "flag": "🇮🇹" },
 },
 
+"today": {
+    "title": "Buen día, alma hermosa 🌸",
+    "subtitle": "Ve paso a paso",
+    "subtitleSnoozed": "Te estás tomando un descanso suave hoy",
+    "snoozeToday": "Aplazar hoy",
+    "resumeToday": "Reanudar hoy",
+    "tinyVictories": "Pequeñas victorias",
+    "morningRoutine": "Rutina matutina",
+    "eveningRoutine": "Rutina nocturna",
+    "todaysProgress": "Progreso de hoy",
+    "morning": "Mañana",
+    "evening": "Noche",
+    "addNewStep": "Añadir nuevo paso",
+    "editStep": "Editar paso",
+    "enterGentleStep": "Introduce un paso suave...",
+    "addStep": "Añadir paso",
+    "deleteStep": "Eliminar paso",
+    "deleteStepConfirm": "¿Estás seguro de que quieres eliminar este paso?",
+    "defaultMorning": {
+      "stretch": "Estiramiento suave o movimiento",
+      "breathing": "Respiración consciente (2 minutos)",
+      "intention": "Establece una intención suave para hoy"
+    },
+    "defaultEvening": {
+      "reflect": "Reflexiona sobre un momento positivo",
+      "selfCare": "Actividad suave de autocuidado",
+      "prepare": "Prepárate para mañana con bondad"
+    }
+  },
+
+
+
+
+  
 }
