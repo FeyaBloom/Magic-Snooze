@@ -34,6 +34,7 @@ export const createSettingsStyles = (colors: any) =>
   },
     section: {
       marginBottom: 30,
+      paddingHorizontal: 20,
     },
     sectionTitle: {
       fontSize: 18,
