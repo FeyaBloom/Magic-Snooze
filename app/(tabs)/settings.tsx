@@ -7,9 +7,9 @@ import { Globe, Heart, Languages, LogIn, User2 } from 'lucide-react-native';
 import {FloatingBackground} from "@/components/MagicalFeatures";
 
 export default function SettingsTab() {
-  const { colors, themeName, toggleTheme } = useTheme();
+ // const { colors, themeName, toggleTheme } = useTheme();
   const styles = createSettingsStyles(colors);
-
+const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
   return (
 
     <SafeAreaView style={styles.container}>
