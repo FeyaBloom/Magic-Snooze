@@ -184,11 +184,11 @@ function TodayTabContent() {
         }
       } else {
         // Default morning routine
-        const defaultMorning = [
-          { id: '1', text: 'Gentle stretch or movement', completed: false },
-          { id: '2', text: 'Mindful breathing (2 minutes)', completed: false },
-          { id: '3', text: 'Set one gentle intention for today', completed: false },
-        ];
+       const defaultMorning = [
+    { id: '1', text: t('today.defaultMorning.stretch'), completed: false },
+    { id: '2', text: t('today.defaultMorning.breathing'), completed: false },
+    { id: '3', text: t('today.defaultMorning.intention'), completed: false },
+  ];
         setMorningRoutine(defaultMorning);
         await AsyncStorage.setItem('morningRoutine', JSON.stringify(defaultMorning));
       }
@@ -207,11 +207,11 @@ function TodayTabContent() {
         }
       } else {
         // Default evening routine
-        const defaultEvening = [
-          { id: '1', text: 'Reflect on one positive moment', completed: false },
-          { id: '2', text: 'Gentle self-care activity', completed: false },
-          { id: '3', text: 'Prepare for tomorrow with kindness', completed: false },
-        ];
+       const defaultEvening = [
+    { id: '1', text: t('today.defaultEvening.reflect'), completed: false },
+    { id: '2', text: t('today.defaultEvening.selfCare'), completed: false },
+    { id: '3', text: t('today.defaultEvening.prepare'), completed: false },
+  ];
         setEveningRoutine(defaultEvening);
         await AsyncStorage.setItem('eveningRoutine', JSON.stringify(defaultEvening));
       }
