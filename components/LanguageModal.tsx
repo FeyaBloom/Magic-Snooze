@@ -183,4 +183,9 @@ export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }
             <Text style={styles.closeButtonText}>
               {t('common.close')}
             </Text>
-          </Touchable
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  );
+};
