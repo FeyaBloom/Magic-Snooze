@@ -77,6 +77,14 @@
     "supportApp": {
       "title": "Поддержать проект",
       "description": "Отправить благодарность 💰"
-    }
+    },
+    "languages": {
+  "en": { "name": "Английский", "native": "English", "flag": "🇺🇸" },
+  "ru": { "name": "Русский", "native": "Русский", "flag": "🇷🇺" },
+  "es": { "name": "Испанский", "native": "Español", "flag": "🇪🇸" },
+  "fr": { "name": "Французский", "native": "Français", "flag": "🇫🇷" },
+  "de": { "name": "Немецкий", "native": "Deutsch", "flag": "🇩🇪" },
+  "it": { "name": "Итальянский", "native": "Italiano", "flag": "🇮🇹" },
+}
   }
 }
