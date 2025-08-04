@@ -61,10 +61,12 @@
 "today": {
     "title": "Buen día, alma hermosa 🌸",
     "subtitle": "Ve paso a paso",
-    "subtitleSnoozed": "Te estás tomando un descanso ",
+    "subtitleSnoozed": "Te estás tomando un descanso suave hoy",
     "snoozeToday": "Aplazar hoy",
     "resumeToday": "Reanudar hoy",
     "tinyVictories": "Pequeñas victorias",
+    "nightForest": "Bosque nocturno",
+    "dayDream": "Ensueño diurno",
     "morningRoutine": "Rutina matutina",
     "eveningRoutine": "Rutina nocturna",
     "todaysProgress": "Progreso de hoy",
