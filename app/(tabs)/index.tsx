@@ -597,7 +597,7 @@ function TodayTabContent() {
             <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}> {t('today.editStep')}</Text>
             <TextInput
               style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
-              placeholder="Enter a gentle step..."
+              placeholder={t('today.enterGentleStep')}
               placeholderTextColor={colors.textSecondary}
               value={newStepText}
               onChangeText={setNewStepText}
