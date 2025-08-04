@@ -28,9 +28,9 @@ const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
 
         <View style={styles.row}>
           <View>
-            <Text style={styles.label}>Dark Theme</Text>
+            <Text style={styles.label}>Messy mode</Text>
             <Text style={styles.description}>
-              Switch between light and dark mode
+              Shuffle colors of the current theme
             </Text>
           </View>
           <TouchableOpacity
