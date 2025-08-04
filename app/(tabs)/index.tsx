@@ -565,7 +565,7 @@ function TodayTabContent() {
                   setNewStepText('');
                 }}
               >
-                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('cancel')}</Text>
+                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalButton, styles.saveButton]}
