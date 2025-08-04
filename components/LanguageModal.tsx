@@ -17,14 +17,14 @@ interface LanguageModalProps {
   onClose: () => void;
 }
 
-const availableLanguages = [
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸' },
-  { code: 'ru', name: 'Русский', nativeName: 'Русский', flag: '🇷🇺' },
-  { code: 'es', name: 'Español', nativeName: 'Español', flag: '🇪🇸' },
-  { code: 'fr', name: 'Français', nativeName: 'Français', flag: '🇫🇷' },
-  { code: 'de', name: 'Deutsch', nativeName: 'Deutsch', flag: '🇩🇪' },
-  { code: 'it', name: 'Italiano', nativeName: 'Italiano', flag: '🇮🇹' },
-];
+const languageCodes = ['en', 'ru', 'es', 'fr', 'de', 'it'];
+
+const languages = languageCodes.map((code) => ({
+  code,
+  flag: t(`languages.${code}.flag`),
+  name: t(`languages.${code}.name`),
+  nativeName: t(`languages.${code}.native`)
+}));
 
 export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }) => {
   const { colors } = useTheme();
