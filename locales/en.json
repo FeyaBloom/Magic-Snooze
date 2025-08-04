@@ -79,4 +79,11 @@
   "de": { "name": "German", "native": "Deutsch", "flag": "🇩🇪" },
   "it": { "name": "Italian", "native": "Italiano", "flag": "🇮🇹" }
 }
+  "navigation": {
+  "today": "Today",
+  "tasks": "Tasks",
+  "calendar": "Calendar",
+  "notes": "Notes",
+  "settings": "Settings"
+}
 }
