@@ -7,36 +7,47 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-//import { useLanguage, Language, LanguageCode } from '@/components/LanguageProvider';
 import { useTheme } from '@/components/ThemeProvider';
-import { Check } from 'lucide-react-native';
+import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
+import { Check } from 'lucide-react-native';
+
 interface LanguageModalProps {
   visible: boolean;
   onClose: () => void;
 }
 
+const availableLanguages = [
+  { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸' },
+  { code: 'ru', name: 'Русский', nativeName: 'Русский', flag: '🇷🇺' },
+  { code: 'es', name: 'Español', nativeName: 'Español', flag: '🇪🇸' },
+  { code: 'fr', name: 'Français', nativeName: 'Français', flag: '🇫🇷' },
+  { code: 'de', name: 'Deutsch', nativeName: 'Deutsch', flag: '🇩🇪' },
+  { code: 'it', name: 'Italiano', nativeName: 'Italiano', flag: '🇮🇹' },
+];
+
 export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }) => {
   const { colors } = useTheme();
-  const { currentLanguage, setLanguage, availableLanguages, t } = useLanguage();
+  const { t } = useTranslation();
+  const currentLanguage = i18n.language;
 
+  const handleLanguageSelect = async (languageCode: string) => {
+    await i18n.changeLanguage(languageCode);
+    onClose();
+  };
 
-const handleLanguageSelect = async (languageCode) => {
-  await i18n.changeLanguage(languageCode);
-  onClose();
-  
-  const renderLanguageItem = ({ item }: { item: Language }) => {
+  const renderLanguageItem = ({ item }) => {
     const isSelected = currentLanguage === item.code;
-    
+
     return (
       <TouchableOpacity
         style={[
           styles.languageItem,
-          { 
+          {
             backgroundColor: colors.surface,
             borderColor: isSelected ? colors.primary : colors.surface,
           },
-          isSelected && { backgroundColor: colors.primary + '10' }
+          isSelected && { backgroundColor: colors.primary + '10' },
         ]}
         onPress={() => handleLanguageSelect(item.code)}
         activeOpacity={0.7}
@@ -51,9 +62,7 @@ const handleLanguageSelect = async (languageCode) => {
               {item.nativeName}
             </Text>
           </View>
-          {isSelected && (
-            <Check size={20} color={colors.primary} />
-          )}
+          {isSelected && <Check size={20} color={colors.primary} />}
         </View>
       </TouchableOpacity>
     );
@@ -157,7 +166,7 @@ const handleLanguageSelect = async (languageCode) => {
               {t('settings.language.selectLanguage')}
             </Text>
           </View>
-          
+
           <FlatList
             data={availableLanguages}
             keyExtractor={(item) => item.code}
@@ -165,7 +174,7 @@ const handleLanguageSelect = async (languageCode) => {
             style={styles.languageList}
             showsVerticalScrollIndicator={false}
           />
-          
+
           <TouchableOpacity
             style={styles.closeButton}
             onPress={onClose}
@@ -174,9 +183,4 @@ const handleLanguageSelect = async (languageCode) => {
             <Text style={styles.closeButtonText}>
               {t('common.close')}
             </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
-  )
-}
+          </Touchable
