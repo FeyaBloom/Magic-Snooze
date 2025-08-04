@@ -550,7 +550,7 @@ function TodayTabContent() {
             <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}> {t('today.addNewStep')}</Text>
             <TextInput
               style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
-              placeholder="Enter a gentle step..."
+              placeholder={t('today.enterGentleStep')}
               placeholderTextColor={colors.textSecondary}
               value={newStepText}
               onChangeText={setNewStepText}
@@ -565,13 +565,13 @@ function TodayTabContent() {
                   setNewStepText('');
                 }}
               >
-                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Cancel</Text>
+                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalButton, styles.saveButton]}
                 onPress={addStep}
               >
-                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Add Step</Text>
+                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('today.addStep')}</Text>
               </TouchableOpacity>
             </View>
           </View>
