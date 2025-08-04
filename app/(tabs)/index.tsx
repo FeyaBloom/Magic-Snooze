@@ -10,6 +10,8 @@ import {
   Modal,
   Alert,
 } from 'react-native';
+import i18n from '@/i18n';
+import { LanguageModal } from '@/components/LanguageModal';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Plus, Pencil as Edit, Trash2, Coffee, Moon, Pause, Palette, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
