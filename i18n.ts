@@ -13,22 +13,23 @@ const languageDetector = {
   type: 'languageDetector',
   async: true,
   detect: async (cb: (lang: string) => void) => {
-    const savedLang = await AsyncStorage.getItem('selectedLanguage');
-    if (savedLang) {
-      cb(savedLang);
-      return;
-    }
-    const deviceLang =
-      Platform.OS === 'ios'
-        ? NativeModules.SettingsManager?.settings.AppleLocale ||
-          NativeModules.SettingsManager?.settings.AppleLanguages?.[0]
-        : NativeModules.I18nManager?.localeIdentifier;
-    cb(deviceLang?.split('_')[0] || 'en');
-  },
-  init: () => {},
-  cacheUserLanguage: async (lng: string) => {
-    await AsyncStorage.setItem('selectedLanguage', lng);
-  },
+  const savedLang = await AsyncStorage.getItem('selectedLanguage');
+  const normalize = (lang: string) => lang.split(/[_-]/)[0];
+
+  if (savedLang) {
+    cb(normalize(savedLang));
+    return;
+  }
+
+  const deviceLang =
+    Platform.OS === 'ios'
+      ? NativeModules.SettingsManager?.settings.AppleLocale ||
+        NativeModules.SettingsManager?.settings.AppleLanguages?.[0]
+      : NativeModules.I18nManager?.localeIdentifier;
+
+  cb(normalize(deviceLang || 'en'));
+},
+
 };
 
 i18n
