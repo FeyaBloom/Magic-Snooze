@@ -55,17 +55,17 @@
         "title": 'Подключить Google аккаунт',
         "description": 'Синхронизирова"ть прогресс и задачи',
       },
-      manageProfile: {
-        title: 'Управление профилем',
-        description: 'Просмотр и редактирование данных',
+      "manageProfile": {
+        "title": 'Управление профилем',
+        "description": 'Просмотр и редактирование данных',
       },
-      contactSupport: 'Контакты и поддержка',
-      contactCreator: {
-        title: 'Связаться с создателем',
-        description: 'Напишите мне',
+      "contactSupport": 'Контакты и поддержка',
+      "contactCreator": {
+        "title": 'Связаться с создателем',
+        "description": 'Напишите мне',
       },
-      supportApp: {
-        title: 'Поддержать приложение',
+      "supportApp": {
+        "title": 'Поддержать приложение',
         description: 'Отправить магическое пожертвование 💰',
       }
     }
