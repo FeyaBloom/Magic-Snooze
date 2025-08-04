@@ -3,7 +3,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { ThemeProvider } from '@/components/ThemeProvider';
-import { LanguageProvider } from '@/components/LanguageProvider';
+import { LanguageProvider, useLanguage } from '@/components/LanguageProvider';
 import {FloatingBackground} from "@/components/MagicalFeatures"
 
 
