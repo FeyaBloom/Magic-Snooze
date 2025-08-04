@@ -613,13 +613,13 @@ function TodayTabContent() {
                   setEditingStep(null);
                 }}
               >
-                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Cancel</Text>
+                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalButton, styles.saveButton]}
                 onPress={editStep}
               >
-                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>Save</Text>
+                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('common.save')}</Text>
               </TouchableOpacity>
             </View>
           </View>
