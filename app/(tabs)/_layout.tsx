@@ -17,12 +17,14 @@ export default function TabLayout() {
   const [_, setRerender] = useState(0);
 
   // 👇 Это магия, чтобы Tabs обновились при смене языка
-  useEffect(() => {
-    const unsubscribe = i18n.on('languageChanged', () => {
-      setRerender((prev) => prev + 1);
-    });
-    return () => unsubscribe();
-  }, []);
+ useEffect(() => {
+  const handler = () => setRerender((prev) => prev + 1);
+  i18n.on('languageChanged', handler);
+
+  return () => {
+    i18n.off('languageChanged', handler); // <-- вот это настоящая отписка
+  };
+}, []);
 
   return (
     <Tabs
