@@ -534,7 +534,7 @@ function TodayTabContent() {
         <View style={styles.modalOverlay}>
           <TinyVictoryTracker onVictoryPress={celebrateVictory} />
           <TouchableOpacity style={styles.closeVictoriesButton} onPress={() => setShowTinyVictories(false)}>
-            <Text style={styles.closeVictoriesText}>{t('today.Close')}</Text>
+            <Text style={styles.closeVictoriesText}>{t('common.Close')}</Text>
           </TouchableOpacity>
         </View>
       </Modal>
