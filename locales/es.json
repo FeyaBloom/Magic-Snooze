@@ -41,7 +41,7 @@
   },
   "settings": {
     "title": "Configuración y Acerca de ⚙️",
-    "appPreferences": "Preferencias de la aplicación",
+    "appPreferences": "Preferencias de la app",
     "messyMode": {
       "title": "Modo caótico",
       "description": "Mezclar colores del tema actual"
