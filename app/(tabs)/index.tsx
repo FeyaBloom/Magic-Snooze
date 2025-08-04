@@ -457,7 +457,7 @@ function TodayTabContent() {
               <TouchableOpacity            
                 >
                   <Text>
-                    {`Settings button`}
+                    {`Settings`}
                   </Text>
                 </TouchableOpacity>
                
@@ -468,7 +468,7 @@ function TodayTabContent() {
           {isSnoozed && (
            
               <TouchableOpacity style={styles.resumeButton} onPress={snoozeToday}>
-                <Text style={[styles.resumeText, { fontFamily: 'ComicNeue-Regular' }]}>Resume Today</Text>
+                <Text style={[styles.resumeText, { fontFamily: 'ComicNeue-Regular' }]}>Resume {t('today.resumeToday')}</Text>
               </TouchableOpacity>
            
           )}
