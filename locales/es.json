@@ -70,5 +70,19 @@
         description: 'Enviar una donación mágica 💰',
       },
     },
-
-  }
+"languages": {
+  "en": { "name": "English", "native": "English", "flag": "🇺🇸" },
+  "ru": { "name": "Russian", "native": "Русский", "flag": "🇷🇺" },
+  "es": { "name": "Spanish", "native": "Español", "flag": "🇪🇸" },
+  "fr": { "name": "French", "native": "Français", "flag": "🇫🇷" },
+  "de": { "name": "German", "native": "Deutsch", "flag": "🇩🇪" },
+  "it": { "name": "Italian", "native": "Italiano", "flag": "🇮🇹" },
+},
+  "navigation": {
+  "today": "Hoy",
+  "tasks": "Tareas",
+  "calendar": "Calendario",
+  "notes": "Notas",
+  "settings": "Ajustes"
+}
+}
