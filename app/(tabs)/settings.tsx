@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { createSettingsStyles } from '@/styles/settings';
 import { Globe, Heart, Languages, LogIn, User as User2, Paintbrush } from 'lucide-react-native';
 import { FloatingBackground } from "@/components/MagicalFeatures";
-import { LanguageModal } from '@/components/LanguageModal';
+import { LanguageModal } from '@/components/LanguageModalFeo';
 
 export default function SettingsTab() {
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
