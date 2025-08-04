@@ -77,9 +77,6 @@ export const LanguageProvider = ({ children }) => {
       fr: { name: 'Français', flag: '🇫🇷' },
       de: { name: 'Deutsch', flag: '🇩🇪' },
       it: { name: 'Italiano', flag: '🇮🇹' },
-      ja: { name: '日本語', flag: '🇯🇵' },
-      ko: { name: '한국어', flag: '🇰🇷' },
-      zh: { name: '中文', flag: '🇨🇳' }
     };
     
     return languageInfo[currentLanguage] || languageInfo.en;
@@ -93,9 +90,6 @@ export const LanguageProvider = ({ children }) => {
       { code: 'fr', name: 'Français', flag: '🇫🇷' },
       { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
       { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-      { code: 'ja', name: '日本語', flag: '🇯🇵' },
-      { code: 'ko', name: '한국어', flag: '🇰🇷' },
-      { code: 'zh', name: '中文', flag: '🇨🇳' }
     ];
   };
 
