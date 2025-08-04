@@ -2,8 +2,7 @@
 
 export const translations = {
   en: {
-    settings: {
-      // ... существующие переводы
+    // ... существующие переводы
        common: {
       cancel: 'Cancel',
       save: 'Save',
