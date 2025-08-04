@@ -104,6 +104,11 @@ export default function SettingsTab() {
           <Heart color={colors.textSecondary} size={20} />
         </TouchableOpacity>
       </View>
+      
+      <LanguageModal
+        visible={languageModalVisible}
+        onClose={() => setLanguageModalVisible(false)}
+      />
     </ScrollView>
 </LinearGradient>
 </SafeAreaView>
