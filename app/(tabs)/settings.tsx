@@ -8,8 +8,9 @@ import {FloatingBackground} from "@/components/MagicalFeatures";
 
 export default function SettingsTab() {
  // const { colors, themeName, toggleTheme } = useTheme();
-  const styles = createSettingsStyles(colors);
+ 
 const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
+   const styles = createSettingsStyles(colors);
   return (
 
     <SafeAreaView style={styles.container}>
