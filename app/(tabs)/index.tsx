@@ -53,9 +53,7 @@ function TodayTabContent() {
   const [todayProgress, setTodayProgress] = useState<DailyProgress | null>(null);
   const [isSnoozed, setIsSnoozed] = useState(false);
   const [celebratedVictories, setCelebratedVictories] = useState<string[]>([]);
-  const { t, getCurrentLanguage } = useLanguage();
-  const [languageModalVisible, setLanguageModalVisible] = useState(false);
-  const currentLanguageInfo = getCurrentLanguage();
+ 
 
  const [confirmDialog, setConfirmDialog] = useState({
   visible: false,
@@ -404,7 +402,8 @@ function TodayTabContent() {
     </View>
   );
 
-  
+   const { t, getCurrentLanguage } = useLanguage();
+  const currentLanguageInfo = getCurrentLanguage();
 
   return (
     <SafeAreaView style={styles.container}>
