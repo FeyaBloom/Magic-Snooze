@@ -35,7 +35,7 @@ const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
           </View>
           <TouchableOpacity
                   style={styles.themeButton}
-                  onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
+                  onPress={toggleMessyMode}
                 >
                   <Text style={styles.themeButtonText}>
                     {currentTheme === 'daydream' ? '🌙 Night Forest' : '☁️ Daydream'}
