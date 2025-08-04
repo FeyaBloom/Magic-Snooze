@@ -21,7 +21,7 @@ export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }
   const { currentLanguage, setLanguage, availableLanguages, t } = useLanguage();
 
   const handleLanguageSelect = async (languageCode: LanguageCode) => {
-    await setLanguage(languageCode);
+    await changeLanguage(languageCode);
     onClose();
   };
 
