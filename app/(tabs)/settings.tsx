@@ -19,7 +19,7 @@ export default function SettingsTab() {
 
           <FloatingBackground />
 
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <Text style={styles.title}>Settings & About ⚙️</Text>
 
       <View style={styles.section}>
