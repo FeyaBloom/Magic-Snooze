@@ -49,7 +49,7 @@ const currentLanguageCode = i18n.language;
               <View>
                 <Text style={styles.label}>{t('settings.language.title')}</Text>
                 <Text style={styles.description}>
-                  {t('settings.language.currently')}: {currentLanguageCode.toUpperCase()} {currentLanguageInfo.name}
+                  {t('settings.language.currently')}: {currentLanguageCode.toUpperCase()} 
                 </Text>
               </View>
               <Languages color={colors.textSecondary} size={20} />
