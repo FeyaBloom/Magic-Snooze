@@ -1,0 +1,71 @@
+common: {
+      cancel: 'Отмена',
+      save: 'Сохранить',
+      delete: 'Удалить',
+      edit: 'Изменить',
+      add: 'Добавить',
+      close: 'Закрыть',
+      confirm: 'Подтвердить',
+      yes: 'Да',
+      no: 'Нет',
+    },
+    today: {
+      title: 'Доброго дня, прекрасная душа 🌸',
+      subtitle: 'Делай шаг за шагом',
+      subtitleSnoozed: 'Сегодня ты мягко отдыхаешь',
+      snoozeToday: 'Отложить на сегодня',
+      resumeToday: 'Продолжить сегодня',
+      tinyVictories: 'Маленькие победы',
+      morningRoutine: 'Утренняя рутина',
+      eveningRoutine: 'Вечерняя рутина',
+      todaysProgress: 'Прогресс сегодня',
+      morning: 'Утро',
+      evening: 'Вечер',
+      addNewStep: 'Добавить новый шаг',
+      editStep: 'Изменить шаг',
+      enterGentleStep: 'Введите мягкий шаг...',
+      addStep: 'Добавить шаг',
+      deleteStep: 'Удалить шаг',
+      deleteStepConfirm: 'Вы уверены, что хотите удалить этот шаг?',
+      defaultMorning: {
+        stretch: 'Мягкая растяжка или движение',
+        breathing: 'Осознанное дыхание (2 минуты)',
+        intention: 'Поставь одно мягкое намерение на сегодня',
+      },
+      defaultEvening: {
+        reflect: 'Подумай об одном позитивном моменте',
+        selfCare: 'Мягкая забота о себе',
+        prepare: 'Подготовься к завтрашнему дню с добротой',
+      },
+    },
+    settings: {
+      title: 'Детали и настройки ⚙️',
+      appPreferences: 'Настройки',
+      messyMode: {
+        title: 'Хаотичный режим',
+        description: 'Перемешать цвета текущей темы',
+      },
+      language: {
+        title: 'Язык',
+        currently: 'Текущий',
+        selectLanguage: 'Выбрать язык',
+      },
+      account: 'Аккаунт',
+      connectGoogle: {
+        title: 'Подключить Google аккаунт',
+        description: 'Синхронизировать прогресс и задачи',
+      },
+      manageProfile: {
+        title: 'Управление профилем',
+        description: 'Просмотр и редактирование данных',
+      },
+      contactSupport: 'Контакты и поддержка',
+      contactCreator: {
+        title: 'Связаться с создателем',
+        description: 'Напишите мне',
+      },
+      supportApp: {
+        title: 'Поддержать приложение',
+        description: 'Отправить магическое пожертвование 💰',
+      }
+    }
