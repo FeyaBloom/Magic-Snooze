@@ -44,6 +44,7 @@ export default function RootLayout() {
 
   return (
     <>
+      <I18nextProvider i18n={i18n}>
       <ThemeProvider>
        
           <Stack screenOptions={{ headerShown: false }}>
@@ -54,6 +55,7 @@ export default function RootLayout() {
           <StatusBar style="auto" />
        
       </ThemeProvider>
+        </I18nextProvider>
     </>
   );
 }
