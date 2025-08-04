@@ -135,7 +135,7 @@ const translations: Record<LanguageCode, any> = {
       },
     },
     settings: {
-      title: 'О приложении ⚙️',
+      title: 'Детали и настройки ⚙️',
       appPreferences: 'Настройки',
       messyMode: {
         title: 'Хаотичный режим',
