@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Linking, Switch } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Linking, Switch, SafeAreaView } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { LinearGradient } from 'expo-linear-gradient';
 import { createSettingsStyles } from '@/styles/settings';
