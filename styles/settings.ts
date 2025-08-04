@@ -20,6 +20,7 @@ export const createSettingsStyles = (colors: any) =>
   },
   title: {
     fontSize: 24,
+    paddingTop: 20,
     fontWeight: '1000',
     color: colors.text,
     marginBottom: 8,
