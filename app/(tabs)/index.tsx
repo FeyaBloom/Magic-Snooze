@@ -18,7 +18,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createTodayStyles } from '@/styles/today';
 import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
-import { useLanguage } from '@/components/LanguageProvider';
+
 
 
 interface RoutineStep {
