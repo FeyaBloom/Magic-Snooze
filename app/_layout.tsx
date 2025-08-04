@@ -20,6 +20,20 @@ import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
 
+const AppContent = ({ children }) => {
+  const { isLoading } = useLanguage();
+  
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+  
+  return children;
+};
+
 export default function RootLayout() {
   useFrameworkReady();
   
