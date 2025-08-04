@@ -10,5 +10,12 @@
     "yes": "Sí",
     "no": "No"
   },
-  
+    "navigation": {
+  "today": "Hoy",
+  "tasks": "Tareas",
+  "calendar": "Calendario",
+  "notes": "Notas",
+  "settings": "Ajustes"
+}
+
 }
