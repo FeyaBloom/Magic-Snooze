@@ -25,14 +25,7 @@ const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>App Preferences</Text>
- <TouchableOpacity
-                  style={styles.themeButton}
-                  onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
-                >
-                  <Text style={styles.themeButtonText}>
-                    {currentTheme === 'daydream' ? '🌙 Night Forest' : '☁️ Daydream'}
-                  </Text>
-                </TouchableOpacity>
+
         <View style={styles.row}>
           <View>
             <Text style={styles.label}>Dark Theme</Text>
@@ -40,10 +33,14 @@ const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
               Switch between light and dark mode
             </Text>
           </View>
-          <Switch
-            value={themeName === 'dark'}
-            onValueChange={toggleTheme}
-          />
+          <TouchableOpacity
+                  style={styles.themeButton}
+                  onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
+                >
+                  <Text style={styles.themeButtonText}>
+                    {currentTheme === 'daydream' ? '🌙 Night Forest' : '☁️ Daydream'}
+                  </Text>
+                </TouchableOpacity>
         </View>
 
         <TouchableOpacity style={styles.row}>
