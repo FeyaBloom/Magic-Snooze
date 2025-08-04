@@ -1,4 +1,11 @@
 {
+  "navigation": {
+    "today": "Сегодня",
+    "tasks": "Задачи",
+    "calendar": "Календарь",
+    "notes": "Заметки",
+    "settings": "Настройки"
+  },
   "common": {
     "cancel": "Отмена",
     "save": "Сохранить",
