@@ -179,4 +179,3 @@ const handleLanguageSelect = async (languageCode) => {
       </View>
     </Modal>
   )
-}
