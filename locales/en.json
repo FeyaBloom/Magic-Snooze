@@ -53,19 +53,19 @@
       "account": 'Account',
       "connectGoogle": {
         "title": 'Connect Google Account',
-        "description"": 'Sync progress and tasks',
+        "description": 'Sync progress and tasks',
       },
-      manageProfile: {
-        title: 'Manage Profile',
-        description: 'View or edit user details',
+      "manageProfile": {
+        "title": 'Manage Profile',
+        "description": 'View or edit user details',
       },
-      contactSupport: 'Contact & Support',
-      contactCreator: {
-        title: 'Contact the Creator',
-        description: 'Text me',
+      "contactSupport": 'Contact & Support',
+      "contactCreator": {
+        "title": 'Contact the Creator',
+        "description": 'Text me',
       },
-      supportApp: {
-        title: 'Support this app',
+      "supportApp": {
+        "title": 'Support this app',
         description: 'Send a magical donation 💰',
       }
     }
