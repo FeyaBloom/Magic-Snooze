@@ -1,74 +1,83 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Linking, Switch, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Linking, SafeAreaView } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
+import { useLanguage } from '@/components/LanguageProvider';
 import { LinearGradient } from 'expo-linear-gradient';
 import { createSettingsStyles } from '@/styles/settings';
 import { Globe, Heart, Languages, LogIn, User2, Paintbrush } from 'lucide-react-native';
-import {FloatingBackground} from "@/components/MagicalFeatures";
+import { FloatingBackground } from "@/components/MagicalFeatures";
+import { LanguageModal } from '@/components/LanguageModal';
 
 export default function SettingsTab() {
- // const { colors, themeName, toggleTheme } = useTheme();
- 
-const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
-   const styles = createSettingsStyles(colors);
-  return (
+  const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
+  const { t, getCurrentLanguage } = useLanguage();
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
+  
+  const styles = createSettingsStyles(colors);
+  const currentLanguageInfo = getCurrentLanguage();
 
+  return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
         colors={colors.background}
-        style={styles.gradient}>
-
-          <FloatingBackground />
-
-    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-      <Text style={styles.title}>Settings & About ⚙️</Text>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>App Preferences</Text>
-
-        <View style={styles.row}>
-          <View>
-            <Text style={styles.label}>Messy mode</Text>
-            <Text style={styles.description}>
-              Shuffle colors of the current theme
-            </Text>
+        style={styles.gradient}
+      >
+        <FloatingBackground />
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+          <Text style={styles.title}>{t('settings.title')}</Text>
+          
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>{t('settings.appPreferences')}</Text>
+            
+            <View style={styles.row}>
+              <View>
+                <Text style={styles.label}>{t('settings.messyMode.title')}</Text>
+                <Text style={styles.description}>
+                  {t('settings.messyMode.description')}
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={styles.themeButton}
+                onPress={toggleMessyMode}
+              >
+                <Paintbrush color={colors.textSecondary} size={20} />
+              </TouchableOpacity>
+            </View>
+            
+            <TouchableOpacity 
+              style={styles.row}
+              onPress={() => setLanguageModalVisible(true)}
+            >
+              <View>
+                <Text style={styles.label}>{t('settings.language.title')}</Text>
+                <Text style={styles.description}>
+                  {t('settings.language.currently')}: {currentLanguageInfo.flag} {currentLanguageInfo.name}
+                </Text>
+              </View>
+              <Languages color={colors.textSecondary} size={20} />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-                  style={styles.themeButton}
-                  onPress={toggleMessyMode}
-                >
-                  <Paintbrush color={colors.textSecondary} size={20}/>
-                </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity style={styles.row}>
-          <View>
-            <Text style={styles.label}>Language</Text>
-            <Text style={styles.description}>Currently: English</Text>
+          
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>{t('settings.account')}</Text>
+            
+            <TouchableOpacity style={styles.row}>
+              <View>
+                <Text style={styles.label}>{t('settings.connectGoogle.title')}</Text>
+                <Text style={styles.description}>{t('settings.connectGoogle.description')}</Text>
+              </View>
+              <LogIn color={colors.textSecondary} size={20} />
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.row}>
+              <View>
+                <Text style={styles.label}>{t('settings.manageProfile.title')}</Text>
+                <Text style={styles.description}>{t('settings.manageProfile.description')}</Text>
+              </View>
+              <User2 color={colors.textSecondary} size={20} />
+            </TouchableOpacity>
           </View>
-          <Languages color={colors.textSecondary} size={20} />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Account</Text>
-
-        <TouchableOpacity style={styles.row}>
-          <View>
-            <Text style={styles.label}>Connect Google Account</Text>
-            <Text style={styles.description}>Sync progress and tasks</Text>
-          </View>
-          <LogIn color={colors.textSecondary} size={20} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.row}>
-          <View>
-            <Text style={styles.label}>Manage Profile</Text>
-            <Text style={styles.description}>View or edit user details</Text>
-          </View>
-          <User2 color={colors.textSecondary} size={20} />
-        </TouchableOpacity>
-      </View>
+          
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Contact & Support</Text>
