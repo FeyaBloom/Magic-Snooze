@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, ScrollView, Linking, Switch, SafeAreaView
 import { useTheme } from '@/components/ThemeProvider';
 import { LinearGradient } from 'expo-linear-gradient';
 import { createSettingsStyles } from '@/styles/settings';
-import { Globe, Heart, Languages, LogIn, User2, arrow-right-left } from 'lucide-react-native';
+import { Globe, Heart, Languages, LogIn, User2, Paintbrush } from 'lucide-react-native';
 import {FloatingBackground} from "@/components/MagicalFeatures";
 
 export default function SettingsTab() {
@@ -37,7 +37,7 @@ const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
                   style={styles.themeButton}
                   onPress={toggleMessyMode}
                 >
-                  <arrow-right-left color={colors.textSecondary} size={20}/>
+                  <Paintbrush color={colors.textSecondary} size={20}/>
                 </TouchableOpacity>
         </View>
 
