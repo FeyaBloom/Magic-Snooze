@@ -419,12 +419,12 @@ function TodayTabContent() {
         <>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View>
-          <View style={styles.header}>       
-              <Text style={styles.title}>Good day, beautiful soul 🌸</Text>          
+         <View style={styles.header}>
+              <Text style={styles.title}>{t('today.title')}</Text>
               <Text style={styles.subtitle}>
-              {isSnoozed ? 'You\'re taking a gentle break today' : 'Take it one step at a time'}
+                {isSnoozed ? t('today.subtitleSnoozed') : t('today.subtitle')}
               </Text>
-          </View>
+            </View>
 
           {!isSnoozed && (
            
