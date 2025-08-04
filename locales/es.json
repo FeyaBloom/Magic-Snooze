@@ -47,8 +47,8 @@
     "supportApp": {
       "title": "Apoyar esta aplicación",
       "description": "Enviar una donación mágica 💰"
-    }
-  }
+    },
+  },
 "languages": {
   "en": { "name": "Ingles", "native": "English", "flag": "🇺🇸" },
   "ru": { "name": "Ruso", "native": "Русский", "flag": "🇷🇺" },
