@@ -99,7 +99,7 @@ export default function SettingsTab() {
         >
           <View>
             <Text style={styles.label}>{t('settings.supportApp.title')}</Text>
-            <Text style={styles.description}>Send a magical donation 💰</Text>
+            <Text style={styles.description}>{t('settings.supportApp.description')}</Text>
           </View>
           <Heart color={colors.textSecondary} size={20} />
         </TouchableOpacity>
