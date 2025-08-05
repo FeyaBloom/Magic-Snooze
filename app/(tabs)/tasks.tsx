@@ -19,6 +19,9 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
 import CustomCalendar from '@/components/customCalendar';
 import { ConfirmDialog } from "@/components/confirmDialog";
+import i18n from '@/i18n';
+import { LanguageModal } from '@/components/LanguageModal';
+
 interface Task {
   id: string;
   text: string;
