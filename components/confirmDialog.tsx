@@ -21,6 +21,8 @@ export const ConfirmDialog = ({
   confirmText?: string;
   cancelText?: string;
 }) => {
+  const currentLanguageCode = i18n.language;
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const { colors } = useTheme();
   return (
     <Modal visible={visible} transparent animationType="fade">
