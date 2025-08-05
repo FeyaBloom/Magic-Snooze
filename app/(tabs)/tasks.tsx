@@ -226,7 +226,7 @@ export default function TasksTab() {
 
           {completedTasks.length > 0 && (
             <View style={styles.taskSection}>
-              <Text style={styles.sectionTitle}>Completed Tasks <Sparkles size={20} color={colors.text} /></Text>
+              <Text style={styles.sectionTitle}>{t('tasks.completed')} <Sparkles size={20} color={colors.text} /></Text>
               {completedTasks.map(task => (
                 <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
                   <MagicalCheckbox
