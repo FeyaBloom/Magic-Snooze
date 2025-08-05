@@ -144,6 +144,14 @@ export const SurprisePrompt = ({ onDismiss }: any) => {
   const styles = createMagicStyles(colors);
 
   const prompts = [
+     t('today.surprize1'),
+     t('today.surprize2'),
+     t('today.surprize3'),
+     t('today.surprize4'),
+     t('today.surprize5'),
+     t('today.surprize6'),
+     t('today.surprize7'),
+     t('today.surprize8'),
     'Wanna write a poem instead of doing tasks? 📝',
     'Draw your to-do list as monsters! 👹',
     'What if you danced for 30 seconds? 💃',
