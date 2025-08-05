@@ -17,7 +17,7 @@ interface LanguageModalProps {
   onClose: () => void;
 }
 
-const languageCodes = ['en', 'ru', 'es', 'fr', 'de', 'it'];
+const languageCodes = ['en', 'ru', 'es',];
 
 export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }) => {
   const { colors } = useTheme();
