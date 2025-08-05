@@ -460,7 +460,7 @@ function TodayTabContent() {
                 onPress={() => router.push('/settings')}
               >
                   <Text style={styles.themeButtonText}>
-                    {`Settings`}
+                    { t('navigation.settings')}
                   </Text>
                 </TouchableOpacity>
                
