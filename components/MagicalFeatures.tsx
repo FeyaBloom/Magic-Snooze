@@ -85,26 +85,29 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const styles = createMagicStyles(colors);
   const [confettiIndex, setConfettiIndex] = useState<number | null>(null);
 
-  const victories = [
-    { text: 'Got out of bed', emoji: '🛏️' },
-    { text: 'Drank water', emoji: '💧' },
-    { text: 'Took a deep breath', emoji: '🌬️' },
-    { text: `Was patient`, emoji: '😌' },
-    { text: 'Pet an animal', emoji: '🐱' },
-    { text: 'Looked at the sky', emoji: '☁️' },
-    { text: 'Smiled at something', emoji: '😊' },
-    { text: 'Ate something', emoji: '🍎' },
-  ];
+ const victories = [
+  { text: t('Got out of bed'), emoji: '🛏️' },
+  { text: t('Drank water'), emoji: '💧' },
+  { text: t('Took a deep breath'), emoji: '🌬️' },
+  { text: t('Was patient'), emoji: '😌' },
+  { text: t('Pet an animal'), emoji: '🐱' },
+  { text: t('Looked at the sky'), emoji: '☁️' },
+  { text: t('Smiled at something'), emoji: '😊' },
+  { text: t('Ate something'), emoji: '🍎' },
+];
 
-  const handleVictory = (index:number, text: string) => {
-    onVictoryPress(text);
-    setConfettiIndex(index);
-  };
+const handleVictory = (index: number, text: string) => {
+  onVictoryPress(text);
+  setConfettiIndex(index);
+};
 
-  return (
-    <View style={styles.tinyVictoryContainer}>
-      <Text style={styles.tinyVictoryTitle}>Tiny Victories  <Sparkles size={20} color={colors.primary} /></Text>
-      <Text style={styles.tinyVictorySubtitle}>Celebrate the small wins!</Text>
+return (
+  <View style={styles.tinyVictoryContainer}>
+    <Text style={styles.tinyVictoryTitle}>
+      {t('Tiny Victories')} <Sparkles size={20} color={colors.primary} />
+    </Text>
+    <Text style={styles.tinyVictorySubtitle}>{t('Celebrate the small wins!')}</Text>
+
 
       <View style={styles.victoryGrid}>
         {victories.map((v, index) => (
