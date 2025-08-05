@@ -164,10 +164,24 @@ export default function Calendar({
     ));
   };
 
-  const monthName = currentMonth.toLocaleDateString(i18n.language, {
+  const capitalizeFirst = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
+const mapLocale: Record<string, string> = {
+  en: 'en-US',
+  ru: 'ru-RU',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  de: 'de-DE',
+  // добавь другие при необходимости
+};
+
+const monthName = capitalizeFirst(
+  currentMonth.toLocaleDateString(mapLocale[i18n.language] || 'en-US', {
     month: 'long',
     year: 'numeric',
-  });
+  })
+);
+
 
   return (
     <View style={[styles.calendarContainer, { alignItems: 'center' }]}>
