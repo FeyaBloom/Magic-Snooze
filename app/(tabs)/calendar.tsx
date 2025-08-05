@@ -16,7 +16,7 @@ import { FloatingBackground } from "@/components/MagicalFeatures";
 import CustomCalendar from '@/components/customCalendar';
 import i18n from '@/i18n';
 import { LanguageModal } from '@/components/LanguageModal';
-
+const { t } = i18n;
 interface DailyProgress {
   date: string;
   morningCompleted: boolean;
