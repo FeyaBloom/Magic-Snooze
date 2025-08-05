@@ -91,14 +91,14 @@ const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [confettiIndex, setConfettiIndex] = useState<number | null>(null);
 
  const victories = [
-  { text: t('today.Got out of bed'), emoji: '🛏️' },
-  { text: t('today.Drank water'), emoji: '💧' },
-  { text: t('today.Took a deep breath'), emoji: '🌬️' },
-  { text: t('today.Was patient'), emoji: '😌' },
-  { text: t('today.Pet an animal'), emoji: '🐱' },
-  { text: t('today.Looked at the sky'), emoji: '☁️' },
-  { text: t('today.Smiled at something'), emoji: '😊' },
-  { text: t('today.Ate something'), emoji: '🍎' },
+  { text: t('today.bed'), emoji: '🛏️' },
+  { text: t('today.water'), emoji: '💧' },
+  { text: t('today.breath'), emoji: '🌬️' },
+  { text: t('today.patient'), emoji: '😌' },
+  { text: t('today.pet'), emoji: '🐱' },
+  { text: t('today.sky'), emoji: '☁️' },
+  { text: t('today.smile'), emoji: '😊' },
+  { text: t('today.food'), emoji: '🍎' },
 ];
 
 const handleVictory = (index: number, text: string) => {
