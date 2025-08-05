@@ -148,7 +148,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
   },
   magicalControls: {
-    marginHorizontal: 20,
     marginBottom: 20,
   },
   addTaskButton: {
