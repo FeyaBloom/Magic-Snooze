@@ -312,13 +312,13 @@ export default function TasksTab() {
                   setShowCalendar(false);
                 }}
               >
-                <Text style={styles.cancelButtonText}>Cancel</Text>
+                <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalButton, styles.saveButton]}
                 onPress={addTask}
               >
-                <Text style={styles.saveButtonText}>Add Task</Text>
+                <Text style={styles.saveButtonText}>{t('tasks.addButton')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -344,10 +344,10 @@ export default function TasksTab() {
               <Trash2 size={16} color="#EF4444" />
             </TouchableOpacity>
 
-            <Text style={styles.modalTitle}>Edit Task</Text>
+            <Text style={styles.modalTitle}>{t('tasks.editTitle')}</Text>
             <TextInput
               style={styles.textInput}
-              placeholder="What would you like to accomplish?"
+              placeholder={t('tasks.inputPlaceholder')}
               placeholderTextColor={colors.textSecondary}
               value={newTaskText}
               onChangeText={setNewTaskText}
