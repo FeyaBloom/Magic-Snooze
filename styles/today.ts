@@ -159,6 +159,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 20,
     marginBottom: 12,
+    marginHorizontal: 20,
     height: 48,
   },
   addTaskText: {
