@@ -11,7 +11,7 @@ export const ConfirmDialog = ({
   onConfirm,
   onCancel,
   confirmText = t('common.yes'),
-  cancelText = 'No',
+  cancelText = t('common.no'),
 }: {
   visible: boolean;
   title: string;
