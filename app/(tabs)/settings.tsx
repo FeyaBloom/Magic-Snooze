@@ -64,8 +64,7 @@ onPress={toggleMessyMode}
               <View>
                 <Text style={styles.label}>{t('settings.language.title')}</Text>
                 <Text style={styles.description}>
-                  {t('settings.language.currently')}: {currentLanguageCode.toUpperCase()},
-{t(`languages.${code}.flag`)}
+                  {t('settings.language.currently')}: {currentLanguageCode.toUpperCase()}
                 </Text>
               </View>
               <Languages color={colors.textSecondary} size={20} />
