@@ -18,7 +18,7 @@ import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
 import { LanguageModal } from '@/components/LanguageModal';
-
+const { t } = i18n;
 interface Note {
   id: string;
   title: string;
