@@ -41,6 +41,25 @@
       "prepare": "Prepare for tomorrow with kindness"
     }
   },
+  "calendar": {
+  "title": "Your Journey 📅",
+  "subtitle": "Every step counts, every day matters",
+  "legendTitle": "Legend",
+  "legend": {
+    "complete": "Complete Day 🏆",
+    "partial": "Partial Day 🌟",
+    "snoozed": "Rest Day 💤",
+    "none": "No Activity"
+  },
+  "stats": {
+    "title": "Monthly Progress",
+    "complete": "Complete Days",
+    "partial": "Partial Days",
+    "snoozed": "Rest Days",
+    "engagement": "Engagement"
+  }
+  },
+    
   "settings": {
     "title": "Settings & About ⚙️",
     "appPreferences": "App Preferences",
