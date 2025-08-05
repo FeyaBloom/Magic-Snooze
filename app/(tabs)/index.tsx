@@ -20,6 +20,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createTodayStyles } from '@/styles/today';
 import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
+import { useRouter } from 'expo-router';
 
 const { t } = i18n;
 
@@ -45,6 +46,7 @@ function TodayTabContent() {
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
   const styles = createTodayStyles(colors);
+  const router = useRouter();
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
   const [eveningRoutine, setEveningRoutine] = useState<RoutineStep[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -455,7 +457,8 @@ function TodayTabContent() {
                 </TouchableOpacity>
                           
               <TouchableOpacity  style={styles.themeButton}       
-                >
+                onPress={() => router.push('/settings')}
+              >
                   <Text style={styles.themeButtonText}>
                     {`Settings`}
                   </Text>
