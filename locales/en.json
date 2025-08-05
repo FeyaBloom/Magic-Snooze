@@ -24,8 +24,8 @@
     "snoozeToday": "Snooze Today",
     "resumeToday": "Resume Today",
     "tinyVictories": "Tiny Victories",
-    "nightForest": "Night Forest",
-    "dayDream": "Daydream",
+    "nightForest": "🌙 Night Forest",
+    "dayDream": "🌥 Daydream",
     "morningRoutine": "Morning Routine",
     "eveningRoutine": "Evening Routine",
     "todaysProgress": "Today's Progress",
@@ -167,7 +167,7 @@
   "tasks": "Tasks",
   "calendar": "Calendar",
   "notes": "Notes",
-  "settings": "Settings"
+  "settings": "⚙ Settings"
 }
   
 }
