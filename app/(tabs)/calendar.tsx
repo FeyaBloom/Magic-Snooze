@@ -149,71 +149,74 @@ export default function CalendarTab() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient colors={colors.background} style={styles.gradient}>
-        <FloatingBackground />
-        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Your Journey 📅</Text>
-            <Text style={styles.subtitle}>Every step counts, every day matters</Text>
+  <LinearGradient colors={colors.background} style={styles.gradient}>
+    <FloatingBackground />
+    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      <View style={styles.header}>
+        <Text style={styles.title}>{t('calendar.title')}</Text>
+        <Text style={styles.subtitle}>{t('calendar.subtitle')}</Text>
+      </View>
+
+      <CustomCalendar
+        customDayRenderer={customDayRenderer}
+        initialMonth={currentMonth}
+        onMonthChange={(date) => {
+          setCurrentMonth(date);
+        }}
+      />
+
+      <View style={styles.legendContainer}>
+        <Text style={styles.legendTitle}>{t('calendar.legendTitle')}</Text>
+        <View style={styles.legendGrid}>
+          <View style={styles.legendItem}>
+            <View style={[styles.legendDot, styles.completeLegend]} />
+            <Text style={styles.legendText}>{t('calendar.legend.complete')}</Text>
           </View>
+          <View style={styles.legendItem}>
+            <View style={[styles.legendDot, styles.partialLegend]} />
+            <Text style={styles.legendText}>{t('calendar.legend.partial')}</Text>
+          </View>
+          <View style={styles.legendItem}>
+            <View style={[styles.legendDot, styles.snoozedLegend]} />
+            <Text style={styles.legendText}>{t('calendar.legend.snoozed')}</Text>
+          </View>
+          <View style={styles.legendItem}>
+            <View style={[styles.legendDot, styles.noneLegend]} />
+            <Text style={styles.legendText}>{t('calendar.legend.none')}</Text>
+          </View>
+        </View>
+      </View>
 
-          <CustomCalendar
-            customDayRenderer={customDayRenderer}
-            initialMonth={currentMonth}
-            onMonthChange={(date) => {
-              setCurrentMonth(date);
-            }}
-          />
-
-          <View style={styles.legendContainer}>
-            <Text style={styles.legendTitle}>Legend</Text>
-            <View style={styles.legendGrid}>
-              <View style={styles.legendItem}>
-                <View style={[styles.legendDot, styles.completeLegend]} />
-                <Text style={styles.legendText}>Complete Day 🏆</Text>
-              </View>
-              <View style={styles.legendItem}>
-                <View style={[styles.legendDot, styles.partialLegend]} />
-                <Text style={styles.legendText}>Partial Day 🌟</Text>
-              </View>
-              <View style={styles.legendItem}>
-                <View style={[styles.legendDot, styles.snoozedLegend]} />
-                <Text style={styles.legendText}>Rest Day 💤</Text>
-              </View>
-              <View style={styles.legendItem}>
-                <View style={[styles.legendDot, styles.noneLegend]} />
-                <Text style={styles.legendText}>No Activity</Text>
-              </View>
+      {monthStats.totalDays > 0 && (
+        <View style={styles.statsContainer}>
+          <Text style={styles.statsTitle}>
+            {t('calendar.stats.title')} <Sparkles size={20} color={colors.text} />
+          </Text>
+          <View style={styles.statsGrid}>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>{monthStats.completeDays}</Text>
+              <Text style={styles.statLabel}>{t('calendar.stats.complete')}</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>{monthStats.partialDays}</Text>
+              <Text style={styles.statLabel}>{t('calendar.stats.partial')}</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>{monthStats.snoozedDays}</Text>
+              <Text style={styles.statLabel}>{t('calendar.stats.snoozed')}</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>
+                {Math.round(((monthStats.completeDays + monthStats.partialDays) / monthStats.totalDays) * 100)}%
+              </Text>
+              <Text style={styles.statLabel}>{t('calendar.stats.engagement')}</Text>
             </View>
           </View>
+        </View>
+      )}
+    </ScrollView>
+  </LinearGradient>
+</SafeAreaView>
 
-          {monthStats.totalDays > 0 && (
-            <View style={styles.statsContainer}>
-              <Text style={styles.statsTitle}>Monthly Progress <Sparkles size={20} color={colors.text} /></Text>
-              <View style={styles.statsGrid}>
-                <View style={styles.statItem}>
-                  <Text style={styles.statNumber}>{monthStats.completeDays}</Text>
-                  <Text style={styles.statLabel}>Complete Days</Text>
-                </View>
-                <View style={styles.statItem}>
-                  <Text style={styles.statNumber}>{monthStats.partialDays}</Text>
-                  <Text style={styles.statLabel}>Partial Days</Text>
-                </View>
-                <View style={styles.statItem}>
-                  <Text style={styles.statNumber}>{monthStats.snoozedDays}</Text>
-                  <Text style={styles.statLabel}>Rest Days</Text>
-                </View>
-                <View style={styles.statItem}>
-                  <Text style={styles.statNumber}>
-                    {Math.round(((monthStats.completeDays + monthStats.partialDays) / monthStats.totalDays) * 100)}%
-                  </Text>
-                  <Text style={styles.statLabel}>Engagement</Text>
-                </View>
-              </View>
-            </View>
-          )}
-        </ScrollView>
-      </LinearGradient>
-    </SafeAreaView>
   );
 }
