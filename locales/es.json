@@ -78,6 +78,16 @@
     "addStep": "Añadir paso",
     "deleteStep": "Eliminar paso",
     "deleteStepConfirm": "¿Estás seguro de que quieres eliminar este paso?",
+   "bed": "Got out of bed",
+  "water": "Drank water",
+  "breath": "Took a deep breath",
+  "patient": "Was patient",
+  "pet": "Pet an animal",
+  "sky": "Looked at the sky",
+  "smile": "Smiled at something",
+  "food": "Ate something",
+  "Tiny Victories": "Маленькие победы",
+  "Celebrate the small wins!": "Празднуй даже маленькие победы!"
     "defaultMorning": {
       "stretch": "Estiramiento suave o movimiento",
       "breathing": "Respiración consciente (2 minutos)",
