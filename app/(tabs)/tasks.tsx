@@ -358,8 +358,8 @@ export default function TasksTab() {
               onPress={() => setShowEditCalendar(v => !v)}
               style={styles.datePickerButton}
             >
-              <Text style={styles.dueDateText}>
-                {newTaskDueDate ? formatDate(newTaskDueDate) : 'Due date (optional)'}
+               <Text style={styles.dueDateText}>
+                {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}
               </Text>
             </TouchableOpacity>
             {showEditCalendar && (
