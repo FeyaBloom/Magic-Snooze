@@ -4,7 +4,7 @@
     "tasks": "Задачи",
     "calendar": "Календарь",
     "notes": "Заметки",
-    "settings": "Настройки"
+    "settings": "⚙ Настройки"
   },
   "common": {
     "cancel": "Отмена",
@@ -31,8 +31,8 @@
     "snoozeToday": "Отложить на завтра",
     "resumeToday": "Продолжить сегодня",
     "tinyVictories": "Маленькие победы",
-    "nightForest": "Ночной лес",
-    "dayDream": "Дневная сказка",
+    "nightForest": "🌙 Ночной лес",
+    "dayDream": "🌥 Дневная сказка",
     "morningRoutine": "Утренняя рутина",
     "eveningRoutine": "Вечерняя рутина",
     "todaysProgress": "Прогресс за день",
