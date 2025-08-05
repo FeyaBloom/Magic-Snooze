@@ -148,7 +148,15 @@ export default function Calendar({
   };
 
   const renderWeekDays = () => {
-    const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const weekDays = [
+      t('common.Sun'), 
+       t('common.Mon'),
+       t('common.Tue'),
+       t('common.Wed'),
+       t('common.Thu'),
+       t('common.Fri'),
+       t('common.Sat'),
+     ];
     return weekDays.map((day) => (
       <Text key={day} style={[styles.weekDayText, { width: dayWidth }]}>
         {day}
