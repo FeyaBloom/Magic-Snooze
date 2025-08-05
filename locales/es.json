@@ -9,7 +9,14 @@
     "close": "Cerrar",
     "confirm": "Confirmar",
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "Sun": "Dom", 
+    "Mon": "Lun", 
+    "Tue": "Mar", 
+    "Wed":  "Mie", 
+    "Thu":  "Jue", 
+    "Fri":  "Vie", 
+    "Sat": "Sab"
   },
   "navigation": {
   "today": "Hoy",
