@@ -28,6 +28,8 @@ interface Note {
 }
 
 export default function NotesTab() {
+  const currentLanguageCode = i18n.language;
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const { colors } = useTheme();
   const styles = createNotesStyles(colors);
   const [notes, setNotes] = useState<Note[]>([]);
