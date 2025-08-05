@@ -16,6 +16,9 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createNotesStyles } from '@/styles/notes';
 import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
+import i18n from '@/i18n';
+import { LanguageModal } from '@/components/LanguageModal';
+
 interface Note {
   id: string;
   title: string;
