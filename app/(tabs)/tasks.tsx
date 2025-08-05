@@ -171,18 +171,18 @@ export default function TasksTab() {
         <FloatingBackground />
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <Text style={styles.title}>Your Tasks 🎯</Text>
-            <Text style={styles.subtitle}>One step at a time, you've got this!</Text>
+            <Text style={styles.title}>{t('tasks.title')}</Text>
+            <Text style={styles.subtitle}>{t('tasks.subtitle')}</Text>
           </View>
 
           <TouchableOpacity style={styles.addTaskButton} onPress={() => setShowAddModal(true)}>
             <Plus size={24} color="#FFFFFF" />
-            <Text style={styles.addTaskText}>Add New Task</Text>
+             <Text style={styles.addTaskText}>{t('tasks.addNew')}</Text>
           </TouchableOpacity>
 
           {activeTasks.length > 0 && (
             <View style={styles.taskSection}>
-              <Text style={styles.sectionTitle}>Active Tasks</Text>
+               <Text style={styles.sectionTitle}>{t('tasks.active')}</Text>
               {activeTasks.map(task => (
                 <View key={task.id} style={styles.taskContainer}>
                   <MagicalCheckbox
