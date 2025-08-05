@@ -73,6 +73,23 @@
     },
   },
 
+"tasks": {
+    "title": "Your Tasks 🎯",
+    "subtitle": "One step at a time, you've got this!",
+    "addNew": "Add New Task",
+    "active": "Active Tasks",
+    "completed": "Completed Tasks",
+    "emptyTitle": "No tasks yet",
+    "emptySubtitle": "Add your first task to get started on your journey",
+    "addTitle": "Add New Task",
+    "editTitle": "Edit Task",
+    "inputPlaceholder": "What would you like to accomplish?",
+    "dueDateOptional": "Due date (optional)",
+    "addButton": "Add Task",
+    "deleteTitle": "Delete Task",
+    "deleteMessage": "Are you sure you want to delete this task?"
+  },
+
 "languages": {
   "en": { "name": "English", "native": "English", "flag": "🇺🇸" },
   "ru": { "name": "Russian", "native": "Русский", "flag": "🇷🇺" },
@@ -88,4 +105,5 @@
   "notes": "Notes",
   "settings": "Settings"
 }
+  
 }
