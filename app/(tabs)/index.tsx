@@ -20,7 +20,6 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createTodayStyles } from '@/styles/today';
 import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
-import { SettingsTab} from "@/components/settings";
 import { useRouter } from 'expo-router';
 
 const { t } = i18n;
@@ -458,7 +457,7 @@ function TodayTabContent() {
                 </TouchableOpacity>
                           
               <TouchableOpacity  style={styles.themeButton}       
-                onPress={() => SettingsTab}
+                onPress={() => router.push('/settings')}
               >
                   <Text style={styles.themeButtonText}>
                     {`Settings`}
