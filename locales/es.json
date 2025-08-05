@@ -23,7 +23,7 @@
   "tasks": "Tareas",
   "calendar": "Calendario",
   "notes": "Notas",
-  "settings": "Ajustes"
+  "settings": "⚙ Ajustes"
 },
   "settings": {
     "title": "Configuración ⚙️",
@@ -72,8 +72,8 @@
     "snoozeToday": "Aplazar hoy",
     "resumeToday": "Reanudar hoy",
     "tinyVictories": "Pequeñas victorias",
-    "nightForest": "Bosque nocturno",
-    "dayDream": "Ensueño",
+    "nightForest": "🌙 Bosque nocturno",
+    "dayDream": "🌥 Ensueño",
     "morningRoutine": "Rutina matutina",
     "eveningRoutine": "Rutina nocturna",
     "todaysProgress": "Progreso de hoy",
