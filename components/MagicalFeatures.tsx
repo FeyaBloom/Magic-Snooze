@@ -18,7 +18,9 @@ import i18n from '@/i18n';
 import { LanguageModal } from '@/components/LanguageModal';
 
 const { width: screenWidth } = Dimensions.get('window');
-
+const currentLanguageCode = i18n.language;
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
+const { t } = i18n;
 // ---- FLOATING BACKGROUNDS ----
 
   const FloatingCloud = () => (
