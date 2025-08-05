@@ -31,6 +31,8 @@ interface Task {
 }
 
 export default function TasksTab() {
+  const currentLanguageCode = i18n.language;
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const { colors } = useTheme();
   const styles = createTasksStyles(colors);
   const [tasks, setTasks] = useState<Task[]>([]);
