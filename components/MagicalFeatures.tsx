@@ -152,14 +152,6 @@ export const SurprisePrompt = ({ onDismiss }: any) => {
      t('today.surprize6'),
      t('today.surprize7'),
      t('today.surprize8'),
-    'Wanna write a poem instead of doing tasks? 📝',
-    'Draw your to-do list as monsters! 👹',
-    'What if you danced for 30 seconds? 💃',
-    'Time to make a weird face in the mirror? 🤪',
-    'How about humming your favorite song? 🎵',
-    'Want to text someone you love? 💕',
-    'Maybe stretch like a cat? 🐱',
-    'Feel like making up a story about your day? 📚',
   ];
 
   const [currentPrompt] = useState(prompts[Math.floor(Math.random() * prompts.length)]);
