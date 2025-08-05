@@ -20,7 +20,7 @@ import { createTasksStyles } from '@/styles/tasks';
 import CustomCalendar from '@/components/customCalendar';
 import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
-import { LanguageModal } from '@/components/LanguageModal';
+
 const { t } = i18n;
 interface Task {
   id: string;
