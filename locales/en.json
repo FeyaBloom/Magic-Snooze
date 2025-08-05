@@ -40,6 +40,19 @@
       "selfCare": "Gentle self-care activity",
       "prepare": "Prepare for tomorrow with kindness"
     }
+    
+  "Got out of bed": "Got out of bed",
+  "Drank water": "Drank water",
+  "Took a deep breath": "Took a deep breath",
+  "Was patient": "Was patient",
+  "Pet an animal": "Pet an animal",
+  "Looked at the sky": "Looked at the sky",
+  "Smiled at something": "Smiled at something",
+  "Ate something": "Ate something",
+  "Tiny Victories": "Tiny Victories",
+  "Celebrate the small wins!": "Celebrate the small wins!"
+
+
   },
   "calendar": {
   "title": "Your Journey 📅",
@@ -142,18 +155,6 @@
   "calendar": "Calendar",
   "notes": "Notes",
   "settings": "Settings"
-},
- {
-  "Got out of bed": "Got out of bed",
-  "Drank water": "Drank water",
-  "Took a deep breath": "Took a deep breath",
-  "Was patient": "Was patient",
-  "Pet an animal": "Pet an animal",
-  "Looked at the sky": "Looked at the sky",
-  "Smiled at something": "Smiled at something",
-  "Ate something": "Ate something",
-  "Tiny Victories": "Tiny Victories",
-  "Celebrate the small wins!": "Celebrate the small wins!"
 }
- 
+  
 }
