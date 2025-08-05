@@ -105,9 +105,25 @@
   "addButton": "Añadir tarea",
   "deleteTitle": "Eliminar tarea",
   "deleteMessage": "¿Estás seguro de que quieres eliminar esta tarea?"
+},
+
+"calendar": {
+  "title": "Tu viaje 📅",
+  "subtitle": "Cada paso cuenta, cada día importa",
+  "legendTitle": "Leyenda",
+  "legend": {
+    "complete": "Día completo 🏆",
+    "partial": "Día parcial 🌟",
+    "snoozed": "Día de descanso 💤",
+    "none": "Sin actividad"
+  },
+  "stats": {
+    "title": "Progreso mensual",
+    "complete": "Días completos",
+    "partial": "Días parciales",
+    "snoozed": "Días de descanso",
+    "engagement": "Participación"
+  }
 }
-,
-
-
   
 }
