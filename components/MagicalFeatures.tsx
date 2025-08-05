@@ -18,8 +18,7 @@ import i18n from '@/i18n';
 import { LanguageModal } from '@/components/LanguageModal';
 
 const { width: screenWidth } = Dimensions.get('window');
-const currentLanguageCode = i18n.language;
-  const [languageModalVisible, setLanguageModalVisible] = useState(false);
+
 const { t } = i18n;
 // ---- FLOATING BACKGROUNDS ----
 
@@ -86,6 +85,8 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
 // ---- TINY VICTORY W/ CONFETTI ----
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const { colors } = useTheme();
+  const currentLanguageCode = i18n.language;
+const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const styles = createMagicStyles(colors);
   const [confettiIndex, setConfettiIndex] = useState<number | null>(null);
 
