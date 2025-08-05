@@ -90,7 +90,23 @@
     }
   },
 
-
+"tasks": {
+  "title": "Tus tareas 🎯",
+  "subtitle": "Paso a paso, ¡tú puedes!",
+  "addNew": "Añadir nueva tarea",
+  "active": "Tareas activas",
+  "completed": "Tareas completadas",
+  "emptyTitle": "Aún no hay tareas",
+  "emptySubtitle": "Añade tu primera tarea para comenzar tu camino",
+  "addTitle": "Añadir nueva tarea",
+  "editTitle": "Editar tarea",
+  "inputPlaceholder": "¿Qué te gustaría lograr?",
+  "dueDateOptional": "Fecha límite (opcional)",
+  "addButton": "Añadir tarea",
+  "deleteTitle": "Eliminar tarea",
+  "deleteMessage": "¿Estás seguro de que quieres eliminar esta tarea?"
+}
+,
 
 
   
