@@ -182,7 +182,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 12,
-    marginHorizontal: 4,
     backgroundColor: colors.surface,
     height: 48,
     marginHorizontal: 20,
