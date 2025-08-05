@@ -173,7 +173,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 12,
-    marginHorizontal: 20,
   },
   themeButton: {
     flex: 1,
@@ -186,7 +185,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     marginHorizontal: 4,
     backgroundColor: colors.surface,
     height: 48,
-    
+    marginHorizontal: 20,
   },
   themeButtonText: {
     fontSize: 14,
