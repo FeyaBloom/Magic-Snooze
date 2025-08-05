@@ -184,7 +184,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     borderRadius: 12,
     backgroundColor: colors.surface,
     height: 48,
-    marginHorizontal: 20,
+    marginHorizontal: 16,
   },
   themeButtonText: {
     fontSize: 14,
