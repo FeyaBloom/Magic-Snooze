@@ -86,7 +86,7 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const { colors } = useTheme();
   const currentLanguageCode = i18n.language;
-const [languageModalVisible, setLanguageModalVisible] = useState(false);
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const styles = createMagicStyles(colors);
   const [confettiIndex, setConfettiIndex] = useState<number | null>(null);
 
