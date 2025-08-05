@@ -384,13 +384,13 @@ export default function TasksTab() {
                   setShowEditCalendar(false);
                 }}
               >
-                <Text style={styles.cancelButtonText}>Cancel</Text>
+                 <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalButton, styles.saveButton]}
                 onPress={editTask}
               >
-                <Text style={styles.saveButtonText}>Save</Text>
+                <Text style={styles.saveButtonText}>{t('common.save')}</Text>
               </TouchableOpacity>
             </View>
           </View>
