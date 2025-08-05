@@ -261,10 +261,8 @@ export default function TasksTab() {
 
           {tasks.length === 0 && (
             <View style={styles.emptyState}>
-              <Text style={styles.emptyStateText}>No tasks yet</Text>
-              <Text style={styles.emptyStateSubtext}>
-                Add your first task to get started on your journey
-              </Text>
+               <Text style={styles.emptyStateText}>{t('tasks.emptyTitle')}</Text>
+              <Text style={styles.emptyStateSubtext}>{t('tasks.emptySubtitle')}</Text>
             </View>
           )}
         </ScrollView>
