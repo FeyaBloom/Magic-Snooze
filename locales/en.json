@@ -59,6 +59,25 @@
     "engagement": "Engagement"
   }
   },
+
+  "notes": {
+  "title": "Your Notes 📝",
+  "subtitle": "Capture your thoughts and ideas",
+  "searchPlaceholder": "Search your notes...",
+  "addButton": "Add New Note",
+  "emptyTitle": "No notes yet",
+  "emptySubtitle": "Start capturing your thoughts and ideas",
+  "emptySearchTitle": "No notes found",
+  "emptySearchSubtitle": "Try searching for something else",
+  "addModalTitle": "Add New Note",
+  "editModalTitle": "Edit Note",
+  "titlePlaceholder": "Note title (optional)",
+  "contentPlaceholder": "What's on your mind?",
+  "cancel": "Cancel",
+  "save": "Save Note",
+  "saveChanges": "Save Changes",
+  "close": "Close"
+},
     
   "settings": {
     "title": "Settings & About ⚙️",
