@@ -280,7 +280,7 @@ export default function NotesTab() {
             style={[styles.modalButton, styles.saveButton]}
             onPress={addNote}
           >
-            <Text style={styles.saveButtonText}>{t('note.save')}</Text>
+            <Text style={styles.saveButtonText}>{t('notes.save')}</Text>
           </TouchableOpacity>
         </View>
       </View>
