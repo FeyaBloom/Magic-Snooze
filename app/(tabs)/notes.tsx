@@ -306,7 +306,7 @@ export default function NotesTab() {
         >
           <Trash2 size={16} color="#EF4444" />
         </TouchableOpacity>
-        <Text style={styles.modalTitle}>{t('notes.editTitle')}</Text>
+        <Text style={styles.modalTitle}>{t('notes.editModalTitle')}</Text>
         <TextInput
           style={styles.titleInput}
           placeholder={t('notes.titlePlaceholder')}
