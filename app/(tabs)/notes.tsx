@@ -248,7 +248,7 @@ export default function NotesTab() {
   >
     <View style={styles.modalOverlay}>
       <View style={styles.modalContent}>
-        <Text style={styles.modalTitle}>{t('notes.addTitle')}</Text>
+        <Text style={styles.modalTitle}>{t('notes.addButton')}</Text>
         <TextInput
           style={styles.titleInput}
           placeholder={t('notes.titlePlaceholder')}
