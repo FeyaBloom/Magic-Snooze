@@ -14,6 +14,8 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles } from '@/styles/calendar';
 import { FloatingBackground } from "@/components/MagicalFeatures";
 import CustomCalendar from '@/components/customCalendar';
+import i18n from '@/i18n';
+import { LanguageModal } from '@/components/LanguageModal';
 
 interface DailyProgress {
   date: string;
