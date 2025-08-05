@@ -88,15 +88,6 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: t('navigation.settings'),
-          tabBarIcon: ({ size, color }) => (
-            <Cog size={size} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+     
   );
 }
