@@ -7,7 +7,7 @@ import {
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles, dayWidth } from '@/styles/calendar';
-
+import i18n from '@/i18n';
 interface CalendarProps {
   // Для выбора даты (модалка)
   selectedDate?: Date;
