@@ -84,6 +84,25 @@
   }
 },
 
+  "notes": {
+  "title": "Твои заметки 📝",
+  "subtitle": "Записывай мысли и идеи",
+  "searchPlaceholder": "Поиск по заметкам...",
+  "addButton": "Добавить заметку",
+  "emptyTitle": "Пока нет заметок",
+  "emptySubtitle": "Начни записывать свои мысли и идеи",
+  "emptySearchTitle": "Заметки не найдены",
+  "emptySearchSubtitle": "Попробуй изменить запрос",
+  "addModalTitle": "Новая заметка",
+  "editModalTitle": "Редактировать заметку",
+  "titlePlaceholder": "Заголовок (необязательно)",
+  "contentPlaceholder": "О чём ты думаешь?",
+  "cancel": "Отмена",
+  "save": "Сохранить",
+  "saveChanges": "Сохранить изменения",
+  "close": "Закрыть"
+},
+
   "settings": {
     "title": "Детали и настройки ⚙️",
     "appPreferences": "Настройки",
