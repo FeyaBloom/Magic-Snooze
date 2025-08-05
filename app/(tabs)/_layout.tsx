@@ -88,6 +88,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+  name="settings"
+  options={{
+    href: null, // 👈 скрывает из таб-бара
+    title: t('navigation.settings'),
+    tabBarButton: () => null, // 👈 на всякий случай
+  }}
+/>
+
     </Tabs>
   );
 }
