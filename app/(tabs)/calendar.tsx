@@ -36,6 +36,8 @@ const getLocalDateString = (date: Date) => {
 };
 
 export default function CalendarTab() {
+  const currentLanguageCode = i18n.language;
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const { colors } = useTheme();
   const styles = createCalendarStyles(colors);
   const [currentMonth, setCurrentMonth] = useState(new Date());
