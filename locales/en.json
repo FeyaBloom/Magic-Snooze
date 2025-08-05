@@ -8,7 +8,14 @@
     "close": "Close",
     "confirm": "Confirm",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "Sun": "Sun", 
+    "Mon": "Mon", 
+    "Tue": "Tue", 
+    "Wed":  "Wed", 
+    "Thu":  "Thu", 
+    "Fri":  "Fri", 
+    "Sat": "Sat"
   },
   "today": {
     "title": "Good day, beautiful soul 🌸",
