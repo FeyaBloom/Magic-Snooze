@@ -10,7 +10,7 @@ export const ConfirmDialog = ({
   message,
   onConfirm,
   onCancel,
-  confirmText = 'Yes',
+  confirmText = t('common.yes'),
   cancelText = 'No',
 }: {
   visible: boolean;
