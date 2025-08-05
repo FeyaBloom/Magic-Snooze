@@ -185,7 +185,7 @@ export default function NotesTab() {
 
       <TouchableOpacity style={styles.addNoteButton} onPress={() => setShowAddModal(true)}>
         <Plus size={24} color="#FFFFFF" />
-        <Text style={styles.addNoteText}>{t('notes.add')}</Text>
+        <Text style={styles.addNoteText}>{t('notes.addButton')}</Text>
       </TouchableOpacity>
 
       {filteredNotes.length > 0 ? (
