@@ -87,7 +87,7 @@ export default function TabLayout() {
             <FileText size={size} color={color} />
           ),
         }}
-      
-     
+      />
+    </Tabs>
   );
 }
