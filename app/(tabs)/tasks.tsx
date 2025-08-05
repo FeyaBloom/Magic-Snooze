@@ -122,8 +122,8 @@ export default function TasksTab() {
  const deleteTask = (taskId: string) => {
   setConfirmDialog({
     visible: true,
-    title: t('tasks.deletesTitle',
-    message: t('tasks.deleteMessage',
+    title: t('tasks.deletesTitle'),
+    message: t('tasks.deleteMessage'),
     onConfirm: async () => {
       const updatedTasks = tasks.filter(task => task.id !== taskId);
             await saveTasks(updatedTasks);
