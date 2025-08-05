@@ -155,7 +155,7 @@ export default function Calendar({
     ));
   };
 
-  const monthName = currentMonth.toLocaleDateString('en-US', {
+  const monthName = currentMonth.toLocaleDateString(i18n.language, {
     month: 'long',
     year: 'numeric',
   });
