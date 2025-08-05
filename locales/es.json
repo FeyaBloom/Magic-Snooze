@@ -124,6 +124,26 @@
     "snoozed": "Días de descanso",
     "engagement": "Participación"
   }
+},
+
+"notes": {
+  "title": "Tus notas 📝",
+  "subtitle": "Captura tus pensamientos e ideas",
+  "searchPlaceholder": "Buscar en tus notas...",
+  "addButton": "Agregar nueva nota",
+  "emptyTitle": "Aún no hay notas",
+  "emptySubtitle": "Comienza a capturar tus ideas y pensamientos",
+  "emptySearchTitle": "No se encontraron notas",
+  "emptySearchSubtitle": "Intenta buscar otra cosa",
+  "addModalTitle": "Agregar nueva nota",
+  "editModalTitle": "Editar nota",
+  "titlePlaceholder": "Título de la nota (opcional)",
+  "contentPlaceholder": "¿Qué estás pensando?",
+  "cancel": "Cancelar",
+  "save": "Guardar nota",
+  "saveChanges": "Guardar cambios",
+  "close": "Cerrar"
 }
+
   
 }
