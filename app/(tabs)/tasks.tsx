@@ -277,10 +277,10 @@ export default function TasksTab() {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Add New Task</Text>
+             <Text style={styles.modalTitle}>{t('tasks.addTitle')}</Text>
             <TextInput
               style={styles.textInput}
-              placeholder="What would you like to accomplish?"
+              placeholder={t('tasks.inputPlaceholder')}
               placeholderTextColor={colors.textSecondary}
               value={newTaskText}
               onChangeText={setNewTaskText}
