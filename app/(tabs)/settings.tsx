@@ -93,8 +93,9 @@ onPress={toggleMessyMode}
               </View>
               <User2 color={colors.textSecondary} size={20} />
             </TouchableOpacity>
+            */}
           </View>
-*/}
+
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('settings.contactSupport')}</Text>
 
