@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: '400',
     marginBottom: 12,
     fontFamily: 'CabinSketch-Regular'
   },
