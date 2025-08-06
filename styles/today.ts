@@ -58,13 +58,13 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   routineTitle: {
     flexDirection: 'row',
     alignItems: 'center',
- //   fontFamily: 'CabinSketch-Bold',
+    fontFamily: 'CabinSketch-Bold',
   },
   routineTitleText: {
     fontSize: 18,
-    fontWeight: '1000',
+    fontWeight: '500',
     marginLeft: 8,
-    fontFamily: 'CabinSketch-Bold',
+    fontFamily: 'CabinSketch-Regular',
     color: colors.text,
   },
   addButton: {
