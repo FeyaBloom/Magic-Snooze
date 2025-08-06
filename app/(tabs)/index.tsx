@@ -468,8 +468,19 @@ function TodayTabContent() {
                     {currentTheme === 'daydream' ? t('today.nightForest') : t('today.dayDream')}
                   </Text>
                 </TouchableOpacity>
-                          
-              <TouchableOpacity  style={styles.themeButton}       
+
+              <TouchableOpacity
+                style={styles.themeButton}
+                onPress={toggleMessyMode}
+              >
+                <Palette size={16} color={colors.text} />
+                <Text style={[styles.themeButtonText, { marginLeft: 4 }]}>
+                  Messy
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.themeButton}
                 onPress={() => router.push('/settings')}
               >
                   <Text style={styles.themeButtonText}>
