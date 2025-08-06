@@ -60,7 +60,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   
   },
   routineTitleText: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '500',
     marginLeft: 8,
     fontFamily: 'CabinSketch-Regular',
