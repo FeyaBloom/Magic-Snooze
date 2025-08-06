@@ -163,7 +163,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   addTaskText: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
     marginLeft: 8,
     fontFamily: 'ComicNeue-Regular',
