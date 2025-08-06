@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export type ThemeMode = 'daydream' | 'nightforest' | 'messy';
+export type ThemeMode = 'daydream' | 'nightforest';
 
 interface ThemeColors {
   primary: string;
@@ -32,15 +32,6 @@ const themes: Record<ThemeMode, ThemeColors> = {
     textSecondary: '#D1D5DB',
     accent: '#FBBF24',
   },
-  messy: {
-    primary: '#EF4444',
-    secondary: '#8B5CF6',
-    background: ['#FEF3C7', '#DBEAFE', '#FCE7F3'],
-    surface: '#FFFFFF',
-    text: '#1F2937',
-    textSecondary: '#4B5563',
-    accent: '#10B981',
-  },
 };
 
 interface ThemeContextType {
@@ -48,6 +39,7 @@ interface ThemeContextType {
   colors: ThemeColors;
   setTheme: (theme: ThemeMode) => void;
   toggleMessyMode: () => void;
+  isMessyMode: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -67,6 +59,7 @@ interface ThemeProviderProps {
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>('daydream');
   const [isMessyMode, setIsMessyMode] = useState(false);
+  const [messyColors, setMessyColors] = useState<ThemeColors | null>(null);
 
   useEffect(() => {
     loadTheme();
@@ -93,9 +86,55 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     try {
       setCurrentTheme(theme);
       await AsyncStorage.setItem('selectedTheme', theme);
+      
+      // Если messy mode активен, пересоздать messy цвета для новой темы
+      if (isMessyMode) {
+        generateMessyColors(theme);
+      }
     } catch (error) {
       console.error('Error saving theme:', error);
     }
+  };
+
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  const generateMessyColors = (theme: ThemeMode) => {
+    const originalTheme = themes[theme];
+    
+    // Собираем все цвета текущей темы для перемешивания
+    const colorPool = [
+      originalTheme.primary,
+      originalTheme.secondary,
+      originalTheme.accent,
+      originalTheme.text,
+      originalTheme.textSecondary,
+    ];
+    
+    // Перемешиваем цвета
+    const shuffledColors = shuffleArray(colorPool);
+    
+    // Также перемешиваем градиент фона
+    const shuffledBackground = shuffleArray(originalTheme.background);
+    
+    // Создаем новую тему с перемешанными цветами
+    const newMessyColors: ThemeColors = {
+      primary: shuffledColors[0],
+      secondary: shuffledColors[1],
+      accent: shuffledColors[2],
+      text: shuffledColors[3],
+      textSecondary: shuffledColors[4],
+      background: shuffledBackground,
+      surface: originalTheme.surface, // Поверхность оставляем как есть
+    };
+    
+    setMessyColors(newMessyColors);
   };
 
   const toggleMessyMode = async () => {
@@ -105,16 +144,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       await AsyncStorage.setItem('messyMode', newMessyMode.toString());
       
       if (newMessyMode) {
-        // Randomly shuffle colors when entering messy mode
-        const messyColors = { ...themes.messy };
-        const colorKeys = ['primary', 'secondary', 'accent'] as const;
-        const randomColors = ['#EF4444', '#8B5CF6', '#10B981', '#F59E0B', '#EC4899', '#6366F1'];
-        
-        colorKeys.forEach(key => {
-          messyColors[key] = randomColors[Math.floor(Math.random() * randomColors.length)];
-        });
-        
-        themes.messy = messyColors;
+        // Генерируем messy цвета для текущей темы
+        generateMessyColors(currentTheme);
+      } else {
+        // Выключаем messy mode - очищаем messy цвета
+        setMessyColors(null);
       }
     } catch (error) {
       console.error('Error toggling messy mode:', error);
@@ -122,8 +156,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   };
 
   const getColors = (): ThemeColors => {
-    if (isMessyMode) {
-      return themes.messy;
+    if (isMessyMode && messyColors) {
+      return messyColors;
     }
     return themes[currentTheme];
   };
@@ -131,10 +165,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   return (
     <ThemeContext.Provider
       value={{
-        currentTheme: isMessyMode ? 'messy' : currentTheme,
+        currentTheme,
         colors: getColors(),
         setTheme,
         toggleMessyMode,
+        isMessyMode,
       }}
     >
       {children}
