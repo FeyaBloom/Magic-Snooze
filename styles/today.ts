@@ -81,7 +81,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   stepText: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 15,
     lineHeight: 22,
     marginLeft: 12,
     color: colors.text,
