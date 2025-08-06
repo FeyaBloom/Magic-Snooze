@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 12,
+    fontFamily: 'CabinSketch-Regular'
   },
   message: {
     fontSize: 14,
