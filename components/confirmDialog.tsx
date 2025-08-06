@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 20,
     fontFamily: 'ComicNeue-Regular',
-    textAlign: `center`
-    lineHeight: 24
+    textAlign: `center`,
+    lineHeigth: 24
   },
   buttons: {
     flexDirection: 'row',
