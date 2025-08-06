@@ -1,16 +1,21 @@
 {
   "cli": {
-    "version": ">= 0.34.0"
+     "version": ">= 14.2.0",
+    "appVersionSource": "remote"
   },
   "submit": {
+    "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
     "production": {
-      "android": {
-        "serviceAccountKeyPath": "../path/to/api-xxx-yyy-zzz.json",
-        "track": "internal"
-      },
-      "ios": {
-        "ascAppId": "your-app-store-connect-app-id"
-      }
-    }
+      "autoIncrement": true
+    },
+      "submit": {
+    "production": {}
   }
 }
