@@ -26,10 +26,10 @@ export default function RootLayout() {
   useFrameworkReady();
   
   const [fontsLoaded, fontError] = useFonts({
-    'ComicNeue-Regular': ComicNeue_400Regular,
-    'ComicNeue-Bold': ComicNeue_700Bold,
-    'CabinSketch-Regular': CabinSketch_400Regular,
-    'CabinSketch-Bold': CabinSketch_700Bold,
+    'ComicNeue-Regular':  Comfortaa_400Regular,
+    'ComicNeue-Bold': Comfortaa_500Medium,
+    'CabinSketch-Regular': Coiny_400Regular,
+    'CabinSketch-Bold': Coiny_400Regular,
   });
 
   useEffect(() => {
