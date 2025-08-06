@@ -13,9 +13,7 @@ import {
   Comfortaa_400Regular,
   Comfortaa_500Medium
 } from '@expo-google-fonts/comfortaa';
-import {
-  Coiny_400Regular
-} from '@expo-google-fonts/coiny';
+
 
 import * as SplashScreen from 'expo-splash-screen';
 
