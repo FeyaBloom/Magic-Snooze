@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 14,
     marginBottom: 20,
+    fontFamily: 'ComicNeue-Regular'
   },
   buttons: {
     flexDirection: 'row',
@@ -79,5 +80,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: '600',
+    fontFamily: 'ComicNeue-Regular'
   },
 });
