@@ -19,16 +19,17 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   useFrameworkReady();
   
-  // ТОЛЬКО ваши оригинальные названия + добавим Comfortaa
+  // Ваши оригинальные названия + Comfortaa + Coiny
   const [fontsLoaded, fontError] = useFonts({
     'ComicNeue-Regular': Comfortaa_400Regular,
     'ComicNeue-Bold': Comfortaa_500Medium,
-    'CabinSketch-Regular': Comfortaa_400Regular, // пока без Coiny
-    'CabinSketch-Bold': Comfortaa_500Medium,
+    'CabinSketch-Regular': require('@/assets/fonts/Coiny-Cyrillic.ttf'), // возвращаем Coiny
+    'CabinSketch-Bold': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
     
-    // Добавляем правильные названия для будущего использования
+    // Правильные названия для нового использования
     'Comfortaa_400Regular': Comfortaa_400Regular,
     'Comfortaa_500Medium': Comfortaa_500Medium,
+    'Coiny_400Regular': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
   });
 
   useEffect(() => {
