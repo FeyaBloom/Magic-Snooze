@@ -40,22 +40,31 @@ export default function SettingsTab() {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('settings.appPreferences')}</Text>
 
-            <TouchableOpacity style={styles.row}
-onPress={toggleMessyMode}
->
-              <View>
-                <Text style={styles.label}>{t('settings.messyMode.title')}
-                </Text>
-                <Text style={styles.description}>
-       {t('settings.messyMode.description')}
-                </Text>
-
-              </View>
-               <View 
-                style={styles.themeButton}>
-                <Paintbrush color={colors.textSecondary} size={20} />
-              </View>
-            </TouchableOpacity>
+            <View style={styles.row}>
+  <View style={styles.leftContent}>
+    <View style={styles.themeButton}>
+      <Paintbrush color={colors.textSecondary} size={20} />
+    </View>
+    <View>
+      <Text style={styles.label}>
+        {t('settings.messyMode.title')}
+      </Text>
+      <Text style={styles.description}>
+        {t('settings.messyMode.description')}
+      </Text>
+    </View>
+  </View>
+  
+  <Switch
+    value={isMessyMode}
+    onValueChange={toggleMessyMode}
+    trackColor={{
+      false: colors.surface,
+      true: colors.primary
+    }}
+    thumbColor={isMessyMode ? colors.accent : colors.textSecondary}
+  />
+</View>
 
             <TouchableOpacity
               style={styles.row}
