@@ -187,7 +187,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   themeButtonText: {
     fontSize: 13,
-    fontWeight: '600',
+    fontWeight: '400',
     color: colors.text,
     fontFamily: 'ComicNeue-Regular',
   },
