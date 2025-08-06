@@ -1,4 +1,4 @@
-import React, { Switch, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   Linking,
   SafeAreaView,
+  Switch,
 } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { LinearGradient } from 'expo-linear-gradient';
