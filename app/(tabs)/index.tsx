@@ -317,24 +317,30 @@ function TodayTabContent() {
   };
 
  const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
-  setConfirmDialog({
-    visible: true,
-     title: t('today.deleteStep'),
+    setConfirmDialog({
+      visible: true,
+      title: t('today.deleteStep'),
       message: t('today.deleteStepConfirm'),
-    onConfirm: async () => {
-      const updateRoutine = routine === 'morning' ? morningRoutine : eveningRoutine;
-      const setRoutine = routine === 'morning' ? setMorningRoutine : setEveningRoutine;
+      onConfirm: async () => {
+        const updateRoutine = routine === 'morning' ? morningRoutine : eveningRoutine;
+        const setRoutine = routine === 'morning' ? setMorningRoutine : setEveningRoutine;
 
-      const updated = updateRoutine.filter(step => step.id !== stepId);
-      setRoutine(updated);
-      await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
+        const updated = updateRoutine.filter(step => step.id !== stepId);
+        setRoutine(updated);
+        await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
 
-      setShowEditModal(false);
-      setEditingStep(null);
-    },
-  });
-};
- 
+        // Пересчитываем прогресс после удаления шага
+        const otherRoutine = routine === 'morning' ? eveningRoutine : morningRoutine;
+        saveProgress(
+          routine === 'morning' ? updated : otherRoutine,
+          routine === 'evening' ? updated : otherRoutine
+        );
+
+        setShowEditModal(false);
+        setEditingStep(null);
+      },
+    });
+  };
 
   const snoozeToday = async () => {
     const newSnoozed = !isSnoozed;
