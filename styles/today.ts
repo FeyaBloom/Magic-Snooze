@@ -303,7 +303,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     marginRight: 8,
   },
   cancelButtonText: {
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: '600',
     color: '#6B7280',
     fontFamily: 'ComicNeue-Regular',
@@ -313,7 +313,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     marginLeft: 8,
   },
   saveButtonText: {
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: '600',
     color: '#FFFFFF',
     fontFamily: 'ComicNeue-Regular',
