@@ -207,7 +207,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   progressTitle: {
     fontSize: 18,
     fontWeight: '1000',
-    marginBottom: 20,
+    marginBottom: 16,
     textAlign: 'center',
     color: colors.text,
     fontFamily: 'CabinSketch-Bold',
