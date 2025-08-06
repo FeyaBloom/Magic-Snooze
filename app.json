@@ -19,6 +19,16 @@
     "plugins": ["expo-router", "expo-font", "expo-web-browser"],
     "experiments": {
       "typedRoutes": true
+          },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "1b5976c5-36ea-4024-816e-8d0d49e99b9c"
+      }
+    },
+    "owner": "feya_bloom",
+    "android": {
+      "package": "com.feyabloom.snoozedaymagic"
     }
   }
 }
