@@ -267,7 +267,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     maxWidth: 400,
   },
   modalTitle: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: '400',
     marginBottom: 16,
     textAlign: 'center',
