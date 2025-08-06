@@ -2,6 +2,11 @@ import { StyleSheet } from 'react-native';
 
 export const createSettingsStyles = (colors: any) =>
   StyleSheet.create({
+    leftContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
     container: {
     flex: 1,
   },
