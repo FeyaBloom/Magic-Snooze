@@ -53,7 +53,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
-  fontFamily: 'CabinSketch-Regular',
   },
   routineTitle: {
     flexDirection: 'row',
@@ -61,7 +60,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   
   },
   routineTitleText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '500',
     marginLeft: 8,
     fontFamily: 'CabinSketch-Regular',
