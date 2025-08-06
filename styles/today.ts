@@ -58,7 +58,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   routineTitle: {
     flexDirection: 'row',
     alignItems: 'center',
-    fontFamily: 'CabinSketch-Bold',
+  
   },
   routineTitleText: {
     fontSize: 18,
