@@ -105,16 +105,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       await AsyncStorage.setItem('messyMode', newMessyMode.toString());
       
       if (newMessyMode) {
-        // Randomly shuffle colors based on current theme
-        const baseTheme = currentTheme === 'nightforest' ? 'nightforest' : 'daydream';
-        const messyColors = { ...themes[baseTheme] };
+        // Randomly shuffle colors when entering messy mode
+        const messyColors = { ...themes.messy };
         const colorKeys = ['primary', 'secondary', 'accent'] as const;
-        
-        // Different color palettes for light and dark themes
-        const lightColors = ['#EC4899', '#8B5CF6', '#F59E0B', '#EF4444', '#10B981', '#6366F1'];
-        const darkColors = ['#10B981', '#6366F1', '#FBBF24', '#EF4444', '#EC4899', '#8B5CF6'];
-        
-        const randomColors = baseTheme === 'nightforest' ? darkColors : lightColors;
+        const randomColors = ['#EF4444', '#8B5CF6', '#10B981', '#F59E0B', '#EC4899', '#6366F1'];
         
         colorKeys.forEach(key => {
           messyColors[key] = randomColors[Math.floor(Math.random() * randomColors.length)];
