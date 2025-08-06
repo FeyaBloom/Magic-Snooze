@@ -261,7 +261,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   
   modalContent: {
     backgroundColor: colors.surface,
-    borderRadius: 18,
+    borderRadius: 20,
     padding: 24,
     width: '100%',
     maxWidth: 400,
