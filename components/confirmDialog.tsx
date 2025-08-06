@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 14,
     marginBottom: 20,
-    fontFamily: 'ComicNeue-Regular'
+    fontFamily: 'ComicNeue-Regular',
+    textAlign: `center`
   },
   buttons: {
     flexDirection: 'row',
