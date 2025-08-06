@@ -141,7 +141,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     justifyContent: 'center',
   },
   resumeText: {
-    fontSize: 16,
+    fontSize: 15,
     color: '#FFFFFF',
     fontWeight: '600',
     fontFamily: 'ComicNeue-Regular',
