@@ -28,8 +28,8 @@ export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
     'ComicNeue-Regular':  Comfortaa_400Regular,
     'ComicNeue-Bold': Comfortaa_500Medium,
-    'CabinSketch-Regular': require('./assets/fonts/Coiny-Regular.ttf'),
-    'CabinSketch-Bold': require('./assets/fonts/Coiny-Regular.ttf'),
+    'CabinSketch-Regular': require('./assets/fonts/Coiny-Cyrillic.ttf'),
+    'CabinSketch-Bold': require('./assets/fonts/Coiny-Cyrillic.ttf'),
   });
 
   useEffect(() => {
