@@ -232,10 +232,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Bold',
   },
   
-  floatingEmoji: {
-    fontSize: 28,
-    opacity: 0.7,
-  },
+  
   closeVictoriesButton: {
     backgroundColor: colors.primary,
     paddingVertical: 12,
