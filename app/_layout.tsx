@@ -10,13 +10,13 @@ import i18n from '@/i18n';
 
 import { useFonts } from 'expo-font';
 import {
-  ComicNeue_400Regular,
-  ComicNeue_700Bold
-} from '@expo-google-fonts/comic-neue';
+  Comfortaa_400Regular,
+  Comfortaa_500Medium
+} from '@expo-google-fonts/comfortaa';
 import {
-  CabinSketch_400Regular,
-  CabinSketch_700Bold
-} from '@expo-google-fonts/cabin-sketch';
+  Coiny_400Regular
+} from '@expo-google-fonts/coiny';
+
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
