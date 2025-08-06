@@ -123,7 +123,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     height: 48,
   },
   snoozeText: {
-    fontSize: 16,
+    fontSize: 15,
     color: colors.secondary,
     fontWeight: '600',
     marginLeft: 8,
