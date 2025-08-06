@@ -83,7 +83,7 @@ onPress={toggleMessyMode}
               </View>
               <LogIn color={colors.textSecondary} size={20} />
             </TouchableOpacity>
-
+{/*
             <TouchableOpacity style={styles.row}>
               <View>
                 <Text style={styles.label}>{t('settings.manageProfile.title')}</Text>
@@ -94,7 +94,7 @@ onPress={toggleMessyMode}
               <User2 color={colors.textSecondary} size={20} />
             </TouchableOpacity>
           </View>
-
+*/}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('settings.contactSupport')}</Text>
 
