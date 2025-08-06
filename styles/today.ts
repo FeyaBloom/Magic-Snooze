@@ -22,7 +22,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '500',
     color: colors.text,
     textAlign: 'center',
