@@ -271,22 +271,29 @@ function TodayTabContent() {
     );
   };
 
-  const addStep = async () => {
+ const addStep = async () => {
     if (!newStepText.trim()) return;
-    
+
     const newStep: RoutineStep = {
       id: Date.now().toString(),
       text: newStepText.trim(),
       completed: false,
     };
-    
+
     const routine = currentRoutine === 'morning' ? morningRoutine : eveningRoutine;
     const setRoutine = currentRoutine === 'morning' ? setMorningRoutine : setEveningRoutine;
-    
+
     const updated = [...routine, newStep];
     setRoutine(updated);
     await AsyncStorage.setItem(`${currentRoutine}Routine`, JSON.stringify(updated));
-    
+
+    // Пересчитываем прогресс после добавления шага
+    const otherRoutine = currentRoutine === 'morning' ? eveningRoutine : morningRoutine;
+    saveProgress(
+      currentRoutine === 'morning' ? updated : otherRoutine,
+      currentRoutine === 'evening' ? updated : otherRoutine
+    );
+
     setNewStepText('');
     setShowAddModal(false);
   };
