@@ -24,7 +24,7 @@ import i18n from '@/i18n';
 import { LanguageModal } from '@/components/LanguageModal';
 
 export default function SettingsTab() {
-  const { colors, toggleMessyMode } = useTheme();
+  const { colors, toggleMessyMode, isMessyMode } = useTheme();
   const { t } = useTranslation();
   const styles = createSettingsStyles(colors);
   const currentLanguageCode = i18n.language;
