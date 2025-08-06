@@ -610,7 +610,7 @@ function TodayTabContent() {
             >
               <Trash2 size={20} color="#EF4444" />
             </TouchableOpacity>
-            <Text style={[styles.modalTitle, { fontFamily: 'ComicNeue-Bold' }]}> {t('today.editStep')}</Text>
+            <Text style={styles.modalTitle}> {t('today.editStep')}</Text>
             <TextInput
               style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
               placeholder={t('today.enterGentleStep')}
