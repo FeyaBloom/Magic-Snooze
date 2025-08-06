@@ -26,13 +26,13 @@ export default function RootLayout() {
     'Comfortaa_500Medium': Comfortaa_500Medium,
     
     // Coiny для заголовков - попробуйте разные пути:
-    'Coiny_400Regular': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
+    'Coiny_400Regular': Comfortaa_400Regular,// require('@/assets/fonts/Coiny-Cyrillic.ttf'),
     
     // Оставляем старые названия для совместимости (если используются где-то)
     'ComicNeue-Regular': Comfortaa_400Regular,
     'ComicNeue-Bold': Comfortaa_500Medium,
-    'CabinSketch-Regular': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
-    'CabinSketch-Bold': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
+    'CabinSketch-Regular': Comfortaa_400Regular,//require('@/assets/fonts/Coiny-Cyrillic.ttf'),
+    'CabinSketch-Bold': Comfortaa_400Regular,//require('@/assets/fonts/Coiny-Cyrillic.ttf'),
   });
 
   useEffect(() => {
