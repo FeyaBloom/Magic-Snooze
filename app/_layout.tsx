@@ -25,7 +25,7 @@ export default function RootLayout() {
     'Comfortaa_400Regular': Comfortaa_400Regular,
     'Comfortaa_500Medium': Comfortaa_500Medium,
     
-    // Coiny для заголовков - с правильными названиями
+    // Coiny для заголовков - попробуйте разные пути:
     'Coiny_400Regular': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
     
     // Оставляем старые названия для совместимости (если используются где-то)
@@ -37,17 +37,34 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (fontsLoaded || fontError) {
-      SplashScreen.hideAsync();
+      // Добавляем небольшую задержку и обработку ошибок
+      setTimeout(async () => {
+        try {
+          await SplashScreen.hideAsync();
+        } catch (error) {
+          console.warn('SplashScreen hide error:', error);
+        }
+      }, 100);
     }
   }, [fontsLoaded, fontError]);
 
   // Показываем загрузку пока шрифты не готовы
   if (!fontsLoaded && !fontError) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" />
+      <View style={{ 
+        flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        backgroundColor: '#000' // чтобы видеть что происходит
+      }}>
+        <ActivityIndicator size="large" color="#fff" />
       </View>
     );
+  }
+
+  // Если ошибка загрузки шрифтов - все равно показываем приложение
+  if (fontError) {
+    console.warn('Font loading error:', fontError);
   }
 
   return (
