@@ -23,7 +23,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: '1000',
+    fontWeight: '500',
     color: colors.text,
     textAlign: 'center',
     marginBottom: 8,
