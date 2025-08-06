@@ -370,7 +370,7 @@ function TodayTabContent() {
       <View style={styles.routineHeader}>
         <View style={styles.routineTitle}>
           {icon}
-          <Text style={[styles.routineTitleText, { color: colors.text, fontFamily: 'ComicNeue-Bold' }]}>{title}</Text>
+          <Text style={[styles.routineTitleText, { color: colors.text }]}>{title}</Text>
         </View>
         <TouchableOpacity
           style={styles.addButton}
