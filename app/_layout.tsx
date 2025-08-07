@@ -38,6 +38,12 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError]);
+  
+if (Platform.OS === 'android') {
+    NavigationBar.setBackgroundColorAsync('transparent');
+    NavigationBar.setButtonStyleAsync('light'); // или 'dark'
+  }
+}, []);
 
   if (!fontsLoaded && !fontError) {
     return null; // как у вас было
