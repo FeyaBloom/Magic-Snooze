@@ -184,6 +184,10 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     backgroundColor: colors.surface,
     height: 48,
     marginHorizontal: 16,
+    shadowColor: '#ccc',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   themeButtonText: {
     fontSize: 12,
