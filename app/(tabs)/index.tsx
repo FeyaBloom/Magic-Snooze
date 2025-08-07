@@ -21,7 +21,8 @@ import { createTodayStyles } from '@/styles/today';
 import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
 import { useRouter } from 'expo-router';
-
+import { useRoute } from '@react-navigation/native';
+const route = useRoute();
 const { t } = i18n;
 
 interface RoutineStep {
@@ -46,7 +47,7 @@ function TodayTabContent() {
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme();
   const gradient = colors.tabGradients?.today;
-  const styles = createTodayStyles(colors);
+ // const styles = createTodayStyles(colors);
   const router = useRouter();
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
   const [eveningRoutine, setEveningRoutine] = useState<RoutineStep[]>([]);
