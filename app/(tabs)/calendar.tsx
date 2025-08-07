@@ -154,7 +154,7 @@ const gradient = getTabGradient(route.name);
     <SafeAreaView style={styles.container}>
   <LinearGradient  colors={gradient}
         style={styles.gradient}
-    />
+    >
     <FloatingBackground />
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
