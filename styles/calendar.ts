@@ -195,7 +195,7 @@ disabledDayText: {
   legendItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '49%',
+    width: '50%',
     marginBottom: 12,
   },
   legendDot: {
