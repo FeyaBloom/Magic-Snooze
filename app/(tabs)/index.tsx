@@ -23,7 +23,7 @@ import { ConfirmDialog } from "@/components/confirmDialog";
 import { useRouter } from 'expo-router';
 
 const { t } = i18n;
-
+const gradient = colors.tabGradients?.today;
 interface RoutineStep {
   id: string;
   text: string;
