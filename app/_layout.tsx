@@ -42,7 +42,7 @@ export default function RootLayout() {
 if (Platform.OS === 'android') {
     NavigationBar.setBackgroundColorAsync('transparent');
     NavigationBar.setButtonStyleAsync('light'); // или 'dark'
-  }
+  
 }, []);
 
   if (!fontsLoaded && !fontError) {
