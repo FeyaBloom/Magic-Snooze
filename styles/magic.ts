@@ -96,7 +96,7 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
     maxWidth: 300,
   },
   promptText: {
-    fontSize: 18,
+    fontSize: 15,
     color: colors.text,
     textAlign: 'center',
     marginVertical: 16,
