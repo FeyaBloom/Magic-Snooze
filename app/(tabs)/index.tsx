@@ -46,7 +46,7 @@ function TodayTabContent() {
   const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
  const route = useRoute();
-const { colors, getTabGradient } = useTheme();
+const { colors, getTabGradient, currentTheme } = useTheme();
 const gradient = getTabGradient(route.name);
 const styles = createTodayStyles(colors);
 
