@@ -16,7 +16,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Plus, Pencil as Edit, Trash2, Coffee, Moon, Pause, Palette, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, } from '@/components/MagicalFeatures';
-import { useTheme, setTheme } from '@/components/ThemeProvider';
+import { useTheme } from '@/components/ThemeProvider';
 import { createTodayStyles } from '@/styles/today';
 import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
@@ -46,7 +46,7 @@ function TodayTabContent() {
   const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
  const route = useRoute();
-const { colors, getTabGradient, currentTheme } = useTheme();
+const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
 const gradient = getTabGradient(route.name);
 const styles = createTodayStyles(colors);
 
