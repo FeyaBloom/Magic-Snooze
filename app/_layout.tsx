@@ -50,7 +50,7 @@ export default function RootLayout() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>
-          <StatusBar style="auto" />
+          <StatusBar hidden />
         </ThemeProvider>
       </I18nextProvider>
     </>
