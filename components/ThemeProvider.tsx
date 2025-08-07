@@ -87,7 +87,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       console.error('theme load error', e);
     }
   };
-
+ const setTheme = (theme: ThemeMode) => {
+    setCurrentTheme(theme);
+    AsyncStorage.setItem('theme', theme);
+  };
   const setTheme = async (theme: ThemeMode) => {
     setCurrentTheme(theme);
     await AsyncStorage.setItem('selectedTheme', theme);
