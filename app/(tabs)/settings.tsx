@@ -23,7 +23,7 @@ import { FloatingBackground } from '@/components/MagicalFeatures';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
 import { LanguageModal } from '@/components/LanguageModal';
-
+import { useRoute } from '@react-navigation/native';
 export default function SettingsTab() {
   const { colors, toggleMessyMode, isMessyMode } = useTheme();
   const { t } = useTranslation();
