@@ -47,7 +47,7 @@ function TodayTabContent() {
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme(); 
   const gradient = colors.getTabGradient(route.name);
- // const styles = createTodayStyles(colors);
+  const styles = createTodayStyles(colors);
   const router = useRouter();
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
   const [eveningRoutine, setEveningRoutine] = useState<RoutineStep[]>([]);
