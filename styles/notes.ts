@@ -26,7 +26,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'CabinSketch-Bold',
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 20,
     color: colors.textSecondary,
     textAlign: 'center',
     fontFamily: 'CabinSketch-Regular',
