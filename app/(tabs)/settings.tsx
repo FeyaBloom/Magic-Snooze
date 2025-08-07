@@ -75,7 +75,8 @@ export default function SettingsTab() {
               <View>
                 <Text style={styles.label}>{t('settings.language.title')}</Text>
                 <Text style={styles.description}>
-                  {t('settings.language.currently')}: {currentLanguageCode.toUpperCase()} //флажок
+                 
+                  {t('settings.language.currently')}: {t(`languages.${currentLanguageCode}.flag`)} {t(`languages.${currentLanguageCode}.native`)}
                 </Text>
               </View>
               <Languages color={colors.textSecondary} size={20} />
