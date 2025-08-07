@@ -45,10 +45,10 @@ interface DailyProgress {
 function TodayTabContent() {
   const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
- const route = useRoute(); // получить текущую вкладку
-const { colors } = useTheme(); // из ThemeProvider
-const gradient = colors.getTabGradient(route.name); // градиент для вкладки
-const styles = createTodayStyles(colors); // стили после получения цветов
+ const route = useRoute();
+const { colors, getTabGradient } = useTheme();
+const gradient = getTabGradient(route.name);
+const styles = createTodayStyles(colors);
 
   const router = useRouter();
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
