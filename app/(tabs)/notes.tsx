@@ -10,6 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRoute } from '@react-navigation/native';
 import { Plus, Pencil as Edit, Trash2, Search, BookOpen } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
