@@ -426,7 +426,7 @@ function TodayTabContent() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={colors.background}
+        colors={colors.gradient}
         style={styles.gradient}
       >
         
