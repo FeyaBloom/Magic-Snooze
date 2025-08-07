@@ -164,6 +164,8 @@
   "editModalTitle": "Editar nota",
   "titlePlaceholder": "Título de la nota (opcional)",
   "contentPlaceholder": "¿Qué estás pensando?",
+   "deleteTitle": "Eliminar nota",
+  "deleteMessage": "¿Estás seguro de que quieres eliminar esta nota?",
   "cancel": "Cancelar",
   "save": "Guardar",
   "saveChanges": "Guardar",
