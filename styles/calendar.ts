@@ -202,7 +202,7 @@ disabledDayText: {
     width: 12,
     height: 12,
     borderRadius: 6,
-    marginRight: 6,
+    marginRight: 8,
   },
   completeLegend: {
     backgroundColor: colors.accent,
