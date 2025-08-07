@@ -170,8 +170,8 @@ disabledDayText: {
     marginHorizontal: 20,
     marginBottom: 20,
     borderRadius: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 20,
+    
+    padding: 20,
     shadowColor: '#cccccc',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
