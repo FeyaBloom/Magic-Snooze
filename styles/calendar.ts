@@ -55,7 +55,7 @@ disabledDayText: {
   },
   calendarContainer: {
     backgroundColor: colors.surface,
-    marginHorizontal: 10,
+   // marginHorizontal: 10,
     marginBottom: 20,
     borderRadius: 16,
     padding: 20,
