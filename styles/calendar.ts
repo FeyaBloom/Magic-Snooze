@@ -169,9 +169,8 @@ disabledDayText: {
     backgroundColor: colors.surface,
     marginHorizontal: 20,
     marginBottom: 20,
-    borderRadius: 16,
-    
-    padding: 20,
+    borderRadius: 16,    
+    padding: 10,
     shadowColor: '#cccccc',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
