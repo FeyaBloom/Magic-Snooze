@@ -118,8 +118,8 @@ export default function NotesTab() {
   const deleteNote = (noteId: string) => {
   setConfirmDialog({
     visible: true,
-    title: 'Delete Task',
-    message: 'Are you sure you want to delete this note?',
+     title: t('notes.deleteTitle'),
+    message: t('notes.deleteMessage'),
     onConfirm: async () => {
       const updatedNotes = notes.filter(note => note.id !== noteId);
             await saveNotes(updatedNotes);
