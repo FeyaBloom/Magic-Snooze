@@ -43,7 +43,7 @@ export const createSettingsStyles = (colors: any) =>
       paddingHorizontal: 20,
     },
     sectionTitle: {
-      fontSize: 16,
+      fontSize: 20,
       fontWeight: '600',
       color: colors.textSecondary,
       marginBottom: 10,
@@ -59,7 +59,7 @@ export const createSettingsStyles = (colors: any) =>
       marginBottom: 10,
     },
     label: {
-      fontSize: 16,
+      fontSize: 15,
       fontWeight: '500',
       color: colors.text,
       fontFamily: 'ComicNeue-Regular',
