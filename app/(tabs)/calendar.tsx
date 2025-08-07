@@ -156,7 +156,7 @@ export default function CalendarTab() {
         <Text style={styles.subtitle}>{t('calendar.subtitle')}</Text>
       </View>
 
-      <View marginHorizontal=`20`> 
+      <View marginHorizontal={20}> 
       <CustomCalendar        
         customDayRenderer={customDayRenderer}
         initialMonth={currentMonth}
