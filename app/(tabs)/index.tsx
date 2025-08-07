@@ -22,7 +22,7 @@ import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
 import { useRouter } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
-const route = useRoute();
+
 const { t } = i18n;
 
 interface RoutineStep {
@@ -45,9 +45,11 @@ interface DailyProgress {
 function TodayTabContent() {
   const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
-  const { colors, currentTheme, setTheme, toggleMessyMode } = useTheme(); 
-  const gradient = colors.getTabGradient(route.name);
-  const styles = createTodayStyles(colors);
+ const route = useRoute(); // получить текущую вкладку
+const { colors } = useTheme(); // из ThemeProvider
+const gradient = colors.getTabGradient(route.name); // градиент для вкладки
+const styles = createTodayStyles(colors); // стили после получения цветов
+
   const router = useRouter();
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
   const [eveningRoutine, setEveningRoutine] = useState<RoutineStep[]>([]);
