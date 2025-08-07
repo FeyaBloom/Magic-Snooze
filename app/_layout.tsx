@@ -13,8 +13,8 @@ import {
   Comfortaa_500Medium
 } from '@expo-google-fonts/comfortaa';
 import * as SplashScreen from 'expo-splash-screen';
-import * as NavigationBar from 'expo-navigation-bar';
-import { Platform } from 'react-native';
+//import * as NavigationBar from 'expo-navigation-bar';
+//import { Platform } from 'react-native';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -39,11 +39,11 @@ export default function RootLayout() {
     }
   }, [fontsLoaded, fontError]);
   
-if (Platform.OS === 'android') {
-    NavigationBar.setBackgroundColorAsync('transparent');
-    NavigationBar.setButtonStyleAsync('light'); // или 'dark'
+//if (Platform.OS === 'android') {
+  //  NavigationBar.setBackgroundColorAsync('transparent');
+  //  NavigationBar.setButtonStyleAsync('light'); // или 'dark'
   
-};
+//};
 
   if (!fontsLoaded && !fontError) {
     return null; // как у вас было
