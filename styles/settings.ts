@@ -24,7 +24,7 @@ export const createSettingsStyles = (colors: any) =>
     alignItems: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     paddingTop: 20,
     fontWeight: '1000',
     color: colors.text,
