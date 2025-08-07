@@ -102,8 +102,8 @@
      "deleteTitle": "Delete Note",
     "deleteMessage": "Are you sure you want to delete this note?",
   "cancel": "Cancel",
-  "save": "Save Note",
-  "saveChanges": "Save Changes",
+  "save": "Save",
+  "saveChanges": "Save",
   "close": "Close"
 },
     
