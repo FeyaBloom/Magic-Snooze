@@ -104,7 +104,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     opacity: 1,
   },
   noteTitle: {
-    fontSize: 20,
+    fontSize: 2,
     fontWeight: '600',
     color: colors.text,
     flex: 1,
