@@ -65,7 +65,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     backgroundColor: colors.primary,
     marginHorizontal: 20,
     marginBottom: 24,
-    paddingVertical: 6,
+    paddingVertical: 4,
     borderRadius: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
