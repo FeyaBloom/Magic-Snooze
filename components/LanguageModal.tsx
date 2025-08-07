@@ -100,7 +100,7 @@ export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }
     },
     title: {
       fontSize: 22,
-      fontWeight: 'bold',
+      
       color: colors.text,
       fontFamily: 'CabinSketch-Bold',
     },
