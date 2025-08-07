@@ -51,7 +51,7 @@ export default function TabLayout() {
           fontWeight: '600',
           marginTop: 4,
           fontFamily: 'ComicNeue-Bold',
-          paddingBottom: 4,
+          paddingBottom: 8,
         },
       }}
     >
