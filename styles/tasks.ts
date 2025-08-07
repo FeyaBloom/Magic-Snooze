@@ -38,7 +38,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     backgroundColor: colors.primary,
     marginHorizontal: 20,
     marginBottom: 20,
-    paddingVertical: 10,
+    paddingVertical: 8,
     borderRadius: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
