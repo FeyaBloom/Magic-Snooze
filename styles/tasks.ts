@@ -40,7 +40,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     marginBottom: 20,
     paddingVertical: 8,
     borderRadius: 16,
-    shadowColor: '#000',
+    shadowColor: '#ccc',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
     shadowRadius: 8,
