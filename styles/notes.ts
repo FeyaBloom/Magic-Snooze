@@ -50,7 +50,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 15,
     color: colors.text,
     marginLeft: 12,
     fontFamily: 'ComicNeue-Regular',
