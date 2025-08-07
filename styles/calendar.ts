@@ -180,7 +180,7 @@ disabledDayText: {
     opacity: 0.75,
   },
   legendTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '1000',
     color: colors.text,
     marginBottom: 16,
@@ -236,7 +236,7 @@ disabledDayText: {
     opacity: 0.75,
   },
   statsTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '1000',
     color: colors.text,
     marginBottom: 16,
@@ -261,7 +261,7 @@ disabledDayText: {
     fontFamily: 'ComicNeue-Bold',
   },
   statLabel: {
-    fontSize: 14,
+    fontSize: 15,
     color: colors.textSecondary,
     textAlign: 'center',
     fontFamily: 'ComicNeue-Regular',
