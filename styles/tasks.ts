@@ -98,7 +98,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     // marginRight: 28, // у кнопки действия не нужно!
   },
   taskText: {
-    fontSize: 13,
+    fontSize: 15,
     color: colors.text,
     lineHeight: 22,
     marginBottom: 4,
