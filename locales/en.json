@@ -99,6 +99,8 @@
   "editModalTitle": "Edit Note",
   "titlePlaceholder": "Note title (optional)",
   "contentPlaceholder": "What's on your mind?",
+     "deleteTitle": "Delete Note",
+    "deleteMessage": "Are you sure you want to delete this note?"
   "cancel": "Cancel",
   "save": "Save Note",
   "saveChanges": "Save Changes",
