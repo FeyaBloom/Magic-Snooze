@@ -115,7 +115,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 20,
-    shadowColor: '#000',
+    shadowColor: '#',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
