@@ -156,7 +156,7 @@ export default function CalendarTab() {
         <Text style={styles.subtitle}>{t('calendar.subtitle')}</Text>
       </View>
 
-      <View></View> 
+      <View> 
       <CustomCalendar        
         customDayRenderer={customDayRenderer}
         initialMonth={currentMonth}
@@ -164,7 +164,7 @@ export default function CalendarTab() {
           setCurrentMonth(date);
         }}
       />
-      
+      </View>
 
       <View style={styles.legendContainer}>
         <Text style={styles.legendTitle}>{t('calendar.legendTitle')}</Text>
