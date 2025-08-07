@@ -37,7 +37,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.primary,
     marginHorizontal: 20,
-    marginBottom: 24,
+    marginBottom: 20,
     paddingVertical: 16,
     borderRadius: 16,
     shadowColor: '#000',
