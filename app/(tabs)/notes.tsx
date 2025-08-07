@@ -164,7 +164,7 @@ export default function NotesTab() {
   return (
     <>
       <SafeAreaView style={styles.container}>
-  <LinearGradient colors={colors.background} style={styles.gradient}>
+  <LinearGradient colors={gradient} style={styles.gradient}>
     <FloatingBackground />
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
