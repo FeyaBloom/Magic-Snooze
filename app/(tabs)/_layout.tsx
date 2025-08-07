@@ -42,7 +42,7 @@ export default function TabLayout() {
           shadowRadius: 8,
           height: 75,
           paddingTop: 16,
-          paddingBottom: 8,
+          
         },
         tabBarActiveTintColor: colors.secondary,
         tabBarInactiveTintColor: colors.textSecondary,
@@ -51,6 +51,7 @@ export default function TabLayout() {
           fontWeight: '600',
           marginTop: 4,
           fontFamily: 'ComicNeue-Bold',
+          paddingBottom: 4,
         },
       }}
     >
