@@ -43,11 +43,11 @@ export const createSettingsStyles = (colors: any) =>
       paddingHorizontal: 20,
     },
     sectionTitle: {
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: '600',
       color: colors.textSecondary,
       marginBottom: 10,
-      fontFamily: 'ComicNeue-Bold',
+      fontFamily: 'CabinSketch-Regular',
     },
     row: {
       flexDirection: 'row',
