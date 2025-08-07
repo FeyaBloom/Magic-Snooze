@@ -163,10 +163,10 @@ export const SurprisePrompt = ({ onDismiss }: any) => {
         <Text style={styles.promptText}>{currentPrompt}</Text>
         <View style={styles.promptButtons}>
           <TouchableOpacity style={styles.promptButton} onPress={onDismiss}>
-            <Text style={styles.promptButtonText}>{t(`Maybelater`)}</Text>
+            <Text style={styles.promptButtonText}>{t(`today.Maybelater`)}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.promptButton, styles.promptButtonPrimary]} onPress={onDismiss}>
-            <Text style={styles.promptButtonTextPrimary}>{t(`Letsdo`)}</Text>
+            <Text style={styles.promptButtonTextPrimary}>{t(`today.Letsdo`)}</Text>
           </TouchableOpacity>
         </View>
       </View>
