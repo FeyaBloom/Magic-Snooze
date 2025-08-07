@@ -178,7 +178,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     right: 14,
     zIndex: 2,
     padding: 8,
-    marginBottom: 4,
+    marginBottom: 14,
   },
   modalTitle: {
     fontSize: 20,
