@@ -170,8 +170,7 @@ const mapLocale: Record<string, string> = {
   en: 'en-US',
   ru: 'ru-RU',
   es: 'es-ES',
-  fr: 'fr-FR',
-  de: 'de-DE',
+
   // добавь другие при необходимости
 };
 
