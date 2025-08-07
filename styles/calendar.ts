@@ -40,7 +40,7 @@ disabledDayText: {
     alignItems: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '1000',
     color: colors.text,
     marginBottom: 8,
