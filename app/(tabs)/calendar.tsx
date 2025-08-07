@@ -8,6 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRoute } from '@react-navigation/native';
 import { Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
@@ -37,7 +38,10 @@ const getLocalDateString = (date: Date) => {
 
 export default function CalendarTab() {
   const currentLanguageCode = i18n.language;
-  const { colors } = useTheme();
+  const route = useRoute();
+const { colors, getTabGradient, currentTheme } = useTheme();
+const gradient = getTabGradient(route.name);
+
   const styles = createCalendarStyles(colors);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [progressData, setProgressData] = useState<Record<string, DailyProgress>>({});
@@ -148,7 +152,9 @@ export default function CalendarTab() {
 
   return (
     <SafeAreaView style={styles.container}>
-  <LinearGradient colors={colors.background} style={styles.gradient}>
+  <LinearGradient  colors={gradient}
+        style={styles.gradient}
+    />
     <FloatingBackground />
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
