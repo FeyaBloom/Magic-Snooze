@@ -48,7 +48,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     height: 48,
   },
   addTaskText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#FFFFFF',
     fontWeight: '600',
     marginLeft: 8,
