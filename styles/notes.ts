@@ -269,7 +269,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
   },
   viewDate: {
-    fontSize: 14,
+    fontSize: 12,
     color: colors.textSecondary,
     marginBottom: 16,
     fontFamily: 'ComicNeue-Regular',
@@ -279,7 +279,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     maxHeight: 220,
   },
   viewText: {
-    fontSize: 16,
+    fontSize: 14,
     color: colors.text,
     lineHeight: 24,
     fontFamily: 'ComicNeue-Regular',
