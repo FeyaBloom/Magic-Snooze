@@ -43,9 +43,7 @@ export default function SettingsTab() {
 
             <View style={styles.row}>
   <View style={styles.leftContent}>
-    <View style={styles.themeButton}>
-      <Paintbrush color={colors.textSecondary} size={20} />
-    </View>
+    
     <View>
       <Text style={styles.label}>
         {t('settings.messyMode.title')}
@@ -65,6 +63,9 @@ export default function SettingsTab() {
     }}
     thumbColor={isMessyMode ? colors.accent : colors.textSecondary}
   />
+              <View style={styles.themeButton}>
+      <Paintbrush color={colors.textSecondary} size={20} />
+    </View>
 </View>
 
             <TouchableOpacity
