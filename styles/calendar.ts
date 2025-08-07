@@ -94,9 +94,10 @@ disabledDayText: {
     flexDirection: 'row',
     marginBottom: 10,
     alignItems: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
+  
   weekDayText: {
     fontSize: 14,
     fontWeight: '600',
