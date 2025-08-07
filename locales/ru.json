@@ -119,12 +119,12 @@
   "emptySearchTitle": "Заметки не найдены",
   "emptySearchSubtitle": "Попробуй изменить запрос",
   "addModalTitle": "Новая заметка",
-  "editModalTitle": "Редактировать заметку",
+  "editModalTitle": "Редактировать",
   "titlePlaceholder": "Заголовок (необязательно)",
   "contentPlaceholder": "О чём ты думаешь?",
   "cancel": "Отмена",
   "save": "Сохранить",
-  "saveChanges": "Сохранить изменения",
+  "saveChanges": "Сохранить",
   "close": "Закрыть"
 },
 
