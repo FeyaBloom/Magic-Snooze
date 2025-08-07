@@ -87,7 +87,7 @@
   "dueDateOptional": "Срок (необязательно)",
   "addButton": "Добавить",
   "deleteTitle": "Удалить задачу",
-  "deleteMessage": "Ты уверен(а), что хочешь удалить эту задачу?"
+  "deleteMessage": "Вы уверены, что хотите удалить эту задачу?"
 },
   
 "calendar": {
@@ -122,6 +122,8 @@
   "editModalTitle": "Редактировать",
   "titlePlaceholder": "Заголовок (необязательно)",
   "contentPlaceholder": "О чём ты думаешь?",
+    "deleteTitle": "Удалить заметку",
+  "deleteMessage": "Вы уверены, что хотите удалить эту заметку?"
   "cancel": "Отмена",
   "save": "Сохранить",
   "saveChanges": "Сохранить",
