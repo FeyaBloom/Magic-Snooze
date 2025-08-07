@@ -6,7 +6,7 @@ export type ThemeMode = 'daydream' | 'nightforest';
 interface ThemeColors {
   primary: string;
   secondary: string;
-  background: string[]; // будет меняться по вкладке
+  background: string[];
   surface: string;
   text: string;
   textSecondary: string;
@@ -17,7 +17,7 @@ const themes: Record<ThemeMode, ThemeColors> = {
   daydream: {
     primary: '#EC4899',
     secondary: '#8B5CF6',
-    background: ['#FFE5E5', '#E5F3FF', '#F3E5FF'], // fallback
+    background: ['#FFE5E5', '#E5F3FF', '#F3E5FF'],
     surface: '#FFFFFF',
     text: '#6d6d6d',
     textSecondary: '#6B7280',
@@ -26,7 +26,7 @@ const themes: Record<ThemeMode, ThemeColors> = {
   nightforest: {
     primary: '#10B981',
     secondary: '#6366F1',
-    background: ['#064E3B', '#1F2937', '#374151'], // fallback
+    background: ['#064E3B', '#1F2937', '#374151', '#D8CFE8'], // 4 цвета
     surface: '#1F2937',
     text: '#FFFFFF',
     textSecondary: '#D1D5DB',
@@ -34,19 +34,18 @@ const themes: Record<ThemeMode, ThemeColors> = {
   },
 };
 
-// градиенты по вкладкам
 const tabGradients: Record<ThemeMode, Record<string, string[]>> = {
   daydream: {
-    index: ['#E0F7FA', '#E1F5FE', '#F3E5F5'],
-    tasks: ['#FFF0F0', '#FFE5E5', '#FFEBEE'],
-    calendar: ['#E8F5E9', '#F1F8E9', '#F0F4C3'],
-    notes: ['#FFF3E0', '#FFE0B2', '#FFCCBC'],
+    index: ['#FFE5E5', '#E5F3FF', '#F3E5FF'],
+    tasks: ['#E5F3FF', '#F3E5FF', '#FFE5E5'],
+    calendar: ['#F3E5FF', '#FFE5E5', '#E5F3FF'],
+    notes: ['#E5F3FF', '#FFE5E5', '#F3E5FF'],
   },
   nightforest: {
-    index: ['#2F4858', '#3F826D', '#BFD7EA'],
-    tasks: ['#3F826D', '#5B7065', '#DABFFF'],
-    calendar: ['#5B7065', '#BFD7EA', '#FFB6B9'],
-    notes: ['#BFD7EA', '#FFB6B9', '#2F4858'],
+    index: ['#D8CFE8', '#374151', '#064E3B'],
+    tasks: ['#064E3B', '#D8CFE8', '#1F2937'],
+    calendar: ['#374151', '#064E3B', '#D8CFE8'],
+    notes: ['#1F2937', '#374151', '#D8CFE8'],
   },
 };
 
@@ -63,17 +62,11 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
+  if (!context) throw new Error('useTheme must be used within a ThemeProvider');
   return context;
 };
 
-interface ThemeProviderProps {
-  children: React.ReactNode;
-}
-
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>('daydream');
   const [isMessyMode, setIsMessyMode] = useState(false);
   const [messyColors, setMessyColors] = useState<ThemeColors | null>(null);
@@ -86,92 +79,66 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     try {
       const savedTheme = await AsyncStorage.getItem('selectedTheme');
       const savedMessyMode = await AsyncStorage.getItem('messyMode');
-
       if (savedTheme && (savedTheme as ThemeMode) in themes) {
         setCurrentTheme(savedTheme as ThemeMode);
       }
-
-      if (savedMessyMode === 'true') {
-        setIsMessyMode(true);
-      }
-    } catch (error) {
-      console.error('Error loading theme:', error);
+      if (savedMessyMode === 'true') setIsMessyMode(true);
+    } catch (e) {
+      console.error('theme load error', e);
     }
   };
 
   const setTheme = async (theme: ThemeMode) => {
-    try {
-      setCurrentTheme(theme);
-      await AsyncStorage.setItem('selectedTheme', theme);
-
-      if (isMessyMode) {
-        generateMessyColors(theme);
-      }
-    } catch (error) {
-      console.error('Error saving theme:', error);
-    }
+    setCurrentTheme(theme);
+    await AsyncStorage.setItem('selectedTheme', theme);
+    if (isMessyMode) generateMessyColors(theme);
   };
 
   const toggleMessyMode = async () => {
-    try {
-      const newMode = !isMessyMode;
-      setIsMessyMode(newMode);
-      await AsyncStorage.setItem('messyMode', newMode.toString());
-
-      if (newMode) {
-        generateMessyColors(currentTheme);
-      } else {
-        setMessyColors(null);
-      }
-    } catch (error) {
-      console.error('Error toggling messy mode:', error);
-    }
+    const newMode = !isMessyMode;
+    setIsMessyMode(newMode);
+    await AsyncStorage.setItem('messyMode', newMode.toString());
+    if (newMode) generateMessyColors(currentTheme);
+    else setMessyColors(null);
   };
 
-  const shuffleArray = <T,>(array: T[]): T[] => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
+  const shuffleArray = <T,>(arr: T[]): T[] => {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      [a[i], a[j]] = [a[j], a[i]];
     }
-    return shuffled;
+    return a;
   };
 
   const generateMessyColors = (theme: ThemeMode) => {
-    const original = themes[theme];
-    const pool = [
-      original.primary,
-      original.secondary,
-      original.accent,
-      original.text,
-      original.textSecondary,
-    ];
-    const shuffledColors = shuffleArray(pool);
-    const shuffledBackground = shuffleArray(tabGradients[theme].index);
-
-    const messy: ThemeColors = {
+    const base = themes[theme];
+    const shuffledColors = shuffleArray([
+      base.primary,
+      base.secondary,
+      base.accent,
+      base.text,
+      base.textSecondary,
+    ]);
+    const newMessyColors: ThemeColors = {
       primary: shuffledColors[0],
       secondary: shuffledColors[1],
       accent: shuffledColors[2],
       text: shuffledColors[3],
       textSecondary: shuffledColors[4],
-      background: shuffledBackground,
-      surface: original.surface,
+      background: shuffleArray(base.background),
+      surface: base.surface,
     };
-
-    setMessyColors(messy);
+    setMessyColors(newMessyColors);
   };
 
   const getColors = (): ThemeColors => {
-    if (isMessyMode && messyColors) {
-      return messyColors;
-    }
+    if (isMessyMode && messyColors) return messyColors;
     return themes[currentTheme];
   };
 
   const getTabGradient = (tabName: string): string[] => {
-    const themeGradients = tabGradients[currentTheme];
-    return themeGradients[tabName] || themes[currentTheme].background;
+    return tabGradients[currentTheme][tabName] || getColors().background;
   };
 
   return (
