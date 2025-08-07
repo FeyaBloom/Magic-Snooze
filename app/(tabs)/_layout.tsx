@@ -42,7 +42,7 @@ export default function TabLayout() {
           shadowRadius: 8,
           height: 75,
           paddingTop: 16,
-          paddingBottom: 6,
+          paddingBottom: 8,
         },
         tabBarActiveTintColor: colors.secondary,
         tabBarInactiveTintColor: colors.textSecondary,
@@ -93,7 +93,7 @@ export default function TabLayout() {
   options={{
     href: null, // 👈 скрывает из таб-бара
     title: t('navigation.settings'),
-   // tabBarButton: () => null, // 👈 на всякий случай
+   
   }}
 />
 
