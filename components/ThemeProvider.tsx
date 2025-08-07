@@ -53,6 +53,7 @@ interface ThemeContextType {
   setTheme: (theme: ThemeMode) => void;
   toggleMessyMode: () => void;
   isMessyMode: boolean;
+  getTabGradient: (tabName: string) => string[];
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
