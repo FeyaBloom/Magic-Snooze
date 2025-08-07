@@ -217,7 +217,7 @@ disabledDayText: {
     backgroundColor: '#E5E7EB',
   },
   legendText: {
-    fontSize: 14,
+    fontSize: 13,
     color: colors.text,
     flex: 1,
     fontFamily: 'ComicNeue-Regular',
