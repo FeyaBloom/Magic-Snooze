@@ -83,7 +83,7 @@ export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }
       width: '100%',
       maxWidth: 400,
       maxHeight: '80%',
-      shadowColor: '#000',
+      shadowColor: '#ccc',
       shadowOffset: {
         width: 0,
         height: 10,
