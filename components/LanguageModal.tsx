@@ -99,10 +99,10 @@ export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }
       marginBottom: 20,
     },
     title: {
-      fontSize: 24,
+      fontSize: 22,
       fontWeight: 'bold',
       color: colors.text,
-      fontFamily: 'ComicNeue-Bold',
+      fontFamily: 'CabinSketch-Bold',
     },
     languageList: {
       maxHeight: 300,
