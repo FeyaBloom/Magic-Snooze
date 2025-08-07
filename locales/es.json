@@ -165,8 +165,8 @@
   "titlePlaceholder": "Título de la nota (opcional)",
   "contentPlaceholder": "¿Qué estás pensando?",
   "cancel": "Cancelar",
-  "save": "Guardar nota",
-  "saveChanges": "Guardar cambios",
+  "save": "Guardar",
+  "saveChanges": "Guardar",
   "close": "Cerrar"
 }
 
