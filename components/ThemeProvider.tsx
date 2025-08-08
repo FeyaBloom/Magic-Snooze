@@ -17,7 +17,7 @@ const themes: Record<ThemeMode, ThemeColors> = {
   daydream: {
     primary: '#EC4899',
     secondary: '#8B5CF6',
-   // background: ['#FFE5E5', '#E5F3FF', '#F3E5FF'], // fallback
+    background: ['#FFE5E5', '#E5F3FF', '#F3E5FF'], // fallback
     surface: '#FFFFFF',
     text: '#6d6d6d',
     textSecondary: '#6B7280',
@@ -26,7 +26,7 @@ const themes: Record<ThemeMode, ThemeColors> = {
   nightforest: {
     primary: '#10B981',
     secondary: '#6366F1',
-   // background: ['#064E3B', '#1F2937', '#374151'], // fallback
+    background: ['#064E3B', '#1F2937', '#374151'], // fallback
     surface: '#1F2937',
     text: '#FFFFFF',
     textSecondary: '#D1D5DB',
