@@ -590,7 +590,7 @@ const styles = createTodayStyles(colors);
                 style={[styles.modalButton, styles.saveButton]}
                 onPress={addStep}
               >
-                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('today.addStep')}</Text>
+                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('common.add')}</Text>
               </TouchableOpacity>
             </View>
           </View>
