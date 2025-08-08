@@ -13,8 +13,10 @@ import {
   Comfortaa_500Medium
 } from '@expo-google-fonts/comfortaa';
 import * as SplashScreen from 'expo-splash-screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //import * as NavigationBar from 'expo-navigation-bar';
 //import { Platform } from 'react-native';
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -33,6 +35,24 @@ export default function RootLayout() {
     'Coiny_400Regular': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
   });
 
+  // Загружаем сохраненный язык при инициализации приложения
+  const loadInitialLanguage = async () => {
+    try {
+      const savedLanguage = await AsyncStorage.getItem('selectedLanguage');
+      if (savedLanguage && ['en', 'ru', 'es'].includes(savedLanguage)) {
+        await i18n.changeLanguage(savedLanguage);
+        console.log(`Loaded language: ${savedLanguage}`);
+      }
+    } catch (error) {
+      console.error('Error loading initial language:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Загружаем язык при старте приложения
+    loadInitialLanguage();
+  }, []);
+
   useEffect(() => {
     if (fontsLoaded || fontError) {
       SplashScreen.hideAsync();
@@ -44,7 +64,6 @@ export default function RootLayout() {
   //  NavigationBar.setButtonStyleAsync('light'); // или 'dark'
   
 //};
-
   if (!fontsLoaded && !fontError) {
     return null; // как у вас было
   }
