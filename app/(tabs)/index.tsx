@@ -566,7 +566,7 @@ const styles = createTodayStyles(colors);
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}> {t('today.addNewStep')}</Text>
+            <Text style={styles.modalTitle}> {t('common.add')}</Text>
             <TextInput
               style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
               placeholder={t('today.enterGentleStep')}
