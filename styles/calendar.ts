@@ -23,7 +23,6 @@ selectedDay: {
 
 selectedDayText: {
   color: '#FFFFFF',
-  fontWeight: '700',
 },
 
 disabledDay: {
@@ -41,7 +40,6 @@ disabledDayText: {
   },
   title: {
     fontSize: 22,
-    fontWeight: '1000',
     color: colors.text,
     marginBottom: 8,
     textAlign: 'center',
@@ -86,7 +84,6 @@ disabledDayText: {
   },
   monthTitle: {
     fontSize: 20,
-    fontWeight: '1000',
     color: colors.text,
     fontFamily: 'CabinSketch-Regular',
   },
@@ -98,7 +95,6 @@ disabledDayText: {
   },
   weekDayText: {
     fontSize: 14,
-    fontWeight: '600',
     color: colors.textSecondary,
     textAlign: 'center',
     width: dayWidth,
@@ -128,7 +124,6 @@ disabledDayText: {
   dayText: {
     fontSize: 16,
     color: colors.text,
-    fontWeight: '500',
     fontFamily: 'ComicNeue-Regular',
   },
   otherMonth: {
@@ -142,7 +137,6 @@ disabledDayText: {
   },
   todayText: {
     color: '#FFFFFF',
-    fontWeight: '700',
   },
   completeDay: {
     backgroundColor: colors.accent,
@@ -155,7 +149,6 @@ disabledDayText: {
   },
   statusDayText: {
     color: '#FFFFFF',
-    fontWeight: '700',
   },
   statusDot: {
     position: 'absolute',
@@ -180,7 +173,6 @@ disabledDayText: {
   },
   legendTitle: {
     fontSize: 20,
-    fontWeight: '1000',
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
@@ -236,7 +228,6 @@ disabledDayText: {
   },
   statsTitle: {
     fontSize: 20,
-    fontWeight: '1000',
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
@@ -254,7 +245,6 @@ disabledDayText: {
   },
   statNumber: {
     fontSize: 24,
-    fontWeight: '700',
     color: colors.secondary,
     marginBottom: 4,
     fontFamily: 'ComicNeue-Bold',

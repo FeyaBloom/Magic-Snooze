@@ -19,7 +19,6 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
  },
   title: {
     fontSize: 22,
-    fontWeight: '1000',
     color: colors.text,
     marginBottom: 8,
     textAlign: 'center',
@@ -50,7 +49,6 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   addTaskText: {
     fontSize: 16,
     color: '#FFFFFF',
-    fontWeight: '600',
     marginLeft: 8,
     fontFamily: 'ComicNeue-Regular',
   },
@@ -60,7 +58,6 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '1000',
     color: colors.text,
     marginBottom: 12,
     fontFamily: 'CabinSketch-Regular',
@@ -135,11 +132,9 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   overdue: {
     color: '#EF4444',
-    fontWeight: '600',
   },
   dueToday: {
     color: '#F59E0B',
-    fontWeight: '600',
   },
   completedDueDate: {
     color: colors.textSecondary,
@@ -159,7 +154,6 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   emptyStateText: {
     fontSize: 20,
-    fontWeight: '600',
     color: colors.textSecondary,
     marginBottom: 8,
     fontFamily: 'CabinSketch-Regular',
@@ -186,7 +180,6 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
-    fontWeight: '1000',
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
@@ -226,13 +219,11 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   cancelButtonText: {
     fontSize: 16,
-    fontWeight: '600',
     color: `#6B7280`,
     fontFamily: 'ComicNeue-Regular',
   },
   saveButtonText: {
     fontSize: 16,
-    fontWeight: '600',
     color: '#FFFFFF',
     fontFamily: 'ComicNeue-Regular',
   },

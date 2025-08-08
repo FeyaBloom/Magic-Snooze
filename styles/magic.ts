@@ -45,7 +45,6 @@ export const createMagicStyles = (colors: any) => StyleSheet.create({
   },
   tinyVictoryTitle: {
     fontSize: 20,
-    fontWeight: '1000',
     color: colors.text,
     textAlign: 'center',
     marginBottom: 4,

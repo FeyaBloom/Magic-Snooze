@@ -19,7 +19,6 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: '1000',
     color: colors.text,
     marginBottom: 8,
     textAlign: 'center',
@@ -77,7 +76,6 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   addNoteText: {
     fontSize: 16,
     color: '#FFFFFF',
-    fontWeight: '600',
     marginLeft: 8,
     fontFamily: 'ComicNeue-Regular',
   },
@@ -105,7 +103,6 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   noteTitle: {
     fontSize: 20,
-    fontWeight: '600',
     color: colors.text,
     flex: 1,
     marginRight: 8,
@@ -144,7 +141,6 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   emptyStateText: {
     fontSize: 20,
-    fontWeight: '600',
     color: colors.textSecondary,
     marginTop: 16,
     marginBottom: 8,
@@ -182,7 +178,6 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
-    fontWeight: '1000',
     color: colors.text,
     marginBottom: 16,
     textAlign: 'center',
@@ -235,13 +230,11 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   cancelButtonText: {
     fontSize: 16,
-    fontWeight: '600',
     color: `#6B7280`,
     fontFamily: 'ComicNeue-Regular',
   },
   saveButtonText: {
     fontSize: 16,
-    fontWeight: '600',
     color: '#FFFFFF',
     fontFamily: 'ComicNeue-Regular',
   },
@@ -253,7 +246,6 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   viewTitle: {
     fontSize: 20,
-    fontWeight: '1000',
     color: colors.text,
     flex: 1,
     marginRight: 12,
@@ -294,7 +286,6 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   },
   closeButtonText: {
     fontSize: 16,
-    fontWeight: '600',
     color: '#ffffff',
     fontFamily: 'ComicNeue-Regular',
   },

@@ -26,7 +26,6 @@ export const createSettingsStyles = (colors: any) =>
   title: {
     fontSize: 22,
     paddingTop: 20,
-    fontWeight: '1000',
     color: colors.text,
     marginBottom: 8,
     textAlign: 'center',
@@ -44,7 +43,6 @@ export const createSettingsStyles = (colors: any) =>
     },
     sectionTitle: {
       fontSize: 20,
-      fontWeight: '600',
       color: colors.textSecondary,
       marginBottom: 10,
       fontFamily: 'CabinSketch-Regular',
@@ -60,7 +58,6 @@ export const createSettingsStyles = (colors: any) =>
     },
     label: {
       fontSize: 15,
-      fontWeight: '500',
       color: colors.text,
       fontFamily: 'ComicNeue-Regular',
     },
