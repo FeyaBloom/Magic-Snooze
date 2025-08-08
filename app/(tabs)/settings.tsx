@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRoute } from '@react-navigation/native';
 import { createSettingsStyles } from '@/styles/settings';
 import {
   Globe,
