@@ -122,7 +122,7 @@
   "addModalTitle": "Новая заметка",
   "editModalTitle": "Редактировать",
   "titlePlaceholder": "Заголовок (необязательно)",
-  "contentPlaceholder": "О чём ты думаешь?",
+  "contentPlaceholder": "О чём думаешь?",
     "deleteTitle": "Удалить заметку",
   "deleteMessage": "Вы уверены, что хотите удалить эту заметку?",
 },
