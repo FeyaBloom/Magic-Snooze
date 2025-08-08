@@ -284,7 +284,7 @@ const { colors, getTabGradient, currentTheme } = useTheme();
             style={[styles.modalButton, styles.saveButton]}
             onPress={addNote}
           >
-            <Text style={styles.saveButtonText}>{t('common.save')}</Text>
+            <Text style={styles.saveButtonText}>{t('common.add')}</Text>
           </TouchableOpacity>
         </View>
       </View>
