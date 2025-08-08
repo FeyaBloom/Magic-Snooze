@@ -35,7 +35,7 @@ export default function TasksTab() {
   const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
  const route = useRoute();
-const { colors, getTabGradient, currentTheme } = useTheme();
+const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
 const gradient = getTabGradient(route.name);
 
   const styles = createTasksStyles(colors);
