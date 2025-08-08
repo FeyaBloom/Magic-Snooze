@@ -26,7 +26,7 @@ const themes: Record<ThemeMode, ThemeColors> = {
   nightforest: {
     primary: '#10B981',
     secondary: '#6366F1',
-    background: ['#064E3B', '#1F2937', '#374151'], // fallback
+   // background: ['#064E3B', '#1F2937', '#374151'], // fallback
     surface: '#1F2937',
     text: '#FFFFFF',
     textSecondary: '#D1D5DB',
