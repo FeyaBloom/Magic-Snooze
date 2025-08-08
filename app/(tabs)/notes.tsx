@@ -284,7 +284,7 @@ const { colors, getTabGradient, currentTheme } = useTheme();
             style={[styles.modalButton, styles.saveButton]}
             onPress={addNote}
           >
-            <Text style={styles.saveButtonText}>{t('notes.save')}</Text>
+            <Text style={styles.saveButtonText}>{t('common.save')}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -343,7 +343,7 @@ const { colors, getTabGradient, currentTheme } = useTheme();
             style={[styles.modalButton, styles.saveButton]}
             onPress={editNote}
           >
-            <Text style={styles.saveButtonText}>{t('notes.saveChanges')}</Text>
+            <Text style={styles.saveButtonText}>{t('common.save')}</Text>
           </TouchableOpacity>
         </View>
       </View>
