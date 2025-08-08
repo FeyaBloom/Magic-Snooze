@@ -321,7 +321,7 @@ const formatDate = (dateString: string) => {
                 style={[styles.modalButton, styles.saveButton]}
                 onPress={addTask}
               >
-                <Text style={styles.saveButtonText}>{t('tasks.addButton')}</Text>
+                <Text style={styles.saveButtonText}>{t('common.add')}</Text>
               </TouchableOpacity>
             </View>
           </View>
