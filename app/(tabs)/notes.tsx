@@ -189,7 +189,7 @@ const { colors, getTabGradient, currentTheme } = useTheme();
 
       <TouchableOpacity style={styles.addNoteButton} onPress={() => setShowAddModal(true)}>
         <Plus size={24} color="#FFFFFF" />
-        <Text style={styles.addNoteText}>{t('notes.addButton')}</Text>
+        <Text style={styles.addNoteText}>{t('common.add')}</Text>
       </TouchableOpacity>
 
       {filteredNotes.length > 0 ? (
