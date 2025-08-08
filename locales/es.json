@@ -68,9 +68,9 @@
 "today": {
     "title": "Buen día, alma hermosa 🌸",
     "subtitle": "Ve paso a paso",
-    "subtitleSnoozed": "Te estás tomando un descanso suave hoy",
-    "snoozeToday": "Aplazar hoy",
-    "resumeToday": "Reanudar hoy",
+    "subtitleSnoozed": "Te estás tomando un descanso",
+    "snoozeToday": "Aplazar todo",
+    "resumeToday": "Reanudar",
     "tinyVictories": "Pequeñas victorias",
     "nightForest": "🌙 Bosque nocturno",
     "dayDream": "⛅ Ensueño",
@@ -82,7 +82,6 @@
     "addNewStep": "Añadir nuevo paso",
     "editStep": "Editar paso",
     "enterGentleStep": "Introduce un paso suave...",
-    "addStep": "Añadir paso",
     "deleteStep": "Eliminar paso",
     "deleteStepConfirm": "¿Estás seguro de que quieres eliminar este paso?",
    "bed": "Me levanté de la cama",
@@ -129,7 +128,6 @@
   "editTitle": "Editar tarea",
   "inputPlaceholder": "¿Qué te gustaría lograr?",
   "dueDateOptional": "Fecha límite (opcional)",
-  "addButton": "Añadir tarea",
   "deleteTitle": "Eliminar tarea",
   "deleteMessage": "¿Estás seguro de que quieres eliminar esta tarea?"
 },
@@ -168,10 +166,7 @@
   "contentPlaceholder": "¿Qué estás pensando?",
    "deleteTitle": "Eliminar nota",
   "deleteMessage": "¿Estás seguro de que quieres eliminar esta nota?",
-  "cancel": "Cancelar",
-  "save": "Guardar",
-  "saveChanges": "Guardar",
-  "close": "Cerrar"
+  
 }
 
   
