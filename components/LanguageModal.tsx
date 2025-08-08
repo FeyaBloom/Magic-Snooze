@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Modal,
   View,
@@ -7,6 +7,7 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { Check } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
@@ -17,12 +18,35 @@ interface LanguageModalProps {
   onClose: () => void;
 }
 
-const languageCodes = ['en', 'ru', 'es',];
+const languageCodes = ['en', 'ru', 'es'];
 
 export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }) => {
   const { colors } = useTheme();
   const { t } = useTranslation();
-  const currentLanguage = i18n.language;
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+
+  // Загружаем сохраненный язык при инициализации
+  useEffect(() => {
+    loadSavedLanguage();
+  }, []);
+
+  // Обновляем currentLanguage при изменении i18n.language
+  useEffect(() => {
+    setCurrentLanguage(i18n.language);
+  }, [i18n.language]);
+
+  const loadSavedLanguage = async () => {
+    try {
+      const savedLanguage = await AsyncStorage.getItem('selectedLanguage');
+      if (savedLanguage && languageCodes.includes(savedLanguage)) {
+        // Устанавливаем язык без сохранения в AsyncStorage (избегаем дублирования)
+        await i18n.changeLanguage(savedLanguage);
+        setCurrentLanguage(savedLanguage);
+      }
+    } catch (error) {
+      console.error('Error loading saved language:', error);
+    }
+  };
 
   const languages = languageCodes.map((code) => ({
     code,
@@ -32,8 +56,23 @@ export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }
   }));
 
   const handleLanguageSelect = async (languageCode: string) => {
-    await i18n.changeLanguage(languageCode);
-    onClose();
+    try {
+      // Изменяем язык в i18n
+      await i18n.changeLanguage(languageCode);
+      
+      // Сохраняем выбранный язык в AsyncStorage
+      await AsyncStorage.setItem('selectedLanguage', languageCode);
+      
+      // Обновляем локальное состояние
+      setCurrentLanguage(languageCode);
+      
+      console.log(`Language changed to: ${languageCode}`);
+      
+      // Закрываем модалку
+      onClose();
+    } catch (error) {
+      console.error('Error saving language:', error);
+    }
   };
 
   const renderLanguageItem = ({ item }) => {
