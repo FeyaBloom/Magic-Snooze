@@ -203,7 +203,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   },
   modalButton: {
     flex: 1,
-    paddingVertical: 12,
+    paddingVertical: 8,
     borderRadius: 12,
     alignItems: 'center',
     height: 48,
