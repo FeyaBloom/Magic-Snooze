@@ -37,10 +37,10 @@ const themes: Record<ThemeMode, ThemeColors> = {
 // градиенты по вкладкам
 const tabGradients: Record<ThemeMode, Record<string, string[]>> = {
   daydream: {
-    index: ['#ffe5e5', '#eee1fa', '#cfdeff'],
-    tasks: ['#e5f9e3', '#ffe5e5', '#eee1fa'],
-    calendar: ['#cfdeff', '#e5f9e3', '#ffe5e5'],
-    notes: ['#eee1fa', '#cfdeff', '#e5f9e3'],
+    index: ['#ffe5e5', '#e5f9e3', '#cfdeff'],
+    tasks: ['#e5f9e3', '#cfdeff', '#eee1fa'],
+    calendar: ['#cfdeff', '#eee1fa', '#ffe5e5'],
+    notes: ['#eee1fa', '#ffe5e5', '#e5f9e3'],
   },
   nightforest: {
     index: ['#3f385c', '#064e3b', '#1F2937'],
