@@ -169,7 +169,7 @@ const formatDate = (dateString: string) => {
 
   return (
     <SafeAreaView style={[styles.container, {position: 'relative'}]}>
-      <LinearGradient colors={colors.background}  
+      <LinearGradient colors={gradient}  
         style={styles.gradient}      
       >
         <FloatingBackground />
