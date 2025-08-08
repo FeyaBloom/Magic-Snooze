@@ -38,8 +38,8 @@ const themes: Record<ThemeMode, ThemeColors> = {
 const tabGradients: Record<ThemeMode, Record<string, string[]>> = {
   daydream: {
     index: ['#ffe5e5', '#eee1fa', '#cfdeff'],
-    tasks: ['#e5f9e3', '#FFE5E5', '#eee1fa'],
-    calendar: ['#cfdeff', '#e5f9e3', '#Ffe5e5'],
+    tasks: ['#e5f9e3', '#ffe5e5', '#eee1fa'],
+    calendar: ['#cfdeff', '#e5f9e3', '#ffe5e5'],
     notes: ['#eee1fa', '#cfdeff', '#e5f9e3'],
   },
   nightforest: {
