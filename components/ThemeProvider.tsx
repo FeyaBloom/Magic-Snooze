@@ -45,8 +45,8 @@ const tabGradients: Record<ThemeMode, Record<string, string[]>> = {
   nightforest: {
     index: ['#3f385c', '#064e3b', '#1F2937'],
     tasks: ['#064e3b', '#1f2937', '#0c0055'],
-    calendar: ['#1f2937', '#0c0055', '#4f3a70'],
-    notes: ['#0c0055', '#4f3a70', '#064e3b'],
+    calendar: ['#1f2937', '#0c0055', '#3f385c'],
+    notes: ['#0c0055', '#3f385c', '#064e3b'],
   },
 };
 
