@@ -189,14 +189,14 @@ const monthName = capitalizeFirst(
           style={styles.navButton}
           onPress={() => navigateMonth('prev')}
         >
-          <ChevronLeft size={24} color={colors.primary} />
+          <ChevronLeft size={24} color={colors.secondary} />
         </TouchableOpacity>
         <Text style={styles.monthTitle}>{monthName}</Text>
         <TouchableOpacity
           style={styles.navButton}
           onPress={() => navigateMonth('next')}
         >
-          <ChevronRight size={24} color={colors.primary} />
+          <ChevronRight size={24} color={colors.secondary} />
         </TouchableOpacity>
       </View>
 
