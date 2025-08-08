@@ -23,7 +23,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: '500',
     color: colors.text,
     textAlign: 'center',
     marginBottom: 8,
@@ -61,7 +60,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   routineTitleText: {
     fontSize: 20,
-    fontWeight: '400',
     marginLeft: 8,
     fontFamily: 'CabinSketch-Regular',
     color: colors.text,
@@ -125,7 +123,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   snoozeText: {
     fontSize: 15,
     color: colors.secondary,
-    fontWeight: '600',
     marginLeft: 8,
     fontFamily: 'ComicNeue-Regular',
   },
@@ -143,7 +140,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   resumeText: {
     fontSize: 15,
     color: '#FFFFFF',
-    fontWeight: '600',
     fontFamily: 'ComicNeue-Regular',
   },
   magicalControls: {
@@ -164,7 +160,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   addTaskText: {
     color: '#FFFFFF',
     fontSize: 15,
-    fontWeight: '600',
+   // fontWeight: '600',
     marginLeft: 8,
     fontFamily: 'ComicNeue-Regular',
   },
@@ -191,7 +187,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   themeButtonText: {
     fontSize: 12,
-    fontWeight: '400',
     color: colors.text,
     fontFamily: 'ComicNeue-Regular',
   },
@@ -210,7 +205,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   progressTitle: {
     fontSize: 18,
-    fontWeight: '1000',
     marginBottom: 16,
     textAlign: 'center',
     color: colors.text,
@@ -231,7 +225,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   progressValue: {
     fontSize: 20,
-    fontWeight: '700',
     color: colors.secondary,
     fontFamily: 'ComicNeue-Bold',
   },
@@ -249,7 +242,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   closeVictoriesText: {
     color: '#FFFFFF',
-    fontWeight: '600',
     fontFamily: 'ComicNeue-Regular',
   },
   modalOverlay: {
@@ -272,7 +264,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
-    fontWeight: '400',
     marginBottom: 16,
     textAlign: 'center',
     color: colors.text,
@@ -308,7 +299,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   cancelButtonText: {
     fontSize: 13,
-    fontWeight: '600',
     color: '#6B7280',
     fontFamily: 'ComicNeue-Regular',
   },
@@ -318,7 +308,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   saveButtonText: {
     fontSize: 13,
-    fontWeight: '600',
     color: '#FFFFFF',
     fontFamily: 'ComicNeue-Regular',
   },
