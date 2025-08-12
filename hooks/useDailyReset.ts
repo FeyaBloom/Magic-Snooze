@@ -1,21 +1,18 @@
 import { useEffect, useRef } from 'react';
 
-export function useDailyReset(onReset: () => void) {
-  const timerRef = useRef(null);
+export function useMidnightReset(onMidnight: () => void) {
+  const lastDateRef = useRef(new Date().toDateString());
 
   useEffect(() => {
-    const now = new Date();
-    const msUntilMidnight =
-      new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).getTime() - now.getTime();
-
-    timerRef.current = setTimeout(() => {
-      onReset();
-    }, msUntilMidnight);
-
-    return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
+    const interval = setInterval(() => {
+      const currentDate = new Date().toDateString();
+      if (currentDate !== lastDateRef.current) {
+        lastDateRef.current = currentDate;
+        onMidnight();
       }
-    };
-  }, [onReset]);
+    }, 60000); // проверка каждую минуту
+
+    return () => clearInterval(interval);
+  }, [onMidnight]);
 }
+ 
