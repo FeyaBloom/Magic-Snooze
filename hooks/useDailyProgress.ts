@@ -1,34 +1,49 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function useDailyProgress(dateString: string) {
-  const [progress, setProgress] = useState(null);
+export interface DailyProgress {
+  date: string;
+  morningCompleted: boolean;
+  eveningCompleted: boolean;
+  morningTotal: number;
+  eveningTotal: number;
+  morningDone: number;
+  eveningDone: number;
+  snoozed: boolean;
+}
 
-  const loadProgress = useCallback(async () => {
-    try {
-      const stored = await AsyncStorage.getItem(`progress_${dateString}`);
-      if (stored) {
-        setProgress(JSON.parse(stored));
-      } else {
-        setProgress(null);
-      }
-    } catch (e) {
-      console.error('Error loading progress:', e);
+const getLocalDateString = (date: Date = new Date()) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+export function useDailyProgress() {
+  const [progress, setProgress] = useState<DailyProgress | null>(null);
+
+  const loadProgress = useCallback(async (date: Date = new Date()) => {
+    const dateString = getLocalDateString(date);
+    
+    const stored = await AsyncStorage.getItem(`progress_${dateString}`);
+    if (stored) {
+      const parsed: DailyProgress = JSON.parse(stored);
+      setProgress(parsed);
+      return parsed;
     }
-  }, [dateString]);
+    return null;
+  }, []);
 
-  const saveProgress = useCallback(async (newProgress) => {
-    try {
-      setProgress(newProgress);
-      await AsyncStorage.setItem(`progress_${dateString}`, JSON.stringify(newProgress));
-    } catch (e) {
-      console.error('Error saving progress:', e);
-    }
-  }, [dateString]);
+  const saveProgress = useCallback(async (data: DailyProgress) => {
+    setProgress(data);
+    await AsyncStorage.setItem(`progress_${data.date}`, JSON.stringify(data));
+  }, []);
 
-  useEffect(() => {
-    loadProgress();
-  }, [loadProgress]);
+  const updateField = useCallback(async (field: keyof DailyProgress, value: any) => {
+    if (!progress) return;
+    const updated = { ...progress, [field]: value };
+    await saveProgress(updated);
+  }, [progress, saveProgress]);
 
-  return { progress, setProgress: saveProgress, reloadProgress: loadProgress };
+  return { progress, loadProgress, saveProgress, updateField, getLocalDateString };
 }
