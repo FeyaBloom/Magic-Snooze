@@ -22,6 +22,13 @@ import { ConfirmDialog } from "@/components/confirmDialog";
 import { useRouter } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
 
+// Импортируем хуки
+import { useDailyProgress } from '@/hooks/useDailyProgress';
+import { useMidnightReset } from '@/hooks/useMidnightReset';
+import { useRoutinesBlock } from '@/hooks/useRoutinesBlock';
+import { useSurprisePrompts } from '@/hooks/useSurprisePrompts';
+import { useVictories } from '@/hooks/useVictories';
+
 const { t } = i18n;
 
 interface RoutineStep {
@@ -30,24 +37,13 @@ interface RoutineStep {
   completed: boolean;
 }
 
-interface DailyProgress {
-  date: string;
-  morningCompleted: boolean;
-  eveningCompleted: boolean;
-  morningTotal: number;
-  eveningTotal: number;
-  morningDone: number;
-  eveningDone: number;
-  snoozed: boolean;
-}
-
 function TodayTabContent() {
   const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
- const route = useRoute();
-const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
-const gradient = getTabGradient(route.name);
-const styles = createTodayStyles(colors);
+  const route = useRoute();
+  const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
+  const gradient = getTabGradient(route.name);
+  const styles = createTodayStyles(colors);
 
   const router = useRouter();
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
@@ -55,93 +51,35 @@ const styles = createTodayStyles(colors);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showTinyVictories, setShowTinyVictories] = useState(false);
-  const [showSurprisePrompt, setShowSurprisePrompt] = useState(false);
   const [currentRoutine, setCurrentRoutine] = useState<'morning' | 'evening'>('morning');
   const [newStepText, setNewStepText] = useState('');
   const [editingStep, setEditingStep] = useState<RoutineStep | null>(null);
-  const [todayProgress, setTodayProgress] = useState<DailyProgress | null>(null);
   const [isSnoozed, setIsSnoozed] = useState(false);
-  const [celebratedVictories, setCelebratedVictories] = useState<string[]>([]);
- 
 
- const [confirmDialog, setConfirmDialog] = useState({
-  visible: false,
-  title: '',
-  message: '',
-  onConfirm: () => {},
-});
-  const getLocalDateString = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
+  const [confirmDialog, setConfirmDialog] = useState({
+    visible: false,
+    title: '',
+    message: '',
+    onConfirm: () => {},
+  });
+
+  // Используем хуки
+  const { progress: todayProgress, loadProgress, saveProgress, getLocalDateString } = useDailyProgress();
+  const { celebratedVictories, celebrateVictory } = useVictories();
+  const { progress: routinesProgress, snoozeDay, unsnoozeDay } = useRoutinesBlock();
+  const { 
+    showSurprisePrompt, 
+    dismissPrompt: dismissSurprisePrompt 
+  } = useSurprisePrompts({
+    probability: 0.1,
+    intervalMinutes: 5,
+    enabled: true
+  });
 
   const today = getLocalDateString();
 
-  useEffect(() => {
-    loadData();
-    loadCelebratedVictories();
-    
-    // Random surprise prompts (10% chance every 5 minutes)
-    const promptInterval = setInterval(() => {
-      if (Math.random() < 0.1) {
-        setShowSurprisePrompt(true);
-      }
-    }, 5 * 60 * 1000);
-    
-    // Set up midnight reset timer
-    const now = new Date();
-    const tomorrow = new Date(now);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(0, 0, 0, 0);
-    
-    const msUntilMidnight = tomorrow.getTime() - now.getTime();
-    
-    const midnightTimer = setTimeout(() => {
-      // Reset all checkboxes at midnight
-      resetDailyCheckboxes();
-      
-      // Set up recurring daily reset
-      const dailyInterval = setInterval(() => {
-        resetDailyCheckboxes();
-      }, 24 * 60 * 60 * 1000); // 24 hours
-      
-      return () => clearInterval(dailyInterval);
-    }, msUntilMidnight);
-    
-    return () => {
-      clearTimeout(midnightTimer);
-      clearInterval(promptInterval);
-    };
-  }, []);
-
-  const loadCelebratedVictories = async () => {
-    try {
-      const victories = await AsyncStorage.getItem(`victories_${getLocalDateString()}`);
-      if (victories) {
-        setCelebratedVictories(JSON.parse(victories));
-      }
-    } catch (error) {
-      console.error('Error loading victories:', error);
-    }
-  };
-  
- 
-
-  const celebrateVictory = async (victory: string) => {
-    try {
-      const newVictories = [...celebratedVictories, victory];
-      setCelebratedVictories(newVictories);
-      await AsyncStorage.setItem(`victories_${getLocalDateString()}`, JSON.stringify(newVictories));
-      
-    //  Alert.alert('🎉 Victory!', `You ${victory.toLowerCase()}! That's amazing!`, [        { text: 'Yay!', style: 'default' }      ]);
-    } catch (error) {
-      console.error('Error saving victory:', error);
-    }
-  };
-  const resetDailyCheckboxes = async () => {
+  // Функция сброса данных в полночь
+  const resetDailyData = async () => {
     try {
       // Reset morning routine checkboxes
       const resetMorning = morningRoutine.map(step => ({ ...step, completed: false }));
@@ -156,15 +94,20 @@ const styles = createTodayStyles(colors);
       // Reset snooze state
       setIsSnoozed(false);
       
-      // Reset celebrated victories
-      setCelebratedVictories([]);
-      
       // Load fresh data for the new day
       loadData();
     } catch (error) {
-      console.error('Error resetting daily checkboxes:', error);
+      console.error('Error resetting daily data:', error);
     }
   };
+
+  // Используем хук для сброса в полночь
+  useMidnightReset(resetDailyData);
+
+  useEffect(() => {
+    loadData();
+    loadProgress();
+  }, []);
 
   const loadData = async () => {
     try {
@@ -189,11 +132,11 @@ const styles = createTodayStyles(colors);
         }
       } else {
         // Default morning routine
-       const defaultMorning = [
-    { id: '1', text: t('today.defaultMorning.stretch'), completed: false },
-    { id: '2', text: t('today.defaultMorning.breathing'), completed: false },
-    { id: '3', text: t('today.defaultMorning.intention'), completed: false },
-  ];
+        const defaultMorning = [
+          { id: '1', text: t('today.defaultMorning.stretch'), completed: false },
+          { id: '2', text: t('today.defaultMorning.breathing'), completed: false },
+          { id: '3', text: t('today.defaultMorning.intention'), completed: false },
+        ];
         setMorningRoutine(defaultMorning);
         await AsyncStorage.setItem('morningRoutine', JSON.stringify(defaultMorning));
       }
@@ -212,18 +155,17 @@ const styles = createTodayStyles(colors);
         }
       } else {
         // Default evening routine
-       const defaultEvening = [
-    { id: '1', text: t('today.defaultEvening.reflect'), completed: false },
-    { id: '2', text: t('today.defaultEvening.selfCare'), completed: false },
-    { id: '3', text: t('today.defaultEvening.prepare'), completed: false },
-  ];
+        const defaultEvening = [
+          { id: '1', text: t('today.defaultEvening.reflect'), completed: false },
+          { id: '2', text: t('today.defaultEvening.selfCare'), completed: false },
+          { id: '3', text: t('today.defaultEvening.prepare'), completed: false },
+        ];
         setEveningRoutine(defaultEvening);
         await AsyncStorage.setItem('eveningRoutine', JSON.stringify(defaultEvening));
       }
 
       if (progressData) {
         const progress = JSON.parse(progressData);
-        setTodayProgress(progress);
         setIsSnoozed(progress.snoozed);
       }
     } catch (error) {
@@ -231,12 +173,12 @@ const styles = createTodayStyles(colors);
     }
   };
 
-  const saveProgress = async (morning: RoutineStep[], evening: RoutineStep[]) => {
+  const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) => {
     try {
       const morningDone = morning.filter(step => step.completed).length;
       const eveningDone = evening.filter(step => step.completed).length;
       
-      const progress: DailyProgress = {
+      const progressData = {
         date: today,
         morningCompleted: morningDone === morning.length,
         eveningCompleted: eveningDone === evening.length,
@@ -247,8 +189,7 @@ const styles = createTodayStyles(colors);
         snoozed: isSnoozed,
       };
       
-      await AsyncStorage.setItem(`progress_${today}`, JSON.stringify(progress));
-      setTodayProgress(progress);
+      await saveProgress(progressData);
     } catch (error) {
       console.error('Error saving progress:', error);
     }
@@ -268,13 +209,13 @@ const styles = createTodayStyles(colors);
     await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
     
     const otherRoutine = routine === 'morning' ? eveningRoutine : morningRoutine;
-    saveProgress(
+    saveProgressData(
       routine === 'morning' ? updated : otherRoutine,
       routine === 'evening' ? updated : otherRoutine
     );
   };
 
- const addStep = async () => {
+  const addStep = async () => {
     if (!newStepText.trim()) return;
 
     const newStep: RoutineStep = {
@@ -292,7 +233,7 @@ const styles = createTodayStyles(colors);
 
     // Пересчитываем прогресс после добавления шага
     const otherRoutine = currentRoutine === 'morning' ? eveningRoutine : morningRoutine;
-    saveProgress(
+    saveProgressData(
       currentRoutine === 'morning' ? updated : otherRoutine,
       currentRoutine === 'evening' ? updated : otherRoutine
     );
@@ -319,7 +260,7 @@ const styles = createTodayStyles(colors);
     setShowEditModal(false);
   };
 
- const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
+  const deleteStep = (stepId: string, routine: 'morning' | 'evening') => {
     setConfirmDialog({
       visible: true,
       title: t('today.deleteStep'),
@@ -334,7 +275,7 @@ const styles = createTodayStyles(colors);
 
         // Пересчитываем прогресс после удаления шага
         const otherRoutine = routine === 'morning' ? eveningRoutine : morningRoutine;
-        saveProgress(
+        saveProgressData(
           routine === 'morning' ? updated : otherRoutine,
           routine === 'evening' ? updated : otherRoutine
         );
@@ -349,22 +290,10 @@ const styles = createTodayStyles(colors);
     const newSnoozed = !isSnoozed;
     setIsSnoozed(newSnoozed);
     
-    try {
-      const progress: DailyProgress = {
-        date: today,
-        morningCompleted: false,
-        eveningCompleted: false,
-        morningTotal: morningRoutine.length,
-        eveningTotal: eveningRoutine.length,
-        morningDone: 0,
-        eveningDone: 0,
-        snoozed: newSnoozed,
-      };
-      
-      await AsyncStorage.setItem(`progress_${today}`, JSON.stringify(progress));
-      setTodayProgress(progress);
-    } catch (error) {
-      console.error('Error snoozing day:', error);
+    if (newSnoozed) {
+      await snoozeDay();
+    } else {
+      await unsnoozeDay();
     }
   };
 
@@ -423,8 +352,6 @@ const styles = createTodayStyles(colors);
       ))}
     </View>
   );
-
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -539,7 +466,7 @@ const styles = createTodayStyles(colors);
           </View>
         </ScrollView>
         
-        {showSurprisePrompt && <SurprisePrompt onDismiss={() => setShowSurprisePrompt(false)} />}
+        {showSurprisePrompt && <SurprisePrompt onDismiss={dismissSurprisePrompt} />}
         </>
       </LinearGradient>
 
