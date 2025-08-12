@@ -382,7 +382,7 @@ const styles = createTodayStyles(colors);
             setShowAddModal(true);
           }}
         >
-          <Plus size={20} color="#8B5CF6" />
+          <Plus size={20} color={colors.textSecondary} />
         </TouchableOpacity>
       </View>
       
