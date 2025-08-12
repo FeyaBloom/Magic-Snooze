@@ -31,9 +31,8 @@ interface Note {
 export default function NotesTab() {
   const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
- const route = useRoute();
-const { colors, getTabGradient, currentTheme } = useTheme();
-
+  const route = useRoute();
+  const { colors, getTabGradient, currentTheme } = useTheme();
   const gradient = getTabGradient(route.name);
   const styles = createNotesStyles(colors);
   const [notes, setNotes] = useState<Note[]>([]);
