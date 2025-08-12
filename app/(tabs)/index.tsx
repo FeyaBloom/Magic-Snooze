@@ -76,7 +76,7 @@ function TodayTabContent() {
     enabled: true
   });
 
-  const today = getLocalDateString(new Date());
+  const today = getLocalDateString();
 
   // Функция сброса данных в полночь
   const resetDailyData = async () => {
