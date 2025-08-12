@@ -1,239 +1,416 @@
-import { StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  TextInput,
+  Modal,
+  Alert,
+} from 'react-native';
+import { theme } from "@/components/ThemeProvider";
+import { MagicalCheckbox, FloatingBackground } from "@/components/MagicalFeatures";
+import { LinearGradient } from 'expo-linear-gradient';
+import { useRoute } from '@react-navigation/native';
+import { Plus, Pencil as Edit, Trash2, Calendar, CircleCheck as CheckCircle2, Sparkles } from 'lucide-react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from '@/components/ThemeProvider';
+import { createTasksStyles } from '@/styles/tasks';
+import CustomCalendar from '@/components/customCalendar';
+import { ConfirmDialog } from "@/components/confirmDialog";
+import i18n from '@/i18n';
 
-export const createTasksStyles = (colors: any) => StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  gradient: {
-    flex: 1,
-    zIndex: 0,
-  },
-  scrollView: {
-    flex: 1,
-    zIndex: 5,
-  },
-  header: {
-    padding: 20,
-    paddingTop: 20,
-    alignItems: 'center',
- },
-  title: {
-    fontSize: 22,
-    fontWeight: '1000',
-    color: colors.text,
-    marginBottom: 8,
-    textAlign: 'center',
-    fontFamily: 'CabinSketch-Bold',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    fontFamily: 'CabinSketch-Regular',
-  },
-  addTaskButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.primary,
-    marginHorizontal: 20,
-    marginBottom: 20,
-    paddingVertical: 8,
-    borderRadius: 16,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 4,
-    height: 48,
-  },
-  addTaskText: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    fontWeight: '600',
-    marginLeft: 8,
-    fontFamily: 'ComicNeue-Regular',
-  },
-  taskSection: {
-    marginHorizontal: 20,
-    marginBottom: 24,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '1000',
-    color: colors.text,
-    marginBottom: 12,
-    fontFamily: 'CabinSketch-Regular',
-  },
-  taskContainer: {
-    flexDirection: 'row',
-    alignItems: 'center', 
-    backgroundColor: colors.surface,
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 8,
-    shadowColor: '#cccccc',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-    opacity: 0.75,
-  },
-  completedTaskContainer: {
-    backgroundColor: colors.surface,
-    opacity: 0.5,
-  },
-  
-  taskContent: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginLeft: 8,
-    
-    // gap: 8, // gap не поддерживается официально в RN, убери!
-  },
-  deleteButtonInline: {
-    padding: 4,
-    alignItems: 'center',
-    // marginRight: 28, // у кнопки действия не нужно!
-  },
-  taskText: {
-    fontSize: 15,
-    color: colors.text,
-    lineHeight: 22,
-    marginBottom: 4,
-    fontFamily: 'ComicNeue-Regular',
-    flexShrink: 1,
-    flexWrap: 'wrap',
-  },
-  taskTextCompleted: {
-    textDecorationLine: 'line-through',
-    color: colors.textSecondary,
-  },
-  dueDateContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 4,
-  },
-  dueDateText: {
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    color: colors.textSecondary,
-    fontFamily: 'ComicNeue-Regular',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  listDateText: {
-    fontSize: 12,
-    color: colors.textSecondary,
-    fontFamily: 'ComicNeue-Regular',
-    alignItems: 'center',
-    marginLeft: 4, 
-  },
-  overdue: {
-    color: '#EF4444',
-    fontWeight: '600',
-  },
-  dueToday: {
-    color: '#F59E0B',
-    fontWeight: '600',
-  },
-  completedDueDate: {
-    color: colors.textSecondary,
-  },
-  taskActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  actionButton: {
-    padding: 4,
-    alignItems: 'center',
-  },
-  emptyState: {
-    alignItems: 'center',
-    marginTop: 60,
-    paddingHorizontal: 40,
-  },
-  emptyStateText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    marginBottom: 8,
-    fontFamily: 'CabinSketch-Regular',
-  },
-  emptyStateSubtext: {
-    fontSize: 16,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    lineHeight: 22,
-    fontFamily: 'ComicNeue-Regular',
-  },
-  modalOverlay: {
-   flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContent: {
-    backgroundColor: colors.surface,
-    borderRadius: 20,
-    padding: 24,
-    width: '100%',
-    maxWidth: 400,
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: '1000',
-    color: colors.text,
-    marginBottom: 16,
-    textAlign: 'center',
-    fontFamily: 'CabinSketch-Regular',
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    color: colors.textSecondary,
-    marginBottom: 16,
-    minHeight: 60,
-    textAlignVertical: 'top',
-    fontFamily: 'ComicNeue-Regular',
-  },
-  modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  modalButton: {
-    flex: 1,
-    paddingVertical: 12,
-    borderRadius: 12,
-    alignItems: 'center',
-    height: 48,
-    justifyContent: 'center',
-  },
-  cancelButton: {
-    backgroundColor: '#F3F4F6',
-    marginRight: 8,
-  },
-  saveButton: {
-    backgroundColor: colors.primary,
-    marginLeft: 8,
-  },
-  cancelButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: `#6B7280`,
-    fontFamily: 'ComicNeue-Regular',
-  },
-  saveButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#FFFFFF',
-    fontFamily: 'ComicNeue-Regular',
-  },
+const { t } = i18n;
+interface Task {
+  id: string;
+  text: string;
+  completed: boolean;
+  dueDate?: string;
+  createdAt: string;
+}
+
+export default function TasksTab() {
+  const currentLanguageCode = i18n.language;
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
+ const route = useRoute();
+const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
+const gradient = getTabGradient(route.name);
+
+  const styles = createTasksStyles(colors);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [newTaskText, setNewTaskText] = useState('');
+  const [newTaskDueDate, setNewTaskDueDate] = useState('');
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [showEditCalendar, setShowEditCalendar] = useState(false);
+ const [confirmDialog, setConfirmDialog] = useState({
+  visible: false,
+  title: '',
+  message: '',
+  onConfirm: () => {},
 });
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  const loadTasks = async () => {
+    try {
+      const tasksData = await AsyncStorage.getItem('oneTimeTasks');
+      if (tasksData) {
+        setTasks(JSON.parse(tasksData));
+      }
+    } catch (error) {
+      console.error('Error loading tasks:', error);
+    }
+  };
+
+  const saveTasks = async (updatedTasks: Task[]) => {
+    try {
+      await AsyncStorage.setItem('oneTimeTasks', JSON.stringify(updatedTasks));
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error('Error saving tasks:', error);
+    }
+  };
+
+  const addTask = async () => {
+    if (!newTaskText.trim()) return;
+
+    const newTask: Task = {
+      id: Date.now().toString(),
+      text: newTaskText.trim(),
+      completed: false,
+      dueDate: newTaskDueDate || undefined,
+      createdAt: new Date().toISOString(),
+    };
+
+    const updatedTasks = [...tasks, newTask];
+    await saveTasks(updatedTasks);
+
+    setNewTaskText('');
+    setNewTaskDueDate('');
+    setShowAddModal(false);
+    setShowCalendar(false);
+  };
+
+  const editTask = async () => {
+    if (!editingTask || !newTaskText.trim()) return;
+
+    const updatedTasks = tasks.map(task =>
+      task.id === editingTask.id
+        ? { ...task, text: newTaskText.trim(), dueDate: newTaskDueDate || undefined }
+        : task
+    );
+
+    await saveTasks(updatedTasks);
+
+    setNewTaskText('');
+    setNewTaskDueDate('');
+    setEditingTask(null);
+    setShowEditModal(false);
+    setShowEditCalendar(false);
+  };
+
+  const toggleTask = async (taskId: string) => {
+    const updatedTasks = tasks.map(task =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    );
+    await saveTasks(updatedTasks);
+  };
+  
+ const deleteTask = (taskId: string) => {
+  setConfirmDialog({
+    visible: true,
+    title: t('tasks.deleteTitle'),
+    message: t('tasks.deleteMessage'),
+    onConfirm: async () => {
+      const updatedTasks = tasks.filter(task => task.id !== taskId);
+            await saveTasks(updatedTasks);
+            setShowEditModal(false);
+            setEditingTask(null);
+            setShowEditCalendar(false);
+    },
+  });
+};
+  
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString(i18n.language, {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+
+  const isOverdue = (dueDate: string) => {
+    const today = new Date();
+    const due = new Date(dueDate);
+    today.setHours(0, 0, 0, 0);
+    due.setHours(0, 0, 0, 0);
+    return due < today;
+  };
+
+  const isDueToday = (dueDate: string) => {
+    const today = new Date();
+    const due = new Date(dueDate);
+    today.setHours(0, 0, 0, 0);
+    due.setHours(0, 0, 0, 0);
+    return due.getTime() === today.getTime();
+  };
+
+  const completedTasks = tasks.filter(task => task.completed);
+  const activeTasks = tasks.filter(task => !task.completed);
+
+  return (
+    <SafeAreaView style={[styles.container, {position: 'relative'}]}>
+      <LinearGradient colors={gradient}  
+        style={styles.gradient}      
+      >
+        <FloatingBackground />
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+          <View style={styles.header}>
+            <Text style={styles.title}>{t('tasks.title')}</Text>
+            <Text style={styles.subtitle}>{t('tasks.subtitle')}</Text>
+          </View>
+
+          <TouchableOpacity style={styles.addTaskButton} onPress={() => setShowAddModal(true)}>
+            <Plus size={24} color="#FFFFFF" />
+             <Text style={styles.addTaskText}>{t('tasks.addNew')}</Text>
+          </TouchableOpacity>
+
+          {activeTasks.length > 0 && (
+            <View style={styles.taskSection}>
+               <Text style={styles.sectionTitle}>{t('tasks.active')}</Text>
+              {activeTasks.map(task => (
+                <View key={task.id} style={styles.taskContainer}>
+                  <MagicalCheckbox
+                    completed={task.completed}
+                    onPress={() => toggleTask(task.id)}
+                  />
+                  <View style={styles.taskContent}>
+                    <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>
+                      {task.text}
+                    </Text>
+                    {task.dueDate && (
+                      <View style={styles.dueDateContainer}>
+                        <Calendar size={12} color="#6B7280" />
+                        <Text style={[
+                          styles.listDateText,
+                          task.dueDate && !task.completed && isOverdue(task.dueDate) && styles.overdue,
+                          task.dueDate && !task.completed && isDueToday(task.dueDate) && styles.dueToday,
+                        ]}>
+                          {formatDate(task.dueDate)}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                  <View style={styles.taskActions}>
+                    <TouchableOpacity
+                      style={styles.deleteButtonInline}
+                      onPress={() => {
+                        setEditingTask(task);
+                        setNewTaskText(task.text);
+                        setNewTaskDueDate(task.dueDate || '');
+                        setShowEditModal(true);
+                      }}
+                    >
+                      <Edit size={16} color={colors.textSecondary} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ))}
+            </View>
+          )}
+
+          {completedTasks.length > 0 && (
+            <View style={styles.taskSection}>
+              <Text style={styles.sectionTitle}>{t('tasks.completed')} <Sparkles size={20} color={colors.text} /></Text>
+              {completedTasks.map(task => (
+                <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
+                  <MagicalCheckbox
+                    completed={task.completed}
+                    onPress={() => toggleTask(task.id)}
+                  />
+                  <View style={styles.taskContent}>
+                    <Text style={[styles.taskText, styles.taskTextCompleted]}>
+                      {task.text}
+                    </Text>
+                    {task.dueDate && (
+                      <View style={styles.dueDateContainer}>
+                        <Calendar size={12} color="#9CA3AF" />
+                        <Text style={[styles.listDateText, styles.completedDueDate]}>
+                          {formatDate(task.dueDate)}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                  <View style={styles.taskActions}>
+                    <TouchableOpacity
+                      style={styles.deleteButtonInline}
+                      onPress={() => deleteTask(task.id)}
+                    >
+                      <Trash2 size={16} color="#EF4444" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ))}
+            </View>
+          )}
+
+          {tasks.length === 0 && (
+            <View style={styles.emptyState}>
+               <Text style={styles.emptyStateText}>{t('tasks.emptyTitle')}</Text>
+              <Text style={styles.emptyStateSubtext}>{t('tasks.emptySubtitle')}</Text>
+            </View>
+          )}
+        </ScrollView>
+      </LinearGradient>
+
+      {/* Все модалки вынесены сюда, за пределы LinearGradient */}
+      <Modal 
+        visible={showAddModal} 
+        animationType="slide" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+             <Text style={styles.modalTitle}>{t('tasks.addTitle')}</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder={t('tasks.inputPlaceholder')}
+              placeholderTextColor={colors.textSecondary}
+              value={newTaskText}
+              onChangeText={setNewTaskText}
+              multiline
+              autoFocus
+            />
+            <TouchableOpacity onPress={() => setShowCalendar(v => !v)} style={styles.datePickerButton}>
+              <Text style={styles.dueDateText}>
+                {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}
+              </Text>
+            </TouchableOpacity>
+            {showCalendar && (
+              <CustomCalendar              
+         selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+  onDateSelect={(date) => {
+    setNewTaskDueDate(date.toISOString());
+    setShowCalendar(false);
+  }}
+              />
+            )}
+
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => {
+                  setShowAddModal(false);
+                  setNewTaskText('');
+                  setNewTaskDueDate('');
+                  setShowCalendar(false);
+                }}
+              >
+                <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={addTask}
+              >
+                <Text style={styles.saveButtonText}>{t('tasks.addButton')}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal 
+        visible={showEditModal} 
+        animationType="slide" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => {
+                if (editingTask) {
+                  deleteTask(editingTask.id);
+                }
+              }}
+            >
+              <Trash2 size={16} color="#EF4444" />
+            </TouchableOpacity>
+
+            <Text style={styles.modalTitle}>{t('tasks.editTitle')}</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder={t('tasks.inputPlaceholder')}
+              placeholderTextColor={colors.textSecondary}
+              value={newTaskText}
+              onChangeText={setNewTaskText}
+              multiline
+              autoFocus
+            />
+            <TouchableOpacity
+              onPress={() => setShowEditCalendar(v => !v)}
+              style={styles.datePickerButton}
+            >
+               <Text style={styles.dueDateText}>
+                {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}
+              </Text>
+            </TouchableOpacity>
+            {showEditCalendar && (
+              <CustomCalendar               
+         selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+  onDateSelect={(date) => {
+    setNewTaskDueDate(date.toISOString());
+    setShowCalendar(false);
+  }}
+  minDate={new Date()}
+        />
+            )}
+
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => {
+                  setShowEditModal(false);
+                  setNewTaskText('');
+                  setNewTaskDueDate('');
+                  setEditingTask(null);
+                  setShowEditCalendar(false);
+                }}
+              >
+                 <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={editTask}
+              >
+                <Text style={styles.saveButtonText}>{t('common.save')}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+       <ConfirmDialog
+        visible={confirmDialog.visible}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        onConfirm={() => {
+          confirmDialog.onConfirm();
+          setConfirmDialog(d => ({ ...d, visible: false }));
+        }}
+        onCancel={() => setConfirmDialog(d => ({ ...d, visible: false }))}
+      />
+    </SafeAreaView>
+  );
+}
