@@ -10,6 +10,7 @@ import {
   Modal,
   Alert,
 } from 'react-native';
+import { theme } from "@/components/ThemeProvider";
 import { MagicalCheckbox, FloatingBackground } from "@/components/MagicalFeatures";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
@@ -321,7 +322,7 @@ const formatDate = (dateString: string) => {
                 style={[styles.modalButton, styles.saveButton]}
                 onPress={addTask}
               >
-                <Text style={styles.saveButtonText}>{t('common.add')}</Text>
+                <Text style={styles.saveButtonText}>{t('tasks.addButton')}</Text>
               </TouchableOpacity>
             </View>
           </View>
