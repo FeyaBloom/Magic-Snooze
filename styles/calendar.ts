@@ -15,24 +15,26 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     flex: 1,
     zIndex: 5,
   },
-  // Добавьте только эти стили в ваш createCalendarStyles:
 
-selectedDay: {
-  backgroundColor: colors.primary,
-},
+  selectedDay: {
+    backgroundColor: colors.primary,
+    borderRadius: (dayWidth * 0.8) / 2, // Делаем идеальный круг
+  },
 
-selectedDayText: {
-  color: '#FFFFFF',
-},
+  selectedDayText: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+  },
 
-disabledDay: {
-  opacity: 0.3,
-},
+  disabledDay: {
+    opacity: 0.3,
+  },
 
-disabledDayText: {
-  color: colors.textSecondary,
-  opacity: 0.5,
-},
+  disabledDayText: {
+    color: colors.textSecondary,
+    opacity: 0.5,
+  },
+
   header: {
     padding: 20,
     paddingTop: 20,
@@ -53,7 +55,6 @@ disabledDayText: {
   },
   calendarContainer: {
     backgroundColor: colors.surface,
-   // marginHorizontal: 10,
     marginBottom: 20,
     borderRadius: 16,
     padding: 20,
@@ -91,7 +92,6 @@ disabledDayText: {
     flexDirection: 'row',
     marginBottom: 10,
     alignItems: 'center',
-  
   },
   weekDayText: {
     fontSize: 14,
@@ -109,15 +109,15 @@ disabledDayText: {
   },
   dayContainer: {
     width: dayWidth,
-    height: 60,
+    height: dayWidth, // Делаем контейнер квадратным
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
   },
   dayCell: {
     width: dayWidth * 0.8,
-    height: 40,
-    borderRadius: 20,
+    height: dayWidth * 0.8, // ИСПРАВЛЕНО: делаем квадратным для идеального круга
+    borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО: радиус = половина размера для круга
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -134,21 +134,29 @@ disabledDayText: {
   },
   today: {
     backgroundColor: colors.primary + '50',
+    borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО: тоже круг
+    borderWidth: 2,
+    borderColor: colors.primary,
   },
   todayText: {
-    color: '#FFFFFF',
+    color: colors.primary,
+    fontWeight: 'bold',
   },
   completeDay: {
     backgroundColor: colors.accent,
+    borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО
   },
   partialDay: {
     backgroundColor: colors.primary,
+    borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО
   },
   snoozedDay: {
     backgroundColor: colors.secondary,
+    borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО
   },
   statusDayText: {
     color: '#FFFFFF',
+    fontWeight: 'bold',
   },
   statusDot: {
     position: 'absolute',
