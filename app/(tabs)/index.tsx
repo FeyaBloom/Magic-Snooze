@@ -306,31 +306,31 @@ const toggleStepExpand = (stepId: string) => {
   };
 
   const renderRoutineSection = (title: string, routine: RoutineStep[], routineType: 'morning' | 'evening', icon: React.ReactNode) => (
-    <View style={[styles.routineSection, { backgroundColor: colors.surface }]}>
-      <View style={styles.routineHeader}>
-        <View style={styles.routineTitle}>
-          {icon}
-          <Text style={[styles.routineTitleText, { color: colors.text }]}>{title}</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => {
-            setCurrentRoutine(routineType);
-            setShowAddModal(true);
-          }}
-        >
-          <Plus size={20} color={colors.primary} />
-        </TouchableOpacity>
+  <View style={[styles.routineSection, { backgroundColor: colors.surface }]}>
+    <View style={styles.routineHeader}>
+      <View style={styles.routineTitle}>
+        {icon}
+        <Text style={[styles.routineTitleText, { color: colors.text }]}>{title}</Text>
       </View>
-      
-      {routine.map((step) => (
-        <View key={step.id} style={styles.stepContainer}>
-          <MagicalCheckbox
-            completed={step.completed}
-            onPress={() => toggleStep(step.id, routineType)}
-            disabled={isSnoozed}
-          />
-         <TouchableWithoutFeedback onPress={() => toggleStepExpand(step.id)}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => {
+          setCurrentRoutine(routineType);
+          setShowAddModal(true);
+        }}
+      >
+        <Plus size={20} color={colors.primary} />
+      </TouchableOpacity>
+    </View>
+    
+    {routine.map((step) => (
+      <View key={step.id} style={styles.stepContainer}>
+        <MagicalCheckbox
+          completed={step.completed}
+          onPress={() => toggleStep(step.id, routineType)}
+          disabled={isSnoozed}
+        />
+        <TouchableWithoutFeedback onPress={() => toggleStepExpand(step.id)}>
           <View style={styles.stepContent}>
             <Text style={[
               styles.stepText,
@@ -345,28 +345,28 @@ const toggleStepExpand = (stepId: string) => {
             </Text>
           </View>
         </TouchableWithoutFeedback>
-          
-          <View style={styles.stepActions}>
-            <TouchableOpacity
-              style={styles.actionButton}
-              onPress={() => {
-                setCurrentRoutine(routineType);
-                setEditingStep(step);
-                setNewStepText(step.text);
-                setShowEditModal(true);
-              }}
-              disabled={isSnoozed}
-            >          
-              <Edit 
-                size={16} 
-                color={isSnoozed ? colors.textSecondary + '50' : colors.textSecondary} 
-              />
-            </TouchableOpacity>
-          </View>
+        
+        <View style={styles.stepActions}>
+          <TouchableOpacity
+            style={styles.actionButton}
+            onPress={() => {
+              setCurrentRoutine(routineType);
+              setEditingStep(step);
+              setNewStepText(step.text);
+              setShowEditModal(true);
+            }}
+            disabled={isSnoozed}
+          >          
+            <Edit 
+              size={16} 
+              color={isSnoozed ? colors.textSecondary + '50' : colors.textSecondary} 
+            />
+          </TouchableOpacity>
         </View>
-      ))}
-    </View>
-  );
+      </View>
+    ))}
+  </View>
+);
 
   return (
     <SafeAreaView style={styles.container}>
