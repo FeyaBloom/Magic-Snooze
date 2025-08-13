@@ -246,7 +246,6 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       flex: 1,
       padding: 12,
       borderRadius: 8,
-      fontFamily: 'ComicNeue-Regular',
       alignItems: 'center',
       justifyContent: 'center'
     },
@@ -257,6 +256,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
     },
     cancelButtonText: {
       color: colors.text,
+      fontFamily: 'ComicNeue-Regular',
       fontWeight: '500'
     },
     deleteButton: {
@@ -267,6 +267,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
     },
     deleteButtonText: {
       color: '#FFFFFF',
+      fontFamily: 'ComicNeue-Regular',
       fontWeight: '600'
     }
   };
