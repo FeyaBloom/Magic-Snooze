@@ -166,7 +166,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       padding: 20
     },
     modalContent: {
-  backgroundColor: colors.background, // ← Уже есть
+  background: colors.background, // ← Уже есть
   borderRadius: 16,
   padding: 20,
   width: '100%',
