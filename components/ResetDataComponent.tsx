@@ -189,6 +189,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
     modalTitle: {
       fontSize: 20,
       fontWeight: '600',
+      marginLeft: 4,
       color: colors.text,
       fontFamily: 'CabinSketch-Bold',
     },
