@@ -47,6 +47,13 @@ const gradient = getTabGradient(route.name);
 
   const [showCalendar, setShowCalendar] = useState(false);
   const [showEditCalendar, setShowEditCalendar] = useState(false);
+
+  const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
+
+const toggleExpand = (taskId: string) => {
+  setExpandedTaskId(prev => (prev === taskId ? null : taskId));
+};
+  
  const [confirmDialog, setConfirmDialog] = useState({
   visible: false,
   title: '',
@@ -183,50 +190,73 @@ const formatDate = (dateString: string) => {
              <Text style={styles.addTaskText}>{t('tasks.addNew')}</Text>
           </TouchableOpacity>
 
-          {activeTasks.length > 0 && (
-            <View style={styles.taskSection}>
-               <Text style={styles.sectionTitle}>{t('tasks.active')}</Text>
-              {activeTasks.map(task => (
-                <View key={task.id} style={styles.taskContainer}>
-                  <MagicalCheckbox
-                    completed={task.completed}
-                    onPress={() => toggleTask(task.id)}
-                  />
-                  <View style={styles.taskContent}>
-                    <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}  numberOfLines={3}>
-                      {task.text}
-                    </Text>
-                    {task.dueDate && (
-                      <View style={styles.dueDateContainer}>
-                        <Calendar size={12} color="#6B7280" />
-                        <Text style={[
-                          styles.listDateText,
-                          task.dueDate && !task.completed && isOverdue(task.dueDate) && styles.overdue,
-                          task.dueDate && !task.completed && isDueToday(task.dueDate) && styles.dueToday,
-                        ]}>
-                          {formatDate(task.dueDate)}
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-                  <View style={styles.taskActions}>
-                    <TouchableOpacity
-                      style={styles.deleteButtonInline}
-                      onPress={() => {
-                        setEditingTask(task);
-                        setNewTaskText(task.text);
-                        setNewTaskDueDate(task.dueDate || '');
-                        setShowEditModal(true);
-                      }}
-                    >
-                      <Edit size={16} color={colors.textSecondary} />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              ))}
+         {activeTasks.length > 0 && (
+  <View style={styles.taskSection}>
+    <Text style={styles.sectionTitle}>{t('tasks.active')}</Text>
+    {activeTasks.map(task => (
+      <TouchableOpacity
+        key={task.id}
+        style={styles.taskContainer}
+        activeOpacity={0.8}
+        onPress={() => toggleExpand(task.id)}
+      >
+        <MagicalCheckbox
+          completed={task.completed}
+          onPress={(e) => {
+            e.stopPropagation?.(); // чтобы клик по чекбоксу не разворачивал текст
+            toggleTask(task.id);
+          }}
+        />
+        <View style={styles.taskContent}>
+          <Text
+            style={[
+              styles.taskText,
+              task.completed && styles.taskTextCompleted
+            ]}
+            numberOfLines={expandedTaskId === task.id ? undefined : 3}
+            ellipsizeMode="tail"
+          >
+            {task.text}
+          </Text>
+          {task.dueDate && (
+            <View style={styles.dueDateContainer}>
+              <Calendar size={12} color="#6B7280" />
+              <Text
+                style={[
+                  styles.listDateText,
+                  task.dueDate &&
+                    !task.completed &&
+                    isOverdue(task.dueDate) &&
+                    styles.overdue,
+                  task.dueDate &&
+                    !task.completed &&
+                    isDueToday(task.dueDate) &&
+                    styles.dueToday
+                ]}
+              >
+                {formatDate(task.dueDate)}
+              </Text>
             </View>
           )}
-
+        </View>
+        <View style={styles.taskActions}>
+          <TouchableOpacity
+            style={styles.deleteButtonInline}
+            onPress={(e) => {
+              e.stopPropagation?.(); // чтобы клик по кнопке редактирования не разворачивал текст
+              setEditingTask(task);
+              setNewTaskText(task.text);
+              setNewTaskDueDate(task.dueDate || '');
+              setShowEditModal(true);
+            }}
+          >
+            <Edit size={16} color={colors.textSecondary} />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    ))}
+  </View>
+)}
           {completedTasks.length > 0 && (
             <View style={styles.taskSection}>
               <Text style={styles.sectionTitle}>{t('tasks.completed')} <Sparkles size={20} color={colors.text} /></Text>
