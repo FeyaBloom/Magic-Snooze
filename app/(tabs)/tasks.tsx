@@ -20,6 +20,7 @@ import { createTasksStyles } from '@/styles/tasks';
 import CustomCalendar from '@/components/customCalendar';
 import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
+import { TouchableWithoutFeedback } from 'react-native';
 import { LayoutAnimation, Platform, UIManager } from 'react-native';
 
 // В начале файла (чтобы Android тоже поддерживал анимации)
@@ -197,125 +198,113 @@ const formatDate = (dateString: string) => {
              <Text style={styles.addTaskText}>{t('tasks.addNew')}</Text>
           </TouchableOpacity>
 
-         {activeTasks.length > 0 && (
+        {activeTasks.length > 0 && (
   <View style={styles.taskSection}>
     <Text style={styles.sectionTitle}>{t('tasks.active')}</Text>
     {activeTasks.map(task => (
-      <TouchableOpacity
-        key={task.id}
-        style={styles.taskContainer}
-        activeOpacity={0.8}
-        onPress={() => toggleExpand(task.id)}
-      >
-        <MagicalCheckbox
-          completed={task.completed}
-          onPress={(e) => {
-            e.stopPropagation?.(); // чтобы клик по чекбоксу не разворачивал текст
-            toggleTask(task.id);
-          }}
-        />
-        <View style={styles.taskContent}>
-          <Text
-            style={[
-              styles.taskText,
-              task.completed && styles.taskTextCompleted
-            ]}
-            numberOfLines={expandedTaskId === task.id ? undefined : 3}
-            ellipsizeMode="tail"
-          >
-            {task.text}
-          </Text>
-          {task.dueDate && (
-            <View style={styles.dueDateContainer}>
-              <Calendar size={12} color="#6B7280" />
-              <Text
-                style={[
-                  styles.listDateText,
-                  task.dueDate &&
-                    !task.completed &&
-                    isOverdue(task.dueDate) &&
-                    styles.overdue,
-                  task.dueDate &&
-                    !task.completed &&
-                    isDueToday(task.dueDate) &&
-                    styles.dueToday
-                ]}
-              >
-                {formatDate(task.dueDate)}
-              </Text>
-            </View>
-          )}
-        </View>
+      <View key={task.id} style={styles.taskContainer}>
+        <TouchableWithoutFeedback onPress={() => toggleTask(task.id)}>
+          <View>
+            <MagicalCheckbox completed={task.completed} />
+          </View>
+        </TouchableWithoutFeedback>
+
+        <TouchableWithoutFeedback onPress={() => toggleExpand(task.id)}>
+          <View style={styles.taskContent}>
+            <Text
+              style={[
+                styles.taskText,
+                task.completed && styles.taskTextCompleted
+              ]}
+              numberOfLines={expandedTaskId === task.id ? undefined : 3}
+              ellipsizeMode="tail"
+            >
+              {task.text}
+            </Text>
+            {task.dueDate && (
+              <View style={styles.dueDateContainer}>
+                <Calendar size={12} color="#6B7280" />
+                <Text
+                  style={[
+                    styles.listDateText,
+                    task.dueDate &&
+                      !task.completed &&
+                      isOverdue(task.dueDate) &&
+                      styles.overdue,
+                    task.dueDate &&
+                      !task.completed &&
+                      isDueToday(task.dueDate) &&
+                      styles.dueToday
+                  ]}
+                >
+                  {formatDate(task.dueDate)}
+                </Text>
+              </View>
+            )}
+          </View>
+        </TouchableWithoutFeedback>
+
         <View style={styles.taskActions}>
-          <TouchableOpacity
-            style={styles.deleteButtonInline}
-            onPress={(e) => {
-              e.stopPropagation?.(); // чтобы клик по кнопке редактирования не разворачивал текст
-              setEditingTask(task);
-              setNewTaskText(task.text);
-              setNewTaskDueDate(task.dueDate || '');
-              setShowEditModal(true);
-            }}
-          >
-            <Edit size={16} color={colors.textSecondary} />
-          </TouchableOpacity>
+          <TouchableWithoutFeedback onPress={() => {
+            setEditingTask(task);
+            setNewTaskText(task.text);
+            setNewTaskDueDate(task.dueDate || '');
+            setShowEditModal(true);
+          }}>
+            <View style={styles.deleteButtonInline}>
+              <Edit size={16} color={colors.textSecondary} />
+            </View>
+          </TouchableWithoutFeedback>
         </View>
-      </TouchableOpacity>
+      </View>
     ))}
   </View>
 )}
-         {completedTasks.length > 0 && (
+
+{completedTasks.length > 0 && (
   <View style={styles.taskSection}>
     <Text style={styles.sectionTitle}>
       {t('tasks.completed')} <Sparkles size={20} color={colors.text} />
     </Text>
     {completedTasks.map(task => (
-      <TouchableOpacity
-        key={task.id}
-        style={[styles.taskContainer, styles.completedTaskContainer]}
-        activeOpacity={0.8}
-        onPress={() => toggleExpand(task.id)}
-      >
-        <MagicalCheckbox
-          completed={task.completed}
-          onPress={(e) => {
-            e.stopPropagation?.(); // Чтобы клик по чекбоксу не разворачивал текст
-            toggleTask(task.id);
-          }}
-        />
-        <View style={styles.taskContent}>
-          <Text
-            style={[styles.taskText, styles.taskTextCompleted]}
-            numberOfLines={expandedTaskId === task.id ? undefined : 3}
-            ellipsizeMode="tail"
-          >
-            {task.text}
-          </Text>
-          {task.dueDate && (
-            <View style={styles.dueDateContainer}>
-              <Calendar size={12} color="#9CA3AF" />
-              <Text style={[styles.listDateText, styles.completedDueDate]}>
-                {formatDate(task.dueDate)}
-              </Text>
-            </View>
-          )}
-        </View>
+      <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
+        <TouchableWithoutFeedback onPress={() => toggleTask(task.id)}>
+          <View>
+            <MagicalCheckbox completed={task.completed} />
+          </View>
+        </TouchableWithoutFeedback>
+
+        <TouchableWithoutFeedback onPress={() => toggleExpand(task.id)}>
+          <View style={styles.taskContent}>
+            <Text
+              style={[styles.taskText, styles.taskTextCompleted]}
+              numberOfLines={expandedTaskId === task.id ? undefined : 3}
+              ellipsizeMode="tail"
+            >
+              {task.text}
+            </Text>
+            {task.dueDate && (
+              <View style={styles.dueDateContainer}>
+                <Calendar size={12} color="#9CA3AF" />
+                <Text style={[styles.listDateText, styles.completedDueDate]}>
+                  {formatDate(task.dueDate)}
+                </Text>
+              </View>
+            )}
+          </View>
+        </TouchableWithoutFeedback>
+
         <View style={styles.taskActions}>
-          <TouchableOpacity
-            style={styles.deleteButtonInline}
-            onPress={(e) => {
-              e.stopPropagation?.(); // Чтобы удаление не разворачивало текст
-              deleteTask(task.id);
-            }}
-          >
-            <Trash2 size={16} color="#EF4444" />
-          </TouchableOpacity>
+          <TouchableWithoutFeedback onPress={() => deleteTask(task.id)}>
+            <View style={styles.deleteButtonInline}>
+              <Trash2 size={16} color="#EF4444" />
+            </View>
+          </TouchableWithoutFeedback>
         </View>
-      </TouchableOpacity>
+      </View>
     ))}
   </View>
 )}
-
           {tasks.length === 0 && (
             <View style={styles.emptyState}>
                <Text style={styles.emptyStateText}>{t('tasks.emptyTitle')}</Text>
