@@ -24,13 +24,42 @@ import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
 import { LanguageModal } from '@/components/LanguageModal';
 import { useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 export default function SettingsTab() {
   const { colors, toggleMessyMode, isMessyMode } = useTheme();
   const { t } = useTranslation();
   const styles = createSettingsStyles(colors);
   const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
-
+  
+  const debugAsyncStorage = async () => {
+  try {
+    // Получаем все ключи
+    const keys = await AsyncStorage.getAllKeys();
+    console.log('=== ALL ASYNC STORAGE KEYS ===');
+    console.log('Keys found:', keys);
+    
+    // Получаем все данные по ключам
+    const stores = await AsyncStorage.multiGet(keys);
+    
+    console.log('\n=== ALL ASYNC STORAGE DATA ===');
+    stores.forEach(([key, value]) => {
+      console.log(`${key}:`, value);
+      // Пытаемся распарсить JSON если возможно
+      try {
+        const parsed = JSON.parse(value || '{}');
+        console.log(`${key} (parsed):`, parsed);
+      } catch (e) {
+        console.log(`${key} (raw string):`, value);
+      }
+      console.log('---');
+    });
+  } catch (error) {
+    console.error('Error reading AsyncStorage:', error);
+  }
+};
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={colors.background} style={styles.gradient}>
@@ -95,6 +124,12 @@ export default function SettingsTab() {
               </View>
               <LogIn color={colors.textSecondary} size={20} />
             </TouchableOpacity>
+            <TouchableOpacity 
+  style={{padding: 10, backgroundColor: 'red', margin: 10}} 
+  onPress={debugAsyncStorage}
+>
+  <Text style={{color: 'white'}}>DEBUG ASYNC STORAGE</Text>
+</TouchableOpacity>
 {/*
             <TouchableOpacity style={styles.row}>
               <View>
