@@ -193,7 +193,7 @@ const formatDate = (dateString: string) => {
                     onPress={() => toggleTask(task.id)}
                   />
                   <View style={styles.taskContent}>
-                    <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>
+                    <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}  numberOfLines={3}>
                       {task.text}
                     </Text>
                     {task.dueDate && (
