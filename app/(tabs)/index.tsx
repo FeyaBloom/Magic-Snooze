@@ -23,13 +23,6 @@ import { useRouter } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
 import { TouchableWithoutFeedback } from 'react-native';
 
-import { LayoutAnimation, Platform, UIManager } from 'react-native';
-
-// В начале файла (чтобы Android тоже поддерживал анимации)
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
-
 
 // Импортируем хуки
 import { useDailyProgress } from '@/hooks/useDailyProgress';
