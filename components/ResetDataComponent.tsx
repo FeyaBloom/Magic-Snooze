@@ -112,7 +112,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       Alert.alert(
         t('reset.alerts.success.title'),
         t('reset.alerts.success.message', { count: uniqueKeys.length }),
-        [{ text: t('common.confirm') }]
+        [{ text: t('common.confirmr') }]
       );
       
       console.log('Deleted keys:', uniqueKeys);
