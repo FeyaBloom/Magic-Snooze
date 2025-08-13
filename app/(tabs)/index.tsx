@@ -57,11 +57,12 @@ function TodayTabContent() {
   const [newStepText, setNewStepText] = useState('');
   const [editingStep, setEditingStep] = useState<RoutineStep | null>(null);
   const [isSnoozed, setIsSnoozed] = useState(false);
-  const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
+  // Добавьте это состояние в начало компонента, рядом с другими useState
+const [expandedStepId, setExpandedStepId] = useState<string | null>(null);
 
-  const toggleExpand = (taskId: string) => {
-  LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-  setExpandedTaskId(prev => (prev === taskId ? null : taskId));
+// Добавьте эту функцию рядом с другими функциями
+const toggleStepExpand = (stepId: string) => {
+  setExpandedStepId(prev => (prev === stepId ? null : stepId));
 };
   const [confirmDialog, setConfirmDialog] = useState({
     visible: false,
