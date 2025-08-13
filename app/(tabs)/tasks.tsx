@@ -257,40 +257,57 @@ const formatDate = (dateString: string) => {
     ))}
   </View>
 )}
-          {completedTasks.length > 0 && (
-            <View style={styles.taskSection}>
-              <Text style={styles.sectionTitle}>{t('tasks.completed')} <Sparkles size={20} color={colors.text} /></Text>
-              {completedTasks.map(task => (
-                <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
-                  <MagicalCheckbox
-                    completed={task.completed}
-                    onPress={() => toggleTask(task.id)}
-                  />
-                  <View style={styles.taskContent}>
-                    <Text style={[styles.taskText, styles.taskTextCompleted]} numberOfLines={3}>
-                      {task.text}
-                    </Text>
-                    {task.dueDate && (
-                      <View style={styles.dueDateContainer}>
-                        <Calendar size={12} color="#9CA3AF" />
-                        <Text style={[styles.listDateText, styles.completedDueDate]}>
-                          {formatDate(task.dueDate)}
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-                  <View style={styles.taskActions}>
-                    <TouchableOpacity
-                      style={styles.deleteButtonInline}
-                      onPress={() => deleteTask(task.id)}
-                    >
-                      <Trash2 size={16} color="#EF4444" />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              ))}
+         {completedTasks.length > 0 && (
+  <View style={styles.taskSection}>
+    <Text style={styles.sectionTitle}>
+      {t('tasks.completed')} <Sparkles size={20} color={colors.text} />
+    </Text>
+    {completedTasks.map(task => (
+      <TouchableOpacity
+        key={task.id}
+        style={[styles.taskContainer, styles.completedTaskContainer]}
+        activeOpacity={0.8}
+        onPress={() => toggleExpand(task.id)}
+      >
+        <MagicalCheckbox
+          completed={task.completed}
+          onPress={(e) => {
+            e.stopPropagation?.(); // Чтобы клик по чекбоксу не разворачивал текст
+            toggleTask(task.id);
+          }}
+        />
+        <View style={styles.taskContent}>
+          <Text
+            style={[styles.taskText, styles.taskTextCompleted]}
+            numberOfLines={expandedTaskId === task.id ? undefined : 3}
+            ellipsizeMode="tail"
+          >
+            {task.text}
+          </Text>
+          {task.dueDate && (
+            <View style={styles.dueDateContainer}>
+              <Calendar size={12} color="#9CA3AF" />
+              <Text style={[styles.listDateText, styles.completedDueDate]}>
+                {formatDate(task.dueDate)}
+              </Text>
             </View>
           )}
+        </View>
+        <View style={styles.taskActions}>
+          <TouchableOpacity
+            style={styles.deleteButtonInline}
+            onPress={(e) => {
+              e.stopPropagation?.(); // Чтобы удаление не разворачивало текст
+              deleteTask(task.id);
+            }}
+          >
+            <Trash2 size={16} color="#EF4444" />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    ))}
+  </View>
+)}
 
           {tasks.length === 0 && (
             <View style={styles.emptyState}>
