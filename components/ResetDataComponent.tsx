@@ -182,18 +182,21 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
     modalHeader: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 8,
+     // gap: 8,
+      
       marginBottom: 8
     },
     modalTitle: {
       fontSize: 20,
       fontWeight: '600',
-      color: colors.text
+      color: colors.text,
+      fontFamily: 'CabinSketch-Bold',
     },
     modalSubtitle: {
       fontSize: 14,
       color: colors.textSecondary,
-      marginBottom: 16
+      marginBottom: 16,
+      fontFamily: 'CabinSketch-Bold',
     },
     optionsContainer: {
       gap: 8,
