@@ -165,9 +165,57 @@
   "titlePlaceholder": "Título de la nota (opcional)",
   "contentPlaceholder": "¿Qué estás pensando?",
    "deleteTitle": "Eliminar nota",
-  "deleteMessage": "¿Estás seguro de que quieres eliminar esta nota?",
-  
+  "deleteMessage": "¿Estás seguro de que quieres eliminar esta nota?",  
 }
-
+ "reset": {
+      "button": "Restablecer datos",
+      "modal": {
+        "title": "Restablecer datos",
+        "subtitle": "Selecciona qué datos eliminar:",
+        "delete": "ELIMINAR", 
+        "deleting": "Eliminando..."
+      },
+      "options": {
+        "tasks": {
+          "title": "Tareas",
+          "description": "Todas las tareas únicas"
+        },
+        "routines": {
+          "title": "Rutinas",
+          "description": "Rutinas matutinas y nocturnas"
+        },
+        "notes": {
+          "title": "Notas",
+          "description": "Todas las notas personales"
+        },
+        "progress": {
+          "title": "Progreso y victorias", 
+          "description": "Historial de completado y logros"
+        },
+        "settings": {
+          "title": "Configuración",
+          "description": "Idioma, tema, modos"
+        }
+      },
+      "confirm": {
+        "title": "⚠️ ¡Atención!",
+        "message": "Vas a eliminar permanentemente {{count}} tipos de datos.\n\n¡Esta acción no se puede deshacer!",
+        "delete": "ELIMINAR"
+      },
+      "alerts": {
+        "nothingSelected": {
+          "title": "Nada seleccionado",
+          "message": "Selecciona datos para restablecer"
+        },
+        "success": {
+          "title": "¡Listo! ✅",
+          "message": "Claves eliminadas: {{count}}\n\nReinicia la app para actualización completa."
+        },
+        "error": {
+          "title": "Error",
+          "message": "No se pudieron restablecer los datos"
+        }
+      }
+    }
   
 }
