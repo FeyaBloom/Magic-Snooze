@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles, dayWidth } from '@/styles/calendar';
 import i18n from '@/i18n';
+
 const { t } = i18n;
+
 interface CalendarProps {
   // Для выбора даты (модалка)
   selectedDate?: Date;
@@ -47,14 +49,30 @@ export default function Calendar({
   maxDate,
 }: CalendarProps) {
   const { colors } = useTheme();
-  const styles = createCalendarStyles(colors);
   const [currentMonth, setCurrentMonth] = useState(initialMonth);
+  const [stylesReady, setStylesReady] = useState(false);
+  
+  // Мемоизируем стили для предотвращения пересоздания
+  const styles = useMemo(() => {
+    if (!colors) return {};
+    return createCalendarStyles(colors);
+  }, [colors]);
+
+  // Проверяем готовность стилей и colors
+  useEffect(() => {
+    if (colors && Object.keys(styles).length > 0) {
+      // Используем requestAnimationFrame для гарантии готовности рендера
+      requestAnimationFrame(() => {
+        setStylesReady(true);
+      });
+    }
+  }, [colors, styles]);
 
   useEffect(() => {
-    if (onMonthChange) {
+    if (onMonthChange && stylesReady) {
       onMonthChange(currentMonth);
     }
-  }, [currentMonth, onMonthChange]);
+  }, [currentMonth, onMonthChange, stylesReady]);
 
   const navigateMonth = (direction: 'prev' | 'next') => {
     const newMonth = new Date(currentMonth);
@@ -73,7 +91,10 @@ export default function Calendar({
     onDateSelect(date);
   };
 
-  const renderCalendar = () => {
+  // Мемоизируем рендер календаря для оптимизации
+  const calendarDays = useMemo(() => {
+    if (!stylesReady || !styles.dayContainer) return [];
+
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
     const firstDay = new Date(year, month, 1);
@@ -110,6 +131,7 @@ export default function Calendar({
             style={[styles.dayContainer, { width: dayWidth }]}
             onPress={() => handleDatePress(date)}
             disabled={disabled}
+            activeOpacity={0.7}
           >
             <View style={[
               styles.dayCell,
@@ -133,10 +155,14 @@ export default function Calendar({
       }
     }
 
+    return daysArray;
+  }, [currentMonth, selectedDate, customDayRenderer, styles, stylesReady, minDate, maxDate, onDateSelect]);
+
+  const renderCalendar = () => {
     // split into 6 rows of 7 days
     const rows = [];
     for (let i = 0; i < 6; i++) {
-      const week = daysArray.slice(i * 7, i * 7 + 7);
+      const week = calendarDays.slice(i * 7, i * 7 + 7);
       rows.push(
         <View key={i} style={{ flexDirection: 'row', justifyContent: 'center' }}>
           {week}
@@ -147,40 +173,57 @@ export default function Calendar({
     return rows;
   };
 
-  const renderWeekDays = () => {
+  // Мемоизируем дни недели
+  const weekDaysComponent = useMemo(() => {
     const weekDays = [
       t('common.Sun'), 
-       t('common.Mon'),
-       t('common.Tue'),
-       t('common.Wed'),
-       t('common.Thu'),
-       t('common.Fri'),
-       t('common.Sat'),
-     ];
+      t('common.Mon'),
+      t('common.Tue'),
+      t('common.Wed'),
+      t('common.Thu'),
+      t('common.Fri'),
+      t('common.Sat'),
+    ];
+    
     return weekDays.map((day) => (
       <Text key={day} style={[styles.weekDayText, { width: dayWidth }]}>
         {day}
       </Text>
     ));
-  };
+  }, [styles.weekDayText]);
 
   const capitalizeFirst = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
-const mapLocale: Record<string, string> = {
-  en: 'en-US',
-  ru: 'ru-RU',
-  es: 'es-ES',
+  const mapLocale: Record<string, string> = {
+    en: 'en-US',
+    ru: 'ru-RU',
+    es: 'es-ES',
+    // добавь другие при необходимости
+  };
 
-  // добавь другие при необходимости
-};
+  // Мемоизируем название месяца
+  const monthName = useMemo(() => {
+    return capitalizeFirst(
+      currentMonth.toLocaleDateString(mapLocale[i18n.language] || 'en-US', {
+        month: 'long',
+        year: 'numeric',
+      })
+    );
+  }, [currentMonth, i18n.language]);
 
-const monthName = capitalizeFirst(
-  currentMonth.toLocaleDateString(mapLocale[i18n.language] || 'en-US', {
-    month: 'long',
-    year: 'numeric',
-  })
-);
-
+  // Показываем загрузку или пустой контейнер пока стили не готовы
+  if (!stylesReady || !colors) {
+    return (
+      <View style={{ 
+        height: 350, // примерная высота календаря
+        justifyContent: 'center', 
+        alignItems: 'center',
+        opacity: 0.5 
+      }}>
+        <Text style={{ color: colors?.secondary || '#666' }}>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={[styles.calendarContainer, { alignItems: 'center' }]}>
@@ -188,6 +231,7 @@ const monthName = capitalizeFirst(
         <TouchableOpacity
           style={styles.navButton}
           onPress={() => navigateMonth('prev')}
+          activeOpacity={0.7}
         >
           <ChevronLeft size={24} color={colors.secondary} />
         </TouchableOpacity>
@@ -195,6 +239,7 @@ const monthName = capitalizeFirst(
         <TouchableOpacity
           style={styles.navButton}
           onPress={() => navigateMonth('next')}
+          activeOpacity={0.7}
         >
           <ChevronRight size={24} color={colors.secondary} />
         </TouchableOpacity>
@@ -202,10 +247,11 @@ const monthName = capitalizeFirst(
 
       <View style={styles.weekDaysContainer}>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          {renderWeekDays()}
+          {weekDaysComponent}
         </View>
       </View>
-      <View style={[styles.daysContainer, { flexDirection: 'row', justifyContent: 'center' }]}>
+      
+      <View style={[styles.daysContainer, { flexDirection: 'column', alignItems: 'center' }]}>
         {renderCalendar()}
       </View>
     </View>
