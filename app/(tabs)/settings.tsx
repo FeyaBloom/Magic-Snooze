@@ -127,12 +127,7 @@ export default function SettingsTab() {
 
 
             
-            <TouchableOpacity 
-  style={{padding: 10, backgroundColor: 'red', margin: 10}} 
-  onPress={ResetDataComponent}
->
-  <Text style={{color: 'white'}}>RESET PROFILE DATA</Text>
-</TouchableOpacity>
+           <ResetDataComponent colors={colors} styles={styles} />
 {/*
             <TouchableOpacity style={styles.row}>
               <View>
