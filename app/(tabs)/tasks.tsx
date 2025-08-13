@@ -203,9 +203,10 @@ const formatDate = (dateString: string) => {
     <Text style={styles.sectionTitle}>{t('tasks.active')}</Text>
     {activeTasks.map(task => (
       <View key={task.id} style={styles.taskContainer}>
-        <TouchableOpacity onPress={() => toggleTask(task.id)}>
-          <MagicalCheckbox completed={task.completed} />
-        </TouchableOpacity>
+        <MagicalCheckbox 
+          completed={task.completed} 
+          onPress={() => toggleTask(task.id)} 
+        />
 
         <TouchableWithoutFeedback onPress={() => toggleExpand(task.id)}>
           <View style={styles.taskContent}>
@@ -266,9 +267,10 @@ const formatDate = (dateString: string) => {
     </Text>
     {completedTasks.map(task => (
       <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
-        <TouchableOpacity onPress={() => toggleTask(task.id)}>
-          <MagicalCheckbox completed={task.completed} />
-        </TouchableOpacity>
+        <MagicalCheckbox 
+          completed={task.completed} 
+          onPress={() => toggleTask(task.id)} 
+        />
 
         <TouchableWithoutFeedback onPress={() => toggleExpand(task.id)}>
           <View style={styles.taskContent}>
