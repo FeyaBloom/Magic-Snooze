@@ -166,7 +166,7 @@
   "contentPlaceholder": "¿Qué estás pensando?",
    "deleteTitle": "Eliminar nota",
   "deleteMessage": "¿Estás seguro de que quieres eliminar esta nota?",  
-}
+},
  "reset": {
       "button": "Restablecer datos",
       "modal": {
