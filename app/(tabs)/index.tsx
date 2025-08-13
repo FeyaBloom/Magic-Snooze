@@ -305,7 +305,7 @@ const toggleStepExpand = (stepId: string) => {
     }
   };
 
-  const renderRoutineSection = (title: string, routine: RoutineStep[], routineType: 'morning' | 'evening', icon: React.ReactNode) => (
+ const renderRoutineSection = (title: string, routine: RoutineStep[], routineType: 'morning' | 'evening', icon: React.ReactNode) => (
   <View style={[styles.routineSection, { backgroundColor: colors.surface }]}>
     <View style={styles.routineHeader}>
       <View style={styles.routineTitle}>
@@ -331,19 +331,17 @@ const toggleStepExpand = (stepId: string) => {
           disabled={isSnoozed}
         />
         <TouchableWithoutFeedback onPress={() => toggleStepExpand(step.id)}>
-          <View style={styles.stepContent}>
-            <Text style={[
-              styles.stepText,
-              { color: colors.text, fontFamily: 'ComicNeue-Regular' },
-              step.completed && styles.stepTextCompleted,
-              isSnoozed && styles.stepTextDisabled,
-            ]}
-            numberOfLines={expandedStepId === step.id ? undefined : 3}
-            ellipsizeMode="tail"
-            >
-              {step.text}
-            </Text>
-          </View>
+          <Text style={[
+            styles.stepText,
+            { color: colors.text, fontFamily: 'ComicNeue-Regular' },
+            step.completed && styles.stepTextCompleted,
+            isSnoozed && styles.stepTextDisabled,
+          ]}
+          numberOfLines={expandedStepId === step.id ? undefined : 3}
+          ellipsizeMode="tail"
+          >
+            {step.text}
+          </Text>
         </TouchableWithoutFeedback>
         
         <View style={styles.stepActions}>
