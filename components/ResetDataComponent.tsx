@@ -213,14 +213,14 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       flex: 1
     },
     optionTitle: {
-      fontSize: 16,
+      fontSize: 14,
       fontWeight: '500',
       marginBottom: 2,
       color: colors.text,
       fontFamily: 'ComicNeue-Regular',
     },
     optionDescription: {
-      fontSize: 14,
+      fontSize: 12,
       fontFamily: 'ComicNeue-Regular',
       color: colors.textSecondary
     },
