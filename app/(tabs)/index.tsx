@@ -329,14 +329,21 @@ function TodayTabContent() {
             onPress={() => toggleStep(step.id, routineType)}
             disabled={isSnoozed}
           />
-          <Text style={[
-            styles.stepText,
-            { color: colors.text, fontFamily: 'ComicNeue-Regular' },
-            step.completed && styles.stepTextCompleted,
-            isSnoozed && styles.stepTextDisabled,
-          ]}>
-            {step.text}
-          </Text>
+         <TouchableWithoutFeedback onPress={() => toggleStepExpand(step.id)}>
+          <View style={styles.stepContent}>
+            <Text style={[
+              styles.stepText,
+              { color: colors.text, fontFamily: 'ComicNeue-Regular' },
+              step.completed && styles.stepTextCompleted,
+              isSnoozed && styles.stepTextDisabled,
+            ]}
+            numberOfLines={expandedStepId === step.id ? undefined : 3}
+            ellipsizeMode="tail"
+            >
+              {step.text}
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
           
           <View style={styles.stepActions}>
             <TouchableOpacity
