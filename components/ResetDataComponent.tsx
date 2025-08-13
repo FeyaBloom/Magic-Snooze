@@ -166,7 +166,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       padding: 20
     },
     modalContent: {
-  backgroundColor: colors.background, // ← Уже есть
+ // backgroundColor: colors.background, // ← Уже есть
   borderRadius: 16,
   padding: 20,
   width: '100%',
@@ -176,6 +176,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
   shadowOffset: { width: 0, height: 4 },
   shadowOpacity: 0.25,
   shadowRadius: 8,
+      backgroundColor: colors.surface || '#FFFFFF', // Белый как fallback
       opacity: 1,
   elevation: 8, // Для Android
 },
