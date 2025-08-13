@@ -216,10 +216,12 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       fontSize: 16,
       fontWeight: '500',
       marginBottom: 2,
-      color: colors.text
+      color: colors.text,
+      fontFamily: 'ComicNeue-Regular',
     },
     optionDescription: {
       fontSize: 14,
+      fontFamily: 'ComicNeue-Regular',
       color: colors.textSecondary
     },
     checkbox: {
@@ -244,6 +246,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       flex: 1,
       padding: 12,
       borderRadius: 8,
+      fontFamily: 'ComicNeue-Regular',
       alignItems: 'center',
       justifyContent: 'center'
     },
