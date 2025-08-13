@@ -176,6 +176,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
   shadowOffset: { width: 0, height: 4 },
   shadowOpacity: 0.25,
   shadowRadius: 8,
+      opacity: 1,
   elevation: 8, // Для Android
 },
     modalHeader: {
