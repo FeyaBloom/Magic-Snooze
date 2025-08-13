@@ -154,7 +154,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
     padding: 12,
     borderRadius: 8,
     margin: 16,
- //   gap: 8
+    gap: 8
   };
 
   const modalStyles = {
