@@ -4,8 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Trash2, RotateCcw, AlertTriangle } from 'lucide-react-native';
 import i18n from '@/i18n';
 
-const { t } = i18n;
-
 interface ResetDataProps {
   colors: any;
   styles: any;
@@ -21,6 +19,7 @@ interface ResetOption {
 }
 
 const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
+  const { t } = i18n;
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetting, setResetting] = useState(false);
 
