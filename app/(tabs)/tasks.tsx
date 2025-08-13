@@ -39,10 +39,10 @@ interface Task {
 export default function TasksTab() {
   const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
- const route = useRoute();
-const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
-const gradient = getTabGradient(route.name);
-
+  const route = useRoute();
+  const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
+  const gradient = getTabGradient(route.name);
+  
   const styles = createTasksStyles(colors);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -53,12 +53,13 @@ const gradient = getTabGradient(route.name);
 
   const [showCalendar, setShowCalendar] = useState(false);
   const [showEditCalendar, setShowEditCalendar] = useState(false);
-
   const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
 
 const toggleExpand = (taskId: string) => {
+  LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   setExpandedTaskId(prev => (prev === taskId ? null : taskId));
 };
+
   
  const [confirmDialog, setConfirmDialog] = useState({
   visible: false,
