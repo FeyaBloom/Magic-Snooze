@@ -25,7 +25,7 @@ import i18n from '@/i18n';
 import { LanguageModal } from '@/components/LanguageModal';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import ResetDataComponent from '@/components/ResetDataComponent';
 
 export default function SettingsTab() {
   const { colors, toggleMessyMode, isMessyMode } = useTheme();
@@ -124,11 +124,14 @@ export default function SettingsTab() {
               </View>
               <LogIn color={colors.textSecondary} size={20} />
             </TouchableOpacity>
+
+
+            
             <TouchableOpacity 
   style={{padding: 10, backgroundColor: 'red', margin: 10}} 
-  onPress={debugAsyncStorage}
+  onPress={ResetDataComponent}
 >
-  <Text style={{color: 'white'}}>DEBUG ASYNC STORAGE</Text>
+  <Text style={{color: 'white'}}>RESET PROFILE DATA</Text>
 </TouchableOpacity>
 {/*
             <TouchableOpacity style={styles.row}>
