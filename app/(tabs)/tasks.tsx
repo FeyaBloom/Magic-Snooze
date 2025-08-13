@@ -22,14 +22,6 @@ import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
 import { TouchableWithoutFeedback } from 'react-native';
 
-import { LayoutAnimation, Platform, UIManager } from 'react-native';
-
-// В начале файла (чтобы Android тоже поддерживал анимации)
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
-
-
 const { t } = i18n;
 interface Task {
   id: string;
@@ -59,7 +51,6 @@ export default function TasksTab() {
   const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
 
 const toggleExpand = (taskId: string) => {
-  LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   setExpandedTaskId(prev => (prev === taskId ? null : taskId));
 };
 
