@@ -177,7 +177,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
   shadowOpacity: 0.25,
   shadowRadius: 8,
   elevation: 8, // Для Android
-}
+},
     modalHeader: {
       flexDirection: 'row',
       alignItems: 'center',
