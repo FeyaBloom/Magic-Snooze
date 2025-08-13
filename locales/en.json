@@ -168,5 +168,58 @@
   "notes": "Notes",
   "settings": "⚙ Settings"
 }
+
+  
+  "reset": {
+    "button": "Reset Data",
+    "modal": {
+      "title": "Reset Data",
+      "subtitle": "Select which data to delete:",
+      "delete": "DELETE",
+      "deleting": "Deleting..."
+    },
+    "options": {
+      "tasks": {
+        "title": "Tasks",
+        "description": "All one-time tasks"
+      },
+      "routines": {
+        "title": "Routines", 
+        "description": "Morning and evening routines"
+      },
+      "notes": {
+        "title": "Notes",
+        "description": "All personal notes"
+      },
+      "progress": {
+        "title": "Progress & Victories",
+        "description": "Completion history and achievements"
+      },
+      "settings": {
+        "title": "Settings",
+        "description": "Language, theme, modes"
+      }
+    },
+    "confirm": {
+      "title": "⚠️ Warning!",
+      "message": "You are about to permanently delete {{count}} data types.\n\nThis action cannot be undone!",
+      "delete": "DELETE"
+    },
+    "alerts": {
+      "nothingSelected": {
+        "title": "Nothing Selected",
+        "message": "Please select data to reset"
+      },
+      "success": {
+        "title": "Done! ✅",
+        "message": "Deleted keys: {{count}}\n\nRestart the app for full refresh."
+      },
+      "error": {
+        "title": "Error",
+        "message": "Failed to reset data"
+      }
+    }
+  }
+
   
 }
