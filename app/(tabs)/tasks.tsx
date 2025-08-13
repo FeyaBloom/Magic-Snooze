@@ -22,8 +22,12 @@ import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
 import { TouchableWithoutFeedback } from 'react-native';
 
+import { LayoutAnimation, Platform, UIManager } from 'react-native';
 
 // В начале файла (чтобы Android тоже поддерживал анимации)
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 
 const { t } = i18n;
