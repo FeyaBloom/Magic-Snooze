@@ -203,11 +203,9 @@ const formatDate = (dateString: string) => {
     <Text style={styles.sectionTitle}>{t('tasks.active')}</Text>
     {activeTasks.map(task => (
       <View key={task.id} style={styles.taskContainer}>
-        <TouchableWithoutFeedback onPress={() => toggleTask(task.id)}>
-          <View>
-            <MagicalCheckbox completed={task.completed} />
-          </View>
-        </TouchableWithoutFeedback>
+        <TouchableOpacity onPress={() => toggleTask(task.id)}>
+          <MagicalCheckbox completed={task.completed} />
+        </TouchableOpacity>
 
         <TouchableWithoutFeedback onPress={() => toggleExpand(task.id)}>
           <View style={styles.taskContent}>
@@ -245,7 +243,7 @@ const formatDate = (dateString: string) => {
         </TouchableWithoutFeedback>
 
         <View style={styles.taskActions}>
-          <TouchableWithoutFeedback onPress={() => {
+          <TouchableOpacity onPress={() => {
             setEditingTask(task);
             setNewTaskText(task.text);
             setNewTaskDueDate(task.dueDate || '');
@@ -254,7 +252,7 @@ const formatDate = (dateString: string) => {
             <View style={styles.deleteButtonInline}>
               <Edit size={16} color={colors.textSecondary} />
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       </View>
     ))}
@@ -268,11 +266,9 @@ const formatDate = (dateString: string) => {
     </Text>
     {completedTasks.map(task => (
       <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
-        <TouchableWithoutFeedback onPress={() => toggleTask(task.id)}>
-          <View>
-            <MagicalCheckbox completed={task.completed} />
-          </View>
-        </TouchableWithoutFeedback>
+        <TouchableOpacity onPress={() => toggleTask(task.id)}>
+          <MagicalCheckbox completed={task.completed} />
+        </TouchableOpacity>
 
         <TouchableWithoutFeedback onPress={() => toggleExpand(task.id)}>
           <View style={styles.taskContent}>
@@ -295,11 +291,11 @@ const formatDate = (dateString: string) => {
         </TouchableWithoutFeedback>
 
         <View style={styles.taskActions}>
-          <TouchableWithoutFeedback onPress={() => deleteTask(task.id)}>
+          <TouchableOpacity onPress={() => deleteTask(task.id)}>
             <View style={styles.deleteButtonInline}>
               <Trash2 size={16} color="#EF4444" />
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       </View>
     ))}
