@@ -47,20 +47,21 @@ export const FloatingBackground: React.FC<{ style?: any }> = ({ style }) => {
 };
 
 
-// ---- MAGIC SPARKLE ON CHECKBOX ----
 export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
   const { colors } = useTheme();
   const styles = createMagicStyles(colors);
   const [sparkles, setSparkles] = useState([]);
   const scaleAnim = useMemo(() => new Animated.Value(1), []);
-
+  
   const handlePress = () => {
     if (disabled) return;
     Animated.sequence([
       Animated.timing(scaleAnim, { toValue: 1.2, duration: 100, useNativeDriver: true }),
       Animated.timing(scaleAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
     ]).start(() => {
-       onPress();
+       if (onPress) {
+         onPress();
+       }
     });
   };
   
