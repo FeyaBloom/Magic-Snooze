@@ -9,6 +9,7 @@ import {
   TextInput,
   Modal,
   Alert,
+  DeviceEventEmitter, // 🚀 ДОБАВЛЕНО
 } from 'react-native';
 import i18n from '@/i18n';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -22,7 +23,6 @@ import { ConfirmDialog } from "@/components/confirmDialog";
 import { useRouter } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
 import { TouchableWithoutFeedback } from 'react-native';
-
 
 // Импортируем хуки
 import { useDailyProgress } from '@/hooks/useDailyProgress';
@@ -57,13 +57,12 @@ function TodayTabContent() {
   const [newStepText, setNewStepText] = useState('');
   const [editingStep, setEditingStep] = useState<RoutineStep | null>(null);
   const [isSnoozed, setIsSnoozed] = useState(false);
-  // Добавьте это состояние в начало компонента, рядом с другими useState
-const [expandedStepId, setExpandedStepId] = useState<string | null>(null);
+  const [expandedStepId, setExpandedStepId] = useState<string | null>(null);
 
-// Добавьте эту функцию рядом с другими функциями
-const toggleStepExpand = (stepId: string) => {
-  setExpandedStepId(prev => (prev === stepId ? null : stepId));
-};
+  const toggleStepExpand = (stepId: string) => {
+    setExpandedStepId(prev => (prev === stepId ? null : stepId));
+  };
+
   const [confirmDialog, setConfirmDialog] = useState({
     visible: false,
     title: '',
@@ -84,7 +83,84 @@ const toggleStepExpand = (stepId: string) => {
     enabled: true
   });
 
- const today = getLocalDateString(new Date());
+  const today = getLocalDateString(new Date());
+
+  // 🚀 НОВЫЙ ЭФФЕКТ: Слушатель событий сброса данных
+  useEffect(() => {
+    const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
+      console.log('TodayTab received data reset event:', data);
+      
+      // Проверяем, затронул ли сброс рутины
+      if (data.categories.includes('routines')) {
+        console.log('Resetting routines to defaults...');
+        loadDefaultRoutines();
+      }
+      
+      // Проверяем, затронул ли сброс прогресс
+      if (data.categories.includes('progress')) {
+        console.log('Resetting routines progress...');
+        setIsSnoozed(false);
+        // Сбрасываем все чекбоксы в рутинах
+        resetRoutineCheckboxes();
+      }
+    };
+
+    const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
+    
+    return () => {
+      listener.remove();
+    };
+  }, [morningRoutine, eveningRoutine]);
+
+  // 🔄 НОВАЯ ФУНКЦИЯ: Загрузка дефолтных рутин
+  const loadDefaultRoutines = async () => {
+    try {
+      // Default morning routine
+      const defaultMorning = [
+        { id: '1', text: t('today.defaultMorning.stretch'), completed: false },
+        { id: '2', text: t('today.defaultMorning.breathing'), completed: false },
+        { id: '3', text: t('today.defaultMorning.intention'), completed: false },
+      ];
+      
+      // Default evening routine
+      const defaultEvening = [
+        { id: '1', text: t('today.defaultEvening.reflect'), completed: false },
+        { id: '2', text: t('today.defaultEvening.selfCare'), completed: false },
+        { id: '3', text: t('today.defaultEvening.prepare'), completed: false },
+      ];
+      
+      setMorningRoutine(defaultMorning);
+      setEveningRoutine(defaultEvening);
+      
+      // Сохраняем в AsyncStorage
+      await AsyncStorage.setItem('morningRoutine', JSON.stringify(defaultMorning));
+      await AsyncStorage.setItem('eveningRoutine', JSON.stringify(defaultEvening));
+      
+      console.log('Default routines loaded');
+    } catch (error) {
+      console.error('Error loading default routines:', error);
+    }
+  };
+
+  // 🔄 НОВАЯ ФУНКЦИЯ: Сброс чекбоксов в рутинах
+  const resetRoutineCheckboxes = async () => {
+    try {
+      // Сбрасываем completed: false для всех шагов
+      const resetMorning = morningRoutine.map(step => ({ ...step, completed: false }));
+      const resetEvening = eveningRoutine.map(step => ({ ...step, completed: false }));
+      
+      setMorningRoutine(resetMorning);
+      setEveningRoutine(resetEvening);
+      
+      // Сохраняем в AsyncStorage
+      await AsyncStorage.setItem('morningRoutine', JSON.stringify(resetMorning));
+      await AsyncStorage.setItem('eveningRoutine', JSON.stringify(resetEvening));
+      
+      console.log('Routine checkboxes reset');
+    } catch (error) {
+      console.error('Error resetting routine checkboxes:', error);
+    }
+  };
  
   // Функция сброса данных в полночь
   const resetDailyData = async () => {
@@ -305,66 +381,70 @@ const toggleStepExpand = (stepId: string) => {
     }
   };
 
- const renderRoutineSection = (title: string, routine: RoutineStep[], routineType: 'morning' | 'evening', icon: React.ReactNode) => (
-  <View style={[styles.routineSection, { backgroundColor: colors.surface }]}>
-    <View style={styles.routineHeader}>
-      <View style={styles.routineTitle}>
-        {icon}
-        <Text style={[styles.routineTitleText, { color: colors.text }]}>{title}</Text>
-      </View>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => {
-          setCurrentRoutine(routineType);
-          setShowAddModal(true);
-        }}
-      >
-        <Plus size={20} color={colors.primary} />
-      </TouchableOpacity>
-    </View>
-    
-    {routine.map((step) => (
-      <View key={step.id} style={styles.stepContainer}>
-        <MagicalCheckbox
-          completed={step.completed}
-          onPress={() => toggleStep(step.id, routineType)}
-          disabled={isSnoozed}
-        />
-        <TouchableWithoutFeedback onPress={() => toggleStepExpand(step.id)}>
-          <Text style={[
-            styles.stepText,
-            { color: colors.text, fontFamily: 'ComicNeue-Regular' },
-            step.completed && styles.stepTextCompleted,
-            isSnoozed && styles.stepTextDisabled,
-          ]}
-          numberOfLines={expandedStepId === step.id ? undefined : 3}
-          ellipsizeMode="tail"
-          >
-            {step.text}
-          </Text>
-        </TouchableWithoutFeedback>
-        
-        <View style={styles.stepActions}>
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => {
-              setCurrentRoutine(routineType);
-              setEditingStep(step);
-              setNewStepText(step.text);
-              setShowEditModal(true);
-            }}
-            disabled={isSnoozed}
-          >          
-            <Edit 
-              size={16} 
-              color={isSnoozed ? colors.textSecondary + '50' : colors.textSecondary} 
-            />
-          </TouchableOpacity>
+  const renderRoutineSection = (title: string, routine: RoutineStep[], routineType: 'morning' | 'evening', icon: React.ReactNode) => (
+    <View style={[styles.routineSection, { backgroundColor: colors.surface }]}>
+      <View style={styles.routineHeader}>
+        <View style={styles.routineTitle}>
+          {icon}
+          <Text style={[styles.routineTitleText, { color: colors.text }]}>{title}</Text>
         </View>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => {
+            setCurrentRoutine(routineType);
+            setShowAddModal(true);
+          }}
+        >
+          <Plus size={20} color={colors.primary} />
+        </TouchableOpacity>
       </View>
-    ))}
-  </View>
-);
+      
+      {routine.map((step) => (
+        <View key={step.id} style={styles.stepContainer}>
+          <MagicalCheckbox
+            completed={step.completed}
+            onPress={() => toggleStep(step.id, routineType)}
+            disabled={isSnoozed}
+          />
+          <TouchableWithoutFeedback onPress={() => toggleStepExpand(step.id)}>
+            <Text style={[
+              styles.stepText,
+              { color: colors.text, fontFamily: 'ComicNeue-Regular' },
+              step.completed && styles.stepTextCompleted,
+              isSnoozed && styles.stepTextDisabled,
+            ]}
+            numberOfLines={expandedStepId === step.id ? undefined : 3}
+            ellipsizeMode="tail"
+            >
+              {step.text}
+            </Text>
+          </TouchableWithoutFeedback>
+          
+          <View style={styles.stepActions}>
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => {
+                setCurrentRoutine(routineType);
+                setEditingStep(step);
+                setNewStepText(step.text);
+                setShowEditModal(true);
+              }}
+              disabled={isSnoozed}
+            >          
+              <Edit 
+                size={16} 
+                color={isSnoozed ? colors.textSecondary + '50' : colors.textSecondary} 
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      ))}
+    </View>
+  );
+
+  // Остальная часть компонента (JSX с рендерингом UI) остается без изменений...
+  // [Здесь должен быть остальной JSX код компонента]
+
 
   return (
     <SafeAreaView style={styles.container}>
