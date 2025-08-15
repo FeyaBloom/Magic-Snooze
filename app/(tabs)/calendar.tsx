@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   SafeAreaView,
+  DeviceEventEmitter,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
@@ -46,6 +47,28 @@ const gradient = getTabGradient(route.name);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [progressData, setProgressData] = useState<Record<string, DailyProgress>>({});
 
+  // 🚀 НОВЫЙ ЭФФЕКТ: Слушатель событий сброса данных
+  useEffect(() => {
+    const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
+      console.log('CalendarTab received data reset event:', data);
+      
+      // Проверяем, затронул ли сброс прогресс рутин или сами рутины
+      if (data.categories.includes('progress') || data.categories.includes('routines')) {
+        console.log('Resetting calendar data...');
+        // Очищаем локальное состояние
+        setProgressData({});
+        // Перезагружаем данные с AsyncStorage
+        loadProgressData();
+      }
+    };
+
+    const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
+    
+    return () => {
+      listener.remove();
+    };
+  }, [currentMonth]); // зависимость от currentMonth для корректной перезагрузки
+
   useFocusEffect(
     useCallback(() => {
     loadProgressData();
@@ -69,11 +92,17 @@ const gradient = getTabGradient(route.name);
         }
       }
 
+      console.log('Loaded progress data for calendar:', Object.keys(progress).length, 'days');
       setProgressData(progress);
     } catch (error) {
       console.error('Error loading progress data:', error);
     }
   };
+
+  // 🔄 ОБНОВЛЕННЫЙ ЭФФЕКТ: Перезагружаем данные при смене месяца
+  useEffect(() => {
+    loadProgressData();
+  }, [currentMonth]);
 
   const getDayStatus = (dateString: string) => {
     const progress = progressData[dateString];
