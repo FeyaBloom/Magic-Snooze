@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, Alert, DeviceEventEmitter } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Trash2, RotateCcw, AlertTriangle } from 'lucide-react-native';
 import i18n from '@/i18n';
@@ -81,10 +81,12 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       setResetting(true);
       
       const keysToDelete: string[] = [];
+      const resetCategories: string[] = [];
       
       for (const option of resetOptions) {
         if (selectedOptions[option.id]) {
           keysToDelete.push(...option.keys);
+          resetCategories.push(option.id); // 🔥 Запоминаем какие категории сбрасываем
           
           if (option.pattern) {
             const allKeys = await AsyncStorage.getAllKeys();
@@ -108,6 +110,13 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
 
       await AsyncStorage.multiRemove(uniqueKeys);
       
+      // 🚀 КЛЮЧЕВОЕ ДОПОЛНЕНИЕ: Уведомляем все компоненты о сбросе данных
+      DeviceEventEmitter.emit('dataReset', { 
+        categories: resetCategories,
+        deletedKeys: uniqueKeys,
+        timestamp: Date.now()
+      });
+      
       setShowResetModal(false);
       Alert.alert(
         t('reset.alerts.success.title'),
@@ -116,6 +125,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       );
       
       console.log('Deleted keys:', uniqueKeys);
+      console.log('Reset categories:', resetCategories);
       
     } catch (error) {
       console.error('Error resetting data:', error);
@@ -154,7 +164,6 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
     padding: 12,
     borderRadius: 8,
     margin: 16,
- //   gap: 8
   };
 
   const modalStyles = {
@@ -166,24 +175,21 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       padding: 20
     },
     modalContent: {
-  backgroundColor: colors.surface, // ← Уже есть
-  borderRadius: 16,
-  padding: 20,
-  width: '100%',
-  maxHeight: '80%',
-  // Добавьте эти строки:
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 4 },
-  shadowOpacity: 0.25,
-  shadowRadius: 8,    
-  opacity: 1,
-  elevation: 8, // Для Android
-},
+      backgroundColor: colors.surface,
+      borderRadius: 16,
+      padding: 20,
+      width: '100%',
+      maxHeight: '80%',
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.25,
+      shadowRadius: 8,    
+      opacity: 1,
+      elevation: 8,
+    },
     modalHeader: {
       flexDirection: 'row',
       alignItems: 'center',
-     // gap: 8,
-      
       marginBottom: 8
     },
     modalTitle: {
