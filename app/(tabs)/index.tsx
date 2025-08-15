@@ -145,16 +145,23 @@ function TodayTabContent() {
   // 🔄 НОВАЯ ФУНКЦИЯ: Сброс чекбоксов в рутинах
   const resetRoutineCheckboxes = async () => {
     try {
-      // Сбрасываем completed: false для всех шагов
-      const resetMorning = morningRoutine.map(step => ({ ...step, completed: false }));
-      const resetEvening = eveningRoutine.map(step => ({ ...step, completed: false }));
+      // Загружаем актуальные рутины из AsyncStorage
+      const morningData = await AsyncStorage.getItem('morningRoutine');
+      const eveningData = await AsyncStorage.getItem('eveningRoutine');
       
-      setMorningRoutine(resetMorning);
-      setEveningRoutine(resetEvening);
+      if (morningData) {
+        const currentMorning = JSON.parse(morningData);
+        const resetMorning = currentMorning.map((step: any) => ({ ...step, completed: false }));
+        setMorningRoutine(resetMorning);
+        await AsyncStorage.setItem('morningRoutine', JSON.stringify(resetMorning));
+      }
       
-      // Сохраняем в AsyncStorage
-      await AsyncStorage.setItem('morningRoutine', JSON.stringify(resetMorning));
-      await AsyncStorage.setItem('eveningRoutine', JSON.stringify(resetEvening));
+      if (eveningData) {
+        const currentEvening = JSON.parse(eveningData);
+        const resetEvening = currentEvening.map((step: any) => ({ ...step, completed: false }));
+        setEveningRoutine(resetEvening);
+        await AsyncStorage.setItem('eveningRoutine', JSON.stringify(resetEvening));
+      }
       
       console.log('Routine checkboxes reset');
     } catch (error) {
