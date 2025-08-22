@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import i18n from '@/i18n';
-import { LanguageModal } from '@/components/LanguageModal';
 const { t } = i18n;
 export const ConfirmDialog = ({
   visible,

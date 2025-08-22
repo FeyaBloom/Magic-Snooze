@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
@@ -29,10 +28,9 @@ interface Note {
 }
 
 export default function NotesTab() {
-  const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const route = useRoute();
-  const { colors, getTabGradient, currentTheme } = useTheme();
+  const { colors, getTabGradient } = useTheme();
   const gradient = getTabGradient(route.name);
   const styles = createNotesStyles(colors);
   const [notes, setNotes] = useState<Note[]>([]);

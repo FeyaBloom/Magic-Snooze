@@ -17,7 +17,6 @@ import { createCalendarStyles } from '@/styles/calendar';
 import { FloatingBackground } from "@/components/MagicalFeatures";
 import CustomCalendar from '@/components/customCalendar';
 import i18n from '@/i18n';
-import { LanguageModal } from '@/components/LanguageModal';
 const { t } = i18n;
 interface DailyProgress {
   date: string;
@@ -38,9 +37,8 @@ const getLocalDateString = (date: Date) => {
 };
 
 export default function CalendarTab() {
-  const currentLanguageCode = i18n.language;
   const route = useRoute();
-const { colors, getTabGradient, currentTheme } = useTheme();
+const { colors, getTabGradient } = useTheme();
 const gradient = getTabGradient(route.name);
 
   const styles = createCalendarStyles(colors);

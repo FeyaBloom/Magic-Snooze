@@ -16,14 +16,12 @@ import {
   Heart,
   Languages,
   LogIn,
-  User as User2,
   Paintbrush,
 } from 'lucide-react-native';
 import { FloatingBackground } from '@/components/MagicalFeatures';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
 import { LanguageModal } from '@/components/LanguageModal';
-import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ResetDataComponent from '@/components/ResetDataComponent';
 
@@ -115,7 +113,7 @@ export default function SettingsTab() {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('settings.account')}</Text>
 
-            <TouchableOpacity style={styles.row}>
+            {/* <TouchableOpacity style={styles.row}>
               <View>
                 <Text style={styles.label}>{t('settings.connectGoogle.title')}</Text>
                 <Text style={styles.description}>
@@ -123,7 +121,7 @@ export default function SettingsTab() {
                 </Text>
               </View>
               <LogIn color={colors.textSecondary} size={20} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
 
             

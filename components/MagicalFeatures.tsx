@@ -15,7 +15,6 @@ import LottieView from 'lottie-react-native';
 import FloatingCloudJSON from '@/assets/animations/floating-cloud.json'; 
 import GentleStarsJSON from '@/assets/animations/gentle-stars.json'; 
 import i18n from '@/i18n';
-import { LanguageModal } from '@/components/LanguageModal';
 
 const { width: screenWidth } = Dimensions.get('window');
 
