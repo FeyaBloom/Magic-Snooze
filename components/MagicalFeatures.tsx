@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Sparkles, Star } from 'lucide-react-native';
-import Confetti from 'react-native-confetti';
+import { Confetti, ConfettiMethods } from 'react-native-fast-confetti';
 import { useTheme } from '@/components/ThemeProvider';
 import { createMagicStyles } from '@/styles/magic';
 import LottieView from 'lottie-react-native'; 
@@ -17,8 +17,10 @@ import GentleStarsJSON from '@/assets/animations/gentle-stars.json';
 import i18n from '@/i18n';
 
 const { width: screenWidth } = Dimensions.get('window');
-
 const { t } = i18n;
+
+type Props = { onVictoryPress: (text: string) => void };
+
 // ---- FLOATING BACKGROUNDS ----
 
   const FloatingCloud = () => (
@@ -83,13 +85,10 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
   );
 };
 // ---- TINY VICTORY W/ CONFETTI ----
-export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
+export const TinyVictoryTracker: React.FC<Props> = ({ onVictoryPress }) => {
   const { colors } = useTheme();
-  const currentLanguageCode = i18n.language;
-  const [languageModalVisible, setLanguageModalVisible] = useState(false);
-  const confettiRef = useRef<any>(null);
-  const styles = createMagicStyles(colors);
 
+  // твои пункты
   const victories = [
     { text: t('today.bed'), emoji: '🛏️' },
     { text: t('today.water'), emoji: '💧' },
@@ -101,39 +100,111 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
     { text: t('today.food'), emoji: '🍎' },
   ];
 
-  const handleVictory = (text: string) => {
-    onVictoryPress(text);
-    if (confettiRef.current) {
-      confettiRef.current.startConfetti();
-      setTimeout(() => confettiRef.current.stopConfetti(), 2000); // 2 сек
+  // центр каждой кнопки в координатах экрана (для "пушки")
+  const [centers, setCenters] = useState<{ x: number; y: number }[]>(
+    Array(victories.length).fill({ x: 0, y: 0 })
+  );
+
+  // оффсет грид-контейнера относительно экрана
+  const gridOffsetRef = useRef<{ x: number; y: number } | null>(null);
+  const gridViewRef = useRef<View>(null);
+
+  // ref на конфетти
+  const confettiRef = useRef<ConfettiMethods>(null);
+
+  // один раз запоминаем позицию грида в окне
+  const onGridLayout = () => {
+    gridViewRef.current?.measureInWindow?.((x, y) => {
+      gridOffsetRef.current = { x, y };
+    });
+  };
+
+  // для каждой кнопки считаем её центр с учётом оффсета грида
+  const onButtonLayout = (index: number) => (e: LayoutChangeEvent) => {
+    const offset = gridOffsetRef.current;
+    const { x, y, width, height } = e.nativeEvent.layout;
+
+    if (offset) {
+      const cx = offset.x + x + width / 2;
+      const cy = offset.y + y + height / 2;
+      setCenters((prev) => {
+        const next = [...prev];
+        next[index] = { x: cx, y: cy };
+        return next;
+      });
     }
   };
 
-  return (
-    <View style={styles.tinyVictoryContainer}>
-      <Text style={styles.tinyVictoryTitle}>
-        {t('today.Tiny Victories')} <Sparkles size={20} color={colors.primary} />
-      </Text>
-      <Text style={styles.tinyVictorySubtitle}>{t('today.Celebrate the small wins!')}</Text>
+  const handleVictory = (index: number, text: string) => {
+    onVictoryPress(text);
 
-      <View style={styles.victoryGrid}>
+    // мгновенно перезапускаем конфетти из центра конкретной кнопки
+    const pos = centers[index];
+    confettiRef.current?.restart({
+      cannonsPositions: [{ x: pos.x, y: pos.y }],
+    });
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={[styles.title, { color: colors.text }]}>
+        {t('today.Tiny Victories')} <Text>✨</Text>
+      </Text>
+      <Text style={[styles.subtitle, { color: colors.text }]}>{t('today.Celebrate the small wins!')}</Text>
+
+      <View ref={gridViewRef} onLayout={onGridLayout} style={styles.grid}>
         {victories.map((v, index) => (
-          <TouchableOpacity 
-            key={index} 
-            style={styles.victoryButton} 
-            onPress={() => handleVictory(v.text)}
+          <TouchableOpacity
+            key={index}
+            onLayout={onButtonLayout(index)}
+            style={[styles.button, { borderColor: colors.border }]}
+            onPress={() => handleVictory(index, v.text)}
+            activeOpacity={0.8}
           >
-            <Text style={styles.victoryEmoji}>{v.emoji}</Text>
-            <Text style={styles.victoryText}>{v.text}</Text>
+            <Text style={styles.emoji}>{v.emoji}</Text>
+            <Text style={[styles.label, { color: colors.text }]}>{v.text}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      {/* Конфетти слой поверх всего */}
-      <Confetti ref={confettiRef} duration={2000} />
+      {/* Оверлей конфетти поверх всего, без захвата касаний */}
+      <Confetti
+        ref={confettiRef}
+        autoplay={false}
+        pointerEvents="none"
+        style={StyleSheet.absoluteFill}
+        colors={['#FFD1DC', '#B8C1FF', '#C3F0FF', '#FFE5A1', '#E0B3FF']}
+        fadeOutOnEnd
+        sizeVariation={0.25}
+        rotation={{ x: { min: Math.PI * 2, max: Math.PI * 10 }, z: { min: Math.PI * 2, max: Math.PI * 10 } }}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: { paddingHorizontal: 16, paddingTop: 12, paddingBottom: 24 },
+  title: { fontSize: 18, fontWeight: '700' },
+  subtitle: { marginTop: 4, opacity: 0.7 },
+  grid: {
+    marginTop: 12,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  button: {
+    width: '30%',
+    minWidth: 96,
+    aspectRatio: 1.2,
+    borderRadius: 16,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8,
+  },
+  emoji: { fontSize: 26, marginBottom: 4 },
+  label: { fontSize: 14, textAlign: 'center' },
+});
 
 // ---- SURPRISE PROMPT (NO CONFETTI) ----
 export const SurprisePrompt = ({ onDismiss }: any) => {
