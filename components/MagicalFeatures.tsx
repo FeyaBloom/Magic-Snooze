@@ -121,7 +121,7 @@ return (
             <Text style={styles.victoryText}>{v.text}</Text>
         
             {confettiIndex === index && (
-        <ConfettiCannon 
+        <Confetti 
           key={index + `-` + Date.now()}
           count={20} 
           origin={{ x: screenWidth/2, y: -10 }} 
