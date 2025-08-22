@@ -631,7 +631,7 @@ function TodayTabContent() {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <TouchableOpacity 
-              style={styles.deleteButton}
+              style={styles.modalButton}
               onPress={() => {
                 editingStep && currentRoutine && deleteStep(editingStep.id, currentRoutine);
               }}

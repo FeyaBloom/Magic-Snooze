@@ -189,7 +189,7 @@ const gradient = getTabGradient(route.name);
         <Text style={styles.subtitle}>{t('calendar.subtitle')}</Text>
       </View>
 
-      <View marginHorizontal={20}> 
+     <View style={{ marginHorizontal: 20 }}>
       <CustomCalendar        
         customDayRenderer={customDayRenderer}
         initialMonth={currentMonth}

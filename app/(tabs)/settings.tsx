@@ -15,7 +15,7 @@ import {
   Globe,
   Heart,
   Languages,
-  LogIn,
+//  LogIn,
   Paintbrush,
 } from 'lucide-react-native';
 import { FloatingBackground } from '@/components/MagicalFeatures';
@@ -90,7 +90,7 @@ export default function SettingsTab() {
     }}
     thumbColor={isMessyMode ? colors.accent : colors.textSecondary}
   />
-              <View style={styles.themeButton}>
+              <View>
       <Paintbrush color={colors.textSecondary} size={20} />
     </View>
 </View>

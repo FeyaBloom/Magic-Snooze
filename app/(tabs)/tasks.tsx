@@ -322,7 +322,7 @@ const formatDate = (dateString: string) => {
               multiline
               autoFocus
             />
-            <TouchableOpacity onPress={() => setShowCalendar(v => !v)} style={styles.datePickerButton}>
+            <TouchableOpacity onPress={() => setShowCalendar(v => !v)} style={styles.actionButton}>
               <Text style={styles.dueDateText}>
                 {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}
               </Text>
@@ -369,7 +369,7 @@ const formatDate = (dateString: string) => {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <TouchableOpacity
-              style={styles.deleteButton}
+              style={styles.actionButton}
               onPress={() => {
                 if (editingTask) {
                   deleteTask(editingTask.id);
@@ -391,7 +391,7 @@ const formatDate = (dateString: string) => {
             />
             <TouchableOpacity
               onPress={() => setShowEditCalendar(v => !v)}
-              style={styles.datePickerButton}
+              style={styles.actionButton}
             >
                <Text style={styles.dueDateText}>
                 {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}
