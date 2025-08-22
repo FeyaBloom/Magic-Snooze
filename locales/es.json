@@ -54,7 +54,7 @@
     "supportApp": {
       "title": "Apoyar esta aplicación",
       "description": "Enviar una donación 💰"
-    },
+    }
   },
 "languages": {
   "en": { "name": "Ingles", "native": "English", "flag": "🇺🇸" },
@@ -62,7 +62,7 @@
   "es": { "name": "Español", "native": "Español", "flag": "🇪🇸" },
   "fr": { "name": "Frances", "native": "Français", "flag": "🇫🇷" },
   "de": { "name": "Aleman", "native": "Deutsch", "flag": "🇩🇪" },
-  "it": { "name": "Italiano", "native": "Italiano", "flag": "🇮🇹" },
+  "it": { "name": "Italiano", "native": "Italiano", "flag": "🇮🇹" }
 },
 
 "today": {
@@ -165,7 +165,7 @@
   "titlePlaceholder": "Título de la nota (opcional)",
   "contentPlaceholder": "¿Qué estás pensando?",
    "deleteTitle": "Eliminar nota",
-  "deleteMessage": "¿Estás seguro de que quieres eliminar esta nota?",  
+  "deleteMessage": "¿Estás seguro de que quieres eliminar esta nota?"  
 },
  "reset": {
       "button": "Restablecer datos",

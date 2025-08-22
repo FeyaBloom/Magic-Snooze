@@ -18,6 +18,11 @@ interface ResetOption {
   destructive: boolean;
 }
 
+// ✅ Definir el tipo para selectedOptions
+type SelectedOptions = {
+  [key: string]: boolean;
+};
+
 const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
   const { t } = i18n;
   const [showResetModal, setShowResetModal] = useState(false);
@@ -62,7 +67,8 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
     }
   ];
 
-  const [selectedOptions, setSelectedOptions] = useState(
+  // ✅ Tipar correctamente selectedOptions
+  const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>(
     resetOptions.reduce((acc, option) => ({
       ...acc,
       [option.id]: option.destructive
@@ -86,7 +92,7 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       for (const option of resetOptions) {
         if (selectedOptions[option.id]) {
           keysToDelete.push(...option.keys);
-          resetCategories.push(option.id); // 🔥 Запоминаем какие категории сбрасываем
+          resetCategories.push(option.id);
           
           if (option.pattern) {
             const allKeys = await AsyncStorage.getAllKeys();
@@ -110,7 +116,6 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
 
       await AsyncStorage.multiRemove(uniqueKeys);
       
-      // 🚀 КЛЮЧЕВОЕ ДОПОЛНЕНИЕ: Уведомляем все компоненты о сбросе данных
       DeviceEventEmitter.emit('dataReset', { 
         categories: resetCategories,
         deletedKeys: uniqueKeys,
@@ -158,9 +163,9 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
   const resetButtonStyles = {
     ...styles.resetButton,
     backgroundColor: '#EF4444',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row' as const,
+    alignItems: 'center' as const,
+    justifyContent: 'center' as const,
     padding: 12,
     borderRadius: 8,
     margin: 16,
@@ -170,16 +175,15 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
     modalOverlay: {
       flex: 1,
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
-      justifyContent: 'center',
-      alignItems: 'center'
-      //padding: 20
+      justifyContent: 'center' as const,
+      alignItems: 'center' as const,
     },
     modalContent: {
       backgroundColor: colors.surface,
       borderRadius: 16,
       padding: 20,
-      width: '100%',
-      maxHeight: '80%',
+      width: '90%' as const, // ✅ Cambiar de '100%' a '90%' o usar DimensionValue
+      maxHeight: '80%' as const, // ✅ Este valor es válido
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.25,
@@ -188,13 +192,13 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       elevation: 8,
     },
     modalHeader: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: 'row' as const,
+      alignItems: 'center' as const,
       marginBottom: 8
     },
     modalTitle: {
       fontSize: 20,
-      fontWeight: '600',
+      fontWeight: '600' as const, // ✅ Usar valores válidos de fontWeight
       marginLeft: 4,
       color: colors.text,
       fontFamily: 'CabinSketch-Bold',
@@ -210,18 +214,18 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       marginBottom: 20
     },
     optionItem: {
-      flexDirection: 'row',
+      flexDirection: 'row' as const,
       padding: 12,
       borderRadius: 8,
       borderWidth: 1,
-      alignItems: 'center'
+      alignItems: 'center' as const
     },
     optionContent: {
       flex: 1
     },
     optionTitle: {
       fontSize: 14,
-      fontWeight: '500',
+      fontWeight: '500' as const,
       marginBottom: 2,
       color: colors.text,
       fontFamily: 'ComicNeue-Regular',
@@ -237,24 +241,24 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       borderRadius: 4,
       borderWidth: 2,
       borderColor: colors.border,
-      alignItems: 'center',
-      justifyContent: 'center'
+      alignItems: 'center' as const,
+      justifyContent: 'center' as const
     },
     checkmark: {
       color: '#FFFFFF',
       fontSize: 14,
-      fontWeight: 'bold'
+      fontWeight: 'bold' as const
     },
     modalButtons: {
-      flexDirection: 'row',
+      flexDirection: 'row' as const,
       gap: 12
     },
     modalButton: {
       flex: 1,
       padding: 12,
       borderRadius: 8,
-      alignItems: 'center',
-      justifyContent: 'center'
+      alignItems: 'center' as const,
+      justifyContent: 'center' as const
     },
     cancelButton: {
       backgroundColor: colors.surface,
@@ -264,18 +268,18 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
     cancelButtonText: {
       color: colors.text,
       fontFamily: 'ComicNeue-Regular',
-      fontWeight: '500'
+      fontWeight: '500' as const
     },
     deleteButton: {
       backgroundColor: '#EF4444',
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: 'row' as const,
+      alignItems: 'center' as const,
       gap: 8
     },
     deleteButtonText: {
       color: '#FFFFFF',
       fontFamily: 'ComicNeue-Regular',
-      fontWeight: '600'
+      fontWeight: '600' as const
     }
   };
 

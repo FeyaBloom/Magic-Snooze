@@ -52,15 +52,15 @@ export default function Calendar({
   const [currentMonth, setCurrentMonth] = useState(initialMonth);
   const [stylesReady, setStylesReady] = useState(false);
   
-  // Мемоизируем стили для предотвращения пересоздания
+  // ✅ Мемоизируем стили с правильным типированием
   const styles = useMemo(() => {
-    if (!colors) return {};
+    if (!colors) return null;
     return createCalendarStyles(colors);
   }, [colors]);
 
   // Проверяем готовность стилей и colors
   useEffect(() => {
-    if (colors && Object.keys(styles).length > 0) {
+    if (colors && styles) {
       // Используем requestAnimationFrame для гарантии готовности рендера
       requestAnimationFrame(() => {
         setStylesReady(true);
@@ -93,7 +93,7 @@ export default function Calendar({
 
   // Мемоизируем рендер календаря для оптимизации
   const calendarDays = useMemo(() => {
-    if (!stylesReady || !styles.dayContainer) return [];
+    if (!stylesReady || !styles) return [];
 
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
@@ -175,6 +175,8 @@ export default function Calendar({
 
   // Мемоизируем дни недели
   const weekDaysComponent = useMemo(() => {
+    if (!styles) return null;
+    
     const weekDays = [
       t('common.Sun'), 
       t('common.Mon'),
@@ -190,7 +192,7 @@ export default function Calendar({
         {day}
       </Text>
     ));
-  }, [styles.weekDayText]);
+  }, [styles]);
 
   const capitalizeFirst = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -211,8 +213,8 @@ export default function Calendar({
     );
   }, [currentMonth, i18n.language]);
 
-  // Показываем загрузку или пустой контейнер пока стили не готовы
-  if (!stylesReady || !colors) {
+  // ✅ Показываем загрузку пока стили не готовы
+  if (!stylesReady || !colors || !styles) {
     return (
       <View style={{ 
         height: 350, // примерная высота календаря

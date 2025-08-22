@@ -124,7 +124,7 @@
   "titlePlaceholder": "Заголовок (необязательно)",
   "contentPlaceholder": "О чём думаешь?",
     "deleteTitle": "Удалить заметку",
-  "deleteMessage": "Вы уверены, что хотите удалить эту заметку?",
+  "deleteMessage": "Вы уверены, что хотите удалить эту заметку?"
 },
 
   "settings": {
@@ -156,7 +156,7 @@
     "supportApp": {
       "title": "Поддержать проект",
       "description": "Отправить донат 💰"
-    },
+    }
   },
     "languages": {
   "en": { "name": "Английский", "native": "English", "flag": "🇺🇸" },
@@ -164,7 +164,7 @@
   "es": { "name": "Испанский", "native": "Español", "flag": "🇪🇸" },
   "fr": { "name": "Французский", "native": "Français", "flag": "🇫🇷" },
   "de": { "name": "Немецкий", "native": "Deutsch", "flag": "🇩🇪" },
-  "it": { "name": "Итальянский", "native": "Italiano", "flag": "🇮🇹" },
+  "it": { "name": "Итальянский", "native": "Italiano", "flag": "🇮🇹" }
   },
 
 "reset": {

@@ -101,7 +101,7 @@
   "titlePlaceholder": "Note title (optional)",
   "contentPlaceholder": "What's on your mind?",
      "deleteTitle": "Delete Note",
-    "deleteMessage": "Are you sure you want to delete this note?",
+    "deleteMessage": "Are you sure you want to delete this note?"
 },
     
   "settings": {
@@ -133,7 +133,7 @@
     "supportApp": {
       "title": "Support this app",
       "description": "Send a donation 💰"
-    },
+    }
   },
 
 "tasks": {
@@ -159,7 +159,7 @@
   "es": { "name": "Spanish", "native": "Español", "flag": "🇪🇸" },
   "fr": { "name": "French", "native": "Français", "flag": "🇫🇷" },
   "de": { "name": "German", "native": "Deutsch", "flag": "🇩🇪" },
-  "it": { "name": "Italian", "native": "Italiano", "flag": "🇮🇹" },
+  "it": { "name": "Italian", "native": "Italiano", "flag": "🇮🇹" }
 },
   "navigation": {
   "today": "Today",
