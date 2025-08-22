@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Sparkles, Star } from 'lucide-react-native';
-import ConfettiCannon from 'react-native-confetti-cannon';
+import Confetti from 'react-native-confetti';
 import { useTheme } from '@/components/ThemeProvider';
 import { createMagicStyles } from '@/styles/magic';
 import LottieView from 'lottie-react-native'; 
