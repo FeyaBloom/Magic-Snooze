@@ -171,8 +171,8 @@ const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
       flex: 1,
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
       justifyContent: 'center',
-      alignItems: 'center',
-      padding: 20
+      alignItems: 'center'
+      //padding: 20
     },
     modalContent: {
       backgroundColor: colors.surface,
