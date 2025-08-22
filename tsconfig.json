@@ -2,10 +2,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,
@@ -14,18 +11,10 @@
     "target": "es2020",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@/components/*": [
-        "./components/*"
-      ],
-      "@/styles/*": [
-        "./styles/*"
-      ],
-      "@/i18n": [
-        "./i18n.ts"
-      ]
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],
+      "@/styles/*": ["./styles/*"],
+      "@/i18n": ["./i18n/index.ts", "./src/i18n/index.ts"]
     },
     "allowJs": true,
     "esModuleInterop": true,
@@ -41,6 +30,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-  "extends": "expo/tsconfig.base"
+  ]
 }
