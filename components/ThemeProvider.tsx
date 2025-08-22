@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { DeviceEventEmitter } from 'react-native'; // Добавим и сюда поддержку событий
 
 export type ThemeMode = 'daydream' | 'nightforest';
 
@@ -56,7 +57,7 @@ interface ThemeContextType {
   setTheme: (theme: ThemeMode) => void;
   toggleMessyMode: () => void;
   isMessyMode: boolean;
-  getTabGradient: (tabName: string) => string[];
+  getTabGradient: (tabName: string) => readonly [string, string, ...string[]]; // 🔥 ИСПРАВЛЕНО
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -77,6 +78,28 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>('daydream');
   const [isMessyMode, setIsMessyMode] = useState(false);
   const [messyColors, setMessyColors] = useState<ThemeColors | null>(null);
+
+  // 🚀 НОВЫЙ ЭФФЕКТ: Слушатель событий сброса настроек
+  useEffect(() => {
+    const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
+      console.log('ThemeProvider received data reset event:', data);
+      
+      // Проверяем, затронул ли сброс настройки
+      if (data.categories.includes('settings')) {
+        console.log('Resetting theme settings to defaults...');
+        // Сбрасываем к дефолтной теме
+        setCurrentTheme('daydream');
+        setIsMessyMode(false);
+        setMessyColors(null);
+      }
+    };
+
+    const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
+    
+    return () => {
+      listener.remove();
+    };
+  }, []);
 
   useEffect(() => {
     loadTheme();
@@ -169,9 +192,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     return themes[currentTheme];
   };
 
-  const getTabGradient = (tabName: string): string[] => {
+  // 🔥 ИСПРАВЛЕННАЯ ФУНКЦИЯ: Правильная типизация для LinearGradient
+  const getTabGradient = (tabName: string): readonly [string, string, ...string[]] => {
     const themeGradients = tabGradients[currentTheme];
-    return themeGradients[tabName] || themes[currentTheme].background;
+    const gradient = themeGradients[tabName] || themes[currentTheme].background;
+    
+    // Гарантируем что у нас минимум 2 цвета для LinearGradient
+    if (gradient.length < 2) {
+      const fallback = themes[currentTheme].background;
+      return [fallback[0], fallback[1], ...fallback.slice(2)] as readonly [string, string, ...string[]];
+    }
+    
+    return [gradient[0], gradient[1], ...gradient.slice(2)] as readonly [string, string, ...string[]];
   };
 
   return (
