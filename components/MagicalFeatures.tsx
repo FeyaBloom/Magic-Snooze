@@ -87,53 +87,50 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const { colors } = useTheme();
   const currentLanguageCode = i18n.language;
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
+  const confettiRef = useRef<any>(null);
   const styles = createMagicStyles(colors);
-  const [confettiIndex, setConfettiIndex] = useState<number | null>(null);
 
- const victories = [
-  { text: t('today.bed'), emoji: '🛏️' },
-  { text: t('today.water'), emoji: '💧' },
-  { text: t('today.breath'), emoji: '🌬️' },
-  { text: t('today.patient'), emoji: '😌' },
-  { text: t('today.pet'), emoji: '🐱' },
-  { text: t('today.sky'), emoji: '☁️' },
-  { text: t('today.smile'), emoji: '😊' },
-  { text: t('today.food'), emoji: '🍎' },
-];
+  const victories = [
+    { text: t('today.bed'), emoji: '🛏️' },
+    { text: t('today.water'), emoji: '💧' },
+    { text: t('today.breath'), emoji: '🌬️' },
+    { text: t('today.patient'), emoji: '😌' },
+    { text: t('today.pet'), emoji: '🐱' },
+    { text: t('today.sky'), emoji: '☁️' },
+    { text: t('today.smile'), emoji: '😊' },
+    { text: t('today.food'), emoji: '🍎' },
+  ];
 
-const handleVictory = (index: number, text: string) => {
-  onVictoryPress(text);
-  setConfettiIndex(index);
-};
+  const handleVictory = (text: string) => {
+    onVictoryPress(text);
+    if (confettiRef.current) {
+      confettiRef.current.startConfetti();
+      setTimeout(() => confettiRef.current.stopConfetti(), 2000); // 2 сек
+    }
+  };
 
-return (
-  <View style={styles.tinyVictoryContainer}>
-    <Text style={styles.tinyVictoryTitle}>
-      {t('today.Tiny Victories')} <Sparkles size={20} color={colors.primary} />
-    </Text>
-    <Text style={styles.tinyVictorySubtitle}>{t('today.Celebrate the small wins!')}</Text>
-
+  return (
+    <View style={styles.tinyVictoryContainer}>
+      <Text style={styles.tinyVictoryTitle}>
+        {t('today.Tiny Victories')} <Sparkles size={20} color={colors.primary} />
+      </Text>
+      <Text style={styles.tinyVictorySubtitle}>{t('today.Celebrate the small wins!')}</Text>
 
       <View style={styles.victoryGrid}>
         {victories.map((v, index) => (
-          <TouchableOpacity key={index} style={styles.victoryButton} onPress={() => handleVictory(index, v.text)}>
+          <TouchableOpacity 
+            key={index} 
+            style={styles.victoryButton} 
+            onPress={() => handleVictory(v.text)}
+          >
             <Text style={styles.victoryEmoji}>{v.emoji}</Text>
             <Text style={styles.victoryText}>{v.text}</Text>
-        
-            {confettiIndex === index && (
-        <Confetti 
-          key={index + `-` + Date.now()}
-          count={20} 
-          origin={{ x: screenWidth/2, y: -10 }} 
-          fadeOut autoStart
-          onAnimationEnd={() => setConfettiIndex(null)}
-          />
-      )}
           </TouchableOpacity>
         ))}
       </View>
 
-      
+      {/* Конфетти слой поверх всего */}
+      <Confetti ref={confettiRef} duration={2000} />
     </View>
   );
 };
