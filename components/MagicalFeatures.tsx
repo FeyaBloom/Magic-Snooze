@@ -103,13 +103,21 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
     { text: t('today.food'), emoji: '🍎' },
   ];
 
-  const handleVictory = (text: string) => {
+  /*const handleVictory = (text: string) => {
     onVictoryPress(text);
     if (confettiRef.current) {
       confettiRef.current.startConfetti();
       setTimeout(() => confettiRef.current.stopConfetti(), 2000); // 2 сек
     }
-  };
+  };*/
+
+  const handleVictory = (text: string) => {
+  onVictoryPress(text);
+  if (confettiRef.current) {
+    confettiRef.current.stopConfetti();   // сначала стопим
+    confettiRef.current.startConfetti();  // потом сразу запускаем заново
+  }
+};
 
   return (
     <View style={styles.tinyVictoryContainer}>
