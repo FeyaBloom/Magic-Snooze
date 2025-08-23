@@ -7,7 +7,9 @@
     "icon": "./assets/images/icon.png",
     "scheme": "snoozedaymagic",
     "userInterfaceStyle": "automatic",
-    "developmentClient": true,
+    "developmentClient": {
+      "silentLaunch": true
+    },
     "ios": {
       "supportsTablet": true
     },
