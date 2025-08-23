@@ -114,7 +114,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const handleVictory = (text: string) => {
   onVictoryPress(text);
   if (confettiRef.current) {
-    confettiRef.current.stopConfetti();   // сначала стопим
+   // confettiRef.current.stopConfetti();   // сначала стопим
     confettiRef.current.startConfetti();  // потом сразу запускаем заново
      setTimeout(() => confettiRef.current.stopConfetti(), 2000); // 2 сек
   }
