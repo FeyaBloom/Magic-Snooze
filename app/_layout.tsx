@@ -56,9 +56,8 @@ export default function RootLayout() {
   const setupNavigationBar = async () => {
     if (Platform.OS === 'android') {
       try {
-        await NavigationBar.setVisibilityAsync('hidden'); // полностью скрывает
-       // await NavigationBar.setBackgroundColorAsync('transparent');
-       // await NavigationBar.setButtonStyleAsync('light'); // или 'dark'
+        await NavigationBar.setBackgroundColorAsync('transparent');
+        await NavigationBar.setButtonStyleAsync('light'); // или 'dark'
       } catch (error) {
         console.warn('NavigationBar setup failed:', error);
       }
