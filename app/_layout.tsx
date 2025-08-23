@@ -16,6 +16,11 @@ import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //import * as NavigationBar from 'expo-navigation-bar';
 //import { Platform } from 'react-native';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs([
+  'useInsertionEffect must not schedule updates',
+]);
 
 SplashScreen.preventAutoHideAsync();
 
