@@ -14,8 +14,8 @@ import {
 } from '@expo-google-fonts/comfortaa';
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-//import * as NavigationBar from 'expo-navigation-bar';
-//import { Platform } from 'react-native';
+import * as NavigationBar from 'expo-navigation-bar';
+import { Platform } from 'react-native';
 import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs([
@@ -64,11 +64,11 @@ export default function RootLayout() {
     }
   }, [fontsLoaded, fontError]);
   
-//if (Platform.OS === 'android') {
-  //  NavigationBar.setBackgroundColorAsync('transparent');
-  //  NavigationBar.setButtonStyleAsync('light'); // или 'dark'
+if (Platform.OS === 'android') {
+  NavigationBar.setBackgroundColorAsync('transparent');
+  NavigationBar.setButtonStyleAsync('light'); // или 'dark'
   
-//};
+};
   if (!fontsLoaded && !fontError) {
     return null; // как у вас было
   }
