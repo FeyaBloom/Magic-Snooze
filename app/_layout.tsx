@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Platform } from 'react-native';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { ThemeProvider } from '@/components/ThemeProvider';
-import {FloatingBackground} from "@/components/MagicalFeatures"
+import { FloatingBackground } from "@/components/MagicalFeatures";
 import { I18nextProvider } from 'react-i18next';
 import i18n from '@/i18n';
 import { useFonts } from 'expo-font';
@@ -15,7 +15,6 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as NavigationBar from 'expo-navigation-bar';
-import { Platform } from 'react-native';
 import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs([
@@ -26,14 +25,14 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   useFrameworkReady();
-  
+
   // Ваши оригинальные названия + Comfortaa + Coiny
   const [fontsLoaded, fontError] = useFonts({
     'ComicNeue-Regular': Comfortaa_400Regular,
     'ComicNeue-Bold': Comfortaa_500Medium,
     'CabinSketch-Regular': require('@/assets/fonts/Coiny-Cyrillic.ttf'), // возвращаем Coiny
     'CabinSketch-Bold': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
-    
+
     // Правильные названия для нового использования
     'Comfortaa_400Regular': Comfortaa_400Regular,
     'Comfortaa_500Medium': Comfortaa_500Medium,
@@ -53,9 +52,25 @@ export default function RootLayout() {
     }
   };
 
+  // ✅ Функция для настройки навигационной панели
+  const setupNavigationBar = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        await NavigationBar.setVisibilityAsync('hidden'); // полностью скрывает
+       // await NavigationBar.setBackgroundColorAsync('transparent');
+       // await NavigationBar.setButtonStyleAsync('light'); // или 'dark'
+      } catch (error) {
+        console.warn('NavigationBar setup failed:', error);
+      }
+    }
+  };
+
   useEffect(() => {
     // Загружаем язык при старте приложения
     loadInitialLanguage();
+    
+    // ✅ Настраиваем навигационную панель
+    setupNavigationBar();
   }, []);
 
   useEffect(() => {
@@ -63,14 +78,14 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError]);
-  
-if (Platform.OS === 'android') {
-  NavigationBar.setBackgroundColorAsync('transparent');
-  NavigationBar.setButtonStyleAsync('light'); // или 'dark'
-  
-};
+
+  // ✅ Показываем лоадер пока шрифты не загружены
   if (!fontsLoaded && !fontError) {
-    return null; // как у вас было
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   }
 
   return (
