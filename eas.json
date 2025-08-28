@@ -5,7 +5,8 @@
   },
     "build": {
     "development": {
-      "developmentClient": true,
+      "developmentClient": false,
+      "buildType": "apk",
       "distribution": "internal"
     },
     "preview": {
