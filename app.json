@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Snooze Day Magic",
-    "slug": "snooze-day-magic",
+    "name": "Magic Snooze",
+    "slug": "magic-snooze",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -14,7 +14,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.feyabloom.snoozedaymagic",
+      "package": "com.feyabloom.magicsnooze",
       "edgeToEdgeEnabled": true,
       "versionCode": 1
     },
@@ -37,6 +37,6 @@
         "projectId": "1b5976c5-36ea-4024-816e-8d0d49e99b9c"
       }
     },
-    "owner": "feya_bloom"
+    "owner": "feya-bloom"
   }
 }
