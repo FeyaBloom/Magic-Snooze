@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "snoozedaymagic",
+    "scheme": "magic-snooze",
     "userInterfaceStyle": "automatic",
     "developmentClient": {
       "silentLaunch": true
@@ -14,7 +14,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.feyabloom.magicsnooze",
+      "package": "com.feyabloom.magic-snooze",
       "edgeToEdgeEnabled": true,
       "versionCode": 1
     },
@@ -32,10 +32,7 @@
       "typedRoutes": true
     },
     "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "1b5976c5-36ea-4024-816e-8d0d49e99b9c"
-      }
+      "router": {}
     },
     "owner": "feya-bloom"
   }
