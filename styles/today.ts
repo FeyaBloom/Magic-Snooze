@@ -291,7 +291,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     borderRadius: 12,
     alignItems: 'right',
     height: 48,
-    justifyContent: 'center',
+    justifyContent: 'right',
   },
   cancelButton: {
     backgroundColor: '#F3F4F6',
