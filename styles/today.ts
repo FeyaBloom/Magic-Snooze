@@ -289,7 +289,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: 'right',
     height: 48,
     justifyContent: 'center',
   },
