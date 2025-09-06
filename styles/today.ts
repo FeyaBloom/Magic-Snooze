@@ -286,12 +286,12 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     justifyContent: 'space-between',
   },
   modalButton: {
-    flex: 1,
-    paddingVertical: 12,
-    borderRadius: 12,
-    alignItems: 'right',
-    height: 48,
-    justifyContent: 'right',
+    position: 'absolute',
+    top: 14,
+    right: 14,
+    zIndex: 2,
+    padding: 8,
+    marginBottom: 14,
   },
   cancelButton: {
     backgroundColor: '#F3F4F6',
