@@ -14,7 +14,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.feyabloom.magic-snooze",
+      "package": "com.feyabloom.magicsnooze",
       "edgeToEdgeEnabled": true,
       "versionCode": 1
     },
