@@ -184,7 +184,6 @@ function TodayTabContent() {
       setIsSnoozed(false);
       
       // Load fresh data for the new day
-      loadData();
     } catch (error) {
       console.error('Error resetting daily data:', error);
     }

@@ -69,7 +69,7 @@
     }
   },
   "calendar": {
-  "title": "Your Journey 📅",
+  "title": "Your Journey",
   "subtitle": "Every step counts, every day matters",
   "legendTitle": "Legend",
   "legend": {
@@ -88,7 +88,7 @@
   },
 
   "notes": {
-  "title": "Your Notes 📝",
+  "title": "Your Notes",
   "subtitle": "Capture your thoughts and ideas",
   "searchPlaceholder": "Search your notes...",
   "addButton": "Add New Note",
@@ -105,7 +105,7 @@
 },
     
   "settings": {
-    "title": "Settings & About ⚙️",
+    "title": "Settings & About",
     "appPreferences": "App Preferences",
     "messyMode": {
       "title": "Messy mode",
@@ -137,7 +137,7 @@
   },
 
 "tasks": {
-    "title": "Your Tasks 🎯",
+    "title": "Your Tasks",
     "subtitle": "One step at a time, you've got this!",
     "addNew": "Add New Task",
     "active": "Active Tasks",

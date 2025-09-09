@@ -9,6 +9,7 @@ export const createSettingsStyles = (colors: any) =>
   },
     container: {
     flex: 1,
+    paddingBottom: 20
   },
   gradient: {
     flex: 1,

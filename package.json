@@ -66,6 +66,7 @@
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",
     "@types/react-native-confetti": "^0.1.4",
+    "expo-module-scripts": "^4.1.10",
     "typescript": "~5.8.3"
   }
 }

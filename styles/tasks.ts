@@ -7,6 +7,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   gradient: {
     flex: 1,
     zIndex: 0,
+    paddingBottom: 20
   },
   scrollView: {
     flex: 1,

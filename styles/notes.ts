@@ -3,14 +3,17 @@ import { StyleSheet } from 'react-native';
 export const createNotesStyles = (colors: any) => StyleSheet.create({
   container: {
     flex: 1,
+    
   },
   gradient: {
     flex: 1,
     zIndex: 0,
+    paddingBottom: 30,
   },
   scrollView: {
     flex: 1,
     zIndex: 5,
+    
   },
   header: {
     padding: 20,
@@ -102,14 +105,13 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     opacity: 1,
   },
   noteTitle: {
-    fontSize: 20,
+    fontSize: 16,
     color: colors.text,
     flex: 1,
     marginRight: 8,
     fontFamily: 'CabinSketch-Bold',
     opacity: 1,
     lineHeight: 28, // Agregamos altura de línea para mejor espaciado
-    // Removemos numberOfLines para permitir múltiples líneas
   },
  
   notePreview: {
