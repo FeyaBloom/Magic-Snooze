@@ -11,7 +11,7 @@ import {
 import { MagicalCheckbox, FloatingBackground } from "@/components/MagicalFeatures";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
-import { Plus, Pencil as Edit, Trash2, Calendar, Sparkles } from 'lucide-react-native';
+import { Plus, Pencil as Edit, Trash2, Calendar, Sparkles, CalendarCheck } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
@@ -296,6 +296,7 @@ const formatDate = (dateString: string) => {
 )}
           {tasks.length === 0 && (
             <View style={styles.emptyState}>
+              <CalendarCheck size={48} color={colors.textSecondary }/>
                <Text style={styles.emptyStateText}>{t('tasks.emptyTitle')}</Text>
               <Text style={styles.emptyStateSubtext}>{t('tasks.emptySubtitle')}</Text>
             </View>
@@ -306,7 +307,7 @@ const formatDate = (dateString: string) => {
       {/* Все модалки вынесены сюда, за пределы LinearGradient */}
       <Modal 
         visible={showAddModal} 
-        animationType="slide" 
+        animationType="fade" 
         transparent={true}
         statusBarTranslucent={true}
       >
@@ -322,7 +323,7 @@ const formatDate = (dateString: string) => {
               multiline
               autoFocus
             />
-            <TouchableOpacity onPress={() => setShowCalendar(v => !v)} style={styles.actionButton}>
+            <TouchableOpacity onPress={() => setShowCalendar(v => !v)} >
               <Text style={styles.dueDateText}>
                 {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}
               </Text>
@@ -362,14 +363,14 @@ const formatDate = (dateString: string) => {
 
       <Modal 
         visible={showEditModal} 
-        animationType="slide" 
+        animationType="fade" 
         transparent={true}
         statusBarTranslucent={true}
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <TouchableOpacity
-              style={styles.actionButton}
+              style={styles.deleteButton}
               onPress={() => {
                 if (editingTask) {
                   deleteTask(editingTask.id);
@@ -391,7 +392,7 @@ const formatDate = (dateString: string) => {
             />
             <TouchableOpacity
               onPress={() => setShowEditCalendar(v => !v)}
-              style={styles.actionButton}
+             /* style={styles.text} */
             >
                <Text style={styles.dueDateText}>
                 {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}

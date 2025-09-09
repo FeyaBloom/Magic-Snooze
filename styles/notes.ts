@@ -108,12 +108,10 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     marginRight: 8,
     fontFamily: 'CabinSketch-Bold',
     opacity: 1,
+    lineHeight: 28, // Agregamos altura de línea para mejor espaciado
+    // Removemos numberOfLines para permitir múltiples líneas
   },
-  noteDate: {
-    fontSize: 12,
-    color: colors.textSecondary,
-    fontFamily: 'ComicNeue-Regular',
-  },
+ 
   notePreview: {
     fontSize: 14,
     color: colors.textSecondary,
@@ -122,17 +120,24 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
     opacity: 1,
   },
+  // CAMBIO PRINCIPAL: Modificamos noteActions para justificar entre extremos
   noteActions: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between', // Cambio de 'center' a 'space-between'
+    alignItems: 'center', // Agregamos alineación vertical centrada
   },
+  noteDate: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    fontFamily: 'ComicNeue-Regular'
+  },
+  // CAMBIO SECUNDARIO: Simplificamos actionButton
   actionButton: {
     padding: 8,
-    marginLeft: 8,
-    width: 48,
-    height: 48,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 32, 
+    height: 32,
+    alignItems: 'center', // Centramos horizontalmente
+    justifyContent: 'center', // Centramos verticalmente
   },
   emptyState: {
     alignItems: 'center',
@@ -250,6 +255,7 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
     flex: 1,
     marginRight: 12,
     fontFamily: 'CabinSketch-Regular',
+    lineHeight: 27,
   },
   editFromViewButton: {
     padding: 8,

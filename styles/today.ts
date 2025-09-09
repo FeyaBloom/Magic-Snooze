@@ -175,7 +175,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
-    paddingHorizontal: 16,
+    //paddingHorizontal: 16,
     borderRadius: 12,
     backgroundColor: colors.surface,
     height: 48,
@@ -281,13 +281,21 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     textAlignVertical: 'top',
     fontFamily: 'ComicNeue-Regular',
   },
+   deleteButton: {
+    position: 'absolute',
+    top: 14,
+    right: 14,
+    zIndex: 2,
+    padding: 8,
+    marginBottom: 14,
+  },
   modalButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   modalButton: {
      flex: 1,
-    paddingVertical: 12,
+    paddingVertical: 4,
     borderRadius: 12,
     alignItems: 'center',
     height: 48,
@@ -296,6 +304,12 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   cancelButton: {
     backgroundColor: '#F3F4F6',
     marginRight: 8,
+    flex: 1,
+    paddingVertical: 4,
+    borderRadius: 12,
+    alignItems: 'center',
+    height: 48,
+    justifyContent: 'center',
   },
   cancelButtonText: {
     fontSize: 13,
@@ -305,6 +319,12 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   saveButton: {
     backgroundColor: colors.primary,
     marginLeft: 8,
+    flex: 1,
+    paddingVertical: 4,
+    borderRadius: 12,
+    alignItems: 'center',
+    height: 48,
+    justifyContent: 'center',
   },
   saveButtonText: {
     fontSize: 13,

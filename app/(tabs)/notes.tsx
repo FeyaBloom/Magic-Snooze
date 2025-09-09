@@ -201,14 +201,16 @@ export default function NotesTab() {
                 <Text style={styles.noteTitle} numberOfLines={1}>
                   {note.title}
                 </Text>
-                <Text style={styles.noteDate}>
-                  {formatDate(note.updatedAt)}
-                </Text>
+                
               </View>
               <Text style={styles.notePreview} numberOfLines={3}>
                 {note.content}
               </Text>
+              
               <View style={styles.noteActions}>
+                <Text style={styles.noteDate}>
+                  {formatDate(note.updatedAt)}
+                </Text>
                 <TouchableOpacity
                   style={styles.actionButton}
                   onPress={() => {
@@ -226,7 +228,7 @@ export default function NotesTab() {
         </View>
       ) : (
         <View style={styles.emptyState}>
-          <BookOpen size={48} color="#9CA3AF" />
+          <BookOpen size={48} color={colors.textSecondary } />
           <Text style={styles.emptyStateText}>
             {searchQuery ? t('notes.emptySearchTitle') : t('notes.emptyTitle')}
           </Text>
@@ -243,7 +245,7 @@ export default function NotesTab() {
   {/* Add Note Modal */}
   <Modal
     visible={showAddModal}
-    animationType="slide"
+    animationType="fade"
     transparent={true}
     statusBarTranslucent={true}
   >
@@ -291,7 +293,7 @@ export default function NotesTab() {
   {/* Edit Note Modal */}
   <Modal
     visible={showEditModal}
-    animationType="slide"
+    animationType="fade"
     transparent={true}
     statusBarTranslucent={true}
   >
@@ -350,14 +352,14 @@ export default function NotesTab() {
   {/* View Note Modal */}
   <Modal
     visible={showViewModal}
-    animationType="slide"
+    animationType="fade"
     transparent={true}
     statusBarTranslucent={true}
   >
     <View style={styles.modalOverlay}>
       <View style={styles.modalContent}>
         <View style={styles.viewHeader}>
-          <Text style={styles.viewTitle} numberOfLines={2}>
+          <Text style={styles.viewTitle}>
             {viewingNote?.title}
           </Text>
           <TouchableOpacity

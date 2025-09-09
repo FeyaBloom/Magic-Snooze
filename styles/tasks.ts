@@ -201,13 +201,21 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  modalButton: {
+    deleteButton: {
     position: 'absolute',
     top: 14,
     right: 14,
     zIndex: 2,
     padding: 8,
     marginBottom: 14,
+  },
+  modalButton: {
+     flex: 1,
+    paddingVertical: 4,
+    borderRadius: 12,
+    alignItems: 'center',
+    height: 48,
+    justifyContent: 'center',
   },
   cancelButton: {
     backgroundColor: '#F3F4F6',

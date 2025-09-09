@@ -571,7 +571,7 @@ function TodayTabContent() {
       {/* Все модалки вынесены сюда, за пределы LinearGradient */}
       <Modal 
         visible={showTinyVictories} 
-        animationType="slide" 
+        animationType="fade" 
         transparent={true}
         statusBarTranslucent={true}
       >
@@ -585,7 +585,7 @@ function TodayTabContent() {
 
       <Modal 
         visible={showAddModal} 
-        animationType="slide" 
+        animationType="fade" 
         transparent={true}
         statusBarTranslucent={true}
       >
@@ -624,14 +624,14 @@ function TodayTabContent() {
 
       <Modal 
         visible={showEditModal} 
-        animationType="slide" 
+        animationType="fade" 
         transparent={true}
         statusBarTranslucent={true}
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <TouchableOpacity 
-              style={styles.modalButton}
+              style={styles.deleteButton}
               onPress={() => {
                 editingStep && currentRoutine && deleteStep(editingStep.id, currentRoutine);
               }}
@@ -650,7 +650,7 @@ function TodayTabContent() {
             />
             <View style={styles.modalButtons}>
               <TouchableOpacity
-                style={[styles.modalButton, styles.cancelButton]}
+                style={[styles.cancelButton]}
                 onPress={() => {
                   setShowEditModal(false);
                   setNewStepText('');
@@ -660,7 +660,7 @@ function TodayTabContent() {
                 <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.modalButton, styles.saveButton]}
+                style={[styles.saveButton]}
                 onPress={editStep}
               >
                 <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('common.save')}</Text>
