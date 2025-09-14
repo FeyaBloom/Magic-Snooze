@@ -54,10 +54,15 @@ export default function RootLayout() {
   // ✅ Функция для настройки навигационной панели
   const setupNavigationBar = async () => {
     if (Platform.OS === 'android') {
-      try {
-        await NavigationBar.setVisibilityAsync('hidden'); // полностью скрывает
-   //     await NavigationBar.setBackgroundColorAsync('transparent');
-     //   await NavigationBar.setButtonStyleAsync('light'); // или 'dark'
+      try {        
+         console.log('Настраиваю navigation bar...');
+      // прозрачный фон панели
+      await NavigationBar.setBackgroundColorAsync('transparent');
+      // светлые иконки, если нужно
+      await NavigationBar.setButtonStyleAsync('light');
+      // режим полного экрана (edge-to-edge)
+      await NavigationBar.setVisibilityAsync('immersive' as any);
+      console.log('Navigation bar настроен');
       } catch (error) {
         console.warn('NavigationBar setup failed:', error);
       }
@@ -95,7 +100,8 @@ export default function RootLayout() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>
-          <StatusBar hidden />
+          <StatusBar style="auto" />
+          
         </ThemeProvider>
       </I18nextProvider>
     </>
