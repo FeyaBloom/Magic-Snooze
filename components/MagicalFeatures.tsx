@@ -137,9 +137,9 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
         }}>
           <SimpleConfetti
             key={confettiKey}
-            count={30}
+            count={50}
             type="tumble"
-            speed={2000}
+            speed={7000}
             itemSize={1}
             fromCenter={true}
           />

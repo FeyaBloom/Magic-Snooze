@@ -57,7 +57,7 @@ export default function RootLayout() {
       try {        
          console.log('Настраиваю navigation bar...');
       // прозрачный фон панели
-      await NavigationBar.setBackgroundColorAsync('transparent');
+     // await NavigationBar.setBackgroundColorAsync('transparent' as any);
       // светлые иконки, если нужно
       await NavigationBar.setButtonStyleAsync('light');
       // режим полного экрана (edge-to-edge)
