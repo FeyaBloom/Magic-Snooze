@@ -8,7 +8,6 @@ export const createNotesStyles = (colors: any) => StyleSheet.create({
   gradient: {
     flex: 1,
     zIndex: 0,
-    paddingBottom: 30,
   },
   scrollView: {
     flex: 1,

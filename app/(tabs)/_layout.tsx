@@ -10,6 +10,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import i18n from '@/i18n';
+import { Platform } from 'react-native';
 
 export default function TabLayout() {
   const { colors } = useTheme();
@@ -30,7 +31,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarPosition: 'top',
+        tabBarPosition: 'bottom',
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopWidth: 0,
@@ -41,17 +42,16 @@ export default function TabLayout() {
           shadowOpacity: 0.1,
           shadowRadius: 8,
           height: 75,
-          paddingTop: 12,
-          
+          paddingTop: 8,
+          paddingBottom: Platform.OS === 'android' ? 20 : 0,
         },
         tabBarActiveTintColor: colors.secondary,
         tabBarInactiveTintColor: colors.textSecondary,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
-       //   marginTop: 1,
           fontFamily: 'ComicNeue-Bold',
-          paddingBottom: 18,
+         // paddingBottom: 18,
         },
       }}
     >

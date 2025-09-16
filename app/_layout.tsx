@@ -61,7 +61,7 @@ export default function RootLayout() {
       // светлые иконки, если нужно
       await NavigationBar.setButtonStyleAsync('light');
       // режим полного экрана (edge-to-edge)
-      await NavigationBar.setVisibilityAsync('immersive' as any);
+      await NavigationBar.setVisibilityAsync('hidden');
       console.log('Navigation bar настроен');
       } catch (error) {
         console.warn('NavigationBar setup failed:', error);
@@ -100,7 +100,7 @@ export default function RootLayout() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>
-          <StatusBar style="auto" />
+          <StatusBar hidden={true}/>
           
         </ThemeProvider>
       </I18nextProvider>

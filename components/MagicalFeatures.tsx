@@ -4,22 +4,17 @@ import {
   Text,
   TouchableOpacity,
   Animated,
-  Dimensions,
   StyleSheet,
 } from 'react-native';
 import { Sparkles, Star } from 'lucide-react-native';
-import Confetti from 'react-native-confetti';
+import SimpleConfetti from 'react-native-simple-confetti';
 import { useTheme } from '@/components/ThemeProvider';
 import { createMagicStyles } from '@/styles/magic';
 import LottieView from 'lottie-react-native'; 
 import FloatingCloudJSON from '@/assets/animations/floating-cloud.json'; 
 import GentleStarsJSON from '@/assets/animations/gentle-stars.json'; 
 import i18n from '@/i18n';
-
-const { width: screenWidth } = Dimensions.get('window');
 const { t } = i18n;
-
-type Props = { onVictoryPress: (text: string) => void };
 
 // ---- FLOATING BACKGROUNDS ----
 
@@ -51,7 +46,7 @@ export const FloatingBackground: React.FC<{ style?: any }> = ({ style }) => {
 export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
   const { colors } = useTheme();
   const styles = createMagicStyles(colors);
-  const [sparkles, setSparkles] = useState([]);
+  //const [sparkles, setSparkles] = useState([]);
   const scaleAnim = useMemo(() => new Animated.Value(1), []);
   
   const handlePress = () => {
@@ -85,13 +80,12 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
   );
 };
 // ---- TINY VICTORY W/ CONFETTI ----
+
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const { colors } = useTheme();
-  const currentLanguageCode = i18n.language;
-  const [languageModalVisible, setLanguageModalVisible] = useState(false);
-  const confettiRef = useRef<any>(null);
+  const [confettiKey, setConfettiKey] = useState(0);
   const styles = createMagicStyles(colors);
-
+  
   const victories = [
     { text: t('today.bed'), emoji: '🛏️' },
     { text: t('today.water'), emoji: '💧' },
@@ -102,23 +96,13 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
     { text: t('today.smile'), emoji: '😊' },
     { text: t('today.food'), emoji: '🍎' },
   ];
-
-  /*const handleVictory = (text: string) => {
-    onVictoryPress(text);
-    if (confettiRef.current) {
-      confettiRef.current.startConfetti();
-      setTimeout(() => confettiRef.current.stopConfetti(), 2000); // 2 сек
-    }
-  };*/
-
+ 
   const handleVictory = (text: string) => {
-  onVictoryPress(text);
-  if (confettiRef.current) {
-   // confettiRef.current.stopConfetti();   // сначала стопим
-    confettiRef.current.startConfetti();  // потом сразу запускаем заново
-     setTimeout(() => confettiRef.current.stopConfetti(), 1000); // 1 сек
-  }
-};
+    onVictoryPress(text);
+    
+    // Перезапускаем конфетти через изменение key
+    setConfettiKey(prev => prev + 1);
+  };
 
   return (
     <View style={styles.tinyVictoryContainer}>
@@ -126,7 +110,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
         {t('today.Tiny Victories')} <Sparkles size={20} color={colors.primary} />
       </Text>
       <Text style={styles.tinyVictorySubtitle}>{t('today.Celebrate the small wins!')}</Text>
-
+      
       <View style={styles.victoryGrid}>
         {victories.map((v, index) => (
           <TouchableOpacity 
@@ -140,8 +124,27 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
         ))}
       </View>
 
-      {/* Конфетти слой поверх всего */}
-      <Confetti ref={confettiRef} duration={2000} />
+      {/* Конфетти в отдельном контейнере с фиксированным позиционированием */}
+      {confettiKey > 0 && (
+        <View style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          pointerEvents: 'none', // чтобы не блокировать клики
+          zIndex: 1000
+        }}>
+          <SimpleConfetti
+            key={confettiKey}
+            count={30}
+            type="tumble"
+            speed={2000}
+            itemSize={1}
+            fromCenter={true}
+          />
+        </View>
+      )}
     </View>
   );
 };
