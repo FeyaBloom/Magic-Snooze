@@ -5,6 +5,14 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
+    "splash": {            
+      "image": "./assets/splash-light-full.png",
+      "resizeMode": "cover",
+      "dark": {
+        "image": "./assets/splash-dark-full.png",
+        "resizeMode": "cover"
+      }
+    },
     "scheme": "magic-snooze",
     "userInterfaceStyle": "automatic",
     "developmentClient": {

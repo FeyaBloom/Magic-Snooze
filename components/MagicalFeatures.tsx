@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -7,10 +7,10 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Sparkles, Star } from 'lucide-react-native';
-import SimpleConfetti from 'react-native-simple-confetti';
 import { useTheme } from '@/components/ThemeProvider';
 import { createMagicStyles } from '@/styles/magic';
 import LottieView from 'lottie-react-native'; 
+import ConfettiJSON from '@/assets/animations/confetti.json';
 import FloatingCloudJSON from '@/assets/animations/floating-cloud.json'; 
 import GentleStarsJSON from '@/assets/animations/gentle-stars.json'; 
 import i18n from '@/i18n';
@@ -83,7 +83,8 @@ export const MagicalCheckbox = ({ completed, onPress, disabled }: any) => {
 
 export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const { colors } = useTheme();
-  const [confettiKey, setConfettiKey] = useState(0);
+  const [animationKey, setAnimationKey] = useState(0);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
   const styles = createMagicStyles(colors);
   
   const victories = [
@@ -97,11 +98,10 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
     { text: t('today.food'), emoji: '🍎' },
   ];
  
-  const handleVictory = (text: string) => {
+  const handleVictory = (text: string, e: any) => {
     onVictoryPress(text);
-    
-    // Перезапускаем конфетти через изменение key
-    setConfettiKey(prev => prev + 1);
+    setPos({ x: e.nativeEvent.pageX, y: e.nativeEvent.pageY });
+    setAnimationKey(prev => prev + 1);
   };
 
   return (
@@ -116,7 +116,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
           <TouchableOpacity 
             key={index} 
             style={styles.victoryButton} 
-            onPress={() => handleVictory(v.text)}
+            onPress={(e) => handleVictory(v.text, e)}
           >
             <Text style={styles.victoryEmoji}>{v.emoji}</Text>
             <Text style={styles.victoryText}>{v.text}</Text>
@@ -124,26 +124,22 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
         ))}
       </View>
 
-      {/* Конфетти в отдельном контейнере с фиксированным позиционированием */}
-      {confettiKey > 0 && (
-        <View style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          pointerEvents: 'none', // чтобы не блокировать клики
-          zIndex: 1000
-        }}>
-          <SimpleConfetti
-            key={confettiKey}
-            count={50}
-            type="tumble"
-            speed={7000}
-            itemSize={1}
-            fromCenter={true}
-          />
-        </View>
+      {animationKey > 0 && (
+        <LottieView
+          key={animationKey}
+          source={ConfettiJSON}
+          autoPlay
+          loop={false}
+          style={{
+            position: 'absolute',
+            width: 200,
+            height: 200,
+            left: pos.x - 100,
+            top: pos.y - 100,
+            pointerEvents: 'none',
+            zIndex: 1000
+          }}
+        />
       )}
     </View>
   );
