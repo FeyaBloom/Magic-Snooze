@@ -72,12 +72,13 @@ export default function RootLayout() {
     loadInitialLanguage();
     
     // ✅ Настраиваем навигационную панель
-    setupNavigationBar();
+   
   }, []);
 
   useEffect(() => {
     if (fontsLoaded || fontError) {
       SplashScreen.hideAsync();
+      setupNavigationBar();
     }
   }, [fontsLoaded, fontError]);
 
@@ -98,7 +99,7 @@ export default function RootLayout() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>
-          <StatusBar hidden={true}/>
+          {/*<StatusBar hidden={true}/>*/}
           
         </ThemeProvider>
       </I18nextProvider>

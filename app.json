@@ -24,7 +24,7 @@
     "android": {
       "package": "com.feyabloom.magicsnooze",
       "edgeToEdgeEnabled": true,
-      "versionCode": 1,
+      "versionCode": 1
      
     },
     "web": {

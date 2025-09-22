@@ -85,6 +85,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   const { colors } = useTheme();
   const [animationKey, setAnimationKey] = useState(0);
   const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [showConfetti, setShowConfetti] = useState(false); // новое состояние
   const styles = createMagicStyles(colors);
   
   const victories = [
@@ -99,10 +100,11 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   ];
  
   const handleVictory = (text: string, e: any) => {
-   onVictoryPress(text);
+    onVictoryPress(text);
     const { pageX, pageY } = e.nativeEvent;
     setPos({ x: pageX, y: pageY });
     setAnimationKey(Date.now());
+    setShowConfetti(true); // показываем конфетти
   };
 
 
@@ -126,7 +128,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
         ))}
       </View>
 
-      {animationKey > 0 && (
+      {showConfetti && (
         <LottieView
           key={animationKey}
           source={ConfettiJSON}
@@ -141,6 +143,7 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
             pointerEvents: 'none',
             zIndex: 1000
           }}
+          onAnimationFinish={() => setShowConfetti(false)} // скрываем после завершения
         />
       )}
     </View>
