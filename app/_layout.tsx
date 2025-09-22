@@ -52,22 +52,20 @@ export default function RootLayout() {
   };
 
   // ✅ Функция для настройки навигационной панели
-  const setupNavigationBar = async () => {
-    if (Platform.OS === 'android') {
-      try {        
-         console.log('Настраиваю navigation bar...');
-      // прозрачный фон панели
-      await NavigationBar.setBackgroundColorAsync('transparent' as any);
-      // светлые иконки, если нужно
-      await NavigationBar.setButtonStyleAsync('light');
-      // режим полного экрана (edge-to-edge)
+ const setupNavigationBar = async () => {
+  if (Platform.OS === 'android') {
+    try {
+      console.log('Настраиваю navigation bar...');
+      
+      // В edge-to-edge режиме доступен только этот метод
       await NavigationBar.setVisibilityAsync('hidden');
-      console.log('Navigation bar настроен');
-      } catch (error) {
-        console.warn('NavigationBar setup failed:', error);
-      }
+      
+      console.log('Navigation bar скрыт');
+    } catch (error) {
+      console.warn('NavigationBar setup failed:', error);
     }
-  };
+  }
+};
 
   useEffect(() => {
     // Загружаем язык при старте приложения

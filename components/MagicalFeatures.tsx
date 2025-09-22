@@ -99,10 +99,12 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
   ];
  
   const handleVictory = (text: string, e: any) => {
-    onVictoryPress(text);
-    setPos({ x: e.nativeEvent.pageX, y: e.nativeEvent.pageY });
-    setAnimationKey(prev => prev + 1);
+   onVictoryPress(text);
+    const { pageX, pageY } = e.nativeEvent;
+    setPos({ x: pageX, y: pageY });
+    setAnimationKey(Date.now());
   };
+
 
   return (
     <View style={styles.tinyVictoryContainer}>
@@ -132,10 +134,10 @@ export const TinyVictoryTracker = ({ onVictoryPress }: any) => {
           loop={false}
           style={{
             position: 'absolute',
-            width: 200,
-            height: 200,
-            left: pos.x - 100,
-            top: pos.y - 100,
+            width: 400,
+            height: 400,
+            left: pos.x - 250,
+            top: pos.y - 350,
             pointerEvents: 'none',
             zIndex: 1000
           }}

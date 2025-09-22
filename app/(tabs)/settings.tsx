@@ -111,7 +111,7 @@ export default function SettingsTab() {
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>{t('settings.account')}</Text>
+           {/* <Text style={styles.sectionTitle}>{t('settings.account')}</Text>*/}
 
             {/* <TouchableOpacity style={styles.row}>
               <View>
