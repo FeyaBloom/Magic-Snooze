@@ -6,10 +6,10 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {            
-      "image": "./assets/splash-light-full.png",
+      "image": "./assets/images/splash-light-full.png",
       "resizeMode": "cover",
       "dark": {
-        "image": "./assets/splash-dark-full.png",
+        "image": "./assets/images/splash-dark-full.png",
         "resizeMode": "cover"
       }
     },
@@ -25,8 +25,7 @@
       "package": "com.feyabloom.magicsnooze",
       "edgeToEdgeEnabled": true,
       "versionCode": 1,
-      "statusBarTranslucent": true,
-      "navigationBarColor": "transparent"
+     
     },
     "web": {
       "bundler": "metro",
