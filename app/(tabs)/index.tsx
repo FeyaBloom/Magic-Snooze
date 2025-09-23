@@ -390,7 +390,10 @@ function TodayTabContent() {
       <View style={styles.routineHeader}>
         <View style={styles.routineTitle}>
           {icon}
-          <Text style={[styles.routineTitleText, { color: colors.text }]}>{title}</Text>
+          <Text style={[styles.routineTitleText, { color: colors.text }]}
+          numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>{title}</Text>
         </View>
         <TouchableOpacity
           style={styles.addButton}
@@ -399,7 +402,7 @@ function TodayTabContent() {
             setShowAddModal(true);
           }}
         >
-          <Plus size={20} color={colors.primary} />
+          <Plus size={20} color={colors.secondary} />
         </TouchableOpacity>
       </View>
       
@@ -462,8 +465,14 @@ function TodayTabContent() {
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View>
          <View style={styles.header}>
-              <Text style={styles.title}>{t('today.title')}</Text>
-              <Text style={styles.subtitle}>
+              <Text style={styles.title} 
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>{t('today.title')}</Text>
+              <Text style={styles.subtitle}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>
                 {isSnoozed ? t('today.subtitleSnoozed') : t('today.subtitle')}
               </Text>
             </View>
@@ -471,7 +480,7 @@ function TodayTabContent() {
           {!isSnoozed && (
            
               <TouchableOpacity style={styles.snoozeButton} onPress={snoozeToday}>
-                <Pause size={20} color="#8B5CF6" />
+                <Pause size={20} color={colors.secondary} />
                 <Text style={[styles.snoozeText, { fontFamily: 'ComicNeue-Regular' }]}>{t('today.snoozeToday')}</Text>
               </TouchableOpacity>
            
@@ -491,7 +500,10 @@ function TodayTabContent() {
                   style={styles.themeButton}
                   onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
                 >
-                  <Text style={styles.themeButtonText}>
+                  <Text style={styles.themeButtonText}
+                  numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>
                     {currentTheme === 'daydream' ? t('today.nightForest') : t('today.dayDream')}
                   </Text>
                 </TouchableOpacity>
@@ -499,7 +511,10 @@ function TodayTabContent() {
               <TouchableOpacity  style={styles.themeButton}       
                 onPress={() => router.push('/settings')}
               >
-                  <Text style={styles.themeButtonText}>
+                  <Text style={styles.themeButtonText}
+                  numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>
                     { t('navigation.settings')}
                   </Text>
                 </TouchableOpacity>
@@ -536,7 +551,10 @@ function TodayTabContent() {
           {todayProgress && (
            
               <View style={[styles.progressSection, { backgroundColor: colors.surface }]}>
-                <Text style={[styles.progressTitle, { color: colors.text }]}>
+                <Text style={[styles.progressTitle, { color: colors.text }]}
+                numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>
                   {t('today.todaysProgress')} <Sparkles size={20} color={colors.text} />
                 </Text>
                 <View style={styles.progressStats}>
@@ -544,7 +562,7 @@ function TodayTabContent() {
                     <Text style={[styles.progressLabel, { color: colors.textSecondary }]}>
                       {t('today.morning')}
                     </Text>
-                    <Text style={[styles.progressValue, { color: colors.primary }]}>
+                    <Text style={[styles.progressValue, { color: colors.secondary }]}>
                       {todayProgress.morningDone}/{todayProgress.morningTotal}
                     </Text>
                   </View>
@@ -552,7 +570,7 @@ function TodayTabContent() {
                     <Text style={[styles.progressLabel, { color: colors.textSecondary }]}>
                       {t('today.evening')}
                     </Text>
-                    <Text style={[styles.progressValue, { color: colors.primary }]}>
+                    <Text style={[styles.progressValue, { color: colors.secondary }]}>
                       {todayProgress.eveningDone}/{todayProgress.eveningTotal}
                     </Text>
                   </View>

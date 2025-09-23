@@ -169,8 +169,16 @@ export default function NotesTab() {
     <FloatingBackground />
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <Text style={styles.title}>{t('notes.title')}</Text>
-        <Text style={styles.subtitle}>{t('notes.subtitle')}</Text>
+        <Text style={styles.title}
+        numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>
+                {t('notes.title')}</Text>
+        <Text style={styles.subtitle}
+        numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>
+                {t('notes.subtitle')}</Text>
       </View>
 
       <View style={styles.searchContainer}>

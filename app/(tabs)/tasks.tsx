@@ -180,8 +180,14 @@ const formatDate = (dateString: string) => {
         <FloatingBackground />
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <Text style={styles.title}>{t('tasks.title')}</Text>
-            <Text style={styles.subtitle}>{t('tasks.subtitle')}</Text>
+            <Text style={styles.title}
+            numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>{t('tasks.title')}</Text>
+            <Text style={styles.subtitle}
+            numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>{t('tasks.subtitle')}</Text>
           </View>
 
           <TouchableOpacity style={styles.addTaskButton} onPress={() => setShowAddModal(true)}>

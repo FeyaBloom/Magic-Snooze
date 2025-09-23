@@ -185,8 +185,14 @@ const gradient = getTabGradient(route.name);
     <FloatingBackground />
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <Text style={styles.title}>{t('calendar.title')}</Text>
-        <Text style={styles.subtitle}>{t('calendar.subtitle')}</Text>
+        <Text style={styles.title}
+        numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>{t('calendar.title')}</Text>
+        <Text style={styles.subtitle}
+        numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>{t('calendar.subtitle')}</Text>
       </View>
 
      <View style={{ marginHorizontal: 20 }}>
@@ -200,7 +206,11 @@ const gradient = getTabGradient(route.name);
       </View>
 
       <View style={styles.legendContainer}>
-        <Text style={styles.legendTitle}>{t('calendar.legendTitle')}</Text>
+        <Text style={styles.legendTitle}
+        numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>
+                {t('calendar.legendTitle')}</Text>
         <View style={styles.legendGrid}>
           <View style={styles.legendItem}>
             <View style={[styles.legendDot, styles.completeLegend]} />
@@ -223,7 +233,10 @@ const gradient = getTabGradient(route.name);
 
       {monthStats.totalDays > 0 && (
         <View style={styles.statsContainer}>
-          <Text style={styles.statsTitle}>
+          <Text style={styles.statsTitle}
+          numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>
             {t('calendar.stats.title')} <Sparkles size={20} color={colors.text} />
           </Text>
           <View style={styles.statsGrid}>

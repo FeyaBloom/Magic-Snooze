@@ -229,7 +229,7 @@ export default function Calendar({
 
   return (
     <View style={[styles.calendarContainer, { alignItems: 'center' }]}>
-      <View style={styles.monthHeader}>
+      <View style={styles.monthHeader} >
         <TouchableOpacity
           style={styles.navButton}
           onPress={() => navigateMonth('prev')}
@@ -237,7 +237,11 @@ export default function Calendar({
         >
           <ChevronLeft size={24} color={colors.secondary} />
         </TouchableOpacity>
-        <Text style={styles.monthTitle}>{monthName}</Text>
+        <Text style={styles.monthTitle}
+        numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}>
+                {monthName}</Text>
         <TouchableOpacity
           style={styles.navButton}
           onPress={() => navigateMonth('next')}

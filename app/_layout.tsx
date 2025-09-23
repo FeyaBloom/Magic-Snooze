@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import { setStatusBarHidden, StatusBar } from 'expo-status-bar';
 import { View, ActivityIndicator, Platform } from 'react-native';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { ThemeProvider } from '@/components/ThemeProvider';
@@ -51,34 +51,34 @@ export default function RootLayout() {
     }
   };
 
-  // ✅ Функция для настройки навигационной панели
- const setupNavigationBar = async () => {
+const setupFullscreen = async () => {
   if (Platform.OS === 'android') {
     try {
-      console.log('Настраиваю navigation bar...');
+      console.log('Включаю fullscreen режим...');
       
-      // В edge-to-edge режиме доступен только этот метод
+      // Скрываем status bar
+      setStatusBarHidden(true, 'fade');
+      //StatusBar.setTranslucent(true);
+        
+      // Скрываем navigation bar отдельно
       await NavigationBar.setVisibilityAsync('hidden');
       
-      console.log('Navigation bar скрыт');
+      console.log('Оба элемента скрыты');
     } catch (error) {
-      console.warn('NavigationBar setup failed:', error);
+      console.warn('Fullscreen setup failed:', error);
     }
   }
 };
 
   useEffect(() => {
     // Загружаем язык при старте приложения
-    loadInitialLanguage();
-    
-    // ✅ Настраиваем навигационную панель
-   
+    loadInitialLanguage();   
   }, []);
 
   useEffect(() => {
     if (fontsLoaded || fontError) {
       SplashScreen.hideAsync();
-      setupNavigationBar();
+      setupFullscreen();
     }
   }, [fontsLoaded, fontError]);
 

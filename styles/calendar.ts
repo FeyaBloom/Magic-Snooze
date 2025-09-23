@@ -84,9 +84,9 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     marginRight: 20,
   },
   monthTitle: {
-    fontSize: 20,
+    fontSize: 18,
     color: colors.text,
-    fontFamily: 'CabinSketch-Regular',
+    fontFamily: 'ComicNeue-Bold',
   },
   weekDaysContainer: {
     flexDirection: 'row',

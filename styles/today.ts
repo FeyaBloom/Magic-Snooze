@@ -69,7 +69,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.primary + `30`,
+    backgroundColor: colors.secondary + `30`,
   },
   stepContainer: {
     flexDirection: 'row',
@@ -224,13 +224,13 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   progressValue: {
     fontSize: 20,
-    color: colors.secondary,
+    color: colors.primary,
     fontFamily: 'ComicNeue-Bold',
   },
   
   
   closeVictoriesButton: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 20,
