@@ -35,7 +35,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.primary,
-    marginHorizontal: 20,
+   // marginHorizontal: 20,
     marginBottom: 20,
     paddingVertical: 8,
     borderRadius: 16,
@@ -53,7 +53,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
   },
   taskSection: {
-    marginHorizontal: 20,
+    //marginHorizontal: 20,
     marginBottom: 24,
   },
   sectionTitle: {
@@ -86,14 +86,11 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     marginLeft: 8,
-    
-    // gap: 8, // gap не поддерживается официально в RN, убери!
   },
   deleteButtonInline: {
     padding: 4,
     alignItems: 'center',
-    // marginRight: 28, // у кнопки действия не нужно!
-  },
+      },
   taskText: {
     fontSize: 15,
     color: colors.text,
@@ -117,6 +114,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     borderColor: '#D1D5DB',
     borderRadius: 12,
     padding: 16,
+    marginHorizontal: 24,
     fontSize: 16,
     color: colors.textSecondary,
     fontFamily: 'ComicNeue-Regular',
@@ -170,18 +168,20 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
   modalContent: {
     backgroundColor: colors.surface,
     borderRadius: 20,
-    padding: 24,
-    width: '100%',
+    marginHorizontal: 20,
     maxWidth: 400,
+    width: '90%',
   },
   modalTitle: {
     fontSize: 20,
     color: colors.text,
     marginBottom: 16,
+    marginTop: 16,
     textAlign: 'center',
     fontFamily: 'CabinSketch-Regular',
   },
@@ -193,6 +193,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     fontSize: 16,
     color: colors.textSecondary,
     marginBottom: 16,
+    marginHorizontal: 24,
     minHeight: 60,
     textAlignVertical: 'top',
     fontFamily: 'ComicNeue-Regular',
@@ -216,6 +217,8 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
     height: 48,
     justifyContent: 'center',
+    marginHorizontal: 20,
+    marginBottom: 16,
   },
   cancelButton: {
     backgroundColor: '#F3F4F6',

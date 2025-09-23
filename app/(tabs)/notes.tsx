@@ -3,6 +3,7 @@ import {
   View,
   Text,
   ScrollView,
+  StyleSheet,
   SafeAreaView,
   TouchableOpacity,
   TextInput,
@@ -28,7 +29,6 @@ interface Note {
 }
 
 export default function NotesTab() {
-  const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const route = useRoute();
   const { colors, getTabGradient } = useTheme();
   const gradient = getTabGradient(route.name);
@@ -164,10 +164,24 @@ export default function NotesTab() {
 
   return (
     <>
-      <SafeAreaView style={styles.container}>
-  <LinearGradient colors={gradient} style={styles.gradient}>
-    <FloatingBackground />
-    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+    <SafeAreaView style={styles.container}>
+              {/* Фон и анимация под контентом */}
+              <View style={{
+                ...StyleSheet.absoluteFillObject,
+                zIndex: 0,
+                pointerEvents: 'none', // не мешает кликам
+              }}>
+                <LinearGradient
+                  colors={gradient}
+                  style={styles.gradient}
+                >
+                  <FloatingBackground />
+                </LinearGradient>
+              </View>
+        
+              {/* Основной контент поверх */}
+              <View style={{ flex: 1, zIndex: 1, maxWidth: 600, alignSelf: 'center' }}>
+                <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <Text style={styles.title}
         numberOfLines={1}
@@ -248,7 +262,7 @@ export default function NotesTab() {
         </View>
       )}
     </ScrollView>
-  </LinearGradient>
+  </View>
 
   {/* Add Note Modal */}
   <Modal

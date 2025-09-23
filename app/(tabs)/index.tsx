@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  DeviceEventEmitter, // 🚀 ДОБАВЛЕНО
+  StyleSheet,
+  DeviceEventEmitter, 
 } from 'react-native';
 import i18n from '@/i18n';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -38,13 +39,11 @@ interface RoutineStep {
 }
 
 function TodayTabContent() {
-  const currentLanguageCode = i18n.language;
-  const [languageModalVisible, setLanguageModalVisible] = useState(false);
+ // const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const route = useRoute();
   const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
   const gradient = getTabGradient(route.name);
   const styles = createTodayStyles(colors);
-
   const router = useRouter();
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
   const [eveningRoutine, setEveningRoutine] = useState<RoutineStep[]>([]);
@@ -70,8 +69,8 @@ function TodayTabContent() {
 
   // Используем хуки
   const { progress: todayProgress, loadProgress, saveProgress, getLocalDateString } = useDailyProgress();
-  const { celebratedVictories, celebrateVictory } = useVictories();
-  const { progress: routinesProgress, snoozeDay, unsnoozeDay } = useRoutinesBlock();
+  const {  celebrateVictory } = useVictories();
+  const { snoozeDay: blockDay, unsnoozeDay: unblockDay } = useRoutinesBlock();
   const { 
     showSurprisePrompt, 
     dismissPrompt: dismissSurprisePrompt 
@@ -379,9 +378,9 @@ function TodayTabContent() {
     setIsSnoozed(newSnoozed);
     
     if (newSnoozed) {
-      await snoozeDay();
+      await blockDay?.();
     } else {
-      await unsnoozeDay();
+      await unblockDay?.();
     }
   };
 
@@ -455,13 +454,22 @@ function TodayTabContent() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={gradient}
-        style={styles.gradient}
-      >
-        
+      {/* Фон и анимация под контентом */}
+      <View style={{
+        ...StyleSheet.absoluteFillObject,
+        zIndex: 0,
+        pointerEvents: 'none', // не мешает кликам
+      }}>
+        <LinearGradient
+          colors={gradient}
+          style={styles.gradient}
+        >
           <FloatingBackground />
-        <>
+        </LinearGradient>
+      </View>
+
+      {/* Основной контент поверх */}
+      <View style={{ flex: 1, zIndex: 1, maxWidth: 600, alignSelf: 'center', width: '100%'}}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View>
          <View style={styles.header}>
@@ -582,8 +590,8 @@ function TodayTabContent() {
         </ScrollView>
         
         {showSurprisePrompt && <SurprisePrompt onDismiss={dismissSurprisePrompt} />}
-        </>
-      </LinearGradient>
+        </View>
+      
 
       {/* Все модалки вынесены сюда, за пределы LinearGradient */}
       <Modal 

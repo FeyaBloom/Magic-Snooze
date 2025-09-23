@@ -1,7 +1,17 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const { width: screenWidth } = Dimensions.get('window');
-export const dayWidth = (screenWidth - 80) / 7;
+
+const MAX_DAY_WIDTH = 75; // максимальная ширина в пикселях
+export const dayWidth = Math.min((screenWidth - 8) / 7, MAX_DAY_WIDTH);
+
+const MIN_DAY_WIDTH = 30;
+
+export const calculateDayWidth = (containerWidth?: number) => {
+  const availableWidth = containerWidth ? containerWidth - 80 : screenWidth - 80;
+  const calculatedWidth = availableWidth / 7;
+  return Math.max(MIN_DAY_WIDTH, Math.min(calculatedWidth, MAX_DAY_WIDTH));
+};
 
 export const createCalendarStyles = (colors: any) => StyleSheet.create({
   container: {
@@ -64,7 +74,8 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
     opacity: 0.75,
-    alignItems: 'center',
+
+    
   },
   monthHeader: {
     flexDirection: 'row',
@@ -147,11 +158,11 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО
   },
   partialDay: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
     borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО
   },
   snoozedDay: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
     borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО
   },
   statusDayText: {
@@ -171,13 +182,16 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     marginHorizontal: 20,
     marginBottom: 20,
     borderRadius: 16,    
-    padding: 10,
+    padding: 20,
+    paddingLeft: 30,
     shadowColor: '#cccccc',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
     opacity: 0.75,
+    justifyContent: 'center',
+    
   },
   legendTitle: {
     fontSize: 20,
@@ -190,27 +204,29 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    
   },
   legendItem: {
     flexDirection: 'row',
     alignItems: 'center',
     width: '49%',
     marginBottom: 12,
+    
   },
   legendDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginRight: 8,
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    marginHorizontal: 8,
   },
   completeLegend: {
     backgroundColor: colors.accent,
   },
   partialLegend: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
   },
   snoozedLegend: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
   },
   noneLegend: {
     backgroundColor: '#E5E7EB',

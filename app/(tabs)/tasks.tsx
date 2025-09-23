@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TextInput,
+  StyleSheet,
   Modal,
 } from 'react-native';
 import { MagicalCheckbox, FloatingBackground } from "@/components/MagicalFeatures";
@@ -19,7 +20,7 @@ import CustomCalendar from '@/components/customCalendar';
 import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
 import { TouchableWithoutFeedback } from 'react-native';
-
+import { createCalendarStyles } from '@/styles/calendar';
 const { t } = i18n;
 interface Task {
   id: string;
@@ -30,10 +31,10 @@ interface Task {
 }
 
 export default function TasksTab() {
-  const currentLanguageCode = i18n.language;
-  const [languageModalVisible, setLanguageModalVisible] = useState(false);
+ // const currentLanguageCode = i18n.language;
+//  const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const route = useRoute();
-  const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
+  const { colors, getTabGradient } = useTheme();
   const gradient = getTabGradient(route.name);
   
   const styles = createTasksStyles(colors);
@@ -173,12 +174,24 @@ const formatDate = (dateString: string) => {
   const activeTasks = tasks.filter(task => !task.completed);
 
   return (
-    <SafeAreaView style={[styles.container, {position: 'relative'}]}>
-      <LinearGradient colors={gradient}  
-        style={styles.gradient}      
-      >
-        <FloatingBackground />
-        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+    <SafeAreaView style={styles.container}>
+          {/* Фон и анимация под контентом */}
+          <View style={{
+            ...StyleSheet.absoluteFillObject,
+            zIndex: 0,
+            pointerEvents: 'none', // не мешает кликам
+          }}>
+            <LinearGradient
+              colors={gradient}
+              style={styles.gradient}
+            >
+              <FloatingBackground />
+            </LinearGradient>
+          </View>
+    
+          {/* Основной контент поверх */}
+          <View style={{ flex: 1, zIndex: 1, maxWidth: 600, alignSelf: 'center' }}>
+            <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}
             numberOfLines={1}
@@ -308,7 +321,7 @@ const formatDate = (dateString: string) => {
             </View>
           )}
         </ScrollView>
-      </LinearGradient>
+      </View>
 
       {/* Все модалки вынесены сюда, за пределы LinearGradient */}
       <Modal 
@@ -334,15 +347,21 @@ const formatDate = (dateString: string) => {
                 {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}
               </Text>
             </TouchableOpacity>
+            <View style={{ alignItems: 'center', marginHorizontal: 24 }}>
             {showCalendar && (
               <CustomCalendar              
-         selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+  selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
   onDateSelect={(date) => {
     setNewTaskDueDate(date.toISOString());
     setShowCalendar(false);
   }}
-              />
-            )}
+  containerWidth={380}
+  maxWidth={350}
+  
+/> 
+            )} 
+            </View>
+            
 
             <View style={styles.modalButtons}>
               <TouchableOpacity
@@ -404,16 +423,19 @@ const formatDate = (dateString: string) => {
                 {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}
               </Text>
             </TouchableOpacity>
+             <View style={{ alignItems: 'center', marginHorizontal: 24 }}>
             {showEditCalendar && (
               <CustomCalendar               
-         selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+  selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
   onDateSelect={(date) => {
     setNewTaskDueDate(date.toISOString());
     setShowCalendar(false);
   }}
   minDate={new Date()}
-        />
-            )}
+  containerWidth={380}
+  maxWidth={350}
+/>
+            )}</View>
 
             <View style={styles.modalButtons}>
               <TouchableOpacity

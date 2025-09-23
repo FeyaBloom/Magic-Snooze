@@ -43,6 +43,8 @@ export default function TabLayout() {
           shadowRadius: 8,
           height: 75,
           paddingTop: 8,
+          paddingHorizontal: 20,
+          
           paddingBottom: Platform.OS === 'android' ? 20 : 0,
         },
         tabBarActiveTintColor: colors.secondary,

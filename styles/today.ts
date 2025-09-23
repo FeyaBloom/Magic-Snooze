@@ -112,10 +112,10 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 20,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowColor: colors.secondary,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 9,
     elevation: 3,
     height: 48,
   },
@@ -167,6 +167,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 12,
+    //marginHorizontal: 18,
   },
   themeButton: {
     flex: 1,
@@ -174,18 +175,18 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
-    //paddingHorizontal: 16,
+   // paddingHorizontal: 6,
     borderRadius: 12,
     backgroundColor: colors.surface,
     height: 48,
-    marginHorizontal: 16,
+    marginHorizontal: 20,
     shadowColor: '#ccc',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
   themeButtonText: {
-    fontSize: 12,
+    fontSize: 14,
     color: colors.text,
     fontFamily: 'ComicNeue-Regular',
   },
@@ -250,16 +251,14 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
     
   },
-
-
-
   
   modalContent: {
     backgroundColor: colors.surface,
     borderRadius: 20,
     padding: 24,
-    width: '100%',
+    width: screenWidth * 0.9,
     maxWidth: 400,
+    marginHorizontal: 20,
   },
   modalTitle: {
     fontSize: 20,

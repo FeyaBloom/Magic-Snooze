@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
-import { createCalendarStyles, dayWidth } from '@/styles/calendar';
+import { createCalendarStyles, calculateDayWidth } from '@/styles/calendar';
 import i18n from '@/i18n';
 
 const { t } = i18n;
@@ -30,6 +30,10 @@ interface CalendarProps {
   onMonthChange?: (date: Date) => void;
   minDate?: Date;
   maxDate?: Date;
+  
+  // НОВОЕ: контроль размеров для разных контекстов
+  containerWidth?: number; // ширина контейнера для расчета размера дней
+  maxWidth?: number; // максимальная ширина всего календаря
 }
 
 const getLocalDateString = (date: Date) => {
@@ -47,12 +51,25 @@ export default function Calendar({
   onMonthChange,
   minDate,
   maxDate,
+  containerWidth, // для модалки передавайте ~360
+  maxWidth, // для общего ограничения
 }: CalendarProps) {
   const { colors } = useTheme();
   const [currentMonth, setCurrentMonth] = useState(initialMonth);
   const [stylesReady, setStylesReady] = useState(false);
   
-  // ✅ Мемоизируем стили с правильным типированием
+  // Вычисляем актуальный размер дня для конкретного контейнера
+  const dayWidth = useMemo(() => {
+    return calculateDayWidth(containerWidth);
+  }, [containerWidth]);
+  
+  // Вычисляем высоту дня - для модалок делаем меньше
+  const dayHeight = useMemo(() => {
+    const isModal = containerWidth && containerWidth < 400;
+    return isModal ? dayWidth * 0.75 : dayWidth; // в модалке высота = 70% от ширины
+  }, [dayWidth, containerWidth]);
+  
+  // Мемоизируем стили
   const styles = useMemo(() => {
     if (!colors) return null;
     return createCalendarStyles(colors);
@@ -61,7 +78,6 @@ export default function Calendar({
   // Проверяем готовность стилей и colors
   useEffect(() => {
     if (colors && styles) {
-      // Используем requestAnimationFrame для гарантии готовности рендера
       requestAnimationFrame(() => {
         setStylesReady(true);
       });
@@ -119,7 +135,7 @@ export default function Calendar({
       if (customDayRenderer) {
         // Кастомный рендеринг (для CalendarTab с отметками) - дни НЕ кликабельные
         daysArray.push(
-          <View key={dateString} style={[styles.dayContainer, { width: dayWidth }]}>
+          <View key={dateString} style={[styles.dayContainer, { width: dayWidth, height: dayHeight }]}>
             {customDayRenderer(date, isCurrentMonth, isToday, !!isSelected, styles)}
           </View>
         );
@@ -128,7 +144,7 @@ export default function Calendar({
         daysArray.push(
           <TouchableOpacity
             key={dateString}
-            style={[styles.dayContainer, { width: dayWidth }]}
+            style={[styles.dayContainer, { width: dayWidth, height: dayHeight }]}
             onPress={() => handleDatePress(date)}
             disabled={disabled}
             activeOpacity={0.7}
@@ -156,7 +172,7 @@ export default function Calendar({
     }
 
     return daysArray;
-  }, [currentMonth, selectedDate, customDayRenderer, styles, stylesReady, minDate, maxDate, onDateSelect]);
+  }, [currentMonth, selectedDate, customDayRenderer, styles, stylesReady, minDate, maxDate, onDateSelect, dayWidth, dayHeight]);
 
   const renderCalendar = () => {
     // split into 6 rows of 7 days
@@ -192,7 +208,7 @@ export default function Calendar({
         {day}
       </Text>
     ));
-  }, [styles]);
+  }, [styles, dayWidth]);
 
   const capitalizeFirst = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -200,7 +216,6 @@ export default function Calendar({
     en: 'en-US',
     ru: 'ru-RU',
     es: 'es-ES',
-    // добавь другие при необходимости
   };
 
   // Мемоизируем название месяца
@@ -213,11 +228,11 @@ export default function Calendar({
     );
   }, [currentMonth, i18n.language]);
 
-  // ✅ Показываем загрузку пока стили не готовы
+  // Показываем загрузку пока стили не готовы
   if (!stylesReady || !colors || !styles) {
     return (
       <View style={{ 
-        height: 350, // примерная высота календаря
+        height: dayHeight * 6 + 120, // 6 рядов дней + заголовки
         justifyContent: 'center', 
         alignItems: 'center',
         opacity: 0.5 
@@ -228,7 +243,14 @@ export default function Calendar({
   }
 
   return (
-    <View style={[styles.calendarContainer, { alignItems: 'center' }]}>
+    <View style={[
+      styles.calendarContainer, 
+      { 
+        alignItems: 'center',
+        width: '100%',
+        ...(maxWidth && { maxWidth: maxWidth })
+      }
+    ]}>
       <View style={styles.monthHeader} >
         <TouchableOpacity
           style={styles.navButton}

@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  StyleSheet,
   Linking,
   SafeAreaView,
   Switch,
@@ -60,9 +61,29 @@ export default function SettingsTab() {
 };
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient colors={colors.background} style={styles.gradient}>
-        <FloatingBackground />
-        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+              {/* Фон и анимация под контентом */}
+              <View style={{
+                ...StyleSheet.absoluteFillObject,
+                zIndex: 0,
+                pointerEvents: 'none', // не мешает кликам
+              }}>
+                <LinearGradient
+  colors={
+    Array.isArray(colors.background) &&
+    colors.background.length >= 2 &&
+    colors.background.every(c => typeof c === 'string')
+      ? (colors.background as [string, string, ...string[]])
+      : ['#ffffff', '#eeeeee']
+  }
+  style={styles.gradient}
+>
+  <FloatingBackground />
+</LinearGradient>
+              </View>
+        
+              {/* Основной контент поверх */}
+              <View style={{ flex: 1, zIndex: 1, maxWidth: 600, alignSelf: 'center', width: '100%' }}>
+                <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>{t('settings.title')}</Text>
 
           <View style={styles.section}>
@@ -174,7 +195,7 @@ export default function SettingsTab() {
             onClose={() => setLanguageModalVisible(false)}
           />
         </ScrollView>
-      </LinearGradient>
+      </View>
     </SafeAreaView>
   );
 }

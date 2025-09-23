@@ -4,6 +4,7 @@ import {useCallback} from "react"
 import {
   View,
   Text,
+  StyleSheet,
   ScrollView,
   SafeAreaView,
   DeviceEventEmitter,
@@ -179,11 +180,23 @@ const gradient = getTabGradient(route.name);
 
   return (
     <SafeAreaView style={styles.container}>
-  <LinearGradient  colors={gradient}
-        style={styles.gradient}
-    >
-    <FloatingBackground />
-    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+              {/* Фон и анимация под контентом */}
+              <View style={{
+                ...StyleSheet.absoluteFillObject,
+                zIndex: 0,
+                pointerEvents: 'none', // не мешает кликам
+              }}>
+                <LinearGradient
+                  colors={gradient}
+                  style={styles.gradient}
+                >
+                  <FloatingBackground />
+                </LinearGradient>
+              </View>
+        
+              {/* Основной контент поверх */}
+              <View style={{ flex: 1, zIndex: 1, maxWidth: 600, alignSelf: 'center', width: '100%' }}>
+                <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <Text style={styles.title}
         numberOfLines={1}
@@ -195,14 +208,15 @@ const gradient = getTabGradient(route.name);
               minimumFontScale={0.7}>{t('calendar.subtitle')}</Text>
       </View>
 
-     <View style={{ marginHorizontal: 20 }}>
+     <View style={{ alignSelf: 'center', width: '90%', marginHorizontal: 24 }}>
       <CustomCalendar        
-        customDayRenderer={customDayRenderer}
-        initialMonth={currentMonth}
-        onMonthChange={(date) => {
-          setCurrentMonth(date);
-        }}
-      />
+  customDayRenderer={customDayRenderer}
+  initialMonth={currentMonth}
+  onMonthChange={(date) => {
+    setCurrentMonth(date);
+  }}
+    
+/>
       </View>
 
       <View style={styles.legendContainer}>
@@ -262,7 +276,7 @@ const gradient = getTabGradient(route.name);
         </View>
       )}
     </ScrollView>
-  </LinearGradient>
+  </View>
 </SafeAreaView>
 
   );

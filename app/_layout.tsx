@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
-import { setStatusBarHidden, StatusBar } from 'expo-status-bar';
+import { setStatusBarHidden } from 'expo-status-bar';
 import { View, ActivityIndicator, Platform } from 'react-native';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { ThemeProvider } from '@/components/ThemeProvider';
