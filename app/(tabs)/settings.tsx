@@ -27,7 +27,7 @@ import { LanguageModal } from '@/components/LanguageModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ResetDataComponent from '@/components/ResetDataComponent';
 
-export default function SettingsTab() {
+function SettingsTabContent() {
   const { colors, toggleMessyMode, isMessyMode } = useTheme();
   const { t } = useTranslation();
   const styles = createSettingsStyles(colors);
@@ -200,4 +200,8 @@ export default function SettingsTab() {
       </View>
     </SafeAreaView>
   );
+}
+// ✅ Export default AL FINAL
+export default function SettingsTab() {
+  return <SettingsTabContent />;
 }

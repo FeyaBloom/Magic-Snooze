@@ -38,7 +38,7 @@ const getLocalDateString = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
-export default function CalendarTab() {
+function CalendarTabContent() {
   const route = useRoute();
 const { colors, getTabGradient } = useTheme();
 const gradient = getTabGradient(route.name);
@@ -282,4 +282,8 @@ const { t } = useTranslation();
 </SafeAreaView>
 
   );
+}
+// ✅ Export default AL FINAL
+export default function CalendarTab() {
+  return <CalendarTabContent />;
 }
