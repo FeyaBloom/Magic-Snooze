@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {useFocusEffect} from "@react-navigation/native";
-import {useCallback} from "react"
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from "@react-navigation/native";
 import {
   View,
   Text,
@@ -18,8 +17,8 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles } from '@/styles/calendar';
 import { FloatingBackground } from "@/components/MagicalFeatures";
 import CustomCalendar from '@/components/customCalendar';
-
 import { useTranslation } from 'react-i18next';
+
 interface DailyProgress {
   date: string;
   morningCompleted: boolean;
@@ -39,42 +38,20 @@ const getLocalDateString = (date: Date) => {
 };
 
 function CalendarTabContent() {
+  // ✅ 1. TODOS los hooks de librerías primero
   const route = useRoute();
-const { colors, getTabGradient } = useTheme();
-const gradient = getTabGradient(route.name);
-const { t } = useTranslation();
-  const styles = createCalendarStyles(colors);
+  const { t } = useTranslation();
+  const { colors, getTabGradient } = useTheme();
+
+  // ✅ 2. TODOS los useState juntos
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [progressData, setProgressData] = useState<Record<string, DailyProgress>>({});
 
-  // 🚀 НОВЫЙ ЭФФЕКТ: Слушатель событий сброса данных
-  useEffect(() => {
-    const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
-      console.log('CalendarTab received data reset event:', data);
-      
-      // Проверяем, затронул ли сброс прогресс рутин или сами рутины
-      if (data.categories.includes('progress') || data.categories.includes('routines')) {
-        console.log('Resetting calendar data...');
-        // Очищаем локальное состояние
-        setProgressData({});
-        // Перезагружаем данные с AsyncStorage
-        loadProgressData();
-      }
-    };
+  // ✅ 3. Variables derivadas (no hooks)
+  const gradient = getTabGradient(route.name);
+  const styles = createCalendarStyles(colors);
 
-    const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
-    
-    return () => {
-      listener.remove();
-    };
-  }, [currentMonth]); // зависимость от currentMonth для корректной перезагрузки
-
-  useFocusEffect(
-    useCallback(() => {
-    loadProgressData();
-  }, [])
-  );
-
+  // ✅ 4. Funciones auxiliares
   const loadProgressData = async () => {
     try {
       const year = currentMonth.getFullYear();
@@ -99,11 +76,6 @@ const { t } = useTranslation();
     }
   };
 
-  // 🔄 ОБНОВЛЕННЫЙ ЭФФЕКТ: Перезагружаем данные при смене месяца
-  useEffect(() => {
-    loadProgressData();
-  }, [currentMonth]);
-
   const getDayStatus = (dateString: string) => {
     const progress = progressData[dateString];
     if (!progress) return 'none';
@@ -115,7 +87,6 @@ const { t } = useTranslation();
     return 'partial';
   };
 
-  // Кастомный рендерер дней с отметками прогресса
   const customDayRenderer = (date: Date, isCurrentMonth: boolean, isToday: boolean, isSelected: boolean, calendarStyles: any) => {
     const dateString = getLocalDateString(date);
     const dayStatus = getDayStatus(dateString);
@@ -132,7 +103,6 @@ const { t } = useTranslation();
         ]}>
           <Text style={[
             calendarStyles.dayText,
-            // Цвет текста: текущий месяц темнее, остальные светлее
             isCurrentMonth ? { color: colors.text } : calendarStyles.otherMonthText,
             isToday && calendarStyles.todayText,
             dayStatus !== 'none' && calendarStyles.statusDayText,
@@ -177,112 +147,157 @@ const { t } = useTranslation();
     return { completeDays, partialDays, snoozedDays, totalDays };
   };
 
+  // ✅ 5. Variables calculadas
   const monthStats = getMonthStats();
 
+  // ✅ 6. TODOS los useEffect AL FINAL (en orden correcto)
+  // useFocusEffect primero
+  useFocusEffect(
+    useCallback(() => {
+      loadProgressData();
+    }, []) // Sin dependencias de currentMonth aquí
+  );
+
+  // useEffect para cambio de mes
+  useEffect(() => {
+    loadProgressData();
+  }, [currentMonth]);
+
+  // useEffect para listener de eventos - AL FINAL
+  useEffect(() => {
+    const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
+      console.log('CalendarTab received data reset event:', data);
+      
+      if (data.categories.includes('progress') || data.categories.includes('routines')) {
+        console.log('Resetting calendar data...');
+        setProgressData({});
+        loadProgressData();
+      }
+    };
+
+    const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
+    
+    return () => {
+      listener.remove();
+    };
+  }, []); // Sin dependencias para que sea estable
+
+  // ✅ 7. JSX Return
   return (
     <SafeAreaView style={styles.container}>
-              {/* Фон и анимация под контентом */}
-              <View style={{
-                ...StyleSheet.absoluteFillObject,
-                zIndex: 0,
-                pointerEvents: 'none', // не мешает кликам
-              }}>
-                <LinearGradient
-                  colors={gradient}
-                  style={styles.gradient}
-                >
-                  <FloatingBackground />
-                </LinearGradient>
+      <View style={{
+        ...StyleSheet.absoluteFillObject,
+        zIndex: 0,
+        pointerEvents: 'none',
+      }}>
+        <LinearGradient colors={gradient} style={styles.gradient}>
+          <FloatingBackground />
+        </LinearGradient>
+      </View>
+
+      <View style={{ 
+        flex: 1, 
+        zIndex: 1,  
+        width: Platform.OS === 'android' ? '100%' : 600,
+        alignSelf: Platform.OS === 'android' ? 'stretch' : 'center' 
+      }}>
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+          <View style={styles.header}>
+            <Text 
+              style={styles.title}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
+            >
+              {t('calendar.title')}
+            </Text>
+            <Text 
+              style={styles.subtitle}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
+            >
+              {t('calendar.subtitle')}
+            </Text>
+          </View>
+
+          <View style={{ alignSelf: 'center', width: '90%', marginHorizontal: 24 }}>
+            <CustomCalendar        
+              customDayRenderer={customDayRenderer}
+              initialMonth={currentMonth}
+              onMonthChange={(date) => {
+                setCurrentMonth(date);
+              }}
+            />
+          </View>
+
+          <View style={styles.legendContainer}>
+            <Text 
+              style={styles.legendTitle}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
+            >
+              {t('calendar.legendTitle')}
+            </Text>
+            <View style={styles.legendGrid}>
+              <View style={styles.legendItem}>
+                <View style={[styles.legendDot, styles.completeLegend]} />
+                <Text style={styles.legendText}>{t('calendar.legend.complete')}</Text>
               </View>
-        
-              {/* Основной контент поверх */}
-              <View style={{ flex: 1, zIndex: 1,  width: Platform.OS === 'android' ? '100%' : 600,
-  alignSelf: Platform.OS === 'android' ? 'stretch' : 'center' }}>
-                <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-        <Text style={styles.title}
-        numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}>{t('calendar.title')}</Text>
-        <Text style={styles.subtitle}
-        numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}>{t('calendar.subtitle')}</Text>
-      </View>
-
-     <View style={{ alignSelf: 'center', width: '90%', marginHorizontal: 24 }}>
-      <CustomCalendar        
-  customDayRenderer={customDayRenderer}
-  initialMonth={currentMonth}
-  onMonthChange={(date) => {
-    setCurrentMonth(date);
-  }}
-    
-/>
-      </View>
-
-      <View style={styles.legendContainer}>
-        <Text style={styles.legendTitle}
-        numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}>
-                {t('calendar.legendTitle')}</Text>
-        <View style={styles.legendGrid}>
-          <View style={styles.legendItem}>
-            <View style={[styles.legendDot, styles.completeLegend]} />
-            <Text style={styles.legendText}>{t('calendar.legend.complete')}</Text>
-          </View>
-          <View style={styles.legendItem}>
-            <View style={[styles.legendDot, styles.partialLegend]} />
-            <Text style={styles.legendText}>{t('calendar.legend.partial')}</Text>
-          </View>
-          <View style={styles.legendItem}>
-            <View style={[styles.legendDot, styles.snoozedLegend]} />
-            <Text style={styles.legendText}>{t('calendar.legend.snoozed')}</Text>
-          </View>
-          <View style={styles.legendItem}>
-            <View style={[styles.legendDot, styles.noneLegend]} />
-            <Text style={styles.legendText}>{t('calendar.legend.none')}</Text>
-          </View>
-        </View>
-      </View>
-
-      {monthStats.totalDays > 0 && (
-        <View style={styles.statsContainer}>
-          <Text style={styles.statsTitle}
-          numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}>
-            {t('calendar.stats.title')} <Sparkles size={20} color={colors.text} />
-          </Text>
-          <View style={styles.statsGrid}>
-            <View style={styles.statItem}>
-              <Text style={styles.statNumber}>{monthStats.completeDays}</Text>
-              <Text style={styles.statLabel}>{t('calendar.stats.complete')}</Text>
+              <View style={styles.legendItem}>
+                <View style={[styles.legendDot, styles.partialLegend]} />
+                <Text style={styles.legendText}>{t('calendar.legend.partial')}</Text>
+              </View>
+              <View style={styles.legendItem}>
+                <View style={[styles.legendDot, styles.snoozedLegend]} />
+                <Text style={styles.legendText}>{t('calendar.legend.snoozed')}</Text>
+              </View>
+              <View style={styles.legendItem}>
+                <View style={[styles.legendDot, styles.noneLegend]} />
+                <Text style={styles.legendText}>{t('calendar.legend.none')}</Text>
+              </View>
             </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statNumber}>{monthStats.partialDays}</Text>
-              <Text style={styles.statLabel}>{t('calendar.stats.partial')}</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statNumber}>{monthStats.snoozedDays}</Text>
-              <Text style={styles.statLabel}>{t('calendar.stats.snoozed')}</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statNumber}>
-                {Math.round(((monthStats.completeDays + monthStats.partialDays) / monthStats.totalDays) * 100)}%
+          </View>
+
+          {monthStats.totalDays > 0 && (
+            <View style={styles.statsContainer}>
+              <Text 
+                style={styles.statsTitle}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
+              >
+                {t('calendar.stats.title')} <Sparkles size={20} color={colors.text} />
               </Text>
-              <Text style={styles.statLabel}>{t('calendar.stats.engagement')}</Text>
+              <View style={styles.statsGrid}>
+                <View style={styles.statItem}>
+                  <Text style={styles.statNumber}>{monthStats.completeDays}</Text>
+                  <Text style={styles.statLabel}>{t('calendar.stats.complete')}</Text>
+                </View>
+                <View style={styles.statItem}>
+                  <Text style={styles.statNumber}>{monthStats.partialDays}</Text>
+                  <Text style={styles.statLabel}>{t('calendar.stats.partial')}</Text>
+                </View>
+                <View style={styles.statItem}>
+                  <Text style={styles.statNumber}>{monthStats.snoozedDays}</Text>
+                  <Text style={styles.statLabel}>{t('calendar.stats.snoozed')}</Text>
+                </View>
+                <View style={styles.statItem}>
+                  <Text style={styles.statNumber}>
+                    {Math.round(((monthStats.completeDays + monthStats.partialDays) / monthStats.totalDays) * 100)}%
+                  </Text>
+                  <Text style={styles.statLabel}>{t('calendar.stats.engagement')}</Text>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
-      )}
-    </ScrollView>
-  </View>
-</SafeAreaView>
-
+          )}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
+
 // ✅ Export default AL FINAL
 export default function CalendarTab() {
   return <CalendarTabContent />;
