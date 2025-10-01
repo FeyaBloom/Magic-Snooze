@@ -1,32 +1,33 @@
 import { Tabs } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 import {
   Chrome as Home,
   SquareCheck as CheckSquare,
   Calendar,
   FileText,
-  Cog,
 } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
 import i18n from '@/i18n';
-import { Platform } from 'react-native';
 
 export default function TabLayout() {
+  // ✅ 1. TODOS los hooks primero (en el mismo orden SIEMPRE)
   const { colors } = useTheme();
   const { t } = useTranslation();
   const [_, setRerender] = useState(0);
 
-  // 👇 Это магия, чтобы Tabs обновились при смене языка
- useEffect(() => {
-  const handler = () => setRerender((prev) => prev + 1);
-  i18n.on('languageChanged', handler);
+  // ✅ 2. useEffect SIEMPRE al final
+  useEffect(() => {
+    const handler = () => setRerender((prev) => prev + 1);
+    i18n.on('languageChanged', handler);
 
-  return () => {
-    i18n.off('languageChanged', handler); // <-- вот это настоящая отписка
-  };
-}, []);
+    return () => {
+      i18n.off('languageChanged', handler);
+    };
+  }, []); // ✅ Sin dependencias - se ejecuta una sola vez
 
+  // ✅ 3. JSX Return
   return (
     <Tabs
       screenOptions={{
@@ -44,7 +45,6 @@ export default function TabLayout() {
           height: 75,
           paddingTop: 8,
           paddingHorizontal: 20,
-          
           paddingBottom: Platform.OS === 'android' ? 20 : 0,
         },
         tabBarActiveTintColor: colors.secondary,
@@ -53,7 +53,6 @@ export default function TabLayout() {
           fontSize: 12,
           fontWeight: '600',
           fontFamily: 'ComicNeue-Bold',
-         // paddingBottom: 18,
         },
       }}
     >
@@ -92,14 +91,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-  name="settings"
-  options={{
-    href: null, // 👈 скрывает из таб-бара
-    title: t('navigation.settings'),
-   
-  }}
-/>
-
+        name="settings"
+        options={{
+          href: null,
+          title: t('navigation.settings'),
+        }}
+      />
     </Tabs>
   );
 }

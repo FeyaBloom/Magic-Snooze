@@ -9,20 +9,19 @@ import {
   Modal,
   StyleSheet,
   Platform,
-  DeviceEventEmitter, 
+  DeviceEventEmitter,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { Plus, Pencil as Edit, Trash2, Coffee, Moon, Pause, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, } from '@/components/MagicalFeatures';
+import { MagicalCheckbox, TinyVictoryTracker, SurprisePrompt, FloatingBackground } from '@/components/MagicalFeatures';
 import { useTheme } from '@/components/ThemeProvider';
 import { createTodayStyles } from '@/styles/today';
-import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
 import { useRouter } from 'expo-router';
 import { useRoute } from '@react-navigation/native';
-import { TouchableWithoutFeedback } from 'react-native';
 
 // Импортируем хуки
 import { useDailyProgress } from '@/hooks/useDailyProgress';
@@ -32,8 +31,6 @@ import { useSurprisePrompts } from '@/hooks/useSurprisePrompts';
 import { useVictories } from '@/hooks/useVictories';
 import { useTranslation } from 'react-i18next';
 
-
-
 interface RoutineStep {
   id: string;
   text: string;
@@ -41,37 +38,15 @@ interface RoutineStep {
 }
 
 function TodayTabContent() {
-
+  // ✅ 1. PRIMERO: Todos los hooks de librerías (SIEMPRE en el mismo orden)
   const route = useRoute();
-  const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
-  const gradient = getTabGradient(route.name);
-  const styles = createTodayStyles(colors);
   const router = useRouter();
-  const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
-  const [eveningRoutine, setEveningRoutine] = useState<RoutineStep[]>([]);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showTinyVictories, setShowTinyVictories] = useState(false);
-  const [currentRoutine, setCurrentRoutine] = useState<'morning' | 'evening'>('morning');
-  const [newStepText, setNewStepText] = useState('');
-  const [editingStep, setEditingStep] = useState<RoutineStep | null>(null);
-  const [isSnoozed, setIsSnoozed] = useState(false);
-  const [expandedStepId, setExpandedStepId] = useState<string | null>(null);
   const { t } = useTranslation();
-  const toggleStepExpand = (stepId: string) => {
-    setExpandedStepId(prev => (prev === stepId ? null : stepId));
-  };
-
-  const [confirmDialog, setConfirmDialog] = useState({
-    visible: false,
-    title: '',
-    message: '',
-    onConfirm: () => {},
-  });
-
-  // Используем хуки
+  const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
+  
+  // ✅ 2. SEGUNDO: Hooks personalizados
   const { progress: todayProgress, loadProgress, saveProgress, getLocalDateString } = useDailyProgress();
-  const {  celebrateVictory } = useVictories();
+  const { celebrateVictory } = useVictories();
   const { snoozeDay: blockDay, unsnoozeDay: unblockDay } = useRoutinesBlock();
   const { 
     showSurprisePrompt, 
@@ -82,46 +57,42 @@ function TodayTabContent() {
     enabled: true
   });
 
+  // ✅ 3. TERCERO: Todos los useState (agrupados)
+  const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
+  const [eveningRoutine, setEveningRoutine] = useState<RoutineStep[]>([]);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showTinyVictories, setShowTinyVictories] = useState(false);
+  const [currentRoutine, setCurrentRoutine] = useState<'morning' | 'evening'>('morning');
+  const [newStepText, setNewStepText] = useState('');
+  const [editingStep, setEditingStep] = useState<RoutineStep | null>(null);
+  const [isSnoozed, setIsSnoozed] = useState(false);
+  const [expandedStepId, setExpandedStepId] = useState<string | null>(null);
+  const [confirmDialog, setConfirmDialog] = useState({
+    visible: false,
+    title: '',
+    message: '',
+    onConfirm: () => {},
+  });
+
+  // ✅ 4. Variables derivadas
+  const gradient = getTabGradient(route.name);
+  const styles = createTodayStyles(colors);
   const today = getLocalDateString(new Date());
 
-  // 🚀 НОВЫЙ ЭФФЕКТ: Слушатель событий сброса данных
-  useEffect(() => {
-    const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
-      console.log('TodayTab received data reset event:', data);
-      
-      // Проверяем, затронул ли сброс рутины
-      if (data.categories.includes('routines')) {
-        console.log('Resetting routines to defaults...');
-        loadDefaultRoutines();
-      }
-      
-      // Проверяем, затронул ли сброс прогресс
-      if (data.categories.includes('progress')) {
-        console.log('Resetting routines progress...');
-        setIsSnoozed(false);
-        // Сбрасываем все чекбоксы в рутинах
-        resetRoutineCheckboxes();
-      }
-    };
+  // ✅ 5. Funciones auxiliares (NO hooks)
+  const toggleStepExpand = (stepId: string) => {
+    setExpandedStepId(prev => (prev === stepId ? null : stepId));
+  };
 
-    const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
-    
-    return () => {
-      listener.remove();
-    };
-  }, [morningRoutine, eveningRoutine]);
-
-  // 🔄 НОВАЯ ФУНКЦИЯ: Загрузка дефолтных рутин
   const loadDefaultRoutines = async () => {
     try {
-      // Default morning routine
       const defaultMorning = [
         { id: '1', text: t('today.defaultMorning.stretch'), completed: false },
         { id: '2', text: t('today.defaultMorning.breathing'), completed: false },
         { id: '3', text: t('today.defaultMorning.intention'), completed: false },
       ];
       
-      // Default evening routine
       const defaultEvening = [
         { id: '1', text: t('today.defaultEvening.reflect'), completed: false },
         { id: '2', text: t('today.defaultEvening.selfCare'), completed: false },
@@ -131,7 +102,6 @@ function TodayTabContent() {
       setMorningRoutine(defaultMorning);
       setEveningRoutine(defaultEvening);
       
-      // Сохраняем в AsyncStorage
       await AsyncStorage.setItem('morningRoutine', JSON.stringify(defaultMorning));
       await AsyncStorage.setItem('eveningRoutine', JSON.stringify(defaultEvening));
       
@@ -141,23 +111,21 @@ function TodayTabContent() {
     }
   };
 
-  // 🔄 НОВАЯ ФУНКЦИЯ: Сброс чекбоксов в рутинах
   const resetRoutineCheckboxes = async () => {
     try {
-      // Загружаем актуальные рутины из AsyncStorage
       const morningData = await AsyncStorage.getItem('morningRoutine');
       const eveningData = await AsyncStorage.getItem('eveningRoutine');
       
       if (morningData) {
         const currentMorning = JSON.parse(morningData);
-        const resetMorning = currentMorning.map((step: any) => ({ ...step, completed: false }));
+        const resetMorning = currentMorning.map((step: RoutineStep) => ({ ...step, completed: false }));
         setMorningRoutine(resetMorning);
         await AsyncStorage.setItem('morningRoutine', JSON.stringify(resetMorning));
       }
       
       if (eveningData) {
         const currentEvening = JSON.parse(eveningData);
-        const resetEvening = currentEvening.map((step: any) => ({ ...step, completed: false }));
+        const resetEvening = currentEvening.map((step: RoutineStep) => ({ ...step, completed: false }));
         setEveningRoutine(resetEvening);
         await AsyncStorage.setItem('eveningRoutine', JSON.stringify(resetEvening));
       }
@@ -167,36 +135,22 @@ function TodayTabContent() {
       console.error('Error resetting routine checkboxes:', error);
     }
   };
- 
-  // Функция сброса данных в полночь
+
   const resetDailyData = async () => {
     try {
-      // Reset morning routine checkboxes
       const resetMorning = morningRoutine.map(step => ({ ...step, completed: false }));
       setMorningRoutine(resetMorning);
       await AsyncStorage.setItem('morningRoutine', JSON.stringify(resetMorning));
       
-      // Reset evening routine checkboxes
       const resetEvening = eveningRoutine.map(step => ({ ...step, completed: false }));
       setEveningRoutine(resetEvening);
       await AsyncStorage.setItem('eveningRoutine', JSON.stringify(resetEvening));
       
-      // Reset snooze state
       setIsSnoozed(false);
-      
-      // Load fresh data for the new day
     } catch (error) {
       console.error('Error resetting daily data:', error);
     }
   };
-
-  // Используем хук для сброса в полночь
-  useMidnightReset(resetDailyData);
-
-  useEffect(() => {
-    loadData();
-    loadProgress();
-  }, []);
 
   const loadData = async () => {
     try {
@@ -208,11 +162,9 @@ function TodayTabContent() {
       
       if (morningData) {
         const parsedMorning = JSON.parse(morningData);
-        // Check if we need to reset checkboxes for a new day
         const lastProgressDate = await AsyncStorage.getItem('lastProgressDate');
         if (lastProgressDate !== currentDate) {
-          // New day - reset all checkboxes
-          const resetMorning = parsedMorning.map((step: any) => ({ ...step, completed: false }));
+          const resetMorning = parsedMorning.map((step: RoutineStep) => ({ ...step, completed: false }));
           setMorningRoutine(resetMorning);
           await AsyncStorage.setItem('morningRoutine', JSON.stringify(resetMorning));
           await AsyncStorage.setItem('lastProgressDate', currentDate);
@@ -220,7 +172,6 @@ function TodayTabContent() {
           setMorningRoutine(parsedMorning);
         }
       } else {
-        // Default morning routine
         const defaultMorning = [
           { id: '1', text: t('today.defaultMorning.stretch'), completed: false },
           { id: '2', text: t('today.defaultMorning.breathing'), completed: false },
@@ -232,18 +183,15 @@ function TodayTabContent() {
       
       if (eveningData) {
         const parsedEvening = JSON.parse(eveningData);
-        // Check if we need to reset checkboxes for a new day
         const lastProgressDate = await AsyncStorage.getItem('lastProgressDate');
         if (lastProgressDate !== currentDate) {
-          // New day - reset all checkboxes
-          const resetEvening = parsedEvening.map((step: any) => ({ ...step, completed: false }));
+          const resetEvening = parsedEvening.map((step: RoutineStep) => ({ ...step, completed: false }));
           setEveningRoutine(resetEvening);
           await AsyncStorage.setItem('eveningRoutine', JSON.stringify(resetEvening));
         } else {
           setEveningRoutine(parsedEvening);
         }
       } else {
-        // Default evening routine
         const defaultEvening = [
           { id: '1', text: t('today.defaultEvening.reflect'), completed: false },
           { id: '2', text: t('today.defaultEvening.selfCare'), completed: false },
@@ -255,7 +203,7 @@ function TodayTabContent() {
 
       if (progressData) {
         const progress = JSON.parse(progressData);
-        setIsSnoozed(progress.snoozed);
+        setIsSnoozed(progress.snoozed || false);
       }
     } catch (error) {
       console.error('Error loading data:', error);
@@ -320,7 +268,6 @@ function TodayTabContent() {
     setRoutine(updated);
     await AsyncStorage.setItem(`${currentRoutine}Routine`, JSON.stringify(updated));
 
-    // Пересчитываем прогресс после добавления шага
     const otherRoutine = currentRoutine === 'morning' ? eveningRoutine : morningRoutine;
     saveProgressData(
       currentRoutine === 'morning' ? updated : otherRoutine,
@@ -362,7 +309,6 @@ function TodayTabContent() {
         setRoutine(updated);
         await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
 
-        // Пересчитываем прогресс после удаления шага
         const otherRoutine = routine === 'morning' ? eveningRoutine : morningRoutine;
         saveProgressData(
           routine === 'morning' ? updated : otherRoutine,
@@ -386,15 +332,59 @@ function TodayTabContent() {
     }
   };
 
-  const renderRoutineSection = (title: string, routine: RoutineStep[], routineType: 'morning' | 'evening', icon: React.ReactNode) => (
+  // ✅ 6. useEffect - SIEMPRE después de todas las funciones
+  // Hook para reset a medianoche
+  useMidnightReset(resetDailyData);
+
+  // Cargar datos iniciales
+  useEffect(() => {
+    loadData();
+    loadProgress();
+  }, []); // ✅ Sin dependencias innecesarias
+
+  // Listener para eventos de reset
+  useEffect(() => {
+    const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
+      console.log('TodayTab received data reset event:', data);
+      
+      if (data.categories.includes('routines')) {
+        console.log('Resetting routines to defaults...');
+        loadDefaultRoutines();
+      }
+      
+      if (data.categories.includes('progress')) {
+        console.log('Resetting routines progress...');
+        setIsSnoozed(false);
+        resetRoutineCheckboxes();
+      }
+    };
+
+    const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
+    
+    return () => {
+      listener.remove();
+    };
+  }, []); // ✅ Sin dependencias - las funciones son estables
+
+  // ✅ 7. Funciones de render
+  const renderRoutineSection = (
+    title: string, 
+    routine: RoutineStep[], 
+    routineType: 'morning' | 'evening', 
+    icon: React.ReactNode
+  ) => (
     <View style={[styles.routineSection, { backgroundColor: colors.surface }]}>
       <View style={styles.routineHeader}>
         <View style={styles.routineTitle}>
           {icon}
-          <Text style={[styles.routineTitleText, { color: colors.text }]}
-          numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}>{title}</Text>
+          <Text 
+            style={[styles.routineTitleText, { color: colors.text }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
+            {title}
+          </Text>
         </View>
         <TouchableOpacity
           style={styles.addButton}
@@ -415,14 +405,15 @@ function TodayTabContent() {
             disabled={isSnoozed}
           />
           <TouchableWithoutFeedback onPress={() => toggleStepExpand(step.id)}>
-            <Text style={[
-              styles.stepText,
-              { color: colors.text, fontFamily: 'ComicNeue-Regular' },
-              step.completed && styles.stepTextCompleted,
-              isSnoozed && styles.stepTextDisabled,
-            ]}
-            numberOfLines={expandedStepId === step.id ? undefined : 3}
-            ellipsizeMode="tail"
+            <Text 
+              style={[
+                styles.stepText,
+                { color: colors.text, fontFamily: 'ComicNeue-Regular' },
+                step.completed && styles.stepTextCompleted,
+                isSnoozed && styles.stepTextDisabled,
+              ]}
+              numberOfLines={expandedStepId === step.id ? undefined : 3}
+              ellipsizeMode="tail"
             >
               {step.text}
             </Text>
@@ -450,101 +441,104 @@ function TodayTabContent() {
     </View>
   );
 
-  // Остальная часть компонента (JSX с рендерингом UI) остается без изменений...
-  // [Здесь должен быть остальной JSX код компонента]
-
-
+  // ✅ 8. JSX Return
   return (
     <SafeAreaView style={styles.container}>
-      {/* Фон и анимация под контентом */}
       <View style={{
         ...StyleSheet.absoluteFillObject,
         zIndex: 0,
-        pointerEvents: 'none', // не мешает кликам
+        pointerEvents: 'none',
       }}>
-        <LinearGradient
-          colors={gradient}
-          style={styles.gradient}
-        >
+        <LinearGradient colors={gradient} style={styles.gradient}>
           <FloatingBackground />
         </LinearGradient>
       </View>
 
-      {/* Основной контент поверх */}
-      <View style={{ flex: 1, zIndex: 1,  width: Platform.OS === 'android' ? '100%' : 600,
-  alignSelf: Platform.OS === 'android' ? 'stretch' : 'center'}}>
+      <View style={{ 
+        flex: 1, 
+        zIndex: 1,  
+        width: Platform.OS === 'android' ? '100%' : 600,
+        alignSelf: Platform.OS === 'android' ? 'stretch' : 'center'
+      }}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View>
-         <View style={styles.header}>
-              <Text style={styles.title} 
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}>{t('today.title')}</Text>
-              <Text style={styles.subtitle}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}>
+            <View style={styles.header}>
+              <Text 
+                style={styles.title} 
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
+              >
+                {t('today.title')}
+              </Text>
+              <Text 
+                style={styles.subtitle}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
+              >
                 {isSnoozed ? t('today.subtitleSnoozed') : t('today.subtitle')}
               </Text>
             </View>
 
-          {!isSnoozed && (
-           
+            {!isSnoozed && (
               <TouchableOpacity style={styles.snoozeButton} onPress={snoozeToday}>
                 <Pause size={20} color={colors.secondary} />
-                <Text style={[styles.snoozeText, { fontFamily: 'ComicNeue-Regular' }]}>{t('today.snoozeToday')}</Text>
+                <Text style={[styles.snoozeText, { fontFamily: 'ComicNeue-Regular' }]}>
+                  {t('today.snoozeToday')}
+                </Text>
               </TouchableOpacity>
-           
-          )}
+            )}
 
-          <View style={styles.magicalControls}>
-           
-              <TouchableOpacity style={styles.addTaskButton} onPress={() => setShowTinyVictories(true)}>
+            <View style={styles.magicalControls}>
+              <TouchableOpacity 
+                style={styles.addTaskButton} 
+                onPress={() => setShowTinyVictories(true)}
+              >
                 <Sparkles size={20} color="#FFFFFF" />
-                 <Text style={styles.addTaskText}>{t('today.tinyVictories')}</Text>
+                <Text style={styles.addTaskText}>{t('today.tinyVictories')}</Text>
               </TouchableOpacity>
-           
             
-            <View style={styles.themeControls}>
-             
+              <View style={styles.themeControls}>
                 <TouchableOpacity
                   style={styles.themeButton}
                   onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
                 >
-                  <Text style={styles.themeButtonText}
-                  numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}>
+                  <Text 
+                    style={styles.themeButtonText}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.7}
+                  >
                     {currentTheme === 'daydream' ? t('today.nightForest') : t('today.dayDream')}
                   </Text>
                 </TouchableOpacity>
                           
-              <TouchableOpacity  style={styles.themeButton}       
-                onPress={() => router.push('/settings')}
-              >
-                  <Text style={styles.themeButtonText}
-                  numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}>
-                    { t('navigation.settings')}
+                <TouchableOpacity  
+                  style={styles.themeButton}       
+                  onPress={() => router.push('/settings')}
+                >
+                  <Text 
+                    style={styles.themeButtonText}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.7}
+                  >
+                    {t('navigation.settings')}
                   </Text>
                 </TouchableOpacity>
-               
-             
+              </View>
             </View>
-          </View>
 
-          {isSnoozed && (
-           
+            {isSnoozed && (
               <TouchableOpacity style={styles.resumeButton} onPress={snoozeToday}>
-                <Text style={[styles.resumeText, { fontFamily: 'ComicNeue-Regular' }]}>{t('today.resumeToday')}</Text>
+                <Text style={[styles.resumeText, { fontFamily: 'ComicNeue-Regular' }]}>
+                  {t('today.resumeToday')}
+                </Text>
               </TouchableOpacity>
-           
-          )}
+            )}
 
-           
-         
-           {renderRoutineSection(
+            {renderRoutineSection(
               t('today.morningRoutine'),
               morningRoutine,
               'morning',
@@ -557,15 +551,15 @@ function TodayTabContent() {
               'evening',
               <Moon size={20} color="#8B5CF6" />
             )}
-          
 
-          {todayProgress && (
-           
+            {todayProgress && (
               <View style={[styles.progressSection, { backgroundColor: colors.surface }]}>
-                <Text style={[styles.progressTitle, { color: colors.text }]}
-                numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}>
+                <Text 
+                  style={[styles.progressTitle, { color: colors.text }]}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.7}
+                >
                   {t('today.todaysProgress')} <Sparkles size={20} color={colors.text} />
                 </Text>
                 <View style={styles.progressStats}>
@@ -587,16 +581,14 @@ function TodayTabContent() {
                   </View>
                 </View>
               </View>
-          
-          )}
+            )}
           </View>
         </ScrollView>
         
         {showSurprisePrompt && <SurprisePrompt onDismiss={dismissSurprisePrompt} />}
-        </View>
-      
+      </View>
 
-      {/* Все модалки вынесены сюда, за пределы LinearGradient */}
+      {/* Modales */}
       <Modal 
         visible={showTinyVictories} 
         animationType="fade" 
@@ -605,7 +597,10 @@ function TodayTabContent() {
       >
         <View style={styles.modalOverlay}>
           <TinyVictoryTracker onVictoryPress={celebrateVictory} />
-          <TouchableOpacity style={styles.closeVictoriesButton} onPress={() => setShowTinyVictories(false)}>
+          <TouchableOpacity 
+            style={styles.closeVictoriesButton} 
+            onPress={() => setShowTinyVictories(false)}
+          >
             <Text style={styles.closeVictoriesText}>{t('common.close')}</Text>
           </TouchableOpacity>
         </View>
@@ -619,7 +614,7 @@ function TodayTabContent() {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}> {t('today.addNewStep')}</Text>
+            <Text style={styles.modalTitle}>{t('today.addNewStep')}</Text>
             <TextInput
               style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
               placeholder={t('today.enterGentleStep')}
@@ -637,13 +632,17 @@ function TodayTabContent() {
                   setNewStepText('');
                 }}
               >
-                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('common.cancel')}</Text>
+                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>
+                  {t('common.cancel')}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalButton, styles.saveButton]}
                 onPress={addStep}
               >
-                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('common.add')}</Text>
+                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>
+                  {t('common.add')}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -666,7 +665,7 @@ function TodayTabContent() {
             >
               <Trash2 size={20} color="#EF4444" />
             </TouchableOpacity>
-            <Text style={styles.modalTitle}> {t('today.editStep')}</Text>
+            <Text style={styles.modalTitle}>{t('today.editStep')}</Text>
             <TextInput
               style={[styles.textInput, { fontFamily: 'ComicNeue-Regular' }]}
               placeholder={t('today.enterGentleStep')}
@@ -685,13 +684,17 @@ function TodayTabContent() {
                   setEditingStep(null);
                 }}
               >
-                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('common.cancel')}</Text>
+                <Text style={[styles.cancelButtonText, { fontFamily: 'ComicNeue-Regular' }]}>
+                  {t('common.cancel')}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.saveButton]}
                 onPress={editStep}
               >
-                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>{t('common.save')}</Text>
+                <Text style={[styles.saveButtonText, { fontFamily: 'ComicNeue-Regular' }]}>
+                  {t('common.save')}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -712,8 +715,7 @@ function TodayTabContent() {
   );
 }
 
+// ✅ Export por defecto SIEMPRE al final
 export default function TodayTab() {
-  return (
-    <TodayTabContent />
-  );
+  return <TodayTabContent />;
 }

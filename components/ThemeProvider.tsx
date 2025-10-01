@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { DeviceEventEmitter } from 'react-native'; // Добавим и сюда поддержку событий
+import { DeviceEventEmitter } from 'react-native';
 
 export type ThemeMode = 'daydream' | 'nightforest';
 
 interface ThemeColors {
   primary: string;
   secondary: string;
-  background: string[]; // будет меняться по вкладке
+  background: string[];
   surface: string;
   text: string;
   textSecondary: string;
@@ -18,7 +18,7 @@ const themes: Record<ThemeMode, ThemeColors> = {
   daydream: {
     primary: '#EC4899',
     secondary: '#8B5CF6',
-    background: ['#FFE5E5', '#E5F3FF', '#F3E5FF'], // fallback
+    background: ['#FFE5E5', '#E5F3FF', '#F3E5FF'],
     surface: '#FFFFFF',
     text: '#6d6d6d',
     textSecondary: '#6B7280',
@@ -27,7 +27,7 @@ const themes: Record<ThemeMode, ThemeColors> = {
   nightforest: {
     secondary: '#10B981',
     primary: '#6366F1',
-    background: ['#064E3B', '#1F2937', '#374151'], // fallback
+    background: ['#064E3B', '#1F2937', '#374151'],
     surface: '#1F2937',
     text: '#FFFFFF',
     textSecondary: '#D1D5DB',
@@ -35,7 +35,6 @@ const themes: Record<ThemeMode, ThemeColors> = {
   },
 };
 
-// градиенты по вкладкам
 const tabGradients: Record<ThemeMode, Record<string, string[]>> = {
   daydream: {
     index: ['#ffe5e5', '#e5f9e3', '#cfdeff'],
@@ -57,7 +56,7 @@ interface ThemeContextType {
   setTheme: (theme: ThemeMode) => void;
   toggleMessyMode: () => void;
   isMessyMode: boolean;
-  getTabGradient: (tabName: string) => readonly [string, string, ...string[]]; // 🔥 ИСПРАВЛЕНО
+  getTabGradient: (tabName: string) => readonly [string, string, ...string[]];
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -75,35 +74,45 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+  // ✅ 1. TODOS los useState primero
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>('daydream');
   const [isMessyMode, setIsMessyMode] = useState(false);
   const [messyColors, setMessyColors] = useState<ThemeColors | null>(null);
 
-  // 🚀 НОВЫЙ ЭФФЕКТ: Слушатель событий сброса настроек
-  useEffect(() => {
-    const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
-      console.log('ThemeProvider received data reset event:', data);
-      
-      // Проверяем, затронул ли сброс настройки
-      if (data.categories.includes('settings')) {
-        console.log('Resetting theme settings to defaults...');
-        // Сбрасываем к дефолтной теме
-        setCurrentTheme('daydream');
-        setIsMessyMode(false);
-        setMessyColors(null);
-      }
+  // ✅ 2. Funciones auxiliares (no son hooks)
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  const generateMessyColors = (theme: ThemeMode) => {
+    const original = themes[theme];
+    const pool = [
+      original.primary,
+      original.secondary,
+      original.accent,
+      original.text,
+      original.textSecondary,
+    ];
+    const shuffledColors = shuffleArray(pool);
+    const shuffledBackground = shuffleArray(tabGradients[theme].index);
+
+    const messy: ThemeColors = {
+      primary: shuffledColors[0],
+      secondary: shuffledColors[1],
+      accent: shuffledColors[2],
+      text: shuffledColors[3],
+      textSecondary: shuffledColors[4],
+      background: shuffledBackground,
+      surface: original.surface,
     };
 
-    const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
-    
-    return () => {
-      listener.remove();
-    };
-  }, []);
-
-  useEffect(() => {
-    loadTheme();
-  }, []);
+    setMessyColors(messy);
+  };
 
   const loadTheme = async () => {
     try {
@@ -151,40 +160,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     }
   };
 
-  const shuffleArray = <T,>(array: T[]): T[] => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
-
-  const generateMessyColors = (theme: ThemeMode) => {
-    const original = themes[theme];
-    const pool = [
-      original.primary,
-      original.secondary,
-      original.accent,
-      original.text,
-      original.textSecondary,
-    ];
-    const shuffledColors = shuffleArray(pool);
-    const shuffledBackground = shuffleArray(tabGradients[theme].index);
-
-    const messy: ThemeColors = {
-      primary: shuffledColors[0],
-      secondary: shuffledColors[1],
-      accent: shuffledColors[2],
-      text: shuffledColors[3],
-      textSecondary: shuffledColors[4],
-      background: shuffledBackground,
-      surface: original.surface,
-    };
-
-    setMessyColors(messy);
-  };
-
   const getColors = (): ThemeColors => {
     if (isMessyMode && messyColors) {
       return messyColors;
@@ -192,12 +167,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     return themes[currentTheme];
   };
 
-  // 🔥 ИСПРАВЛЕННАЯ ФУНКЦИЯ: Правильная типизация для LinearGradient
   const getTabGradient = (tabName: string): readonly [string, string, ...string[]] => {
     const themeGradients = tabGradients[currentTheme];
     const gradient = themeGradients[tabName] || themes[currentTheme].background;
     
-    // Гарантируем что у нас минимум 2 цвета для LinearGradient
     if (gradient.length < 2) {
       const fallback = themes[currentTheme].background;
       return [fallback[0], fallback[1], ...fallback.slice(2)] as readonly [string, string, ...string[]];
@@ -205,6 +178,32 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     
     return [gradient[0], gradient[1], ...gradient.slice(2)] as readonly [string, string, ...string[]];
   };
+
+  // ✅ 3. TODOS los useEffect AL FINAL y en el mismo orden SIEMPRE
+  // 🔥 CRÍTICO: Combinar ambos efectos en UNO SOLO
+  useEffect(() => {
+    // Carga inicial del tema
+    loadTheme();
+
+    // Listener para eventos de reset
+    const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
+      console.log('ThemeProvider received data reset event:', data);
+      
+      if (data.categories.includes('settings')) {
+        console.log('Resetting theme settings to defaults...');
+        setCurrentTheme('daydream');
+        setIsMessyMode(false);
+        setMessyColors(null);
+      }
+    };
+
+    const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
+    
+    // Cleanup
+    return () => {
+      listener.remove();
+    };
+  }, []); // ✅ Sin dependencias - se ejecuta solo una vez
 
   return (
     <ThemeContext.Provider

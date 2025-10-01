@@ -9,6 +9,7 @@ import {
   TextInput,
   StyleSheet,
   Modal,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { MagicalCheckbox, FloatingBackground } from "@/components/MagicalFeatures";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -20,7 +21,6 @@ import { createTasksStyles } from '@/styles/tasks';
 import CustomCalendar from '@/components/customCalendar';
 import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
-import { TouchableWithoutFeedback } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 interface Task {
@@ -33,39 +33,37 @@ interface Task {
 
 const Container = Platform.OS === 'android' ? View : SafeAreaView;
 
-export default function TasksTab() {
- // const currentLanguageCode = i18n.language;
-//  const [languageModalVisible, setLanguageModalVisible] = useState(false);
+function TasksTabContent() {
+  // ✅ 1. TODOS los hooks de librerías primero
   const route = useRoute();
-  const { colors, getTabGradient } = useTheme();
-  const gradient = getTabGradient(route.name);
   const { t } = useTranslation();
-  const styles = createTasksStyles(colors);
+  const { colors, getTabGradient } = useTheme();
+
+  // ✅ 2. TODOS los useState juntos
   const [tasks, setTasks] = useState<Task[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [newTaskText, setNewTaskText] = useState('');
   const [newTaskDueDate, setNewTaskDueDate] = useState('');
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-
   const [showCalendar, setShowCalendar] = useState(false);
   const [showEditCalendar, setShowEditCalendar] = useState(false);
   const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
+  const [confirmDialog, setConfirmDialog] = useState({
+    visible: false,
+    title: '',
+    message: '',
+    onConfirm: () => {},
+  });
 
-const toggleExpand = (taskId: string) => {
-  setExpandedTaskId(prev => (prev === taskId ? null : taskId));
-};
+  // ✅ 3. Variables derivadas (no hooks)
+  const gradient = getTabGradient(route.name);
+  const styles = createTasksStyles(colors);
 
-  
- const [confirmDialog, setConfirmDialog] = useState({
-  visible: false,
-  title: '',
-  message: '',
-  onConfirm: () => {},
-});
-  useEffect(() => {
-    loadTasks();
-  }, []);
+  // ✅ 4. Funciones auxiliares
+  const toggleExpand = (taskId: string) => {
+    setExpandedTaskId(prev => (prev === taskId ? null : taskId));
+  };
 
   const loadTasks = async () => {
     try {
@@ -131,26 +129,25 @@ const toggleExpand = (taskId: string) => {
     );
     await saveTasks(updatedTasks);
   };
-  
- const deleteTask = (taskId: string) => {
-  setConfirmDialog({
-    visible: true,
-    title: t('tasks.deleteTitle'),
-    message: t('tasks.deleteMessage'),
-    onConfirm: async () => {
-      const updatedTasks = tasks.filter(task => task.id !== taskId);
-            await saveTasks(updatedTasks);
-            setShowEditModal(false);
-            setEditingTask(null);
-            setShowEditCalendar(false);
-    },
-  });
-};
-  
 
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString(i18n.language, {
+  const deleteTask = (taskId: string) => {
+    setConfirmDialog({
+      visible: true,
+      title: t('tasks.deleteTitle'),
+      message: t('tasks.deleteMessage'),
+      onConfirm: async () => {
+        const updatedTasks = tasks.filter(task => task.id !== taskId);
+        await saveTasks(updatedTasks);
+        setShowEditModal(false);
+        setEditingTask(null);
+        setShowEditCalendar(false);
+      },
+    });
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(i18n.language, {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
@@ -173,161 +170,179 @@ const formatDate = (dateString: string) => {
     return due.getTime() === today.getTime();
   };
 
+  // ✅ 5. Variables calculadas
   const completedTasks = tasks.filter(task => task.completed);
   const activeTasks = tasks.filter(task => !task.completed);
 
+  // ✅ 6. useEffect AL FINAL
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  // ✅ 7. JSX Return
   return (
     <Container style={styles.container}>
-      {/* Фон и анимация под контентом */}
       <View style={{
         ...StyleSheet.absoluteFillObject,
         zIndex: 0,
         pointerEvents: 'none',
       }}>
-        <LinearGradient
-          colors={gradient}
-          style={styles.gradient}
-        >
+        <LinearGradient colors={gradient} style={styles.gradient}>
           <FloatingBackground />
         </LinearGradient>
       </View>
 
-      {/* Основной контент поверх */}
-      <View style={{ flex: 1, zIndex: 1,  width: Platform.OS === 'android' ? '100%' : 600,
-  alignSelf: Platform.OS === 'android' ? 'stretch' : 'center', }}>
+      <View style={{ 
+        flex: 1, 
+        zIndex: 1,  
+        width: Platform.OS === 'android' ? '100%' : 600,
+        alignSelf: Platform.OS === 'android' ? 'stretch' : 'center' 
+      }}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <Text style={styles.title}
-            numberOfLines={1}
+            <Text 
+              style={styles.title}
+              numberOfLines={1}
               adjustsFontSizeToFit
-              minimumFontScale={0.7}>{t('tasks.title')}</Text>
-            <Text style={styles.subtitle}
-            numberOfLines={1}
+              minimumFontScale={0.7}
+            >
+              {t('tasks.title')}
+            </Text>
+            <Text 
+              style={styles.subtitle}
+              numberOfLines={1}
               adjustsFontSizeToFit
-              minimumFontScale={0.7}>{t('tasks.subtitle')}</Text>
+              minimumFontScale={0.7}
+            >
+              {t('tasks.subtitle')}
+            </Text>
           </View>
 
-          <TouchableOpacity style={styles.addTaskButton} onPress={() => setShowAddModal(true)}>
+          <TouchableOpacity 
+            style={styles.addTaskButton} 
+            onPress={() => setShowAddModal(true)}
+          >
             <Plus size={24} color="#FFFFFF" />
-             <Text style={styles.addTaskText}>{t('tasks.addNew')}</Text>
+            <Text style={styles.addTaskText}>{t('tasks.addNew')}</Text>
           </TouchableOpacity>
 
-        {activeTasks.length > 0 && (
-  <View style={styles.taskSection}>
-    <Text style={styles.sectionTitle}>{t('tasks.active')}</Text>
-    {activeTasks.map(task => (
-      <View key={task.id} style={styles.taskContainer}>
-        <MagicalCheckbox 
-          completed={task.completed} 
-          onPress={() => toggleTask(task.id)} 
-        />
+          {activeTasks.length > 0 && (
+            <View style={styles.taskSection}>
+              <Text style={styles.sectionTitle}>{t('tasks.active')}</Text>
+              {activeTasks.map(task => (
+                <View key={task.id} style={styles.taskContainer}>
+                  <MagicalCheckbox 
+                    completed={task.completed} 
+                    onPress={() => toggleTask(task.id)} 
+                  />
 
-        <TouchableWithoutFeedback onPress={() => toggleExpand(task.id)}>
-          <View style={styles.taskContent}>
-            <Text
-              style={[
-                styles.taskText,
-                task.completed && styles.taskTextCompleted
-              ]}
-              numberOfLines={expandedTaskId === task.id ? undefined : 3}
-              ellipsizeMode="tail"
-            >
-              {task.text}
-            </Text>
-            {task.dueDate && (
-              <View style={styles.dueDateContainer}>
-                <Calendar size={12} color="#6B7280" />
-                <Text
-                  style={[
-                    styles.listDateText,
-                    task.dueDate &&
-                      !task.completed &&
-                      isOverdue(task.dueDate) &&
-                      styles.overdue,
-                    task.dueDate &&
-                      !task.completed &&
-                      isDueToday(task.dueDate) &&
-                      styles.dueToday
-                  ]}
-                >
-                  {formatDate(task.dueDate)}
-                </Text>
-              </View>
-            )}
-          </View>
-        </TouchableWithoutFeedback>
+                  <TouchableWithoutFeedback onPress={() => toggleExpand(task.id)}>
+                    <View style={styles.taskContent}>
+                      <Text
+                        style={[
+                          styles.taskText,
+                          task.completed && styles.taskTextCompleted
+                        ]}
+                        numberOfLines={expandedTaskId === task.id ? undefined : 3}
+                        ellipsizeMode="tail"
+                      >
+                        {task.text}
+                      </Text>
+                      {task.dueDate && (
+                        <View style={styles.dueDateContainer}>
+                          <Calendar size={12} color="#6B7280" />
+                          <Text
+                            style={[
+                              styles.listDateText,
+                              task.dueDate &&
+                                !task.completed &&
+                                isOverdue(task.dueDate) &&
+                                styles.overdue,
+                              task.dueDate &&
+                                !task.completed &&
+                                isDueToday(task.dueDate) &&
+                                styles.dueToday
+                            ]}
+                          >
+                            {formatDate(task.dueDate)}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                  </TouchableWithoutFeedback>
 
-        <View style={styles.taskActions}>
-          <TouchableOpacity onPress={() => {
-            setEditingTask(task);
-            setNewTaskText(task.text);
-            setNewTaskDueDate(task.dueDate || '');
-            setShowEditModal(true);
-          }}>
-            <View style={styles.deleteButtonInline}>
-              <Edit size={16} color={colors.textSecondary} />
+                  <View style={styles.taskActions}>
+                    <TouchableOpacity onPress={() => {
+                      setEditingTask(task);
+                      setNewTaskText(task.text);
+                      setNewTaskDueDate(task.dueDate || '');
+                      setShowEditModal(true);
+                    }}>
+                      <View style={styles.deleteButtonInline}>
+                        <Edit size={16} color={colors.textSecondary} />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ))}
             </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-    ))}
-  </View>
-)}
+          )}
 
-{completedTasks.length > 0 && (
-  <View style={styles.taskSection}>
-    <Text style={styles.sectionTitle}>
-      {t('tasks.completed')} <Sparkles size={20} color={colors.text} />
-    </Text>
-    {completedTasks.map(task => (
-      <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
-        <MagicalCheckbox 
-          completed={task.completed} 
-          onPress={() => toggleTask(task.id)} 
-        />
+          {completedTasks.length > 0 && (
+            <View style={styles.taskSection}>
+              <Text style={styles.sectionTitle}>
+                {t('tasks.completed')} <Sparkles size={20} color={colors.text} />
+              </Text>
+              {completedTasks.map(task => (
+                <View key={task.id} style={[styles.taskContainer, styles.completedTaskContainer]}>
+                  <MagicalCheckbox 
+                    completed={task.completed} 
+                    onPress={() => toggleTask(task.id)} 
+                  />
 
-        <TouchableWithoutFeedback onPress={() => toggleExpand(task.id)}>
-          <View style={styles.taskContent}>
-            <Text
-              style={[styles.taskText, styles.taskTextCompleted]}
-              numberOfLines={expandedTaskId === task.id ? undefined : 3}
-              ellipsizeMode="tail"
-            >
-              {task.text}
-            </Text>
-            {task.dueDate && (
-              <View style={styles.dueDateContainer}>
-                <Calendar size={12} color="#9CA3AF" />
-                <Text style={[styles.listDateText, styles.completedDueDate]}>
-                  {formatDate(task.dueDate)}
-                </Text>
-              </View>
-            )}
-          </View>
-        </TouchableWithoutFeedback>
+                  <TouchableWithoutFeedback onPress={() => toggleExpand(task.id)}>
+                    <View style={styles.taskContent}>
+                      <Text
+                        style={[styles.taskText, styles.taskTextCompleted]}
+                        numberOfLines={expandedTaskId === task.id ? undefined : 3}
+                        ellipsizeMode="tail"
+                      >
+                        {task.text}
+                      </Text>
+                      {task.dueDate && (
+                        <View style={styles.dueDateContainer}>
+                          <Calendar size={12} color="#9CA3AF" />
+                          <Text style={[styles.listDateText, styles.completedDueDate]}>
+                            {formatDate(task.dueDate)}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                  </TouchableWithoutFeedback>
 
-        <View style={styles.taskActions}>
-          <TouchableOpacity onPress={() => deleteTask(task.id)}>
-            <View style={styles.deleteButtonInline}>
-              <Trash2 size={16} color="#EF4444" />
+                  <View style={styles.taskActions}>
+                    <TouchableOpacity onPress={() => deleteTask(task.id)}>
+                      <View style={styles.deleteButtonInline}>
+                        <Trash2 size={16} color="#EF4444" />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ))}
             </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-    ))}
-  </View>
-)}
+          )}
+
           {tasks.length === 0 && (
             <View style={styles.emptyState}>
-              <CalendarCheck size={48} color={colors.textSecondary }/>
-               <Text style={styles.emptyStateText}>{t('tasks.emptyTitle')}</Text>
+              <CalendarCheck size={48} color={colors.textSecondary} />
+              <Text style={styles.emptyStateText}>{t('tasks.emptyTitle')}</Text>
               <Text style={styles.emptyStateSubtext}>{t('tasks.emptySubtitle')}</Text>
             </View>
           )}
         </ScrollView>
       </View>
 
-      {/* Все модалки вынесены сюда, за пределы LinearGradient */}
+      {/* Add Modal */}
       <Modal 
         visible={showAddModal} 
         animationType="fade" 
@@ -336,7 +351,7 @@ const formatDate = (dateString: string) => {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-             <Text style={styles.modalTitle}>{t('tasks.addTitle')}</Text>
+            <Text style={styles.modalTitle}>{t('tasks.addTitle')}</Text>
             <TextInput
               style={styles.textInput}
               placeholder={t('tasks.inputPlaceholder')}
@@ -346,26 +361,24 @@ const formatDate = (dateString: string) => {
               multiline
               autoFocus
             />
-            <TouchableOpacity onPress={() => setShowCalendar(v => !v)} >
+            <TouchableOpacity onPress={() => setShowCalendar(v => !v)}>
               <Text style={styles.dueDateText}>
                 {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}
               </Text>
             </TouchableOpacity>
             <View style={{ alignItems: 'center', marginHorizontal: 24 }}>
-            {showCalendar && (
-              <CustomCalendar              
-  selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
-  onDateSelect={(date) => {
-    setNewTaskDueDate(date.toISOString());
-    setShowCalendar(false);
-  }}
-  containerWidth={380}
-  maxWidth={350}
-  
-/> 
-            )} 
+              {showCalendar && (
+                <CustomCalendar              
+                  selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+                  onDateSelect={(date) => {
+                    setNewTaskDueDate(date.toISOString());
+                    setShowCalendar(false);
+                  }}
+                  containerWidth={380}
+                  maxWidth={350}
+                /> 
+              )} 
             </View>
-            
 
             <View style={styles.modalButtons}>
               <TouchableOpacity
@@ -390,6 +403,7 @@ const formatDate = (dateString: string) => {
         </View>
       </Modal>
 
+      {/* Edit Modal */}
       <Modal 
         visible={showEditModal} 
         animationType="fade" 
@@ -419,27 +433,25 @@ const formatDate = (dateString: string) => {
               multiline
               autoFocus
             />
-            <TouchableOpacity
-              onPress={() => setShowEditCalendar(v => !v)}
-             /* style={styles.text} */
-            >
-               <Text style={styles.dueDateText}>
+            <TouchableOpacity onPress={() => setShowEditCalendar(v => !v)}>
+              <Text style={styles.dueDateText}>
                 {newTaskDueDate ? formatDate(newTaskDueDate) : t('tasks.dueDateOptional')}
               </Text>
             </TouchableOpacity>
-             <View style={{ alignItems: 'center', marginHorizontal: 24 }}>
-            {showEditCalendar && (
-              <CustomCalendar               
-  selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
-  onDateSelect={(date) => {
-    setNewTaskDueDate(date.toISOString());
-    setShowCalendar(false);
-  }}
-  minDate={new Date()}
-  containerWidth={380}
-  maxWidth={350}
-/>
-            )}</View>
+            <View style={{ alignItems: 'center', marginHorizontal: 24 }}>
+              {showEditCalendar && (
+                <CustomCalendar               
+                  selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
+                  onDateSelect={(date) => {
+                    setNewTaskDueDate(date.toISOString());
+                    setShowCalendar(false);
+                  }}
+                  minDate={new Date()}
+                  containerWidth={380}
+                  maxWidth={350}
+                />
+              )}
+            </View>
 
             <View style={styles.modalButtons}>
               <TouchableOpacity
@@ -452,7 +464,7 @@ const formatDate = (dateString: string) => {
                   setShowEditCalendar(false);
                 }}
               >
-                 <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
+                <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalButton, styles.saveButton]}
@@ -465,7 +477,7 @@ const formatDate = (dateString: string) => {
         </View>
       </Modal>
 
-       <ConfirmDialog
+      <ConfirmDialog
         visible={confirmDialog.visible}
         title={confirmDialog.title}
         message={confirmDialog.message}
@@ -477,4 +489,9 @@ const formatDate = (dateString: string) => {
       />
     </Container>
   );
+}
+
+// ✅ Export default AL FINAL
+export default function TasksTab() {
+  return <TasksTabContent />;
 }

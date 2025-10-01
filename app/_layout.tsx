@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { setStatusBarHidden } from 'expo-status-bar';
-import { View, ActivityIndicator, Platform } from 'react-native';
+import { View, ActivityIndicator, Platform, LogBox } from 'react-native';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { I18nextProvider } from 'react-i18next';
@@ -14,7 +14,6 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as NavigationBar from 'expo-navigation-bar';
-import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs([
   'useInsertionEffect must not schedule updates',
@@ -23,26 +22,24 @@ LogBox.ignoreLogs([
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  // ✅ 1. TODOS los hooks primero (en el mismo orden SIEMPRE)
   useFrameworkReady();
-
-  // Ваши оригинальные названия + Comfortaa + Coiny
+  
   const [fontsLoaded, fontError] = useFonts({
     'ComicNeue-Regular': Comfortaa_400Regular,
     'ComicNeue-Bold': Comfortaa_500Medium,
-    'CabinSketch-Regular': require('@/assets/fonts/Coiny-Cyrillic.ttf'), // возвращаем Coiny
+    'CabinSketch-Regular': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
     'CabinSketch-Bold': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
-
-    // Правильные названия для нового использования
     'Comfortaa_400Regular': Comfortaa_400Regular,
     'Comfortaa_500Medium': Comfortaa_500Medium,
     'Coiny_400Regular': require('@/assets/fonts/Coiny-Cyrillic.ttf'),
   });
 
-  // Загружаем сохраненный язык при инициализации приложения
+  // ✅ 2. Funciones auxiliares (NO hooks)
   const loadInitialLanguage = async () => {
     try {
       const savedLanguage = await AsyncStorage.getItem('selectedLanguage');
-      if (savedLanguage && ['en', 'ru', 'es'].includes(savedLanguage)) {
+      if (savedLanguage && ['en', 'ru', 'es', 'ca'].includes(savedLanguage)) {
         await i18n.changeLanguage(savedLanguage);
         console.log(`Loaded language: ${savedLanguage}`);
       }
@@ -51,38 +48,32 @@ export default function RootLayout() {
     }
   };
 
-const setupFullscreen = async () => {
-  if (Platform.OS === 'android') {
-    try {
-      console.log('Включаю fullscreen режим...');
-      
-      // Скрываем status bar
-      setStatusBarHidden(true, 'fade');
-      //StatusBar.setTranslucent(true);
-        
-      // Скрываем navigation bar отдельно
-      await NavigationBar.setVisibilityAsync('hidden');
-      
-      console.log('Оба элемента скрыты');
-    } catch (error) {
-      console.warn('Fullscreen setup failed:', error);
+  const setupFullscreen = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        console.log('Включаю fullscreen режим...');
+        setStatusBarHidden(true, 'fade');
+        await NavigationBar.setVisibilityAsync('hidden');
+        console.log('Оба элемента скрыты');
+      } catch (error) {
+        console.warn('Fullscreen setup failed:', error);
+      }
     }
-  }
-};
+  };
 
+  // ✅ 3. TODOS los useEffect AL FINAL - COMBINADOS EN UNO SOLO
   useEffect(() => {
-    // Загружаем язык при старте приложения
-    loadInitialLanguage();   
-  }, []);
-
-  useEffect(() => {
+    // Carga inicial del idioma
+    loadInitialLanguage();
+    
+    // Setup de fuentes y fullscreen
     if (fontsLoaded || fontError) {
       SplashScreen.hideAsync();
       setupFullscreen();
     }
-  }, [fontsLoaded, fontError]);
+  }, [fontsLoaded, fontError]); // ✅ Dependencias claras
 
-  // ✅ Показываем лоадер пока шрифты не загружены
+  // ✅ 4. Early return DESPUÉS de todos los hooks
   if (!fontsLoaded && !fontError) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -91,18 +82,15 @@ const setupFullscreen = async () => {
     );
   }
 
+  // ✅ 5. JSX Return
   return (
-    <>
-      <I18nextProvider i18n={i18n}>
-        <ThemeProvider>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-          {/*<StatusBar hidden={true}/>*/}
-          
-        </ThemeProvider>
-      </I18nextProvider>
-    </>
+    <I18nextProvider i18n={i18n}>
+      <ThemeProvider>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </ThemeProvider>
+    </I18nextProvider>
   );
 }
