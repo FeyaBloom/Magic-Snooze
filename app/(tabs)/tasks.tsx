@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  Platform,
   View,
   Text,
   ScrollView,
@@ -20,8 +21,8 @@ import CustomCalendar from '@/components/customCalendar';
 import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
 import { TouchableWithoutFeedback } from 'react-native';
-import { createCalendarStyles } from '@/styles/calendar';
-const { t } = i18n;
+import { useTranslation } from 'react-i18next';
+const { t } = useTranslation();
 interface Task {
   id: string;
   text: string;
@@ -29,6 +30,8 @@ interface Task {
   dueDate?: string;
   createdAt: string;
 }
+
+const Container = Platform.OS === 'android' ? View : SafeAreaView;
 
 export default function TasksTab() {
  // const currentLanguageCode = i18n.language;
@@ -174,24 +177,25 @@ const formatDate = (dateString: string) => {
   const activeTasks = tasks.filter(task => !task.completed);
 
   return (
-    <SafeAreaView style={styles.container}>
-          {/* Фон и анимация под контентом */}
-          <View style={{
-            ...StyleSheet.absoluteFillObject,
-            zIndex: 0,
-            pointerEvents: 'none', // не мешает кликам
-          }}>
-            <LinearGradient
-              colors={gradient}
-              style={styles.gradient}
-            >
-              <FloatingBackground />
-            </LinearGradient>
-          </View>
-    
-          {/* Основной контент поверх */}
-          <View style={{ flex: 1, zIndex: 1, maxWidth: 600, alignSelf: 'center' }}>
-            <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+    <Container style={styles.container}>
+      {/* Фон и анимация под контентом */}
+      <View style={{
+        ...StyleSheet.absoluteFillObject,
+        zIndex: 0,
+        pointerEvents: 'none',
+      }}>
+        <LinearGradient
+          colors={gradient}
+          style={styles.gradient}
+        >
+          <FloatingBackground />
+        </LinearGradient>
+      </View>
+
+      {/* Основной контент поверх */}
+      <View style={{ flex: 1, zIndex: 1,  width: Platform.OS === 'android' ? '100%' : 600,
+  alignSelf: Platform.OS === 'android' ? 'stretch' : 'center', }}>
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}
             numberOfLines={1}
@@ -471,6 +475,6 @@ const formatDate = (dateString: string) => {
         }}
         onCancel={() => setConfirmDialog(d => ({ ...d, visible: false }))}
       />
-    </SafeAreaView>
+    </Container>
   );
 }

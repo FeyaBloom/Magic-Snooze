@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Linking,
+  Platform,
   SafeAreaView,
   Switch,
 } from 'react-native';
@@ -82,7 +83,8 @@ export default function SettingsTab() {
               </View>
         
               {/* Основной контент поверх */}
-              <View style={{ flex: 1, zIndex: 1, maxWidth: 600, alignSelf: 'center', width: '100%' }}>
+              <View style={{ flex: 1, zIndex: 1,  width: Platform.OS === 'android' ? '100%' : 600,
+  alignSelf: Platform.OS === 'android' ? 'stretch' : 'center' }}>
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>{t('settings.title')}</Text>
 

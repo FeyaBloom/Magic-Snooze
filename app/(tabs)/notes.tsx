@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
+  Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
@@ -18,8 +19,9 @@ import { createNotesStyles } from '@/styles/notes';
 import {FloatingBackground} from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
+import { useTranslation } from 'react-i18next';
 
-const { t } = i18n;
+const { t } = useTranslation();
 interface Note {
   id: string;
   title: string;
@@ -180,7 +182,8 @@ export default function NotesTab() {
               </View>
         
               {/* Основной контент поверх */}
-              <View style={{ flex: 1, zIndex: 1, maxWidth: 600, alignSelf: 'center' }}>
+              <View style={{ flex: 1, zIndex: 1,  width: Platform.OS === 'android' ? '100%' : 600,
+  alignSelf: Platform.OS === 'android' ? 'stretch' : 'center', }}>
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <Text style={styles.title}

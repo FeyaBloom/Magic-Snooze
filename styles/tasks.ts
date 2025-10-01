@@ -11,6 +11,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
   scrollView: {
     flex: 1,
     zIndex: 5,
+    paddingHorizontal: 20,
   },
   header: {
     padding: 20,
@@ -35,7 +36,6 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.primary,
-   // marginHorizontal: 20,
     marginBottom: 20,
     paddingVertical: 8,
     borderRadius: 16,
@@ -53,7 +53,7 @@ export const createTasksStyles = (colors: any) => StyleSheet.create({
     fontFamily: 'ComicNeue-Regular',
   },
   taskSection: {
-    //marginHorizontal: 20,
+   
     marginBottom: 24,
   },
   sectionTitle: {

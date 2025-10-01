@@ -8,6 +8,7 @@ import { NativeModules, Platform } from 'react-native';
 import en from './locales/en.json';
 import ru from './locales/ru.json';
 import es from './locales/es.json';
+import ca from './locales/ca.json';
 
 const languageDetector = {
   type: 'languageDetector',
@@ -41,11 +42,12 @@ i18n
       en: { translation: en },
       es: { translation: es },
       ru: { translation: ru },
+      ca: { translation: ca },
     },
     interpolation: {
       escapeValue: false,
     },
-    compatibilityJSON: 'v3',
+    compatibilityJSON: 'v4',
   });
 
 export default i18n;

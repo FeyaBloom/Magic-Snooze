@@ -10,6 +10,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles, calculateDayWidth } from '@/styles/calendar';
 import i18n from '@/i18n';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { useTranslation } from 'react-i18next';
 
 
 const LeftArrow = ({ color }: { color: string }) =>
@@ -23,7 +24,7 @@ const RightArrow = ({ color }: { color: string }) =>
     : <ChevronRight size={24} color={color} />;
 
 
-const { t } = i18n;
+const { t } = useTranslation();
 
 interface CalendarProps {
   // Для выбора даты (модалка)

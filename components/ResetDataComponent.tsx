@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, Alert, DeviceEventEmitter } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Trash2, RotateCcw, AlertTriangle } from 'lucide-react-native';
-import i18n from '@/i18n';
+import {useTranslation} from 'react-i18next';
 
 interface ResetDataProps {
   colors: any;
@@ -24,7 +24,7 @@ type SelectedOptions = {
 };
 
 const ResetDataComponent: React.FC<ResetDataProps> = ({ colors, styles }) => {
-  const { t } = i18n;
+  const { t } = useTranslation();
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetting, setResetting] = useState(false);
 

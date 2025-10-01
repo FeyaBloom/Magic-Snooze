@@ -8,9 +8,10 @@ import {
   TextInput,
   Modal,
   StyleSheet,
+  Platform,
   DeviceEventEmitter, 
 } from 'react-native';
-import i18n from '@/i18n';
+import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Plus, Pencil as Edit, Trash2, Coffee, Moon, Pause, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -30,7 +31,8 @@ import { useRoutinesBlock } from '@/hooks/useRoutinesBlock';
 import { useSurprisePrompts } from '@/hooks/useSurprisePrompts';
 import { useVictories } from '@/hooks/useVictories';
 
-const { t } = i18n;
+
+
 
 interface RoutineStep {
   id: string;
@@ -55,7 +57,7 @@ function TodayTabContent() {
   const [editingStep, setEditingStep] = useState<RoutineStep | null>(null);
   const [isSnoozed, setIsSnoozed] = useState(false);
   const [expandedStepId, setExpandedStepId] = useState<string | null>(null);
-
+  const { t } = useTranslation();
   const toggleStepExpand = (stepId: string) => {
     setExpandedStepId(prev => (prev === stepId ? null : stepId));
   };
@@ -469,7 +471,8 @@ function TodayTabContent() {
       </View>
 
       {/* Основной контент поверх */}
-      <View style={{ flex: 1, zIndex: 1, maxWidth: 600, alignSelf: 'center', width: '100%'}}>
+      <View style={{ flex: 1, zIndex: 1,  width: Platform.OS === 'android' ? '100%' : 600,
+  alignSelf: Platform.OS === 'android' ? 'stretch' : 'center'}}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <View>
          <View style={styles.header}>

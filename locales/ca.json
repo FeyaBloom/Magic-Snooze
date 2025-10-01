@@ -1,0 +1,217 @@
+{
+  "common": {
+    "cancel": "Cancel·la",
+    "save": "Desa",
+    "delete": "Elimina",
+    "edit": "Edita",
+    "add": "Afegeix",
+    "close": "Tanca",
+    "confirm": "Confirma",
+    "yes": "Sí",
+    "no": "No",
+    "Sun": "Dg", 
+    "Mon": "Dl", 
+    "Tue": "Dt", 
+    "Wed": "Dc", 
+    "Thu": "Dj", 
+    "Fri": "Dv", 
+    "Sat": "Ds"
+  },
+  "today": {
+    "title": "Bon dia, ànima bonica 🌸",
+    "subtitle": "Pas a pas",
+    "subtitleSnoozed": "Avui et prens un descans suau",
+    "snoozeToday": "Posa en pausa avui",
+    "resumeToday": "Continua avui",
+    "tinyVictories": "Petites victòries",
+    "nightForest": "🌙 Bosc nocturn",
+    "dayDream": "⛅ Somni de dia",
+    "morningRoutine": "Rutina matinal",
+    "eveningRoutine": "Rutina de vespre",
+    "todaysProgress": "Progrés d'avui",
+    "morning": "Matí",
+    "evening": "Vespre",
+    "addNewStep": "Afegeix un nou pas",
+    "editStep": "Edita pas",
+    "enterGentleStep": "Introdueix un pas suau...",
+    "addStep": "Afegeix pas",
+    "deleteStep": "Elimina pas",
+    "deleteStepConfirm": "Segur que vols eliminar aquest pas?",
+    "bed": "He sortit del llit",
+    "water": "He begut aigua",
+    "breath": "He respirat profundament",
+    "patient": "He tingut paciència",
+    "pet": "He acariciat un animal",
+    "sky": "He mirat el cel",
+    "smile": "He somrigut per alguna cosa",
+    "food": "He menjat alguna cosa",
+    "Tiny Victories": "Petites victòries",
+    "Celebrate the small wins!": "Celebra les petites victòries!",
+    "surprize1": "Vols escriure un poema en comptes de fer tasques? 📝",
+    "surprize2": "Dibuixa la teva llista de tasques com monstres! 👹",
+    "surprize3": "I si ballessis durant 30 segons? 💃",
+    "surprize4": "Hora de fer una cara estranya davant del mirall? 🤪",
+    "surprize5": "Què tal taral·lejar la teva cançó preferida? 🎵",
+    "surprize6": "Vols enviar un missatge a algú que estimes? 💕",
+    "surprize7": "Potser estira't com un gat? 🐱",
+    "surprize8": "Et ve de gust inventar una història sobre el teu dia? 📚",
+    "Maybelater": "Potser més tard",
+    "Letsdoit": "Fem-ho!",
+    "defaultMorning": {
+      "stretch": "Estirament o moviment suau",
+      "breathing": "Respiració conscient (2 minuts)",
+      "intention": "Estableix una intenció suau per avui"
+    },
+    "defaultEvening": {
+      "reflect": "Reflexiona sobre un moment positiu",
+      "selfCare": "Activitat suau de cura personal",
+      "prepare": "Prepara el demà amb amabilitat"
+    }
+  },
+  "calendar": {
+    "title": "El teu viatge",
+    "subtitle": "Cada pas compta, cada dia és important",
+    "legendTitle": "Llegenda",
+    "legend": {
+      "complete": "Dia complet 🏆",
+      "partial": "Dia parcial 🌟",
+      "snoozed": "Dia de descans 💤",
+      "none": "Sense activitat"
+    },
+    "stats": {
+      "title": "Progrés mensual",
+      "complete": "Dies complets",
+      "partial": "Dies parcials",
+      "snoozed": "Dies de descans",
+      "engagement": "Participació"
+    }
+  },
+  "notes": {
+    "title": "Les teves notes",
+    "subtitle": "Captura els teus pensaments i idees",
+    "searchPlaceholder": "Cerca les teves notes...",
+    "addButton": "Afegeix nova nota",
+    "emptyTitle": "Encara no hi ha notes",
+    "emptySubtitle": "Comença a capturar els teus pensaments i idees",
+    "emptySearchTitle": "No s'han trobat notes",
+    "emptySearchSubtitle": "Prova de cercar una altra cosa",
+    "addModalTitle": "Afegeix nova nota",
+    "editModalTitle": "Edita nota",
+    "titlePlaceholder": "Títol de la nota (opcional)",
+    "contentPlaceholder": "Què tens al cap?",
+    "deleteTitle": "Elimina nota",
+    "deleteMessage": "Segur que vols eliminar aquesta nota?"
+  },
+  "settings": {
+    "title": "Configuració",
+    "appPreferences": "Preferències de l'aplicació",
+    "messyMode": {
+      "title": "Mode desordenat",
+      "description": "Barreja els colors del tema actual"
+    },
+    "language": {
+      "title": "Idioma",
+      "currently": "Actualment",
+      "selectLanguage": "Selecciona idioma"
+    },
+    "account": "Compte",
+    "connectGoogle": {
+      "title": "Connecta el compte de Google",
+      "description": "Sincronitza progrés i tasques"
+    },
+    "manageProfile": {
+      "title": "Gestiona el perfil",
+      "description": "Visualitza o edita els detalls de l'usuari"
+    },
+    "contactSupport": "Contacte i suport",
+    "contactCreator": {
+      "title": "Contacta amb el creador",
+      "description": "Envia'm un missatge al web"
+    },
+    "supportApp": {
+      "title": "Dóna suport a l'aplicació",
+      "description": "Fes una donació 💰"
+    }
+  },
+  "tasks": {
+    "title": "Les teves tasques",
+    "subtitle": "Pas a pas, tu pots!",
+    "addNew": "Afegeix nova tasca",
+    "active": "Tasques actives",
+    "completed": "Tasques completades",
+    "emptyTitle": "Encara no hi ha tasques",
+    "emptySubtitle": "Afegeix la primera tasca per començar el teu viatge",
+    "addTitle": "Afegeix nova tasca",
+    "editTitle": "Edita tasca",
+    "inputPlaceholder": "Què vols aconseguir?",
+    "dueDateOptional": "Data límit (opcional)",
+    "deleteTitle": "Elimina tasca",
+    "deleteMessage": "Segur que vols eliminar aquesta tasca?"
+  },
+  "languages": {
+    "en": { "name": "Anglès", "native": "English", "flag": "🇺🇸" },
+    "ru": { "name": "Rus", "native": "Русский", "flag": "🇷🇺" },
+    "es": { "name": "Espanyol", "native": "Español", "flag": "🇪🇸" },
+    "fr": { "name": "Francès", "native": "Français", "flag": "🇫🇷" },
+    "de": { "name": "Alemany", "native": "Deutsch", "flag": "🇩🇪" },
+    "it": { "name": "Italià", "native": "Italiano", "flag": "🇮🇹" },
+    "ca": { "name": "Català", "native": "Català", "flag": "🇦🇩" }
+  },
+  "navigation": {
+    "today": "Avui",
+    "tasks": "Tasques",
+    "calendar": "Calendari",
+    "notes": "Notes",
+    "settings": "⚙ Configuració"
+  },
+  "reset": {
+    "button": "Reinicia dades",
+    "modal": {
+      "title": "Reinicia dades",
+      "subtitle": "Selecciona quines dades vols eliminar:",
+      "delete": "ELIMINA",
+      "deleting": "Eliminant..."
+    },
+    "options": {
+      "tasks": {
+        "title": "Tasques",
+        "description": "Totes les tasques puntuals"
+      },
+      "routines": {
+        "title": "Rutines",
+        "description": "Rutines matinals i de vespre"
+      },
+      "notes": {
+        "title": "Notes",
+        "description": "Totes les notes personals"
+      },
+      "progress": {
+        "title": "Progrés i victòries",
+        "description": "Historial de compliment i assoliments"
+      },
+      "settings": {
+        "title": "Configuració",
+        "description": "Idioma, tema, modes"
+      }
+    },
+    "confirm": {
+      "title": "⚠️ Avís!",
+      "message": "Estàs a punt d'eliminar permanentment {{count}} tipus de dades.\n\nAquesta acció no es pot desfer!",
+      "delete": "ELIMINA"
+    },
+    "alerts": {
+      "nothingSelected": {
+        "title": "No s'ha seleccionat res",
+        "message": "Si us plau, selecciona dades per reiniciar"
+      },
+      "success": {
+        "title": "Fet! ✅",
+        "message": "Claus eliminades: {{count}}\n\nReinicia l'aplicació per un refresc complet."
+      },
+      "error": {
+        "title": "Error",
+        "message": "No s'han pogut reiniciar les dades"
+      }
+    }
+  }
+}

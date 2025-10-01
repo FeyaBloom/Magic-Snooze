@@ -5,6 +5,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Platform,
   ScrollView,
   SafeAreaView,
   DeviceEventEmitter,
@@ -195,7 +196,8 @@ const gradient = getTabGradient(route.name);
               </View>
         
               {/* Основной контент поверх */}
-              <View style={{ flex: 1, zIndex: 1, maxWidth: 600, alignSelf: 'center', width: '100%' }}>
+              <View style={{ flex: 1, zIndex: 1,  width: Platform.OS === 'android' ? '100%' : 600,
+  alignSelf: Platform.OS === 'android' ? 'stretch' : 'center' }}>
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <Text style={styles.title}

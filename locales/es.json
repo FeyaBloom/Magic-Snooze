@@ -62,7 +62,8 @@
   "es": { "name": "Español", "native": "Español", "flag": "🇪🇸" },
   "fr": { "name": "Frances", "native": "Français", "flag": "🇫🇷" },
   "de": { "name": "Aleman", "native": "Deutsch", "flag": "🇩🇪" },
-  "it": { "name": "Italiano", "native": "Italiano", "flag": "🇮🇹" }
+  "it": { "name": "Italiano", "native": "Italiano", "flag": "🇮🇹" },
+  "ca": { "name": "Catalan", "native": "Català", "flag": "🇦🇩" }
 },
 
 "today": {
