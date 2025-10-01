@@ -20,7 +20,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createTasksStyles } from '@/styles/tasks';
 import CustomCalendar from '@/components/customCalendar';
 import { ConfirmDialog } from "@/components/confirmDialog";
-import i18n from '@/i18n';
+//import i18n from '@/i18n';
 import { useTranslation } from 'react-i18next';
 
 interface Task {
@@ -37,6 +37,7 @@ function TasksTabContent() {
   // ✅ 1. TODOS los hooks de librerías primero
   const route = useRoute();
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
   const { colors, getTabGradient } = useTheme();
 
   // ✅ 2. TODOS los useState juntos

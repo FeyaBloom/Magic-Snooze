@@ -84,13 +84,15 @@ export default function RootLayout() {
 
   // ✅ 5. JSX Return
   return (
+    <ThemeProvider>
     <I18nextProvider i18n={i18n}>
-      <ThemeProvider>
+      
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
-      </ThemeProvider>
+      
     </I18nextProvider>
+    </ThemeProvider>
   );
 }

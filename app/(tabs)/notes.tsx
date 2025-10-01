@@ -18,7 +18,6 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createNotesStyles } from '@/styles/notes';
 import { FloatingBackground } from "@/components/MagicalFeatures";
 import { ConfirmDialog } from "@/components/confirmDialog";
-import i18n from '@/i18n';
 import { useTranslation } from 'react-i18next';
 
 interface Note {
@@ -33,6 +32,7 @@ function NotesTabContent() {
   // ✅ 1. TODOS los hooks de librerías primero (en el mismo orden SIEMPRE)
   const route = useRoute();
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
   const { colors, getTabGradient } = useTheme();
   
   // ✅ 2. TODOS los useState juntos
