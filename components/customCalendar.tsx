@@ -3,11 +3,25 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Platform
 } from 'react-native';
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles, calculateDayWidth } from '@/styles/calendar';
 import i18n from '@/i18n';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+
+
+const LeftArrow = ({ color }: { color: string }) =>
+  Platform.OS === 'web'
+    ? <Text style={{ fontSize: 24, color, lineHeight: 38}}>{'\u2039'}</Text>
+    : <ChevronLeft size={24} color={color} />;
+
+const RightArrow = ({ color }: { color: string }) =>
+  Platform.OS === 'web'
+    ? <Text style={{ fontSize: 24, color, lineHeight: 38 }}>{'\u203A'}</Text>
+    : <ChevronRight size={24} color={color} />;
+
 
 const { t } = i18n;
 
@@ -257,7 +271,7 @@ export default function Calendar({
           onPress={() => navigateMonth('prev')}
           activeOpacity={0.7}
         >
-          <ChevronLeft size={24} color={colors.secondary} />
+          <LeftArrow color={colors.secondary} />
         </TouchableOpacity>
         <Text style={styles.monthTitle}
         numberOfLines={1}
@@ -269,7 +283,7 @@ export default function Calendar({
           onPress={() => navigateMonth('next')}
           activeOpacity={0.7}
         >
-          <ChevronRight size={24} color={colors.secondary} />
+          <RightArrow color={colors.secondary} />
         </TouchableOpacity>
       </View>
 

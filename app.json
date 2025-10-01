@@ -6,11 +6,13 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {            
-      "image": "./assets/images/splash-light-full.png",
-      "resizeMode": "cover",
+      "image": "./assets/images/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff",
       "dark": {
-        "image": "./assets/images/splash-dark-full.png",
-        "resizeMode": "cover"
+        "image": "./assets/images/icon.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#000000"
       }
     },
     "scheme": "magic-snooze",
@@ -24,7 +26,11 @@
     "android": {
       "package": "com.feyabloom.magicsnooze",
       "edgeToEdgeEnabled": true,
-      "versionCode": 1
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon-foreground.png",
+        "backgroundImage": "./assets/images/icon-background.png"
+      }
      
     },
     "web": {
