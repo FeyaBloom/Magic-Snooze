@@ -18,8 +18,8 @@ import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles } from '@/styles/calendar';
 import { FloatingBackground } from "@/components/MagicalFeatures";
 import CustomCalendar from '@/components/customCalendar';
-import i18n from '@/i18n';
-const { t } = i18n;
+
+import { useTranslation } from 'react-i18next';
 interface DailyProgress {
   date: string;
   morningCompleted: boolean;
@@ -42,7 +42,7 @@ export default function CalendarTab() {
   const route = useRoute();
 const { colors, getTabGradient } = useTheme();
 const gradient = getTabGradient(route.name);
-
+const { t } = useTranslation();
   const styles = createCalendarStyles(colors);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [progressData, setProgressData] = useState<Record<string, DailyProgress>>({});

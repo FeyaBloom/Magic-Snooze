@@ -11,7 +11,7 @@ import {
   Platform,
   DeviceEventEmitter, 
 } from 'react-native';
-import { useTranslation } from 'react-i18next';
+
 import { LinearGradient } from 'expo-linear-gradient';
 import { Plus, Pencil as Edit, Trash2, Coffee, Moon, Pause, Sparkles } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -30,7 +30,7 @@ import { useMidnightReset } from '@/hooks/useMidnightReset';
 import { useRoutinesBlock } from '@/hooks/useRoutinesBlock';
 import { useSurprisePrompts } from '@/hooks/useSurprisePrompts';
 import { useVictories } from '@/hooks/useVictories';
-
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -41,7 +41,7 @@ interface RoutineStep {
 }
 
 function TodayTabContent() {
- // const [languageModalVisible, setLanguageModalVisible] = useState(false);
+
   const route = useRoute();
   const { colors, getTabGradient, currentTheme, setTheme } = useTheme();
   const gradient = getTabGradient(route.name);

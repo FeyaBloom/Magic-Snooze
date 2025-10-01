@@ -22,7 +22,7 @@ import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
 import { TouchableWithoutFeedback } from 'react-native';
 import { useTranslation } from 'react-i18next';
-const { t } = useTranslation();
+
 interface Task {
   id: string;
   text: string;
@@ -39,7 +39,7 @@ export default function TasksTab() {
   const route = useRoute();
   const { colors, getTabGradient } = useTheme();
   const gradient = getTabGradient(route.name);
-  
+  const { t } = useTranslation();
   const styles = createTasksStyles(colors);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);

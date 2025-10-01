@@ -21,7 +21,7 @@ import { ConfirmDialog } from "@/components/confirmDialog";
 import i18n from '@/i18n';
 import { useTranslation } from 'react-i18next';
 
-const { t } = useTranslation();
+
 interface Note {
   id: string;
   title: string;
@@ -32,6 +32,7 @@ interface Note {
 
 export default function NotesTab() {
   const route = useRoute();
+  const { t } = useTranslation();
   const { colors, getTabGradient } = useTheme();
   const gradient = getTabGradient(route.name);
   const styles = createNotesStyles(colors);
