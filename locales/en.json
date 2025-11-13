@@ -1,0 +1,226 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "Sun": "Sun", 
+    "Mon": "Mon", 
+    "Tue": "Tue", 
+    "Wed":  "Wed", 
+    "Thu":  "Thu", 
+    "Fri":  "Fri", 
+    "Sat": "Sat"
+  },
+  "today": {
+    "title": "Good day, beautiful soul 🌸",
+    "subtitle": "Take it one step at a time",
+    "subtitleSnoozed": "You're taking a gentle break today",
+    "snoozeToday": "Snooze Today",
+    "resumeToday": "Resume Today",
+    "tinyVictories": "Tiny Victories",
+    "nightForest": "🌙 Night Forest",
+    "dayDream": "⛅ Daydream",
+    "morningRoutine": "Morning Routine",
+    "eveningRoutine": "Evening Routine",
+    "todaysProgress": "Today's Progress",
+    "morning": "Morning",
+    "evening": "Evening",
+    "addNewStep": "Add New Step",
+    "editStep": "Edit Step",
+    "enterGentleStep": "Enter a gentle step...",
+    "addStep": "Add Step",
+    "deleteStep": "Delete Step",
+    "deleteStepConfirm": "Are you sure you want to delete this step?",
+  "bed": "Got out of bed",
+  "water": "Drank water",
+  "breath": "Took a deep breath",
+  "patient": "Was patient",
+  "pet": "Pet an animal",
+  "sky": "Looked at the sky",
+  "smile": "Smiled at something",
+  "food": "Ate something",
+  "Tiny Victories": "Tiny Victories",
+  "Celebrate the small wins!": "Celebrate the small wins!",
+   "surprize1": "Wanna write a poem instead of doing tasks? 📝",
+   "surprize2": "Draw your to-do list as monsters! 👹",
+   "surprize3": "What if you danced for 30 seconds? 💃",
+   "surprize4": "Time to make a weird face in the mirror? 🤪",
+   "surprize5": "How about humming your favorite song? 🎵",
+   "surprize6": "Want to text someone you love? 💕",
+   "surprize7": "Maybe stretch like a cat? 🐱",
+   "surprize8": "Feel like making up a story about your day? 📚",
+    "Maybelater": "Maybe later",
+    "Letsdoit": "Let's do it!",
+    "defaultMorning": {
+      "stretch": "Gentle stretch or movement",
+      "breathing": "Mindful breathing (2 minutes)",
+      "intention": "Set one gentle intention for today"
+    },
+    "defaultEvening": {
+      "reflect": "Reflect on one positive moment",
+      "selfCare": "Gentle self-care activity",
+      "prepare": "Prepare for tomorrow with kindness"
+    }
+  },
+  "calendar": {
+  "title": "Your Journey",
+  "subtitle": "Every step counts, every day matters",
+  "legendTitle": "Legend",
+  "legend": {
+    "complete": "Complete Day 🏆",
+    "partial": "Partial Day 🌟",
+    "snoozed": "Rest Day 💤",
+    "none": "No Activity"
+  },
+  "stats": {
+    "title": "Monthly Progress",
+    "complete": "Complete Days",
+    "partial": "Partial Days",
+    "snoozed": "Rest Days",
+    "engagement": "Engagement"
+  }
+  },
+
+  "notes": {
+  "title": "Your Notes",
+  "subtitle": "Capture your thoughts and ideas",
+  "searchPlaceholder": "Search your notes...",
+  "addButton": "Add New Note",
+  "emptyTitle": "No notes yet",
+  "emptySubtitle": "Start capturing your thoughts and ideas",
+  "emptySearchTitle": "No notes found",
+  "emptySearchSubtitle": "Try searching for something else",
+  "addModalTitle": "Add New Note",
+  "editModalTitle": "Edit Note",
+  "titlePlaceholder": "Note title (optional)",
+  "contentPlaceholder": "What's on your mind?",
+     "deleteTitle": "Delete Note",
+    "deleteMessage": "Are you sure you want to delete this note?"
+},
+    
+  "settings": {
+    "title": "Settings",
+    "appPreferences": "App Preferences",
+    "messyMode": {
+      "title": "Messy mode",
+      "description": "Shuffle colors of the current theme"
+    },
+    "language": {
+      "title": "Language",
+      "currently": "Currently",
+      "selectLanguage": "Select Language"
+    },
+    "account": "Account",
+    "connectGoogle": {
+      "title": "Connect Google Account",
+      "description": "Sync progress and tasks"
+    },
+    "manageProfile": {
+      "title": "Manage Profile",
+      "description": "View or edit user details"
+    },
+    "contactSupport": "Contact & Support",
+    "contactCreator": {
+      "title": "Contact the Creator",
+      "description": "Text me on the web"
+    },
+    "supportApp": {
+      "title": "Support this app",
+      "description": "Send a donation 💰"
+    }
+  },
+
+"tasks": {
+    "title": "Your Tasks",
+    "subtitle": "One step at a time, you've got this!",
+    "addNew": "Add New Task",
+    "active": "Active Tasks",
+    "completed": "Completed Tasks",
+    "emptyTitle": "No tasks yet",
+    "emptySubtitle": "Add your first task to get started on your journey",
+    "addTitle": "Add New Task",
+    "editTitle": "Edit Task",
+    "inputPlaceholder": "What would you like to accomplish?",
+    "dueDateOptional": "Due date (optional)",
+    
+    "deleteTitle": "Delete Task",
+    "deleteMessage": "Are you sure you want to delete this task?"
+  },
+
+"languages": {
+  "en": { "name": "English", "native": "English", "flag": "🇺🇸" },
+  "ru": { "name": "Russian", "native": "Русский", "flag": "🇷🇺" },
+  "es": { "name": "Spanish", "native": "Español", "flag": "🇪🇸" },
+  "fr": { "name": "French", "native": "Français", "flag": "🇫🇷" },
+  "de": { "name": "German", "native": "Deutsch", "flag": "🇩🇪" },
+  "it": { "name": "Italian", "native": "Italiano", "flag": "🇮🇹" },
+  "ca": { "name": "Catalan", "native": "Català", "flag": "🇦🇩" }
+},
+  "navigation": {
+  "today": "Today",
+  "tasks": "Tasks",
+  "calendar": "Calendar",
+  "notes": "Notes",
+  "settings": "⚙ Settings"
+},
+
+  
+  "reset": {
+    "button": "Reset Data",
+    "modal": {
+      "title": "Reset Data",
+      "subtitle": "Select which data to delete:",
+      "delete": "DELETE",
+      "deleting": "Deleting..."
+    },
+    "options": {
+      "tasks": {
+        "title": "Tasks",
+        "description": "All one-time tasks"
+      },
+      "routines": {
+        "title": "Routines", 
+        "description": "Morning and evening routines"
+      },
+      "notes": {
+        "title": "Notes",
+        "description": "All personal notes"
+      },
+      "progress": {
+        "title": "Progress & Victories",
+        "description": "Completion history and achievements"
+      },
+      "settings": {
+        "title": "Settings",
+        "description": "Language, theme, modes"
+      }
+    },
+    "confirm": {
+      "title": "⚠️ Warning!",
+      "message": "You are about to permanently delete {{count}} data types.\n\nThis action cannot be undone!",
+      "delete": "DELETE"
+    },
+    "alerts": {
+      "nothingSelected": {
+        "title": "Nothing Selected",
+        "message": "Please select data to reset"
+      },
+      "success": {
+        "title": "Done! ✅",
+        "message": "Deleted keys: {{count}}\n\nRestart the app for full refresh."
+      },
+      "error": {
+        "title": "Error",
+        "message": "Failed to reset data"
+      }
+    }
+  }
+
+  
+}

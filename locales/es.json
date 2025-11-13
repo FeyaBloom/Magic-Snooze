@@ -1,0 +1,222 @@
+{
+  
+  "common": {
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Añadir",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "Sun": "Dom", 
+    "Mon": "Lun", 
+    "Tue": "Mar", 
+    "Wed":  "Mie", 
+    "Thu":  "Jue", 
+    "Fri":  "Vie", 
+    "Sat": "Sab"
+  },
+  "navigation": {
+  "today": "Hoy",
+  "tasks": "Tareas",
+  "calendar": "Calendario",
+  "notes": "Notas",
+  "settings": "⚙ Ajustes"
+},
+  "settings": {
+    "title": "Configuración",
+    "appPreferences": "Preferencias de la app",
+    "messyMode": {
+      "title": "Modo caótico",
+      "description": "Mezclar colores del tema actual"
+    },
+    "language": {
+      "title": "Idioma",
+      "currently": "Actual",
+      "selectLanguage": "Seleccionar idioma"
+    },
+    "account": "Cuenta",
+    "connectGoogle": {
+      "title": "Conectar cuenta de Google",
+      "description": "Sincronizar progreso y tareas"
+    },
+    "manageProfile": {
+      "title": "Gestionar perfil",
+      "description": "Ver o editar detalles del usuario"
+    },
+    "contactSupport": "Contacto y soporte",
+    "contactCreator": {
+      "title": "Contactar al creador",
+      "description": "Escríbeme en la web"
+    },
+    "supportApp": {
+      "title": "Apoyar esta aplicación",
+      "description": "Enviar una donación 💰"
+    }
+  },
+"languages": {
+  "en": { "name": "Ingles", "native": "English", "flag": "🇺🇸" },
+  "ru": { "name": "Ruso", "native": "Русский", "flag": "🇷🇺" },
+  "es": { "name": "Español", "native": "Español", "flag": "🇪🇸" },
+  "fr": { "name": "Frances", "native": "Français", "flag": "🇫🇷" },
+  "de": { "name": "Aleman", "native": "Deutsch", "flag": "🇩🇪" },
+  "it": { "name": "Italiano", "native": "Italiano", "flag": "🇮🇹" },
+  "ca": { "name": "Catalan", "native": "Català", "flag": "🇦🇩" }
+},
+
+"today": {
+    "title": "Buen día, alma hermosa 🌸",
+    "subtitle": "Ve paso a paso",
+    "subtitleSnoozed": "Te estás tomando un descanso",
+    "snoozeToday": "Aplazar todo",
+    "resumeToday": "Reanudar",
+    "tinyVictories": "Pequeñas victorias",
+    "nightForest": "🌙 Bosque nocturno",
+    "dayDream": "⛅ Ensueño",
+    "morningRoutine": "Rutina matutina",
+    "eveningRoutine": "Rutina nocturna",
+    "todaysProgress": "Progreso de hoy",
+    "morning": "Mañana",
+    "evening": "Noche",
+    "addNewStep": "Añadir nuevo paso",
+    "editStep": "Editar paso",
+    "enterGentleStep": "Introduce un paso suave...",
+    "deleteStep": "Eliminar paso",
+    "deleteStepConfirm": "¿Estás seguro de que quieres eliminar este paso?",
+   "bed": "Me levanté de la cama",
+"water": "Bebí agua",
+"breath": "Respiré profundamente",
+"patient": "Fui paciente",
+"pet": "Acaricié un animal",
+"sky": "Miré el cielo",
+"smile": "Sonreí por algo",
+"food": "Comí algo",
+"Tiny Victories": "Pequeñas victorias",
+"Celebrate the small wins!": "¡Celebra los pequeños triunfos!",
+"surprize1": "¿Quieres escribir un poema en lugar de hacer tareas? 📝",
+"surprize2": "¡Dibuja tu lista de tareas como monstruos! 👹",
+"surprize3": "¿Y si bailas durante 30 segundos? 💃",
+"surprize4": "¿Es hora de hacer muecas en el espejo? 🤪",
+"surprize5": "¿Qué tal tararear tu canción favorita? 🎵",
+"surprize6": "¿Quieres escribir a alguien que amas? 💕",
+"surprize7": "¿Te apetece estirarte como un gato? 🐱",
+"surprize8": "¿Te parece inventar una historia sobre tu día? 📚",
+   "Maybelater": "Más tarde",
+    "Letsdoit": "Vamos!",
+    "defaultMorning": {
+      "stretch": "Estiramiento suave o movimiento",
+      "breathing": "Respiración consciente (2 minutos)",
+      "intention": "Establece una intención suave para hoy"
+    },
+    "defaultEvening": {
+      "reflect": "Reflexiona sobre un momento positivo",
+      "selfCare": "Actividad suave de autocuidado",
+      "prepare": "Prepárate para mañana con bondad"
+    }
+  },
+
+"tasks": {
+  "title": "Tus tareas",
+  "subtitle": "Paso a paso, ¡tú puedes!",
+  "addNew": "Añadir nueva tarea",
+  "active": "Tareas activas",
+  "completed": "Tareas completadas",
+  "emptyTitle": "Aún no hay tareas",
+  "emptySubtitle": "Añade tu primera tarea para comenzar tu camino",
+  "addTitle": "Añadir nueva tarea",
+  "editTitle": "Editar tarea",
+  "inputPlaceholder": "¿Qué te gustaría lograr?",
+  "dueDateOptional": "Fecha límite (opcional)",
+  "deleteTitle": "Eliminar tarea",
+  "deleteMessage": "¿Estás seguro de que quieres eliminar esta tarea?"
+},
+
+"calendar": {
+  "title": "Tu viaje",
+  "subtitle": "Cada paso cuenta, cada día importa",
+  "legendTitle": "Leyenda",
+  "legend": {
+    "complete": "Día completo 🏆",
+    "partial": "Día parcial 🌟",
+    "snoozed": "Día de descanso 💤",
+    "none": "Sin actividad"
+  },
+  "stats": {
+    "title": "Progreso mensual",
+    "complete": "Días completos",
+    "partial": "Días parciales",
+    "snoozed": "Días de descanso",
+    "engagement": "Participación"
+  }
+},
+
+"notes": {
+  "title": "Tus notas",
+  "subtitle": "Captura tus pensamientos e ideas",
+  "searchPlaceholder": "Buscar en tus notas...",
+  "addButton": "Agregar nueva nota",
+  "emptyTitle": "Aún no hay notas",
+  "emptySubtitle": "Comienza a capturar tus ideas y pensamientos",
+  "emptySearchTitle": "No se encontraron notas",
+  "emptySearchSubtitle": "Intenta buscar otra cosa",
+  "addModalTitle": "Agregar nueva nota",
+  "editModalTitle": "Editar nota",
+  "titlePlaceholder": "Título de la nota (opcional)",
+  "contentPlaceholder": "¿Qué estás pensando?",
+   "deleteTitle": "Eliminar nota",
+  "deleteMessage": "¿Estás seguro de que quieres eliminar esta nota?"  
+},
+ "reset": {
+      "button": "Restablecer datos",
+      "modal": {
+        "title": "Restablecer datos",
+        "subtitle": "Selecciona qué datos eliminar:",
+        "delete": "ELIMINAR", 
+        "deleting": "Eliminando..."
+      },
+      "options": {
+        "tasks": {
+          "title": "Tareas",
+          "description": "Todas las tareas únicas"
+        },
+        "routines": {
+          "title": "Rutinas",
+          "description": "Rutinas matutinas y nocturnas"
+        },
+        "notes": {
+          "title": "Notas",
+          "description": "Todas las notas personales"
+        },
+        "progress": {
+          "title": "Progreso y victorias", 
+          "description": "Historial de completado y logros"
+        },
+        "settings": {
+          "title": "Configuración",
+          "description": "Idioma, tema, modos"
+        }
+      },
+      "confirm": {
+        "title": "⚠️ ¡Atención!",
+        "message": "Vas a eliminar permanentemente {{count}} tipos de datos.\n\n¡Esta acción no se puede deshacer!",
+        "delete": "ELIMINAR"
+      },
+      "alerts": {
+        "nothingSelected": {
+          "title": "Nada seleccionado",
+          "message": "Selecciona datos para restablecer"
+        },
+        "success": {
+          "title": "¡Listo! ✅",
+          "message": "Claves eliminadas: {{count}}\n\nReinicia la app para actualización completa."
+        },
+        "error": {
+          "title": "Error",
+          "message": "No se pudieron restablecer los datos"
+        }
+      }
+    }
+  
+}
