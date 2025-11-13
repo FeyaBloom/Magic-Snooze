@@ -1,236 +1,141 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  StyleSheet,
-} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useTheme } from '@/components/ThemeProvider';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { View, Text, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { Check } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-import i18n from '@/i18n';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from './ThemeProvider';
+import { useTextStyles } from '@/hooks/useTextStyles';
+import { createSettingsStyles } from '@/styles/settings';
 
-interface LanguageModalProps {
-  visible: boolean;
-  onClose: () => void;
+type Language = 'en' | 'ru' | 'es' | 'ca';
+
+interface LanguageContextType {
+  language: Language;
+  changeLanguage: (lang: Language) => Promise<void>;
+  showLanguageModal: () => void;
 }
 
-const languageCodes = ['en', 'ru', 'es', 'ca'];
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export const LanguageModal: React.FC<LanguageModalProps> = ({ visible, onClose }) => {
+const languageCodes: Language[] = ['en', 'ru', 'es', 'ca'];
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const { i18n, t } = useTranslation();
   const { colors } = useTheme();
-  const { t } = useTranslation();
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  const textStyles = useTextStyles();
+  const styles = createSettingsStyles(colors);
+  
+  const [language, setLanguage] = useState<Language>('en');
+  const [modalVisible, setModalVisible] = useState(false);
 
-  // Загружаем сохраненный язык при инициализации
   useEffect(() => {
-    loadSavedLanguage();
+    loadLanguage();
   }, []);
 
-  // Обновляем currentLanguage при изменении i18n.language
-  useEffect(() => {
-    setCurrentLanguage(i18n.language);
-  }, [i18n.language]);
-
-  const loadSavedLanguage = async () => {
+  const loadLanguage = async () => {
     try {
-      const savedLanguage = await AsyncStorage.getItem('selectedLanguage');
-      if (savedLanguage && languageCodes.includes(savedLanguage)) {
-        // Устанавливаем язык без сохранения в AsyncStorage (избегаем дублирования)
-        await i18n.changeLanguage(savedLanguage);
-        setCurrentLanguage(savedLanguage);
+      const saved = await AsyncStorage.getItem('selectedLanguage');
+      if (saved && languageCodes.includes(saved as Language)) {
+        setLanguage(saved as Language);
+        await i18n.changeLanguage(saved);
       }
     } catch (error) {
-      console.error('Error loading saved language:', error);
+      console.error('Error loading language:', error);
     }
+  };
+
+  const changeLanguage = async (lang: Language) => {
+    try {
+      setLanguage(lang);
+      await i18n.changeLanguage(lang);
+      await AsyncStorage.setItem('selectedLanguage', lang);
+      setModalVisible(false);
+    } catch (error) {
+      console.error('Error changing language:', error);
+    }
+  };
+
+  const showLanguageModal = () => {
+    setModalVisible(true);
   };
 
   const languages = languageCodes.map((code) => ({
     code,
     flag: t(`languages.${code}.flag`),
     name: t(`languages.${code}.name`),
-    nativeName: t(`languages.${code}.native`)
+    nativeName: t(`languages.${code}.native`),
   }));
 
-  const handleLanguageSelect = async (languageCode: string) => {
-    try {
-      // Изменяем язык в i18n
-      await i18n.changeLanguage(languageCode);
-      
-      // Сохраняем выбранный язык в AsyncStorage
-      await AsyncStorage.setItem('selectedLanguage', languageCode);
-      
-      // Обновляем локальное состояние
-      setCurrentLanguage(languageCode);
-      
-      console.log(`Language changed to: ${languageCode}`);
-      
-      // Закрываем модалку
-      onClose();
-    } catch (error) {
-      console.error('Error saving language:', error);
-    }
-  };
-
-  interface LanguageItem {
-    code: string;
-    flag: string;
-    name: string;
-    nativeName: string;
-  }
-  
-  const renderLanguageItem = ({ item }: { item: LanguageItem }) => {
-    const isSelected = currentLanguage === item.code;
+  const renderLanguageItem = ({ item }: { item: typeof languages[0] }) => {
+    const isSelected = language === item.code;
 
     return (
       <TouchableOpacity
         style={[
-          styles.languageItem,
-          {
-            backgroundColor: colors.surface,
-            borderColor: isSelected ? colors.primary : colors.surface,
-          },
-          isSelected && { backgroundColor: colors.primary + '10' },
+          styles.languageOption,
+          isSelected && styles.languageOptionSelected,
         ]}
-        onPress={() => handleLanguageSelect(item.code)}
+        onPress={() => changeLanguage(item.code)}
         activeOpacity={0.7}
       >
-        <View style={styles.languageContent}>
-          <Text style={styles.flag}>{item.flag}</Text>
-          <View style={styles.languageText}>
-            <Text style={[styles.languageName, { color: colors.text }]}>
-              {item.name}
-            </Text>
-            <Text style={[styles.languageNative, { color: colors.textSecondary }]}>
-              {item.nativeName}
-            </Text>
-          </View>
-          {isSelected && <Check size={20} color={colors.primary} />}
+        <Text style={styles.languageFlag}>{item.flag}</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={[textStyles.body, isSelected && { color: colors.surface }]}>
+            {item.name}
+          </Text>
+          <Text style={[textStyles.caption, isSelected && { color: colors.surface }]}>
+            {item.nativeName}
+          </Text>
         </View>
+        {isSelected && <Check size={20} color={isSelected ? colors.surface : colors.primary} />}
       </TouchableOpacity>
     );
   };
 
-  const styles = StyleSheet.create({
-    overlay: {
-      flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingHorizontal: 20,
-    },
-    modal: {
-      backgroundColor: colors.surface,
-      borderRadius: 20,
-      padding: 24,
-      width: '100%',
-      maxWidth: 400,
-      maxHeight: '80%',
-      shadowColor: '#ccc',
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 10,
-      elevation: 10,
-    },
-    header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 20,
-    },
-    title: {
-      fontSize: 22,      
-      color: colors.text,
-      fontFamily: 'CabinSketch-Bold',
-    },
-    languageList: {
-      maxHeight: 300,
-    },
-    languageItem: {
-      borderRadius: 12,
-      marginBottom: 8,
-      borderWidth: 2,
-      overflow: 'hidden',
-    },
-    languageContent: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      padding: 16,
-    },
-    flag: {
-      fontSize: 28,
-      marginRight: 16,
-    },
-    languageText: {
-      flex: 1,
-    },
-    languageName: {
-      fontSize: 18,
-      fontWeight: '600',
-      fontFamily: 'ComicNeue-Bold',
-      marginBottom: 2,
-    },
-    languageNative: {
-      fontSize: 14,
-      fontFamily: 'ComicNeue-Regular',
-    },
-    closeButton: {
-      backgroundColor: colors.primary,
-      borderRadius: 12,
-      paddingVertical: 16,
-      paddingHorizontal: 24,
-      alignItems: 'center',
-      marginTop: 20,
-    },
-    closeButtonText: {
-      color: '#FFFFFF',
-      fontSize: 16,
-      fontWeight: '600',
-      fontFamily: 'ComicNeue-Bold',
-    },
-  });
-
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      statusBarTranslucent
-      onRequestClose={onClose}
-    >
-      <View style={styles.overlay}>
-        <View style={styles.modal}>
-          <View style={styles.header}>
-            <Text style={styles.title}>
-              {t('settings.language.selectLanguage')}
-            </Text>
-          </View>
+    <LanguageContext.Provider value={{ language, changeLanguage, showLanguageModal }}>
+      {children}
+      
+      <Modal
+        visible={modalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <TouchableOpacity 
+          style={styles.modalOverlay}
+          activeOpacity={1}
+          onPress={() => setModalVisible(false)}
+        >
+          <TouchableOpacity activeOpacity={1} onPress={(e) => e.stopPropagation()}>
+            <View style={styles.modalContent}>
+              <Text style={[textStyles.h2, styles.modalTitle]}>
+                {t('settings.language.selectLanguage')}
+              </Text>
+              
+              <FlatList
+                data={languages}
+                keyExtractor={(item) => item.code}
+                renderItem={renderLanguageItem}
+                showsVerticalScrollIndicator={false}
+              />
 
-          <FlatList
-            data={languages}
-            keyExtractor={(item) => item.code}
-            renderItem={renderLanguageItem}
-            style={styles.languageList}
-            showsVerticalScrollIndicator={false}
-          />
-
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={onClose}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.closeButtonText}>
-              {t('common.close')}
-            </Text>
+              <TouchableOpacity 
+                style={styles.closeButton}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={textStyles.button}>{t('common.close')}</Text>
+              </TouchableOpacity>
+            </View>
           </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
+        </TouchableOpacity>
+      </Modal>
+    </LanguageContext.Provider>
   );
-};
+}
+
+export function useLanguage() {
+  const context = useContext(LanguageContext);
+  if (!context) throw new Error('useLanguage must be used within LanguageProvider');
+  return context;
+}
