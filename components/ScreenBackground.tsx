@@ -1,9 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import LottieView from 'lottie-react-native';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ReactNode } from 'react';
 import { useTheme } from './ThemeProvider';
-import { ContentContainer } from './ContentContainer';
 
 interface Props {
   tabName: string;
@@ -39,20 +38,25 @@ export function ScreenBackground({ tabName, children }: Props) {
   };
 
   return (
-    <LinearGradient colors={gradient} style={styles.container}>
+    <View style={styles.screenContainer}>
+      <LinearGradient colors={gradient} style={styles.background} />
       <FloatingAnimation />
-      <ContentContainer>
-        {children}
-      </ContentContainer>
-    </LinearGradient>
+      {children}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  animation: {
+  screenContainer: {
+    flex: 1,
+  },
+  background: {
     ...StyleSheet.absoluteFillObject,
     zIndex: 0,
+  },
+  animation: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 1,
     pointerEvents: 'none',
   },
 });

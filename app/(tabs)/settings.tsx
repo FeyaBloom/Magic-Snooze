@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Linking, Switch } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Linking, Switch, StyleSheet, Platform } from 'react-native';
 import { Globe, Heart, Languages, Paintbrush } from 'lucide-react-native';
 import { ScreenBackground } from '@/components/ScreenBackground';
 import { useTheme } from '@/components/ThemeProvider';
@@ -17,75 +17,97 @@ export default function SettingsScreen() {
 
   return (
     <ScreenBackground tabName="settings">
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <Text style={[textStyles.h1, styles.title]}>{t('settings.title')}</Text>
+      <ScrollView
+        style={screenStyles.scrollView}
+        contentContainerStyle={screenStyles.contentContainer}
+        scrollEnabled={true}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={screenStyles.contentWrapper}>
+          <Text style={[textStyles.h1, styles.title]}>{t('settings.title')}</Text>
 
-        {/* App Preferences */}
-        <View style={styles.section}>
-          <Text style={[textStyles.h2, styles.sectionTitle]}>{t('settings.appPreferences')}</Text>
+          <View style={styles.section}>
+            <Text style={[textStyles.h2, styles.sectionTitle]}>{t('settings.appPreferences')}</Text>
 
-          {/* Messy Mode */}
-          <View style={styles.row}>
-            <View style={styles.leftContent}>
-              <Paintbrush color={colors.textSecondary} size={20} />
-              <View style={styles.textContainer}>
-                <Text style={textStyles.body}>{t('settings.messyMode.title')}</Text>
-                <Text style={textStyles.caption}>{t('settings.messyMode.description')}</Text>
+            <View style={styles.row}>
+              <View style={styles.leftContent}>
+                <Paintbrush color={colors.textSecondary} size={20} />
+                <View style={styles.textContainer}>
+                  <Text style={textStyles.body}>{t('settings.messyMode.title')}</Text>
+                  <Text style={textStyles.caption}>{t('settings.messyMode.description')}</Text>
+                </View>
               </View>
+              <Switch
+                value={isMessyMode}
+                onValueChange={toggleMessyMode}
+                trackColor={{ false: colors.textSecondary, true: colors.primary }}
+                thumbColor={isMessyMode ? colors.accent : colors.surface}
+              />
             </View>
-            <Switch
-              value={isMessyMode}
-              onValueChange={toggleMessyMode}
-              trackColor={{ false: colors.textSecondary, true: colors.primary }}
-              thumbColor={isMessyMode ? colors.accent : colors.surface}
-            />
+
+            <TouchableOpacity style={styles.row} onPress={showLanguageModal}>
+              <View style={styles.leftContent}>
+                <Languages color={colors.textSecondary} size={20} />
+                <View style={styles.textContainer}>
+                  <Text style={textStyles.body}>{t('settings.language.title')}</Text>
+                  <Text style={textStyles.caption}>
+                    {t('settings.language.currently')}: {language.toUpperCase()}
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
           </View>
 
-          {/* Language */}
-          <TouchableOpacity style={styles.row} onPress={showLanguageModal}>
-            <View style={styles.leftContent}>
-              <Languages color={colors.textSecondary} size={20} />
-              <View style={styles.textContainer}>
-                <Text style={textStyles.body}>{t('settings.language.title')}</Text>
-                <Text style={textStyles.caption}>
-                  {t('settings.language.currently')}: {language.toUpperCase()}
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.section}>
+            <Text style={[textStyles.h2, styles.sectionTitle]}>{t('settings.contactSupport')}</Text>
 
-        {/* Contact & Support */}
-        <View style={styles.section}>
-          <Text style={[textStyles.h2, styles.sectionTitle]}>{t('settings.contactSupport')}</Text>
-
-          <TouchableOpacity
-            style={styles.row}
-            onPress={() => Linking.openURL('https://portfolio-feya-bloom.webflow.io/')}
-          >
-            <View style={styles.leftContent}>
-              <Globe color={colors.textSecondary} size={20} />
-              <View style={styles.textContainer}>
-                <Text style={textStyles.body}>{t('settings.contactCreator.title')}</Text>
-                <Text style={textStyles.caption}>{t('settings.contactCreator.description')}</Text>
+            <TouchableOpacity
+              style={styles.row}
+              onPress={() => Linking.openURL('https://portfolio-feya-bloom.webflow.io/')}
+            >
+              <View style={styles.leftContent}>
+                <Globe color={colors.textSecondary} size={20} />
+                <View style={styles.textContainer}>
+                  <Text style={textStyles.body}>{t('settings.contactCreator.title')}</Text>
+                  <Text style={textStyles.caption}>{t('settings.contactCreator.description')}</Text>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.row}
-            onPress={() => Linking.openURL('https://www.buymeacoffee.com/feyabloom')}
-          >
-            <View style={styles.leftContent}>
-              <Heart color={colors.textSecondary} size={20} />
-              <View style={styles.textContainer}>
-                <Text style={textStyles.body}>{t('settings.supportApp.title')}</Text>
-                <Text style={textStyles.caption}>{t('settings.supportApp.description')}</Text>
+            <TouchableOpacity
+              style={styles.row}
+              onPress={() => Linking.openURL('https://www.buymeacoffee.com/feyabloom')}
+            >
+              <View style={styles.leftContent}>
+                <Heart color={colors.textSecondary} size={20} />
+                <View style={styles.textContainer}>
+                  <Text style={textStyles.body}>{t('settings.supportApp.title')}</Text>
+                  <Text style={textStyles.caption}>{t('settings.supportApp.description')}</Text>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </ScreenBackground>
   );
 }
+
+const screenStyles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    zIndex: 2,
+  },
+  contentContainer: {
+    flexGrow: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 80,
+  },
+  contentWrapper: {
+    maxWidth: Platform.OS === 'web' ? 600 : undefined,
+    width: '100%',
+    alignSelf: 'center',
+  },
+});
