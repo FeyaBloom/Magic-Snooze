@@ -19,5 +19,7 @@ interface Props {
                               width: '100%',
                                   maxWidth: Platform.OS === 'web' ? 600 : undefined,
                                       alignSelf: 'center',
+                                      position: 'relative',
+                                      zIndex: 1,
                                         },
                                         });
