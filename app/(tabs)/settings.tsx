@@ -1,122 +1,91 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Platform,
-  Switch,
-} from 'react-native';
-import { useRouter } from 'expo-router';
+import React from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Linking, Switch } from 'react-native';
+import { Globe, Heart, Languages, Paintbrush } from 'lucide-react-native';
 import { ScreenBackground } from '@/components/ScreenBackground';
+import { useTheme } from '@/components/ThemeProvider';
+import { useLanguage } from '@/components/LanguageProvider';
+import { useTranslation } from 'react-i18next';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { createSettingsStyles } from '@/styles/settings';
-import { useTranslation } from 'react-i18next';
-import { Languages, Paintbrush } from 'lucide-react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { LanguageModal } from '@/components/LanguageProvider';
-import { useTheme } from '@/components/ThemeProvider';
 
-
-function SettingsTabContent() {
+export default function SettingsScreen() {
   const { colors, toggleMessyMode, isMessyMode } = useTheme();
+  const { language, showLanguageModal } = useLanguage();
+  const { t } = useTranslation();
   const textStyles = useTextStyles();
-    const router = useRouter();  
-    const styles = createSettingsStyles(colors);
-    const { t, i18n } = useTranslation();
-    const currentLanguageCode = i18n.language;
-  const [languageModalVisible, setLanguageModalVisible] = useState(false);
-  
-  const debugAsyncStorage = async () => {
-  try {
-    // Получаем все ключи
-    const keys = await AsyncStorage.getAllKeys();
-    console.log('=== ALL ASYNC STORAGE KEYS ===');
-    console.log('Keys found:', keys);
-    
-    // Получаем все данные по ключам
-    const stores = await AsyncStorage.multiGet(keys);
-    
-    console.log('\n=== ALL ASYNC STORAGE DATA ===');
-    stores.forEach(([key, value]) => {
-      console.log(`${key}:`, value);
-      // Пытаемся распарсить JSON если возможно
-      try {
-        const parsed = JSON.parse(value || '{}');
-        console.log(`${key} (parsed):`, parsed);
-      } catch (e) {
-        console.log(`${key} (raw string):`, value);
-      }
-      console.log('---');
-    });
-  } catch (error) {
-    console.error('Error reading AsyncStorage:', error);
-  }
-};
+  const styles = createSettingsStyles(colors);
+
   return (
     <ScreenBackground tabName="settings">
-       <View style={{ flex: 1, zIndex: 1,  width: Platform.OS === 'android' ? '100%' : 600,
-  alignSelf: Platform.OS === 'android' ? 'stretch' : 'center' }}>
-          <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-          <Text style={styles.title}>{t('settings.title')}</Text>
+      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        <Text style={[textStyles.h1, styles.title]}>{t('settings.title')}</Text>
 
-          <LanguageModal
-            visible={languageModalVisible}
-            onClose={() => setLanguageModalVisible(false)}
-          />
+        {/* App Preferences */}
+        <View style={styles.section}>
+          <Text style={[textStyles.h2, styles.sectionTitle]}>{t('settings.appPreferences')}</Text>
 
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>{t('settings.appPreferences')}</Text>
+          {/* Messy Mode */}
+          <View style={styles.row}>
+            <View style={styles.leftContent}>
+              <Paintbrush color={colors.textSecondary} size={20} />
+              <View style={styles.textContainer}>
+                <Text style={textStyles.body}>{t('settings.messyMode.title')}</Text>
+                <Text style={textStyles.caption}>{t('settings.messyMode.description')}</Text>
+              </View>
+            </View>
+            <Switch
+              value={isMessyMode}
+              onValueChange={toggleMessyMode}
+              trackColor={{ false: colors.textSecondary, true: colors.primary }}
+              thumbColor={isMessyMode ? colors.accent : colors.surface}
+            />
+          </View>
 
-            <View style={styles.row}>
-
-
-  <View style={styles.leftContent}>
-    
-    <View>
-      <Text style={styles.label}>
-        {t('settings.messyMode.title')}
-      </Text>
-      <Text style={styles.description}>
-        {t('settings.messyMode.description')}
-      </Text>
-    </View>
-  </View>
-  
-  <Switch
-    value={isMessyMode}
-    onValueChange={toggleMessyMode}
-    trackColor={{
-      false: colors.surface,
-      true: colors.primary
-    }}
-    thumbColor={isMessyMode ? colors.accent : colors.textSecondary}
-  />
-              <View>
-      <Paintbrush color={colors.textSecondary} size={20} />
-    </View>
-</View>
-
-            <TouchableOpacity
-              style={styles.row}
-              onPress={() => setLanguageModalVisible(true)}
-            >
-              <View>
-                <Text style={styles.label}>{t('settings.language.title')}</Text>
-                <Text style={styles.description}>
-                 
-                  {t('settings.language.currently')}:   {t(`languages.${currentLanguageCode}.flag`)} {currentLanguageCode.toUpperCase()}
+          {/* Language */}
+          <TouchableOpacity style={styles.row} onPress={showLanguageModal}>
+            <View style={styles.leftContent}>
+              <Languages color={colors.textSecondary} size={20} />
+              <View style={styles.textContainer}>
+                <Text style={textStyles.body}>{t('settings.language.title')}</Text>
+                <Text style={textStyles.caption}>
+                  {t('settings.language.currently')}: {language.toUpperCase()}
                 </Text>
               </View>
-              <Languages color={colors.textSecondary} size={20} />
-            </TouchableOpacity>
-          </View>
-        
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        {/* Contact & Support */}
+        <View style={styles.section}>
+          <Text style={[textStyles.h2, styles.sectionTitle]}>{t('settings.contactSupport')}</Text>
+
+          <TouchableOpacity
+            style={styles.row}
+            onPress={() => Linking.openURL('https://portfolio-feya-bloom.webflow.io/')}
+          >
+            <View style={styles.leftContent}>
+              <Globe color={colors.textSecondary} size={20} />
+              <View style={styles.textContainer}>
+                <Text style={textStyles.body}>{t('settings.contactCreator.title')}</Text>
+                <Text style={textStyles.caption}>{t('settings.contactCreator.description')}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.row}
+            onPress={() => Linking.openURL('https://www.buymeacoffee.com/feyabloom')}
+          >
+            <View style={styles.leftContent}>
+              <Heart color={colors.textSecondary} size={20} />
+              <View style={styles.textContainer}>
+                <Text style={textStyles.body}>{t('settings.supportApp.title')}</Text>
+                <Text style={textStyles.caption}>{t('settings.supportApp.description')}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
-      </View>
     </ScreenBackground>
   );
-}
-export default function SettingsTab() {
-  return <SettingsTabContent />;
 }
