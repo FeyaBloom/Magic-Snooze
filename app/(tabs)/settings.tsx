@@ -60,6 +60,11 @@ function SettingsTabContent() {
           <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>{t('settings.title')}</Text>
 
+          <LanguageModal
+            visible={languageModalVisible}
+            onClose={() => setLanguageModalVisible(false)}
+          />
+
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('settings.appPreferences')}</Text>
 
