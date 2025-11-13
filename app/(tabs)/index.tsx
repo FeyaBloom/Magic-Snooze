@@ -78,26 +78,6 @@ export default function TodayScreen() {
 
 
 
-
-      
-       
-
-
-
-
-
-
-
-
-
-
-
-        {/* Контент по центру */}
-        <View style={styles.content}>
-          <Text style={textStyles.h1}>Заголовок</Text>
-          <Text style={textStyles.body}>Обычный текст</Text>
-        </View>
-     
     </ScreenBackground>
   );
 }
