@@ -8,7 +8,6 @@ import { useTextStyles } from '@/hooks/useTextStyles';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
 import { VictoriesModal } from '@/components/modals/VictoriesModal';
-import { VictoryCelebration } from '@/components/ui/VictoryCelebration';
 import { useVictories } from '@/hooks/useVictories';
 
 export default function TodayScreen() {

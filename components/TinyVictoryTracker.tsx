@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, View, Animated } from 'react-native';
 import { Sparkles } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
-import { createMagicStyles } from '@/styles/magic';
+import { createVictoryStyles } from '@/styles/victories';
 import { VictoryCelebration } from '@/components/ui/VictoryCelebration';
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 export const TinyVictoryTracker = ({ onVictoryPress, celebratedVictories }: Props) => {
   const { colors, currentTheme } = useTheme();
   const { t } = useTranslation();
-  const styles = createMagicStyles(colors);
+  const styles = createVictoryStyles(colors);
   
   const [showConfetti, setShowConfetti] = useState(false);
   const [confettiPos, setConfettiPos] = useState({ x: 0, y: 0 });

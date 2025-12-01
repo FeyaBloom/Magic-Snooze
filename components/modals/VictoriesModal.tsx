@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import { TinyVictoryTracker } from '@/components/TinyVictoryTracker';
-import { createModalStyles } from '@/styles/modal';
+import { createVictoryStyles } from '@/styles/victories';
 
 interface Props {
   visible: boolean;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const VictoriesModal = ({ visible, onClose, onVictoryPress }: Props) => {
-  const styles = createModalStyles({}); // временно — без темы
+  const styles = createVictoryStyles({}); // временно — без темы
 
   return (
     <Modal
