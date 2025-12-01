@@ -1,49 +1,66 @@
-import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
+import { View, Text, ScrollView} from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
-import { ScreenBackground } from '@/components/ScreenBackground';
+import { ScreenLayout } from '@/components/ScreenLayout';
+import { ContentContainer} from '@/components/ContentContainer';
+import { useTextStyles } from '@/hooks/useTextStyles';
+import { useTranslation } from 'react-i18next';
+
 
 export default function NotesScreen() {
-  const { colors } = useTheme();
+  const textStyles = useTextStyles();
+  const { colors, isMessyMode } = useTheme();
+  const { t } = useTranslation();
 
   return (
-    <ScreenBackground tabName="notes">
+    <ScreenLayout tabName="notes">
       <ScrollView
-        style={screenStyles.scrollView}
-        contentContainerStyle={screenStyles.contentContainer}
-        scrollEnabled={true}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: 40, // отступ снизу для кнопок
+        }}
       >
-        <View style={screenStyles.contentWrapper}>
-          <Text style={[styles.text, { color: colors.text }]}>
+        <ContentContainer paddingHorizontal={20} paddingVertical={20}>
+          {/* Приветствие */}
+          <View style={{ marginBottom: isMessyMode ? 32 : 24 }}>
+            <Text
+              style={[
+                textStyles.h1,
+                { 
+                  color: colors.text,
+                  textAlign: 'center',
+                  marginBottom: 8,
+                }
+              ]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
+            >
+              {t('today.title')}
+            </Text>
+            
+            <Text
+              style={[
+                textStyles.body,
+                { 
+                  color: colors.textSecondary,
+                  textAlign: 'center',
+                  opacity: 0.9,
+                }
+              ]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
+            >
+              {t('today.subtitle')}
+            </Text>
+            </View>
+
+          <Text>
             Notes
           </Text>
-        </View>
+        </ContentContainer>
       </ScrollView>
-    </ScreenBackground>
+    </ScreenLayout>
   );
 }
 
-const styles = StyleSheet.create({
-  text: { fontSize: 24, fontWeight: 'bold' },
-});
-
-const screenStyles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    zIndex: 2,
-  },
-  contentContainer: {
-    flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  contentWrapper: {
-    maxWidth: Platform.OS === 'web' ? 600 : undefined,
-    width: '100%',
-    alignSelf: 'center',
-  },
-});

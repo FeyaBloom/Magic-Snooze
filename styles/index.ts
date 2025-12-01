@@ -25,9 +25,8 @@ export const createIndexStyles = (colors: any) => StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 12,
-    //marginHorizontal: 18,
   },
-   magicalControls: {
+  magicalControls: {
     marginBottom: 20,
   },
   themeButton: {
