@@ -35,7 +35,7 @@ export default function NotesScreen() {
               adjustsFontSizeToFit
               minimumFontScale={0.7}
             >
-              {t('today.title')}
+              {t('notes.title')}
             </Text>
             
             <Text
@@ -51,13 +51,10 @@ export default function NotesScreen() {
               adjustsFontSizeToFit
               minimumFontScale={0.7}
             >
-              {t('today.subtitle')}
+              {t('notes.subtitle')}
             </Text>
             </View>
 
-          <Text>
-            Notes
-          </Text>
         </ContentContainer>
       </ScrollView>
     </ScreenLayout>
