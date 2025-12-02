@@ -1,3 +1,4 @@
+import { View, ActivityIndicator, StyleSheet, Image } from 'react-native';
 import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -64,6 +65,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>('daydream');
   const [isMessyMode, setIsMessyMode] = useState(false);
   const [messyColors, setMessyColors] = useState<ThemeColors | null>(null);
+  const [isLoading, setIsLoading] = useState(true); // 🔥 Новый state
 
   const shuffleArray = <T,>(array: T[]): T[] => {
     const shuffled = [...array];
@@ -108,7 +110,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
       if (savedTheme && (savedTheme as ThemeMode) in themes) {
         setCurrentTheme(savedTheme as ThemeMode);
-        
+
         if (savedMessyMode === 'true') {
           setIsMessyMode(true);
           generateMessyColors(savedTheme as ThemeMode);
@@ -116,6 +118,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       }
     } catch (error) {
       console.error('Error loading theme:', error);
+    } finally {
+      setIsLoading(false); // 🔥 Тема загружена, можно рендерить
     }
   };
 
@@ -159,12 +163,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     return (tabName: string): readonly [string, string, ...string[]] => {
       const themeGradients = tabGradients[currentTheme];
       const gradient = themeGradients[tabName] || themes[currentTheme].background;
-      
+
       if (gradient.length < 2) {
         const fallback = themes[currentTheme].background;
         return [fallback[0], fallback[1], ...fallback.slice(2)] as readonly [string, string, ...string[]];
       }
-      
+
       return [gradient[0], gradient[1], ...gradient.slice(2)] as readonly [string, string, ...string[]];
     };
   }, [currentTheme]);
@@ -172,6 +176,25 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     loadTheme();
   }, []);
+
+  // 🔥 Не рендерим children пока тема не загрузилась
+  
+if (isLoading) {
+    return (
+      <View style={styles.splashContainer}>
+        <Image 
+          source={require('@/assets/images/icon.png')} 
+          style={styles.splashIcon}
+          resizeMode="contain"
+        />
+        <ActivityIndicator 
+          size="large" 
+          color="#EC4899" 
+          style={styles.splashLoader}
+        />
+      </View>
+    );
+  }
 
   return (
     <ThemeContext.Provider
@@ -188,6 +211,23 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     </ThemeContext.Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  splashContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFE5E5',
+  },
+  splashIcon: {
+    width: 120,
+    height: 120,
+    marginBottom: 32,
+  },
+  splashLoader: {
+    marginTop: 16,
+  },
+});
 
 export function useTheme() {
   const context = useContext(ThemeContext);
