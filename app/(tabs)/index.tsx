@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -121,7 +121,7 @@ export default function TodayScreen() {
     }
   };
 
-  const resetDailyData = async () => {
+  const resetDailyData = useCallback(async () => {
     try {
       const resetMorning = morningRoutine.map(step => ({ ...step, completed: false }));
       setMorningRoutine(resetMorning);
@@ -135,7 +135,7 @@ export default function TodayScreen() {
     } catch (error) {
       console.error('Error resetting daily data:', error);
     }
-  };
+  }, [morningRoutine, eveningRoutine]);
 
   const loadData = async () => {
     try {
@@ -443,26 +443,18 @@ export default function TodayScreen() {
             </Text>
           </View>
 
-          {/* Snooze button */}
-          {!isSnoozed && (
-            <TouchableOpacity style={styles.snoozeButton} onPress={snoozeToday}>
-              <Pause size={20} color={colors.primary} />
-              <Text style={[textStyles.caption, { color: colors.text }]}>
-                {t('today.snoozeToday')}
-              </Text>
-            </TouchableOpacity>
-          )}
 
           {/* Controls */}
-          <View style={{ gap: isMessyMode ? 24 : 16, alignItems: 'center', marginBottom: isMessyMode ? 32 : 24 }}>
+          <View style={{ marginBottom: isMessyMode ? 32 : 24 }}>
             <TouchableOpacity
               style={{
                 flexDirection: 'row',
-                alignItems: 'center',
-                gap: 10,
-                backgroundColor: colors.surface,
-                paddingHorizontal: 20,
+                alignSelf: 'center',
+                justifyContent: 'center',         
+                backgroundColor: colors.surface,                
+                marginBottom: 20,
                 paddingVertical: 14,
+                paddingHorizontal: 40,
                 borderRadius: 16,
               }}
               onPress={() => setShowTinyVictories(true)}
@@ -473,9 +465,9 @@ export default function TodayScreen() {
               </Text>
             </TouchableOpacity>
 
-            <View style={{ flexDirection: 'row', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
               <TouchableOpacity
-                style={{ backgroundColor: colors.surface, paddingHorizontal: 16, paddingVertical: 12, borderRadius: 12 }}
+                style={{ backgroundColor: colors.surface, paddingHorizontal: 25, paddingVertical: 12, borderRadius: 12 }}
                 onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
               >
                 <Text style={[textStyles.caption, { color: colors.text }]}>
@@ -484,7 +476,7 @@ export default function TodayScreen() {
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={{ backgroundColor: colors.surface, paddingHorizontal: 16, paddingVertical: 12, borderRadius: 12 }}
+                style={{ backgroundColor: colors.surface, paddingHorizontal: 25, paddingVertical: 12, borderRadius: 12 }}
                 onPress={() => router.push('/settings')}
               >
                 <Text style={[textStyles.caption, { color: colors.text }]}>
@@ -494,7 +486,17 @@ export default function TodayScreen() {
             </View>
           </View>
 
-          {/* Resume button if snoozed */}
+          {/* Snooze button */}
+          {!isSnoozed && (
+            <TouchableOpacity style={styles.snoozeButton} onPress={snoozeToday}>
+              <Pause size={20} color={colors.primary} />
+              <Text style={[textStyles.button, { color: colors.text }]}>
+                {t('today.snoozeToday')}
+              </Text>
+            </TouchableOpacity>
+          )}
+
+                    {/* Resume button if snoozed */}
           {isSnoozed && (
             <TouchableOpacity style={styles.resumeButton} onPress={snoozeToday}>
               <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
@@ -502,6 +504,8 @@ export default function TodayScreen() {
               </Text>
             </TouchableOpacity>
           )}
+
+
 
           {/* Routines */}
           {renderRoutineSection(

@@ -183,7 +183,7 @@ if (isLoading) {
     return (
       <View style={styles.splashContainer}>
         <Image 
-          source={require('@/assets/images/icon.png')} 
+          source={require('@/assets/icon.png')} 
           style={styles.splashIcon}
           resizeMode="contain"
         />
@@ -228,6 +228,10 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 });
+
+export type Theme = {
+  colors: ThemeColors;
+};
 
 export function useTheme() {
   const context = useContext(ThemeContext);
