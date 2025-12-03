@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, ScrollView, Linking, Switch, View } from 'react-native';
-import { Globe, Heart, Languages, Paintbrush } from 'lucide-react-native';
+import { Globe, Heart, Languages, Paintbrush, Bug } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
 import { ScreenLayout } from '@/components/ScreenLayout';
 import { ContentContainer } from '@/components/ContentContainer';
 import { useTheme } from '@/components/ThemeProvider';
@@ -10,6 +11,7 @@ import { useTextStyles } from '@/hooks/useTextStyles';
 import { createSettingsStyles } from '@/styles/settings';
 
 export default function SettingsScreen() {
+  const router = useRouter();
   const { colors, toggleMessyMode, isMessyMode } = useTheme();
   const { language, showLanguageModal } = useLanguage();
   const { t } = useTranslation();
@@ -112,6 +114,27 @@ export default function SettingsScreen() {
                   </Text>
                   <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
                     {t('settings.supportApp.description')}
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          {/* Debug Section */}
+          <View style={styles.section}>
+            <TouchableOpacity
+              style={styles.row}
+              onPress={() => router.push('/debug')}
+              activeOpacity={0.8}
+            >
+              <View style={styles.leftContent}>
+                <Bug color={colors.textSecondary} size={20} />
+                <View style={styles.textContainer}>
+                  <Text style={[textStyles.body, { color: colors.text }]}>
+                    Debug: View Storage
+                  </Text>
+                  <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
+                    View all stored data
                   </Text>
                 </View>
               </View>

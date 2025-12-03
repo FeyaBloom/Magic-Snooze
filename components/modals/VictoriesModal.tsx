@@ -100,7 +100,7 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
 
           {/* Close button */}
           <TouchableOpacity
-            style={[styles.closeButton, { backgroundColor: colors.background[0] }]}
+            style={[styles.closeButton, { backgroundColor: colors.primary}]}
             onPress={onClose}
           >
             <X size={20} color={colors.text} />

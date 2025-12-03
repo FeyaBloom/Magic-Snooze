@@ -11,6 +11,9 @@ export interface DailyProgress {
   morningDone: number;
   eveningDone: number;
   snoozed: boolean;
+  // 🔥 
+  morningRoutines?: { text: string; completed: boolean }[];
+  eveningRoutines?: { text: string; completed: boolean }[];
 }
 
 const getLocalDateString = (date: Date = new Date()) => {

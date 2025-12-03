@@ -38,6 +38,21 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
+  useEffect(() => {
+    // Вывести все данные из LocalStorage в консоль (только для web/отладки)
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      console.log('=== LocalStorage Contents ===');
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key) {
+          const value = localStorage.getItem(key);
+          console.log(`${key}:`, value);
+        }
+      }
+      console.log('=== End LocalStorage ===');
+    }
+  }, []);
+
   if (!fontsLoaded) {
     return null;
   }

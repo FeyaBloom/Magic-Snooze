@@ -195,28 +195,32 @@ export default function TodayScreen() {
     }
   };
 
-  const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) => {
-    try {
-      const morningDone = morning.filter(step => step.completed).length;
-      const eveningDone = evening.filter(step => step.completed).length;
-      const today = getLocalDateString();
+const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) => {
+  try {
+    const morningDone = morning.filter(step => step.completed).length;
+    const eveningDone = evening.filter(step => step.completed).length;
+    const today = getLocalDateString();
 
-      const progressData = {
-        date: today,
-        morningCompleted: morningDone === morning.length,
-        eveningCompleted: eveningDone === evening.length,
-        morningTotal: morning.length,
-        eveningTotal: evening.length,
-        morningDone,
-        eveningDone,
-        snoozed: isSnoozed,
-      };
+    const progressData = {
+      date: today,
+      morningCompleted: morningDone === morning.length,
+      eveningCompleted: eveningDone === evening.length,
+      morningTotal: morning.length,
+      eveningTotal: evening.length,
+      morningDone,
+      eveningDone,
+      snoozed: isSnoozed,
+      // 🔥 НОВОЕ: сохраняем тексты рутин
+      morningRoutines: morning.map(s => ({ text: s.text, completed: s.completed })),
+      eveningRoutines: evening.map(s => ({ text: s.text, completed: s.completed })),
+    };
 
-      await saveProgress(progressData);
-    } catch (error) {
-      console.error('Error saving progress:', error);
-    }
-  };
+    await saveProgress(progressData);
+  } catch (error) {
+    console.error('Error saving progress:', error);
+  }
+};
+
 
   const toggleStep = async (stepId: string, routine: 'morning' | 'evening') => {
     if (isSnoozed) return;
@@ -489,8 +493,8 @@ export default function TodayScreen() {
           {/* Snooze button */}
           {!isSnoozed && (
             <TouchableOpacity style={styles.snoozeButton} onPress={snoozeToday}>
-              <Pause size={20} color={colors.primary} />
-              <Text style={[textStyles.button, { color: colors.text }]}>
+              <Pause size={20}/>
+              <Text style={textStyles.button}>
                 {t('today.snoozeToday')}
               </Text>
             </TouchableOpacity>
@@ -499,7 +503,7 @@ export default function TodayScreen() {
                     {/* Resume button if snoozed */}
           {isSnoozed && (
             <TouchableOpacity style={styles.resumeButton} onPress={snoozeToday}>
-              <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+              <Text style={textStyles.button}>
                 {t('today.resumeToday')}
               </Text>
             </TouchableOpacity>

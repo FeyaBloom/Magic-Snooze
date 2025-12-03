@@ -8,7 +8,6 @@ import {
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles, calculateDayWidth } from '@/styles/calendar';
-// Переносим работу с i18n внутрь компонента
 import { useTranslation } from 'react-i18next';
 
 
@@ -23,7 +22,6 @@ const RightArrow = ({ color }: { color: string }) =>
     : <ChevronRight size={24} color={color} />;
 
 
-//const { t } = useTranslation();
 
 interface CalendarProps {
   // Для выбора даты (модалка)
@@ -65,7 +63,7 @@ export default function Calendar({
   onMonthChange,
   minDate,
   maxDate,
-  containerWidth, // для модалки передавайте ~360
+  containerWidth, 
   maxWidth, // для общего ограничения
 }: CalendarProps) {
   const { colors } = useTheme();
