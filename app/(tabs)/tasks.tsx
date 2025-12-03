@@ -335,7 +335,7 @@ export default function TasksScreen() {
               {t('tasks.addTitle')}
             </Text>
             <TextInput
-              style={[styles.textInput, { color: colors.text, backgroundColor: colors.background[0], borderColor: colors.primary }]}
+              style={[styles.textInput, { color: colors.text, borderColor: colors.primary }]}
               placeholder={t('tasks.inputPlaceholder')}
               placeholderTextColor={colors.textSecondary}
               value={newTaskText}
@@ -344,7 +344,7 @@ export default function TasksScreen() {
               autoFocus
             />
             <TouchableOpacity onPress={() => setShowCalendar(v => !v)}>
-              <Text style={[textStyles.caption, { color: colors.primary, marginBottom: 12 }]}>
+              <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 30 }]}>
                 {newTaskDueDate ? `📅 ${formatDate(newTaskDueDate)}` : t('tasks.dueDateOptional')}
               </Text>
             </TouchableOpacity>
@@ -365,7 +365,7 @@ export default function TasksScreen() {
 
             <View style={styles.modalButtons}>
               <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: colors.background[0] }]}
+                style={[styles.modalButton, { backgroundColor: colors.primary + 50}]}
                 onPress={() => {
                   setShowAddModal(false);
                   setNewTaskText('');
@@ -378,7 +378,7 @@ export default function TasksScreen() {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: colors.primary }]}
+                style={[styles.modalButton, { backgroundColor: colors.secondary }]}
                 onPress={addTask}
               >
                 <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
@@ -405,7 +405,7 @@ export default function TasksScreen() {
               {t('tasks.editTitle')}
             </Text>
             <TextInput
-              style={[styles.textInput, { color: colors.text, backgroundColor: colors.background[0], borderColor: colors.primary }]}
+              style={[styles.textInput, { color: colors.text, borderColor: colors.primary }]}
               placeholder={t('tasks.inputPlaceholder')}
               placeholderTextColor={colors.textSecondary}
               value={newTaskText}
@@ -414,7 +414,7 @@ export default function TasksScreen() {
               autoFocus
             />
             <TouchableOpacity onPress={() => setShowEditCalendar(v => !v)}>
-              <Text style={[textStyles.caption, { color: colors.primary, marginBottom: 12 }]}>
+              <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 30 }]}>
                 {newTaskDueDate ? `📅 ${formatDate(newTaskDueDate)}` : t('tasks.dueDateOptional')}
               </Text>
             </TouchableOpacity>
@@ -436,7 +436,7 @@ export default function TasksScreen() {
 
             <View style={styles.modalButtons}>
               <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: colors.background[0] }]}
+                style={[styles.modalButton, { backgroundColor: colors.primary + 50}]}
                 onPress={() => {
                   setShowEditModal(false);
                   setNewTaskText('');
@@ -450,7 +450,7 @@ export default function TasksScreen() {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: colors.primary }]}
+                style={[styles.modalButton, { backgroundColor: colors.secondary }]}
                 onPress={editTask}
               >
                 <Text style={[textStyles.button, { color: '#FFFFFF' }]}>

@@ -579,7 +579,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
             />
             <View style={styles.modalButtons}>
               <TouchableOpacity
-                style={styles.modalButton}
+                style={[styles.modalButton, {backgroundColor: colors.primary + 50}]}
                 onPress={() => {
                   setShowAddModal(false);
                   setNewStepText('');
@@ -590,7 +590,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: colors.primary }]}
+                style={[styles.modalButton, { backgroundColor: colors.secondary }]}
                 onPress={addStep}
               >
                 <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
@@ -627,7 +627,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
             />
             <View style={styles.modalButtons}>
               <TouchableOpacity
-                style={styles.modalButton}
+                style={[styles.modalButton, {backgroundColor: colors.primary + 50}]}
                 onPress={() => {
                   setShowEditModal(false);
                   setNewStepText('');
@@ -639,7 +639,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: colors.primary }]}
+                style={[styles.modalButton, { backgroundColor: colors.secondary }]}
                 onPress={editStep}
               >
                 <Text style={[textStyles.button, { color: '#FFFFFF' }]}>

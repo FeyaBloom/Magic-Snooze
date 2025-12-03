@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Animated, StyleSheet } from 'react-native';
 import { Check } from 'lucide-react-native';
+import { useTheme } from '@/components/ThemeProvider';
 
 interface MagicalCheckboxProps {
   completed: boolean;
@@ -26,19 +27,21 @@ export function MagicalCheckbox({
     }).start();
   }, [completed]);
 
+  const {colors} = useTheme ();
+
   const scale = animatedValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0.8, 1],
   });
 
   const backgroundColor = completed 
-    ? '#bcaa55' // completed
+    ? colors.accent // completed
     : 'transparent';
 
   const borderColor = disabled 
     ? '#94A3B8' + '50' 
     : completed 
-      ? '#bcaa55'
+      ? colors.accent
       : '#94A3B8';
 
   return (

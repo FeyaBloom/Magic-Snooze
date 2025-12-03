@@ -103,7 +103,6 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
             style={[styles.closeButton, { backgroundColor: colors.primary}]}
             onPress={onClose}
           >
-            <X size={20} color={colors.text} />
             <Text style={[styles.closeText, { color: colors.text }]}>
               {t('common.close')}
             </Text>
@@ -136,8 +135,10 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   container: {
-    width: '100%',
-    maxWidth: 400,
+    width: '90%',
+    height: '90%',
+    maxWidth: 350,
+    maxHeight: 600,
     borderRadius: 24,
     padding: 24,
   },
@@ -163,7 +164,7 @@ grid: {
   },
   button: {
     width: '48%', // 🔥 48% вместо BUTTON_SIZE
-    aspectRatio: 1, // 🔥 Квадратные кнопки
+    aspectRatio: 1.5, // 🔥 Квадратные кнопки
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
@@ -172,7 +173,7 @@ grid: {
     position: 'relative',
   },
     emoji: {
-    fontSize: 32,
+    fontSize: 30,
     marginBottom: 8,
   },
   buttonText: {

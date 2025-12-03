@@ -63,8 +63,9 @@ export const createTasksStyles = (colors: Theme['colors']) => StyleSheet.create(
   modalContent: {
     width: '100%',
     maxWidth: 400,
-    borderRadius: 24,
     padding: 24,
+    borderRadius: 20,
+    backgroundColor: colors.surface,
   },
   textInput: {
     borderWidth: 2,
