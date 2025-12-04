@@ -6,6 +6,7 @@ import { ScreenLayout } from '@/components/ScreenLayout';
 import { ContentContainer } from '@/components/ContentContainer';
 import { useTheme } from '@/components/ThemeProvider';
 import { useLanguage } from '@/components/LanguageProvider';
+import ResetDataComponent from '@/components/ResetData';
 import { useTranslation } from 'react-i18next';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { createSettingsStyles } from '@/styles/settings';
@@ -141,20 +142,8 @@ export default function SettingsScreen() {
             </TouchableOpacity>
           </View>
 
-          {/* Footer */}
-          <Text
-            style={[
-              textStyles.caption,
-              {
-                color: colors.textSecondary,
-                textAlign: 'center',
-                marginTop: 20,
-                opacity: 0.7,
-              },
-            ]}
-          >
-            {t('settings.version', { version: '1.0.0' })}
-          </Text>
+          <ResetDataComponent />
+
         </ContentContainer>
       </ScrollView>
     </ScreenLayout>

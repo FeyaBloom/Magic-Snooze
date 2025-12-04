@@ -87,7 +87,7 @@ export const createTasksStyles = (colors: Theme['colors']) => StyleSheet.create(
   },
   deleteButton: {
     position: 'absolute',
-    top: 16,
+    //top: 6,
     right: 16,
     padding: 8,
     zIndex: 10,

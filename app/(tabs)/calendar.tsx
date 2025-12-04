@@ -161,18 +161,6 @@ export default function CalendarScreen() {
 
   const monthStats = getMonthStats();
 
-  useEffect(() => {
-  const debugStorage = async () => {
-    const keys = await AsyncStorage.getAllKeys();
-    const data = await AsyncStorage.multiGet(keys);
-    console.log('🔍 Storage keys:', keys);
-    data.forEach(([key, value]) => {
-      console.log(`📦 ${key}:`, value);
-    });
-  };
-  debugStorage();
-}, []);
-
   useFocusEffect(
     useCallback(() => {
       loadProgressData();

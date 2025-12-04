@@ -31,5 +31,7 @@
       "expo-localization",
       "expo-font"
     ]
+    ,
+    "scheme": "magic-snooze"
   }
 }

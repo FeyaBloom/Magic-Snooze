@@ -331,6 +331,7 @@ export default function TasksScreen() {
       <Modal visible={showAddModal} animationType="fade" transparent={true}>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
+            <ScrollView showsVerticalScrollIndicator={false}  keyboardShouldPersistTaps="handled">
             <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
               {t('tasks.addTitle')}
             </Text>
@@ -362,6 +363,7 @@ export default function TasksScreen() {
                 />
               </View>
             )}
+            </ScrollView>
 
             <View style={styles.modalButtons}>
               <TouchableOpacity
@@ -394,8 +396,9 @@ export default function TasksScreen() {
       <Modal visible={showEditModal} animationType="fade" transparent={true}>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
+            <ScrollView showsVerticalScrollIndicator={false}  keyboardShouldPersistTaps="handled">
             <TouchableOpacity
-              style={styles.deleteButton}
+              style={[styles.deleteButton, { marginBottom: 26}]}
               onPress={() => editingTask && deleteTask(editingTask.id)}
             >
               <Trash2 size={20} color="#EF4444" />
@@ -433,7 +436,7 @@ export default function TasksScreen() {
                 />
               </View>
             )}
-
+             </ScrollView>
             <View style={styles.modalButtons}>
               <TouchableOpacity
                 style={[styles.modalButton, { backgroundColor: colors.primary + 50}]}

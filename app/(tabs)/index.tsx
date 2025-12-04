@@ -41,7 +41,7 @@ interface RoutineStep {
 export default function TodayScreen() {
   // Hooks
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const textStyles = useTextStyles();
   const { colors, currentTheme, setTheme, isMessyMode } = useTheme();
   
@@ -345,6 +345,56 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
     const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
     return () => listener.remove();
   }, []);
+
+
+  useEffect(() => {
+  const updateDefaultRoutines = async () => {
+    try {
+      const morningData = await AsyncStorage.getItem('morningRoutine');
+      const eveningData = await AsyncStorage.getItem('eveningRoutine');
+
+      // Проверяем, являются ли рутины дефолтными (по ID)
+      if (morningData) {
+        const morning = JSON.parse(morningData);
+        const isDefault = morning.every((s: RoutineStep) => 
+          ['1', '2', '3'].includes(s.id)
+        );
+        
+        if (isDefault) {
+          const updatedMorning = [
+            { id: '1', text: t('today.defaultMorning.stretch'), completed: false },
+            { id: '2', text: t('today.defaultMorning.breathing'), completed: false },
+            { id: '3', text: t('today.defaultMorning.intention'), completed: false },
+          ];
+          setMorningRoutine(updatedMorning);
+          await AsyncStorage.setItem('morningRoutine', JSON.stringify(updatedMorning));
+        }
+      }
+
+      if (eveningData) {
+        const evening = JSON.parse(eveningData);
+        const isDefault = evening.every((s: RoutineStep) => 
+          ['1', '2', '3'].includes(s.id)
+        );
+        
+        if (isDefault) {
+          const updatedEvening = [
+            { id: '1', text: t('today.defaultEvening.reflect'), completed: false },
+            { id: '2', text: t('today.defaultEvening.selfCare'), completed: false },
+            { id: '3', text: t('today.defaultEvening.prepare'), completed: false },
+          ];
+          setEveningRoutine(updatedEvening);
+          await AsyncStorage.setItem('eveningRoutine', JSON.stringify(updatedEvening));
+        }
+      }
+    } catch (error) {
+      console.error('Error updating routines language:', error);
+    }
+  };
+
+  updateDefaultRoutines();
+}, [i18n.language]); 
+
 
   // Render routine section
   const renderRoutineSection = (

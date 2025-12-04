@@ -1,4 +1,6 @@
-
+import { StatusBar } from 'expo-status-bar';
+import * as NavigationBar from 'expo-navigation-bar';
+import { Platform } from 'react-native';
 import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useFonts, 
@@ -20,6 +22,7 @@ import '@/i18n';
 
 SplashScreen.preventAutoHideAsync();
 
+
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     Cormorant_400Regular,
@@ -31,6 +34,13 @@ export default function RootLayout() {
     Nunito_600SemiBold,
     Nunito_700Bold,
   });
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setVisibilityAsync('hidden');
+      //NavigationBar.setBehaviorAsync('overlay-swipe');
+    }
+  }, []);
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -58,6 +68,8 @@ export default function RootLayout() {
   }
 
   return (
+    <>
+    <StatusBar style ="auto" translucent backgroundColor="transparent"/>
     <ThemeProvider>
       <LanguageProvider>
         <Stack screenOptions={{ headerShown: false }}>
@@ -65,5 +77,6 @@ export default function RootLayout() {
         </Stack>
       </LanguageProvider>
     </ThemeProvider>
+    </>
   );
 }

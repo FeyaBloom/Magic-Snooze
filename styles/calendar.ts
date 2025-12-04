@@ -173,6 +173,9 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     position: 'absolute',
     top: 2,
     right: 2,
+    alignSelf: 'center',
+   // justifyContent: 'center',
+    alignItems: 'center',
   },
   statusEmoji: {
     fontSize: 12,
