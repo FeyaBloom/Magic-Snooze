@@ -101,7 +101,7 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
   const hasData = progress || victories.length > 0 || tasks.length > 0;
 
   return (
-    <Modal visible={visible} animationType="fade" transparent={true}>
+    <Modal visible={visible} animationType="fade" transparent={true} statusBarTranslucent={true}>
       <View style={styles.overlay}>
         <View style={[styles.container, { backgroundColor: colors.surface }]}>
           {/* Header */}
@@ -267,10 +267,12 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
+    height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 0,
   },
   container: {
     width: '100%',

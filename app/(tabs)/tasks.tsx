@@ -328,7 +328,7 @@ export default function TasksScreen() {
       </ScrollView>
 
       {/* Add Modal */}
-      <Modal visible={showAddModal} animationType="fade" transparent={true}>
+      <Modal visible={showAddModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
             <ScrollView showsVerticalScrollIndicator={false}  keyboardShouldPersistTaps="handled">
@@ -393,7 +393,7 @@ export default function TasksScreen() {
       </Modal>
 
       {/* Edit Modal */}
-      <Modal visible={showEditModal} animationType="fade" transparent={true}>
+      <Modal visible={showEditModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
             <ScrollView showsVerticalScrollIndicator={false}  keyboardShouldPersistTaps="handled">

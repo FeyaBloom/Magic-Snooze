@@ -300,7 +300,7 @@ export default function NotesScreen() {
       </ScrollView>
 
       {/* Add Modal */}
-      <Modal visible={showAddModal} animationType="fade" transparent={true}>
+      <Modal visible={showAddModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
             <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
@@ -349,7 +349,7 @@ export default function NotesScreen() {
       </Modal>
 
       {/* Edit Modal */}
-      <Modal visible={showEditModal} animationType="fade" transparent={true}>
+      <Modal visible={showEditModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
             <TouchableOpacity
@@ -405,7 +405,7 @@ export default function NotesScreen() {
       </Modal>
 
       {/* View Modal */}
-      <Modal visible={showViewModal} animationType="fade" transparent={true}>
+      <Modal visible={showViewModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
         <View style={styles.modalOverlay}>
           <View style={[styles.viewModalContent, { backgroundColor: colors.surface }]}>
             <View style={styles.viewHeader}>

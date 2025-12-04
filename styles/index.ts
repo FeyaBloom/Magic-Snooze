@@ -42,7 +42,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     marginHorizontal: 20,
     shadowColor: '#ccc',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.5,
     shadowRadius: 4,
   },
   routineSection: {
@@ -50,6 +50,13 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     borderRadius: 16,
     marginBottom: 16,
     backgroundColor: colors.surface,
+    shadowColor: colors.secondary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    elevation: 3,
+    opacity: 0.75
+
   },
   routineHeader: {
     flexDirection: 'row',
@@ -107,6 +114,12 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     borderRadius: 16,
     marginTop: 8,
     backgroundColor: colors.surface,
+    shadowColor: colors.secondary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    elevation: 3,
+    opacity: 0.75
   },
   progressStats: {
     flexDirection: 'row',
@@ -118,10 +131,12 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
+    height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 0,
   },
   modalContent: {
     width: '100%',

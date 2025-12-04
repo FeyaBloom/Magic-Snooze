@@ -23,6 +23,13 @@ export const createTasksStyles = (colors: Theme['colors']) => StyleSheet.create(
     padding: 16,
     borderRadius: 16,
     marginBottom: 12,
+    shadowColor: colors.secondary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    elevation: 3,
+    opacity: 0.75
+
   },
   taskContent: {
     flex: 1,
@@ -55,10 +62,12 @@ export const createTasksStyles = (colors: Theme['colors']) => StyleSheet.create(
   },
   modalOverlay: {
     flex: 1,
+    height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 0,
   },
   modalContent: {
     width: '100%',
@@ -87,7 +96,6 @@ export const createTasksStyles = (colors: Theme['colors']) => StyleSheet.create(
   },
   deleteButton: {
     position: 'absolute',
-    //top: 6,
     right: 16,
     padding: 8,
     zIndex: 10,

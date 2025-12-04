@@ -11,6 +11,13 @@ export const createSettingsStyles = (colors: any) => StyleSheet.create({
   },
   section: {
     marginBottom: 30,
+    shadowColor: colors.secondary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    elevation: 3,
+    opacity: 0.75
+
   },
   sectionTitle: {
     marginBottom: 15,
@@ -24,11 +31,12 @@ export const createSettingsStyles = (colors: any) => StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     marginBottom: 10,
-    shadowColor: '#000',
+    shadowColor: colors.secondary,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.4,
     shadowRadius: 4,
     elevation: 3,
+    opacity: 0.75
   },
   leftContent: {
     flexDirection: 'row',
@@ -43,10 +51,12 @@ export const createSettingsStyles = (colors: any) => StyleSheet.create({
   // Modal styles
   modalOverlay: {
     flex: 1,
+    height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    paddingVertical: 0,
   },
   modalContent: {
     backgroundColor: colors.surface,

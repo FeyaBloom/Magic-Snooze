@@ -612,7 +612,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
         onVictoryPress={celebrateVictory}
       />
 
-      <Modal visible={showAddModal} animationType="fade" transparent={true}>
+      <Modal visible={showAddModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
@@ -652,7 +652,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
         </View>
       </Modal>
 
-      <Modal visible={showEditModal} animationType="fade" transparent={true}>
+      <Modal visible={showEditModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <TouchableOpacity
