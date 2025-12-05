@@ -63,7 +63,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
-    
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "cef7c5a9-2aa0-4f63-a843-c61f3ece8ce1"
+      }
+    },
+    "owner": "feya-bloom-studio"
   }
 }
