@@ -160,13 +160,20 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     try {
       // ipapi.co provides lat/lon in JSON
       const res = await fetch('https://ipapi.co/json/');
-      if (!res.ok) return null;
+      if (!res.ok) {
+        console.warn('Failed to fetch location from IP API:', res.status, res.statusText);
+        return null;
+      }
       const json = await res.json();
       const lat = Number(json.latitude ?? json.lat);
-      const lng = Number(json.longitude ?? json.lon ?? json.longitude);
-      if (!lat || !lng) return null;
+      const lng = Number(json.longitude ?? json.lon ?? json.lng);
+      if (!lat || !lng || isNaN(lat) || isNaN(lng)) {
+        console.warn('Invalid coordinates received from IP API:', { lat, lng, original: json });
+        return null;
+      }
       return { lat, lng };
     } catch (e) {
+      console.warn('Error fetching coordinates from IP API:', e);
       return null;
     }
   }
@@ -176,9 +183,19 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       // sunrise-sunset.org returns ISO times in UTC when formatted=0
       const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`;
       const res = await fetch(url);
-      if (!res.ok) return null;
+      if (!res.ok) {
+        console.warn('Failed to fetch sun times:', res.status, res.statusText);
+        return null;
+      }
       const json = await res.json();
-      if (json.status !== 'OK') return null;
+      if (json.status !== 'OK') {
+        console.warn('Sun times API returned non-OK status:', json.status);
+        return null;
+      }
+      if (!json.results?.sunrise || !json.results?.sunset) {
+        console.warn('Sun times API missing required data:', json.results);
+        return null;
+      }
       const sun: SunTimes = {
         sunrise: json.results.sunrise,
         sunset: json.results.sunset,
@@ -188,6 +205,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       };
       return sun;
     } catch (e) {
+      console.warn('Error fetching sun times:', e);
       return null;
     }
   }
@@ -231,11 +249,39 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   function isNightFromSunTimes(sun: SunTimes | null): boolean {
     if (!sun) return false;
     try {
+      // Convert current time to the same timezone as sunrise/sunset (UTC)
       const now = new Date();
-      const sunrise = new Date(sun.sunrise); // ISO UTC -> Date
-      const sunset = new Date(sun.sunset);
+      
+      // The sunrise/sunset times from the API are in UTC, so we need to compare with UTC time
+      const currentUTC = Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        now.getUTCHours(),
+        now.getUTCMinutes(),
+        now.getUTCSeconds()
+      );
+      
+      const sunriseUTC = Date.UTC(
+        new Date(sun.sunrise).getUTCFullYear(),
+        new Date(sun.sunrise).getUTCMonth(),
+        new Date(sun.sunrise).getUTCDate(),
+        new Date(sun.sunrise).getUTCHours(),
+        new Date(sun.sunrise).getUTCMinutes(),
+        new Date(sun.sunrise).getUTCSeconds()
+      );
+      
+      const sunsetUTC = Date.UTC(
+        new Date(sun.sunset).getUTCFullYear(),
+        new Date(sun.sunset).getUTCMonth(),
+        new Date(sun.sunset).getUTCDate(),
+        new Date(sun.sunset).getUTCHours(),
+        new Date(sun.sunset).getUTCMinutes(),
+        new Date(sun.sunset).getUTCSeconds()
+      );
+      
       // night if now >= sunset OR now < sunrise (across midnight)
-      if (now >= sunset || now < sunrise) return true;
+      if (currentUTC >= sunsetUTC || currentUTC < sunriseUTC) return true;
       return false;
     } catch (e) {
       return false;
