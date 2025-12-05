@@ -1,9 +1,6 @@
 import { View, Text } from 'react-native';
 
-// Create a default toast configuration that doesn't depend on theme context
-// This avoids calling useTheme at the time of function definition
 export function AppToastConfig() {
-  // Return a default configuration with light theme colors as fallback
   return {
     success: (props: any) => (
       <View style={{
@@ -11,13 +8,13 @@ export function AppToastConfig() {
         padding: 16,
         borderRadius: 12,
         borderLeftWidth: 4,
-        borderLeftColor: '#10B981', // Success green
+        borderLeftColor: '#10B981',
         marginHorizontal: 20,
       }}>
-        <Text style={{ color: '#6d6d6d', fontWeight: '600' }}> {/* Light text fallback */}
+        <Text style={{ color: '#000000', fontWeight: '600' }}>
           {props.text1}
         </Text>
-        {props.text2 && <Text style={{ color: '#6B7280' }}>{props.text2}</Text>} {/* Light secondary text fallback */}
+        {props.text2 && <Text style={{ color: '#6B7280' }}>{props.text2}</Text>}
       </View>
     ),
 
@@ -27,13 +24,13 @@ export function AppToastConfig() {
         padding: 16,
         borderRadius: 12,
         borderLeftWidth: 4,
-        borderLeftColor: '#EF4444', // Error red
+        borderLeftColor: '#EF4444',
         marginHorizontal: 20,
       }}>
-        <Text style={{ color: '#6d6d6d', fontWeight: '600' }}> {/* Light text fallback */}
+        <Text style={{ color: '#000000', fontWeight: '600' }}>
           {props.text1}
         </Text>
-        {props.text2 && <Text style={{ color: '#6B7280' }}>{props.text2}</Text>} {/* Light secondary text fallback */}
+        {props.text2 && <Text style={{ color: '#6B7280' }}>{props.text2}</Text>}
       </View>
     ),
 
@@ -43,13 +40,13 @@ export function AppToastConfig() {
         padding: 16,
         borderRadius: 12,
         borderLeftWidth: 4,
-        borderLeftColor: '#EC4899', // Default primary
+        borderLeftColor: '#EC4899',
         marginHorizontal: 20,
       }}>
-        <Text style={{ color: '#6d6d6d', fontWeight: '600' }}> {/* Light text fallback */}
+        <Text style={{ color: '#000000', fontWeight: '600' }}>
           {props.text1}
         </Text>
-        {props.text2 && <Text style={{ color: '#6B7280' }}>{props.text2}</Text>} {/* Light secondary text fallback */}
+        {props.text2 && <Text style={{ color: '#6B7280' }}>{props.text2}</Text>}
       </View>
     ),
   };
