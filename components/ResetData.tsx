@@ -5,7 +5,7 @@ import { Trash2, RotateCcw, AlertTriangle } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTextStyles } from '@/hooks/useTextStyles';
-import { showToast } from '@/components/Toast';
+import { showToast } from '@/utils/toast';
 
 interface ResetOption {
   id: string;
@@ -173,17 +173,19 @@ export default function ResetDataComponent() {
         <View
           style={{
             flex: 1,
+            height: '100%',
             backgroundColor: 'rgba(0, 0, 0, 0.7)',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: 20,
+            paddingHorizontal: 20,
+            paddingVertical: 0,
           }}
         >
           <View
             style={{
               backgroundColor: colors.surface,
               borderRadius: 20,
-              padding: 24,
+              padding: 20,
               width: '100%',
               maxWidth: 500,
               maxHeight: '85%',

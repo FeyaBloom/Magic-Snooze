@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, ScrollView, Linking, Switch, View } from 'react-native';
-import { Globe, Heart, Languages, Paintbrush, Bug } from 'lucide-react-native';
+import { Globe, Heart, Languages, Paintbrush, Bug, Lightbulb, Sunset, Hand } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { ScreenLayout } from '@/components/ScreenLayout';
 import { ContentContainer } from '@/components/ContentContainer';
@@ -38,26 +38,22 @@ export default function SettingsScreen() {
               {t('settings.appPreferences')}
             </Text>
 
-  <View style={[styles.row, { backgroundColor: colors.surface }]}>
-  <View style={styles.leftContent}>
-    <Text style={[textStyles.body, { color: colors.text, fontWeight: '600' }]}>
-      {t('settings.themeMode')}
-    </Text>
-    <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-      {operationMode === 'auto' 
-        ? t('settings.themeModeAuto')
-        : t('settings.themeModeManual')}
-    </Text>
-  </View>
-  <TouchableOpacity
-    onPress={() => setOperationMode(operationMode === 'auto' ? 'manual' : 'auto')}
-    style={[styles.closeButton, { backgroundColor: colors.primary }]}
-  >
-    <Text style={[textStyles.caption, { color: '#FFFFFF' }]}>
-      {operationMode === 'auto' ? '🌅' : '👆'}
-    </Text>
-  </TouchableOpacity>
-</View>
+            {/* Theme Mode */}
+            <TouchableOpacity
+              style={styles.row}
+              onPress={() => setOperationMode(operationMode === 'auto' ? 'manual' : 'auto')}>
+                  <View style={styles.leftContent}>
+                       <Lightbulb color={colors.textSecondary} size={20} />
+                       <View style={styles.textContainer}>
+                             <Text style={[textStyles.body, { color: colors.text, fontWeight: '600' }]}>
+                               {t('settings.themeMode')}
+                             </Text>
+                             <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
+                               {operationMode === 'auto' ? t('settings.themeModeAuto')  : t('settings.themeModeManual')}
+                             </Text>
+                       </View>
+                  </View>
+            </TouchableOpacity>
 
             {/* Messy Mode */}
             <View style={styles.row}>

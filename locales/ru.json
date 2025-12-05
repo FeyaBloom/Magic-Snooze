@@ -134,12 +134,12 @@
   "settings": {
     "title": "Детали и настройки",
     "appPreferences": "Настройки",
-    "messyMode": {
-      "title": "Хаос-режим",
-      "description": "Перемешать цвета текущей темы",
        "themeMode": "Режим темы",
     "themeModeAuto": "Автоматически (по солнцу)",
-    "themeModeManual": "Вручную"
+    "themeModeManual": "Вручную",
+    "messyMode": {
+      "title": "Хаос-режим",
+      "description": "Перемешать цвета текущей темы"
     },
     "language": {
       "title": "Язык",

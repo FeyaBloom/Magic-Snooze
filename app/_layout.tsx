@@ -26,7 +26,7 @@ SplashScreen.preventAutoHideAsync();
 
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
+   const [fontsLoaded, fontError] = useFonts({
     Cormorant_400Regular,
     Cormorant_500Medium,
     Cormorant_500Medium_Italic,
@@ -40,17 +40,18 @@ export default function RootLayout() {
   useEffect(() => {
     if (Platform.OS === 'android') {
       NavigationBar.setVisibilityAsync('hidden');
-      //NavigationBar.setBehaviorAsync('overlay-swipe');
     }
   }, []);
 
-  useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
+   useEffect(() => {
+    if (fontsLoaded || fontError) {
+      setTimeout(() => {
+        SplashScreen.hideAsync();
+      }, 100); // Небольшая задержка для уверенности в загрузке на Android
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, fontError]);
 
-  useEffect(() => {
+   useEffect(() => {
     // Вывести все данные из LocalStorage в консоль (только для web/отладки)
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       console.log('=== LocalStorage Contents ===');
@@ -65,7 +66,7 @@ export default function RootLayout() {
     }
   }, []);
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded && !fontError) {
     return null;
   }
 

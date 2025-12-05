@@ -3,20 +3,13 @@ import { StyleSheet } from 'react-native';
 export const createSettingsStyles = (colors: any) => StyleSheet.create({
   scrollView: {
     flex: 1,
-    padding: 20,
   },
   title: {
     marginBottom: 30,
     marginTop: 50,
   },
   section: {
-    marginBottom: 30,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 3,
-    opacity: 0.75
+    marginBottom: 30,   
 
   },
   sectionTitle: {
