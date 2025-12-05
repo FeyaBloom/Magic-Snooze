@@ -43,7 +43,7 @@ export default function TodayScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const textStyles = useTextStyles();
-  const { colors, currentTheme, setTheme, isMessyMode } = useTheme();
+  const { colors, currentTheme, setThemeManual, isMessyMode } = useTheme();
   
   const { progress: todayProgress, loadProgress, saveProgress, getLocalDateString } = useDailyProgress();
   const { celebrateVictory } = useVictories();
@@ -522,7 +522,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
               <TouchableOpacity
                 style={{ backgroundColor: colors.surface, paddingHorizontal: 25, paddingVertical: 12, borderRadius: 12 }}
-                onPress={() => setTheme(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
+                onPress={() => setThemeManual(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
               >
                 <Text style={[textStyles.caption, { color: colors.text }]}>
                   {currentTheme === 'daydream' ? t('today.nightForest') : t('today.dayDream')}

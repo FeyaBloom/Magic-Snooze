@@ -25,9 +25,18 @@
   "notes": "Notas",
   "settings": "⚙ Ajustes"
 },
+
+"toast": {
+  "autoModeDisabled": "Modo automático desactivado",
+  "autoModeDisabledMessage": "Has seleccionado el tema manualmente, así que el modo automático basado en la luz del día se ha desactivado. Puedes activarlo de nuevo en Ajustes."
+},
+
   "settings": {
     "title": "Configuración",
     "appPreferences": "Preferencias de la app",
+    "themeMode": "Modo de tema",
+  "themeModeAuto": "Automático (según la luz del día)",
+  "themeModeManual": "Manual",
     "messyMode": {
       "title": "Modo caótico",
       "description": "Mezclar colores del tema actual"

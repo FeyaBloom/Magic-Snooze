@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, Alert, DeviceEventEmitter, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, DeviceEventEmitter, Alert, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Trash2, RotateCcw, AlertTriangle } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTextStyles } from '@/hooks/useTextStyles';
+import { showToast } from '@/components/Toast';
 
 interface ResetOption {
   id: string;
@@ -19,7 +20,7 @@ export default function ResetDataComponent() {
   const { t } = useTranslation();
   const { colors } = useTheme();
   const textStyles = useTextStyles();
-  
+
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetting, setResetting] = useState(false);
 
@@ -101,8 +102,7 @@ export default function ResetDataComponent() {
       const uniqueKeys = [...new Set(keysToDelete)];
 
       if (uniqueKeys.length === 0) {
-        Alert.alert(
-          t('reset.alerts.nothingSelected.title'),
+     showToast('info', t('reset.alerts.nothingSelected.title'),
           t('reset.alerts.nothingSelected.message')
         );
         return;
@@ -117,14 +117,14 @@ export default function ResetDataComponent() {
       });
 
       setShowResetModal(false);
-      Alert.alert(
+      showToast('success', 
         t('reset.alerts.success.title'),
         t('reset.alerts.success.message', { count: uniqueKeys.length }),
-        [{ text: t('common.confirm') }]
+       // [{ text: t('common.confirm') }]
       );
     } catch (error) {
       console.error('Error resetting data:', error);
-      Alert.alert(t('reset.alerts.error.title'), t('reset.alerts.error.message'));
+      showToast('error', t('reset.alerts.error.title'), t('reset.alerts.error.message'));
     } finally {
       setResetting(false);
     }

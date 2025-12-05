@@ -18,7 +18,8 @@ export default function SettingsScreen() {
   const { t } = useTranslation();
   const textStyles = useTextStyles();
   const styles = createSettingsStyles(colors);
-
+  const { operationMode, setOperationMode } = useTheme();
+  
   return (
     <ScreenLayout tabName="settings">
       <ScrollView
@@ -36,6 +37,27 @@ export default function SettingsScreen() {
             <Text style={[textStyles.h2, styles.sectionTitle, { color: colors.text }]}>
               {t('settings.appPreferences')}
             </Text>
+
+  <View style={[styles.row, { backgroundColor: colors.surface }]}>
+  <View style={styles.leftContent}>
+    <Text style={[textStyles.body, { color: colors.text, fontWeight: '600' }]}>
+      {t('settings.themeMode')}
+    </Text>
+    <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
+      {operationMode === 'auto' 
+        ? t('settings.themeModeAuto')
+        : t('settings.themeModeManual')}
+    </Text>
+  </View>
+  <TouchableOpacity
+    onPress={() => setOperationMode(operationMode === 'auto' ? 'manual' : 'auto')}
+    style={[styles.closeButton, { backgroundColor: colors.primary }]}
+  >
+    <Text style={[textStyles.caption, { color: '#FFFFFF' }]}>
+      {operationMode === 'auto' ? '🌅' : '👆'}
+    </Text>
+  </TouchableOpacity>
+</View>
 
             {/* Messy Mode */}
             <View style={styles.row}>
@@ -77,6 +99,8 @@ export default function SettingsScreen() {
               </View>
             </TouchableOpacity>
           </View>
+
+
 
           {/* Contact & Support */}
           <View style={styles.section}>
@@ -141,6 +165,8 @@ export default function SettingsScreen() {
               </View>
             </TouchableOpacity>
           </View>
+
+
 
           <ResetDataComponent />
 

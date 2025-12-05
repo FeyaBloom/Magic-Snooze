@@ -103,10 +103,18 @@
      "deleteTitle": "Delete Note",
     "deleteMessage": "Are you sure you want to delete this note?"
 },
+
+"toast": {
+  "autoModeDisabled": "Auto mode disabled",
+  "autoModeDisabledMessage": "Theme was selected manually, so sun-based auto mode is now turned off. You can enable it again in Settings."
+},
     
   "settings": {
     "title": "Settings",
     "appPreferences": "App Preferences",
+    "themeMode": "Theme mode",
+  "themeModeAuto": "Automatic (sun-based)",
+  "themeModeManual": "Manual",
     "messyMode": {
       "title": "Messy mode",
       "description": "Shuffle colors of the current theme"

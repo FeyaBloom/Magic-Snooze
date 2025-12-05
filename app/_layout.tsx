@@ -16,6 +16,8 @@ import {
   Nunito_700Bold,
 } from '@expo-google-fonts/nunito';
 import * as SplashScreen from 'expo-splash-screen';
+import Toast from 'react-native-toast-message';
+import { AppToastConfig} from '@/components/Toast';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { LanguageProvider } from '@/components/LanguageProvider';
 import '@/i18n';
@@ -75,6 +77,7 @@ export default function RootLayout() {
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" />
         </Stack>
+        <Toast config={AppToastConfig()} />
       </LanguageProvider>
     </ThemeProvider>
     </>

@@ -126,13 +126,20 @@
     "deleteTitle": "Удалить заметку",
   "deleteMessage": "Вы уверены, что хотите удалить эту заметку?"
 },
+ "toast": {
+    "autoModeDisabled": "Авто-режим отключён",
+    "autoModeDisabledMessage": "Тема выбрана вручную, авто-режим по солнцу теперь выключен. Можешь снова включить его в настройках."
+  },
 
   "settings": {
     "title": "Детали и настройки",
     "appPreferences": "Настройки",
     "messyMode": {
       "title": "Хаос-режим",
-      "description": "Перемешать цвета текущей темы"
+      "description": "Перемешать цвета текущей темы",
+       "themeMode": "Режим темы",
+    "themeModeAuto": "Автоматически (по солнцу)",
+    "themeModeManual": "Вручную"
     },
     "language": {
       "title": "Язык",

@@ -102,9 +102,18 @@
     "deleteTitle": "Elimina nota",
     "deleteMessage": "Segur que vols eliminar aquesta nota?"
   },
+
+"toast": {
+  "autoModeDisabled": "Mode automàtic desactivat",
+  "autoModeDisabledMessage": "Has seleccionat el tema manualment, per això el mode automàtic basat en la llum solar s’ha desactivat. El pots activar de nou als Ajustos."
+},
+
   "settings": {
     "title": "Configuració",
     "appPreferences": "Preferències de l'aplicació",
+     "themeMode": "Mode de tema",
+  "themeModeAuto": "Automàtic (segons la llum solar)",
+  "themeModeManual": "Manual",
     "messyMode": {
       "title": "Mode desordenat",
       "description": "Barreja els colors del tema actual"
