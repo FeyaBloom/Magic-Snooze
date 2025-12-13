@@ -19,6 +19,7 @@
       "supportsTablet": true
     },
     "android": {
+      "edgeToEdgeEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon-foreground.png",
         "backgroundImage": "./assets/icon-background.png"
@@ -40,9 +41,7 @@
             "image": "./assets/splash-icon.png"
           },
           "backgroundColor": "#ffffff",
-          "resizeMode": "contain",
-          "statusBar": "hidden",
-          "navigationBar": "hidden"
+          "resizeMode": "contain"
         }
       ],
       [
