@@ -8,7 +8,7 @@ import {
   Modal,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { Plus, Edit, Trash2, Calendar, CalendarCheck } from 'lucide-react-native';
+import { Plus, Edit, Trash2, Calendar, CalendarCheck, CheckCheck, ChartNoAxesCombined  } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Components
@@ -216,6 +216,7 @@ export default function TasksScreen() {
             <View style={styles.taskSection}>
               <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
                 {t('tasks.active')}
+                <ChartNoAxesCombined size={20} color={colors.secondary} />
               </Text>
               {activeTasks.map(task => (
                 <View key={task.id} style={[styles.taskContainer, { backgroundColor: colors.surface }]}>
@@ -275,8 +276,10 @@ export default function TasksScreen() {
           {completedTasks.length > 0 && (
             <View style={styles.taskSection}>
               <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
-                {t('tasks.completed')} ✨
+                {t('tasks.completed')} 
+                <CheckCheck size={20} color={colors.accent} />
               </Text>
+
               {completedTasks.map(task => (
                 <View key={task.id} style={[styles.taskContainer, { backgroundColor: colors.surface, opacity: 0.7 }]}>
                   <MagicalCheckbox

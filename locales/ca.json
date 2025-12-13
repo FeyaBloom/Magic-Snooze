@@ -105,7 +105,7 @@
 
 "toast": {
   "autoModeDisabled": "Mode automàtic desactivat",
-  "autoModeDisabledMessage": "Has seleccionat el tema manualment, per això el mode automàtic basat en la llum solar s’ha desactivat. El pots activar de nou als Ajustos."
+  "autoModeDisabledMessage": "El pots activar de nou als Ajustos."
 },
 
   "settings": {
@@ -146,8 +146,8 @@
     "title": "Les teves tasques",
     "subtitle": "Pas a pas, tu pots!",
     "addNew": "Afegeix nova tasca",
-    "active": "Tasques actives",
-    "completed": "Tasques completades",
+    "active": "Tasques actives ",
+    "completed": "Tasques completades ",
     "emptyTitle": "Encara no hi ha tasques",
     "emptySubtitle": "Afegeix la primera tasca per començar el teu viatge",
     "addTitle": "Afegeix nova tasca",

@@ -45,7 +45,7 @@
   "sky": "Looked at the sky",
   "smile": "Smiled at something",
   "food": "Ate something",
-  "Tiny Victories": "  Tiny Victories",
+  "Tiny Victories": "Tiny Victories",
   "Celebrate the small wins!": "Celebrate the small wins!",
    "surprize1": "Wanna write a poem instead of doing tasks? 📝",
    "surprize2": "Draw your to-do list as monsters! 👹",
@@ -105,8 +105,8 @@
 },
 
 "toast": {
-  "autoModeDisabled": "Auto mode disabled",
-  "autoModeDisabledMessage": "Theme was selected manually, so sun-based auto mode is now turned off. You can enable it again in Settings."
+  "autoModeDisabled": "Auto mode is turned off",
+  "autoModeDisabledMessage": "You can enable it again in Settings."
 },
     
   "settings": {
@@ -121,7 +121,7 @@
     },
     "language": {
       "title": "Language",
-      "currently": "Currently",
+      "currently": "Current",
       "selectLanguage": "Select Language"
     },
     "account": "Account",
@@ -148,8 +148,8 @@
     "title": "Your Tasks",
     "subtitle": "One step at a time, you've got this!",
     "addNew": "Add New Task",
-    "active": "Active Tasks",
-    "completed": "Completed Tasks",
+    "active": "Active Tasks ",
+    "completed": "Completed Tasks ",
     "emptyTitle": "No tasks yet",
     "emptySubtitle": "Add your first task to get started on your journey",
     "addTitle": "Add New Task",

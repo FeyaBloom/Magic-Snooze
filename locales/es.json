@@ -28,7 +28,7 @@
 
 "toast": {
   "autoModeDisabled": "Modo automático desactivado",
-  "autoModeDisabledMessage": "Has seleccionado el tema manualmente, así que el modo automático basado en la luz del día se ha desactivado. Puedes activarlo de nuevo en Ajustes."
+  "autoModeDisabledMessage": "Puedes activarlo de nuevo en Ajustes."
 },
 
   "settings": {
@@ -130,8 +130,8 @@
   "title": "Tus tareas",
   "subtitle": "Paso a paso, ¡tú puedes!",
   "addNew": "Añadir nueva tarea",
-  "active": "Tareas activas",
-  "completed": "Tareas completadas",
+  "active": "Tareas activas ",
+  "completed": "Tareas completadas ",
   "emptyTitle": "Aún no hay tareas",
   "emptySubtitle": "Añade tu primera tarea para comenzar tu camino",
   "addTitle": "Añadir nueva tarea",

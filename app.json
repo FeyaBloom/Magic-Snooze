@@ -40,7 +40,7 @@
           "dark": {
             "image": "./assets/splash-icon.png"
           },
-          "backgroundColor": "#ffffff",
+          "backgroundColor": "#ffe5e5",
           "resizeMode": "contain"
         }
       ],
