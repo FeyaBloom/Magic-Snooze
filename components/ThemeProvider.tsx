@@ -226,7 +226,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       if (operationMode === 'auto') {
         await AsyncStorage.setItem(STORAGE_KEYS.operationMode, 'manual');
         setOperationModeState('manual');
-        showToast('info', 'Авто-режим отключён', t('autoModeDisabledMessage'));
+        showToast('info', t('autoModeDisabledMessage'));
       }
 
       setSelectedThemeManual(theme);
