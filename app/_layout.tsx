@@ -65,7 +65,7 @@ useEffect(() => {
 
   return (
     <>
-    <StatusBar style ="auto" translucent backgroundColor="transparent"/>
+    <StatusBar hidden={true} />
     <ThemeProvider>
       <LanguageProvider>
         <Stack screenOptions={{ headerShown: false }}>

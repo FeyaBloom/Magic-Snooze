@@ -20,6 +20,8 @@
     },
     "android": {
       "edgeToEdgeEnabled": true,
+      "softwareKeyboardLayoutMode": "pan",
+      "statusBar": {"hidden": true},
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon-foreground.png",
         "backgroundImage": "./assets/icon-background.png"
@@ -42,6 +44,10 @@
           },
           "backgroundColor": "#ffe5e5",
           "resizeMode": "contain"
+        },
+        "expo-navigation-bar",
+        {
+          "visibility": "hidden"
         }
       ],
       [
