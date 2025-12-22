@@ -18,7 +18,7 @@
     "Sat": "Ds"
   },
   "today": {
-    "title": "Bon dia, ànima bonica 🌸",
+    "title": "Bon dia, ànima bonica",
     "subtitle": "Pas a pas",
     "subtitleSnoozed": "Avui et prens un descans suau",
     "snoozeToday": "Posa en pausa avui",
@@ -58,14 +58,14 @@
     "Maybelater": "Potser més tard",
     "Letsdoit": "Fem-ho!",
     "defaultMorning": {
-      "stretch": "Estirament o moviment suau",
-      "breathing": "Respiració conscient (2 minuts)",
-      "intention": "Estableix una intenció suau per avui"
+      "stretch": "Aigua tèbia amb mel i llimona",
+      "breathing": "Exercici energitzant",
+      "intention": "Gran esmorzar saludable"
     },
     "defaultEvening": {
-      "reflect": "Reflexiona sobre un moment positiu",
-      "selfCare": "Activitat suau de cura personal",
-      "prepare": "Prepara el demà amb amabilitat"
+      "reflect": "Cura personal de vespre",
+      "selfCare": "Plan breu per a demà",
+      "prepare": "Dormir abans de mitjanit"
     }
   },
   "calendar": {

@@ -18,7 +18,7 @@
     "Sat": "Sat"
   },
   "today": {
-    "title": "Good day, beautiful soul 🌸",
+    "title": "Good day, beautiful soul",
     "subtitle": "Take it one step at a time",
     "subtitleSnoozed": "You're taking a gentle break today",
     "snoozeToday": "Snooze Today",
@@ -58,14 +58,14 @@
     "Maybelater": "Maybe later",
     "Letsdoit": "Let's do it!",
     "defaultMorning": {
-      "stretch": "Gentle stretch or movement",
-      "breathing": "Mindful breathing (2 minutes)",
-      "intention": "Set one gentle intention for today"
+      "stretch": "Warm lemon-honey water",
+      "breathing": "Energizing workout",
+      "intention": "Great healthy breakfast"
     },
     "defaultEvening": {
-      "reflect": "Reflect on one positive moment",
-      "selfCare": "Gentle self-care activity",
-      "prepare": "Prepare for tomorrow with kindness"
+      "reflect": "Evening self-care",
+      "selfCare": "Short plan for tomorrow",
+      "prepare": "Sleep before midnight"
     }
   },
   "calendar": {

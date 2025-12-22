@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Plus, Edit, Trash2, Coffee, Moon, Pause, Sparkles } from 'lucide-react-native';
+import { Plus, Edit, Trash2, Coffee, Moon, Pause, Sparkles, Trophy } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Components
@@ -580,7 +580,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
           {todayProgress && (
             <View style={styles.progressSection}>
               <Text style={[textStyles.h2, { color: colors.text, marginBottom: 12 }]}>
-                {t('today.todaysProgress')} ✨
+                {t('today.todaysProgress')} <Trophy size={20} color={colors.secondary} />
               </Text>
               <View style={styles.progressStats}>
                 <View style={styles.progressStat}>

@@ -76,7 +76,7 @@
 },
 
 "today": {
-    "title": "Buen día, alma hermosa 🌸",
+    "title": "Buen día, alma hermosa",
     "subtitle": "Ve paso a paso",
     "subtitleSnoozed": "Te estás tomando un descanso",
     "snoozeToday": "Aplazar todo",
@@ -115,14 +115,14 @@
    "Maybelater": "Más tarde",
     "Letsdoit": "Vamos!",
     "defaultMorning": {
-      "stretch": "Estiramiento suave o movimiento",
-      "breathing": "Respiración consciente (2 minutos)",
-      "intention": "Establece una intención suave para hoy"
+      "stretch": "Agua tibia con miel y limón",
+      "breathing": "Ejercicio energizante",
+      "intention": "Gran desayuno saludable"
     },
     "defaultEvening": {
-      "reflect": "Reflexiona sobre un momento positivo",
-      "selfCare": "Actividad suave de autocuidado",
-      "prepare": "Prepárate para mañana con bondad"
+      "reflect": "Cuidado personal nocturno",
+      "selfCare": "Plan breve para mañana",
+      "prepare": "Dormir antes de medianoche"
     }
   },
 
@@ -133,7 +133,7 @@
   "active": "Tareas activas ",
   "completed": "Tareas completadas ",
   "emptyTitle": "Aún no hay tareas",
-  "emptySubtitle": "Añade tu primera tarea para comenzar tu camino",
+  "emptySubtitle": "Añade la primera tarea para comenzar tu camino",
   "addTitle": "Añadir nueva tarea",
   "editTitle": "Editar tarea",
   "inputPlaceholder": "¿Qué te gustaría lograr?",

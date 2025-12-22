@@ -118,7 +118,7 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
             {!hasData && (
               <View style={styles.emptyState}>
                 <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
-                  {t('calendar.noDataForDay')}
+                  {t('calendar.legend.none')}
                 </Text>
               </View>
             )}
@@ -128,10 +128,10 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
               <View style={[styles.statusBadge, { backgroundColor: colors.background[0] }]}>
                 <Text style={[styles.statusText, { color: colors.text }]}>
                   {progress.snoozed
-                    ? '💤 ' + t('calendar.dayStatus.snoozed')
+                    ? '💤 ' + t('calendar.legend.snoozed')
                     : progress.morningCompleted && progress.eveningCompleted
-                    ? '🏆 ' + t('calendar.dayStatus.complete')
-                    : '🌟 ' + t('calendar.dayStatus.partial')}
+                    ? '🏆 ' + t('calendar.legend.complete')
+                    : '🌟 ' + t('calendar.legend.partial')}
                 </Text>
               </View>
             )}

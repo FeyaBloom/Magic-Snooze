@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, ScrollView, DeviceEventEmitter, TouchableOpacity } from 'react-native';
-import { Sparkles } from 'lucide-react-native';
+import { Trophy } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Components
@@ -243,19 +243,19 @@ export default function CalendarScreen() {
               <View style={styles.legendItem}>
                 <View style={[styles.legendDot, styles.completeLegend]} />
                 <Text style={[textStyles.caption, { color: colors.text }]}>
-                  {t('calendar.legend.complete')} 🏆
+                  {t('calendar.legend.complete')} 
                 </Text>
               </View>
               <View style={styles.legendItem}>
                 <View style={[styles.legendDot, styles.partialLegend]} />
                 <Text style={[textStyles.caption, { color: colors.text }]}>
-                  {t('calendar.legend.partial')} 🌟
+                  {t('calendar.legend.partial')} 
                 </Text>
               </View>
               <View style={styles.legendItem}>
                 <View style={[styles.legendDot, styles.snoozedLegend]} />
                 <Text style={[textStyles.caption, { color: colors.text }]}>
-                  {t('calendar.legend.snoozed')} 💤
+                  {t('calendar.legend.snoozed')} 
                 </Text>
               </View>
               <View style={styles.legendItem}>
@@ -276,7 +276,7 @@ export default function CalendarScreen() {
                 adjustsFontSizeToFit
                 minimumFontScale={0.7}
               >
-                {t('calendar.stats.title')} ✨
+                {t('calendar.stats.title')} <Trophy size={20} color={colors.accent} />
               </Text>
               <View style={styles.statsGrid}>
                 <View style={styles.statItem}>

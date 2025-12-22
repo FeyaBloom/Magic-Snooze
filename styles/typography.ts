@@ -2,21 +2,21 @@ import { TextStyle } from 'react-native';
 
 export const typography = {
   h1: {
-    fontFamily: 'Cormorant_700Bold',
+    fontFamily: 'Cormorant_600SemiBold',
     fontSize: 32,
-    fontWeight: '700',
+    fontWeight: '600',
   } as TextStyle,
   
   h2: {
     fontFamily: 'Cormorant_600SemiBold',
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '600',
   } as TextStyle,
   
   quote: {
-    fontFamily: 'Cormorant_500Medium_Italic',
+    fontFamily: 'Cormorant_600Regular_Italic',
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: '600',
     fontStyle: 'italic',
   } as TextStyle,
   
