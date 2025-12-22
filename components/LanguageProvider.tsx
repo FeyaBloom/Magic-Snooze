@@ -7,7 +7,7 @@ import { useTheme } from './ThemeProvider';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { createSettingsStyles } from '@/styles/settings';
 
-type Language = 'en' | 'ru' | 'es' | 'ca';
+type Language = 'en' | 'ca' | 'es' | 'ru';
 
 interface LanguageContextType {
   language: Language;
@@ -17,7 +17,7 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-const languageCodes: Language[] = ['en', 'ru', 'es', 'ca'];
+const languageCodes: Language[] = ['en', 'ca', 'es', 'ru'];
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const { i18n, t } = useTranslation();

@@ -361,11 +361,13 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
         );
         
         if (isDefault) {
-          const updatedMorning = [
-            { id: '1', text: t('today.defaultMorning.stretch'), completed: false },
-            { id: '2', text: t('today.defaultMorning.breathing'), completed: false },
-            { id: '3', text: t('today.defaultMorning.intention'), completed: false },
-          ];
+          const updatedMorning = morning.map((step: RoutineStep) => {
+            let newText = '';
+            if (step.id === '1') newText = t('today.defaultMorning.stretch');
+            else if (step.id === '2') newText = t('today.defaultMorning.breathing');
+            else if (step.id === '3') newText = t('today.defaultMorning.intention');
+            return { ...step, text: newText };
+          });
           setMorningRoutine(updatedMorning);
           await AsyncStorage.setItem('morningRoutine', JSON.stringify(updatedMorning));
         }
@@ -378,11 +380,13 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
         );
         
         if (isDefault) {
-          const updatedEvening = [
-            { id: '1', text: t('today.defaultEvening.reflect'), completed: false },
-            { id: '2', text: t('today.defaultEvening.selfCare'), completed: false },
-            { id: '3', text: t('today.defaultEvening.prepare'), completed: false },
-          ];
+          const updatedEvening = evening.map((step: RoutineStep) => {
+            let newText = '';
+            if (step.id === '1') newText = t('today.defaultEvening.reflect');
+            else if (step.id === '2') newText = t('today.defaultEvening.selfCare');
+            else if (step.id === '3') newText = t('today.defaultEvening.prepare');
+            return { ...step, text: newText };
+          });
           setEveningRoutine(updatedEvening);
           await AsyncStorage.setItem('eveningRoutine', JSON.stringify(updatedEvening));
         }

@@ -34,7 +34,7 @@
   "settings": {
     "title": "Configuración",
     "appPreferences": "Preferencias de la app",
-    "themeMode": "Modo de tema",
+    "themeMode": "Modo oscuro",
   "themeModeAuto": "Automático (según la luz del día)",
   "themeModeManual": "Manual",
     "messyMode": {
@@ -62,7 +62,7 @@
     },
     "supportApp": {
       "title": "Apoyar esta aplicación",
-      "description": "Enviar una donación 💰"
+      "description": "Magic Snooze es gratuita, de código abierto y sin anuncios.\nCreada por una persona neurodivergente navegando la vida como inmigrante. Actualmente gestionando papeleos legales para aceptar donaciones.\nMientras tanto:\n⭐️ dale una estrella en GitHub\n📋 deja una reseña en Google Play\n🐛 reporta bugs\n💬 corre la voz"
     }
   },
 "languages": {

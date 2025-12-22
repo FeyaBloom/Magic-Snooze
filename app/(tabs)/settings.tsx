@@ -94,6 +94,10 @@ export default function SettingsScreen() {
                 </View>
               </View>
             </TouchableOpacity>
+
+          <ResetDataComponent />
+
+
           </View>
 
 
@@ -106,7 +110,7 @@ export default function SettingsScreen() {
 
             <TouchableOpacity
               style={styles.row}
-              onPress={() => Linking.openURL('https://portfolio-feya-bloom.webflow.io/')}
+              onPress={() => Linking.openURL('https://feya-bloom-studio.lovable.app/')}
               activeOpacity={0.8}
             >
               <View style={styles.leftContent}>
@@ -124,9 +128,10 @@ export default function SettingsScreen() {
 
             <TouchableOpacity
               style={styles.row}
-              onPress={() => Linking.openURL('https://www.buymeacoffee.com/feyabloom')}
+              onPress={() => Linking.openURL('https://github.com/FeyaBloom/Magic-Snooze')}
               activeOpacity={0.8}
             >
+
               <View style={styles.leftContent}>
                 <Heart color={colors.textSecondary} size={20} />
                 <View style={styles.textContainer}>
@@ -141,7 +146,8 @@ export default function SettingsScreen() {
             </TouchableOpacity>
           </View>
 
-          {/* Debug Section */}
+          {/* Debug Section 
+
           <View style={styles.section}>
             <TouchableOpacity
               style={styles.row}
@@ -162,9 +168,10 @@ export default function SettingsScreen() {
             </TouchableOpacity>
           </View>
 
+          */}
 
 
-          <ResetDataComponent />
+
 
         </ContentContainer>
       </ScrollView>
