@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import { Plus, Edit, Trash2, Search, BookOpen } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -300,9 +302,9 @@ export default function NotesScreen() {
       </ScrollView>
 
       {/* Add Modal */}
-      <Modal visible={showAddModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
-        <View style={styles.modalOverlay}>
-          <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
+      <Modal visible={showAddModal} animationType="fade" transparent={true} >        
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalOverlay}>
+        <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
             <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
               {t('notes.addModalTitle')}
             </Text>
@@ -345,12 +347,12 @@ export default function NotesScreen() {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
 
       {/* Edit Modal */}
       <Modal visible={showEditModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
-        <View style={styles.modalOverlay}>
+       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}  style={styles.modalOverlay}  >
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
             <TouchableOpacity
               style={styles.deleteButton}
@@ -401,7 +403,7 @@ export default function NotesScreen() {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
 
       {/* View Modal */}

@@ -8,6 +8,8 @@ import {
   Modal,
   DeviceEventEmitter,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView, 
+  Platform 
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Plus, Edit, Trash2, Coffee, Moon, Pause, Sparkles, Trophy } from 'lucide-react-native';
@@ -617,7 +619,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       />
 
       <Modal visible={showAddModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
-        <View style={styles.modalOverlay}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalOverlay}>      
           <View style={styles.modalContent}>
             <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
               {t('today.addNewStep')}
@@ -653,12 +655,12 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
 
       <Modal visible={showEditModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalOverlay}>
+           <View style={styles.modalContent}>
             <TouchableOpacity
               style={styles.deleteButton}
               onPress={() => {
@@ -702,7 +704,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
 
       <ConfirmDialog

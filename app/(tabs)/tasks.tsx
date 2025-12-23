@@ -7,6 +7,8 @@ import {
   TextInput,
   Modal,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import { Plus, Edit, Trash2, Calendar, CalendarCheck, CheckCheck, ChartNoAxesCombined  } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -332,7 +334,7 @@ export default function TasksScreen() {
 
       {/* Add Modal */}
       <Modal visible={showAddModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
-        <View style={styles.modalOverlay}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalOverlay}>
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
             <ScrollView showsVerticalScrollIndicator={false}  keyboardShouldPersistTaps="handled">
             <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
@@ -392,12 +394,12 @@ export default function TasksScreen() {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
 
       {/* Edit Modal */}
       <Modal visible={showEditModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
-        <View style={styles.modalOverlay}>
+        <KeyboardAvoidingView     behavior={Platform.OS === 'ios' ? 'padding' : undefined}        style={styles.modalOverlay}          >       
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
             <ScrollView showsVerticalScrollIndicator={false}  keyboardShouldPersistTaps="handled">
             <TouchableOpacity
@@ -465,7 +467,7 @@ export default function TasksScreen() {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
 
       <ConfirmDialog

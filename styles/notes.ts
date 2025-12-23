@@ -114,9 +114,10 @@ export const createNotesStyles = (colors: ThemeColors) =>
     viewModalContent: {
       width: '100%',
       maxWidth: 500,
-      maxHeight: '90%',
+      height: '60%',
       borderRadius: 24,
       padding: 24,
+      flexDirection: 'column',
     },
     viewHeader: {
       flexDirection: 'row',
@@ -128,7 +129,8 @@ export const createNotesStyles = (colors: ThemeColors) =>
       padding: 4,
     },
     viewScroll: {
-      flex: 1,
+      flexGrow: 1,
+      flexShrink: 1,
       marginBottom: 16,
     },
     closeButton: {
