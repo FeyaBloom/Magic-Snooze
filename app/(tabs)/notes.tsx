@@ -7,10 +7,14 @@ import {
   TextInput,
   Modal,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+  AppState
 } from 'react-native';
 import { Plus, Edit, Trash2, Search, BookOpen } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as NavigationBar from 'expo-navigation-bar';
 
 // Components
 import { ScreenLayout } from '@/components/ScreenLayout';
@@ -55,6 +59,7 @@ export default function NotesScreen() {
   });
 
   const styles = createNotesStyles(colors);
+
 
   const loadNotes = async () => {
     try {
@@ -302,108 +307,134 @@ export default function NotesScreen() {
       </ScrollView>
 
       {/* Add Modal */}
-      <Modal visible={showAddModal} animationType="fade" transparent={true} >        
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalOverlay}>
-        <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
-            <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
-              {t('notes.addModalTitle')}
-            </Text>
-            <TextInput
-              style={[styles.titleInput, { color: colors.text, borderColor: colors.primary }]}
-              placeholder={t('notes.titlePlaceholder')}
-              placeholderTextColor={colors.textSecondary}
-              value={noteTitle}
-              onChangeText={setNoteTitle}
-            />
-            <TextInput
-              style={[styles.contentInput, { color: colors.text, borderColor: colors.primary }]}
-              placeholder={t('notes.contentPlaceholder')}
-              placeholderTextColor={colors.textSecondary}
-              value={noteContent}
-              onChangeText={setNoteContent}
-              multiline
-              autoFocus
-            />
-            <View style={styles.modalButtons}>
-              <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: colors.background[0] }]}
-                onPress={() => {
-                  setShowAddModal(false);
-                  setNoteTitle('');
-                  setNoteContent('');
-                }}
-              >
-                <Text style={[textStyles.button, { color: colors.text }]}>
-                  {t('common.cancel')}
+      <Modal 
+        visible={showAddModal} 
+        animationType="fade" 
+        transparent={true}
+        statusBarTranslucent={true}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <KeyboardAvoidingView 
+            behavior="padding"
+            keyboardVerticalOffset={0}
+            style={styles.modalOverlay}
+          >
+            <TouchableWithoutFeedback>
+              <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
+                <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
+                  {t('notes.addModalTitle')}
                 </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: colors.primary }]}
-                onPress={addNote}
-              >
-                <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
-                  {t('common.add')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </KeyboardAvoidingView>
+                <TextInput
+                  style={[styles.titleInput, { color: colors.text, borderColor: colors.primary }]}
+                  placeholder={t('notes.titlePlaceholder')}
+                  placeholderTextColor={colors.textSecondary}
+                  value={noteTitle}
+                  onChangeText={setNoteTitle}
+                />
+                <TextInput
+                  style={[styles.contentInput, { color: colors.text, borderColor: colors.primary }]}
+                  placeholder={t('notes.contentPlaceholder')}
+                  placeholderTextColor={colors.textSecondary}
+                  value={noteContent}
+                  onChangeText={setNoteContent}
+                  multiline
+                  autoFocus
+                />
+                <View style={styles.modalButtons}>
+                  <TouchableOpacity
+                    style={[styles.modalButton, { backgroundColor: colors.background[0] }]}
+                    onPress={() => {
+                      setShowAddModal(false);
+                      setNoteTitle('');
+                      setNoteContent('');
+                    }}
+                  >
+                    <Text style={[textStyles.button, { color: colors.text }]}>
+                      {t('common.cancel')}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.modalButton, { backgroundColor: colors.primary }]}
+                    onPress={addNote}
+                  >
+                    <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+                      {t('common.add')}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
       </Modal>
 
       {/* Edit Modal */}
-      <Modal visible={showEditModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
-       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}  style={styles.modalOverlay}  >
-          <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
-            <TouchableOpacity
-              style={styles.deleteButton}
-              onPress={() => editingNote && deleteNote(editingNote.id)}
-            >
-              <Trash2 size={20} color="#EF4444" />
-            </TouchableOpacity>
-            <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
-              {t('notes.editModalTitle')}
-            </Text>
-            <TextInput
-              style={[styles.titleInput, { color: colors.text, borderColor: colors.primary }]}
-              placeholder={t('notes.titlePlaceholder')}
-              placeholderTextColor={colors.textSecondary}
-              value={noteTitle}
-              onChangeText={setNoteTitle}
-            />
-            <TextInput
-              style={[styles.contentInput, { color: colors.text, borderColor: colors.primary }]}
-              placeholder={t('notes.contentPlaceholder')}
-              placeholderTextColor={colors.textSecondary}
-              value={noteContent}
-              onChangeText={setNoteContent}
-              multiline
-              autoFocus
-            />
-            <View style={styles.modalButtons}>
-              <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: colors.background[0] }]}
-                onPress={() => {
-                  setShowEditModal(false);
-                  setNoteTitle('');
-                  setNoteContent('');
-                  setEditingNote(null);
-                }}
-              >
-                <Text style={[textStyles.button, { color: colors.text }]}>
-                  {t('common.cancel')}
+      <Modal 
+        visible={showEditModal} 
+        animationType="fade" 
+        transparent={true} 
+        statusBarTranslucent={true}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <KeyboardAvoidingView 
+            behavior="padding"
+            keyboardVerticalOffset={0}
+            style={styles.modalOverlay}
+          >
+            <TouchableWithoutFeedback>
+              <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
+                <TouchableOpacity
+                  style={styles.deleteButton}
+                  onPress={() => editingNote && deleteNote(editingNote.id)}
+                >
+                  <Trash2 size={20} color="#EF4444" />
+                </TouchableOpacity>
+                <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
+                  {t('notes.editModalTitle')}
                 </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: colors.primary }]}
-                onPress={editNote}
-              >
-                <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
-                  {t('common.save')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </KeyboardAvoidingView>
+                <TextInput
+                  style={[styles.titleInput, { color: colors.text, borderColor: colors.primary }]}
+                  placeholder={t('notes.titlePlaceholder')}
+                  placeholderTextColor={colors.textSecondary}
+                  value={noteTitle}
+                  onChangeText={setNoteTitle}
+                />
+                <TextInput
+                  style={[styles.contentInput, { color: colors.text, borderColor: colors.primary }]}
+                  placeholder={t('notes.contentPlaceholder')}
+                  placeholderTextColor={colors.textSecondary}
+                  value={noteContent}
+                  onChangeText={setNoteContent}
+                  multiline
+                  autoFocus
+                />
+                <View style={styles.modalButtons}>
+                  <TouchableOpacity
+                    style={[styles.modalButton, { backgroundColor: colors.background[0] }]}
+                    onPress={() => {
+                      setShowEditModal(false);
+                      setNoteTitle('');
+                      setNoteContent('');
+                      setEditingNote(null);
+                    }}
+                  >
+                    <Text style={[textStyles.button, { color: colors.text }]}>
+                      {t('common.cancel')}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.modalButton, { backgroundColor: colors.primary }]}
+                    onPress={editNote}
+                  >
+                    <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+                      {t('common.save')}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
       </Modal>
 
       {/* View Modal */}

@@ -29,7 +29,7 @@ export default function TabLayout() {
           shadowOpacity: 0.1,
           shadowRadius: 8,
           height: 70,
-          paddingTop: 10,
+          paddingTop: 5,
           paddingHorizontal: 20,
           paddingBottom: Platform.OS === 'android' ? 15 : 25,
         },
@@ -38,7 +38,7 @@ export default function TabLayout() {
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: '600',
-          marginTop: -5,
+          marginTop: 1,
         },
       }}
     >

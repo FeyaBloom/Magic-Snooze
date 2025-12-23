@@ -1,6 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import * as NavigationBar from 'expo-navigation-bar';
-import { Platform } from 'react-native';
+import { 
+  Platform,
+  AppState,
+  Keyboard 
+ } from 'react-native';
 import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 
@@ -34,6 +38,34 @@ useEffect(() => {
     if (Platform.OS === 'android') {
         NavigationBar.setVisibilityAsync('hidden');
     }
+}, []);
+
+  // Fix для edge-to-edge при сворачивании
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (nextAppState === 'active') {
+        NavigationBar.setVisibilityAsync('hidden');
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+  const keyboardDidShow = Keyboard.addListener('keyboardDidShow', () => {
+    NavigationBar.setVisibilityAsync('hidden');
+  });
+  
+  const keyboardDidHide = Keyboard.addListener('keyboardDidHide', () => {
+    NavigationBar.setVisibilityAsync('hidden');
+  });
+
+  return () => {
+    keyboardDidShow.remove();
+    keyboardDidHide.remove();
+  };
 }, []);
 
 useEffect(() => {
