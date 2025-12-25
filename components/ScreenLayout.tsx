@@ -1,4 +1,3 @@
-// components/ScreenLayout.tsx
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { ScreenBackground } from './ScreenBackground';
 import { ReactNode } from 'react';
