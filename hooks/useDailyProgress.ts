@@ -11,7 +11,7 @@ export interface DailyProgress {
   morningDone: number;
   eveningDone: number;
   snoozed: boolean;
-  // 🔥 
+  //🔥
   morningRoutines?: { text: string; completed: boolean }[];
   eveningRoutines?: { text: string; completed: boolean }[];
 }
@@ -26,15 +26,15 @@ const getLocalDateString = (date: Date = new Date()) => {
 export function useDailyProgress() {
   const [progress, setProgress] = useState<DailyProgress | null>(null);
 
-  // 🚀 НОВЫЙ ЭФФЕКТ: Слушатель событий сброса данных
+  // listen to data reset
   useEffect(() => {
     const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
       console.log('useDailyProgress received data reset event:', data);
       
-      // Проверяем, затронул ли сброс прогресс рутин
+      // check routines progress
       if (data.categories.includes('progress')) {
         console.log('Resetting daily progress state...');
-        // Очищаем состояние прогресса
+        // clean progress state
         setProgress(null);
       }
     };
@@ -57,7 +57,7 @@ export function useDailyProgress() {
         return parsed;
       }
       
-      // Если данных нет, сбрасываем состояние
+      // if no data then clean state
       setProgress(null);
       return null;
     } catch (error) {
@@ -87,7 +87,7 @@ export function useDailyProgress() {
     }
   }, [progress, saveProgress]);
 
-  // 🔄 НОВАЯ ФУНКЦИЯ: Принудительная перезагрузка прогресса
+  // forced progress reset
   const refreshProgress = useCallback(async (date: Date = new Date()) => {
     console.log('Refreshing daily progress...');
     return await loadProgress(date);
@@ -98,7 +98,7 @@ export function useDailyProgress() {
     loadProgress, 
     saveProgress, 
     updateField, 
-    refreshProgress, // 🔥 Новый метод для принудительного обновления
+    refreshProgress, // forced refresh bitch
     getLocalDateString 
   };
 }
