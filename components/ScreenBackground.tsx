@@ -1,4 +1,3 @@
-// components/ScreenBackground.tsx
 import { LinearGradient } from 'expo-linear-gradient';
 import LottieView from 'lottie-react-native';
 import { StyleSheet, View } from 'react-native';
@@ -14,13 +13,13 @@ export function ScreenBackground({ tabName }: Props) {
 
   return (
     <View style={styles.container}>
-      {/* Фон */}
+      {/* background */}
       <LinearGradient
         colors={gradient}
         style={styles.gradient}
       />
 
-      {/* Анимация — поверх фона, но НЕ поверх контента */}
+      {/* animation between background and content*/}
       <View style={styles.animationContainer}>
         {currentTheme === 'daydream' ? (
           <LottieView
@@ -52,11 +51,11 @@ const styles = StyleSheet.create({
   },
   animationContainer: {
     ...StyleSheet.absoluteFillObject,
-    // ← НИКАКОГО zIndex здесь! Пусть будет 0 по умолчанию
-    pointerEvents: 'none', // 🔑 КРИТИЧНО: не блокировать тапы!
+    
+    pointerEvents: 'none', 
   },
   animation: {
     flex: 1,
-    opacity: 0.7, // ← чуть прозрачнее — не отвлекает
+    opacity: 0.7, 
   },
 });
