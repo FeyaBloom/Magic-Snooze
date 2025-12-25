@@ -45,7 +45,7 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
       await onVictoryPress(text);
       setCelebratedToday(prev => [...prev, text]);
       
-      // Показываем конфетти
+      // show confetti
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 2000);
     } catch (error) {
@@ -159,17 +159,17 @@ const styles = StyleSheet.create({
 grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between', // 🔥 ВАЖНО
+    justifyContent: 'space-between', 
     marginBottom: 24,
   },
   button: {
-    width: '48%', // 🔥 48% вместо BUTTON_SIZE
-    aspectRatio: 1.5, // 🔥 Квадратные кнопки
+    width: '48%',
+    aspectRatio: 1.5, 
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 12,
-    marginBottom: 12, // 🔥 Отступ между рядами
+    marginBottom: 12,
     position: 'relative',
   },
     emoji: {
