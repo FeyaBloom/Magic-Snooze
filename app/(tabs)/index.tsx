@@ -213,7 +213,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       morningDone,
       eveningDone,
       snoozed: isSnoozed,
-      // 🔥 НОВОЕ: сохраняем тексты рутин
+      // save routine's texts
       morningRoutines: morning.map(s => ({ text: s.text, completed: s.completed })),
       eveningRoutines: evening.map(s => ({ text: s.text, completed: s.completed })),
     };
