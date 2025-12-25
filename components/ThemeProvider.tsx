@@ -202,8 +202,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (operationMode !== 'auto') return;
 
-    // Слушаем изменения времени с интервалом ~1 минута (не часто, но хватит для переключения в 07:00/19:00)
-    // Используем setInterval с небольшим джиттером (до ±5 сек), чтобы снизить нагрузку
+    // Listen to time changing with 1min interval 
     const intervalId = setInterval(() => {
       const nextTheme = getCurrentThemeByTime();
       if (nextTheme !== currentTheme) {
@@ -211,7 +210,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       }
     }, 60 * 1000 + Math.random() * 10_000); // ~1m ±5s
 
-    // Также проверим сразу после монтирования (на случай, если запуск в промежутке)
+    // after start of the app inside of interval 
     const immediateTheme = getCurrentThemeByTime();
     if (immediateTheme !== currentTheme) {
       setCurrentTheme(immediateTheme);
