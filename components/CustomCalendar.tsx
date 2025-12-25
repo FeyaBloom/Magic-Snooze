@@ -24,11 +24,11 @@ const RightArrow = ({ color }: { color: string }) =>
 
 
 interface CalendarProps {
-  // Для выбора даты (модалка)
+  // for the date choosing (modal)
   selectedDate?: Date;
   onDateSelect?: (date: Date) => void;
 
-  // Для кастомного рендеринга дней (CalendarTab с отметками)
+  // for the custom days render (CalendarTab with marks)
   customDayRenderer?: (
     date: Date, 
     isCurrentMonth: boolean, 
@@ -37,15 +37,15 @@ interface CalendarProps {
     styles: any
   ) => React.ReactNode;
 
-  // Управление
+  // control
   initialMonth?: Date;
   onMonthChange?: (date: Date) => void;
   minDate?: Date;
   maxDate?: Date;
 
-  // НОВОЕ: контроль размеров для разных контекстов
-  containerWidth?: number; // ширина контейнера для расчета размера дней
-  maxWidth?: number; // максимальная ширина всего календаря
+  // size control
+  containerWidth?: number;
+  maxWidth?: number; 
 }
 
 const getLocalDateString = (date: Date) => {
@@ -64,31 +64,30 @@ export default function Calendar({
   minDate,
   maxDate,
   containerWidth, 
-  maxWidth, // для общего ограничения
+  maxWidth, 
 }: CalendarProps) {
   const { colors } = useTheme();
   const { t, i18n } = useTranslation();
   const [currentMonth, setCurrentMonth] = useState(initialMonth);
   const [stylesReady, setStylesReady] = useState(false);
 
-  // Вычисляем актуальный размер дня для конкретного контейнера
   const dayWidth = useMemo(() => {
     return calculateDayWidth(containerWidth);
   }, [containerWidth]);
 
-  // Вычисляем высоту дня - для модалок делаем меньше
+  
   const dayHeight = useMemo(() => {
     const isModal = containerWidth && containerWidth < 400;
     return isModal ? dayWidth * 0.75 : dayWidth; // в модалке высота = 70% от ширины
   }, [dayWidth, containerWidth]);
 
-  // Мемоизируем стили
+  
   const styles = useMemo(() => {
     if (!colors) return null;
     return createCalendarStyles(colors);
   }, [colors]);
 
-  // Проверяем готовность стилей и colors
+  
   useEffect(() => {
     if (colors && styles) {
       requestAnimationFrame(() => {
@@ -120,7 +119,7 @@ export default function Calendar({
     onDateSelect(date);
   };
 
-  // Мемоизируем рендер календаря для оптимизации
+  
   const calendarDays = useMemo(() => {
     if (!stylesReady || !styles) return [];
 
@@ -146,14 +145,14 @@ export default function Calendar({
       const disabled = isDateDisabled(date);
 
       if (customDayRenderer) {
-        // Кастомный рендеринг (для CalendarTab с отметками) - дни НЕ кликабельные
+        // render for CalendarTab 
         daysArray.push(
           <View key={dateString} style={[styles.dayContainer, { width: dayWidth, height: dayHeight }]}>
             {customDayRenderer(date, isCurrentMonth, isToday, !!isSelected, styles)}
           </View>
         );
       } else {
-        // Стандартный рендеринг (для модалки с выбором)
+        // render for modal
         daysArray.push(
           <TouchableOpacity
             key={dateString}
@@ -202,7 +201,7 @@ export default function Calendar({
     return rows;
   };
 
-  // Мемоизируем дни недели
+  // memo days of week 
   const weekDaysComponent = useMemo(() => {
     if (!styles) return null;
 
@@ -232,7 +231,7 @@ export default function Calendar({
     ca: 'ca-ES',
   };
 
-  // Мемоизируем название месяца
+  // memo months names
   const monthName = useMemo(() => {
     return capitalizeFirst(
       currentMonth.toLocaleDateString(mapLocale[i18n.language] || 'en-US', {
@@ -242,11 +241,11 @@ export default function Calendar({
     );
   }, [currentMonth, i18n.language]);
 
-  // Показываем загрузку пока стили не готовы
+  
   if (!stylesReady || !colors || !styles) {
     return (
       <View style={{ 
-        height: dayHeight * 6 + 120, // 6 рядов дней + заголовки
+        height: dayHeight * 6 + 120, // 6rows of days + titles
         justifyContent: 'center', 
         alignItems: 'center',
         opacity: 0.5 
