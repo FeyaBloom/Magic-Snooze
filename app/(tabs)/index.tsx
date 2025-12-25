@@ -356,7 +356,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       const morningData = await AsyncStorage.getItem('morningRoutine');
       const eveningData = await AsyncStorage.getItem('eveningRoutine');
 
-      // Проверяем, являются ли рутины дефолтными (по ID)
+      // If routines are default (by ID)
       if (morningData) {
         const morning = JSON.parse(morningData);
         const isDefault = morning.every((s: RoutineStep) => 
