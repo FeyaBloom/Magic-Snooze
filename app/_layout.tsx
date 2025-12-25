@@ -40,7 +40,7 @@ useEffect(() => {
     }
 }, []);
 
-  // Fix для edge-to-edge при сворачивании
+  // Fix for edge-to-edge minimizing 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
       if (nextAppState === 'active') {
@@ -77,7 +77,7 @@ useEffect(() => {
   }, [fontsLoaded, fontError]);
 
    useEffect(() => {
-    // Вывести все данные из LocalStorage в консоль (только для web/отладки)
+    // all data from LocalStorage to console
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       console.log('=== LocalStorage Contents ===');
       for (let i = 0; i < localStorage.length; i++) {
