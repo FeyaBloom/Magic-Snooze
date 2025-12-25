@@ -23,7 +23,7 @@ export default function SettingsScreen() {
   return (
     <ScreenLayout tabName="settings">
       <ScrollView
-        style={styles.scrollView} // ← твой стиль scrollView (padding: 20)
+        style={styles.scrollView} 
         showsVerticalScrollIndicator={false}
       >
         <ContentContainer>
