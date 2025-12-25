@@ -25,15 +25,15 @@ export function ContentContainer({
       style={[
         styles.container,
         {
-          // Адаптивный padding
+          
           paddingHorizontal,
-          // На messyMode — чуть больше воздуха
+          
           paddingVertical: isMessyMode ? paddingVertical + 8 : paddingVertical,
-          // Учитываем notch / челку
+          
           paddingTop: insets.top + paddingVertical,
           paddingBottom: insets.bottom + paddingVertical,
         },
-        style, // ← внешний style имеет приоритет
+        style, 
       ]}
     >
       {children}
