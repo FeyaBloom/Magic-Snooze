@@ -1,4 +1,3 @@
-// components/ContentContainer.tsx
 import { View, StyleSheet, Platform, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from './ThemeProvider';
