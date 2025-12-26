@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const MAX_DAY_WIDTH = 75; // максимальная ширина в пикселях
+const MAX_DAY_WIDTH = 75; 
 export const dayWidth = Math.min((screenWidth - 8) / 7, MAX_DAY_WIDTH);
 
 const MIN_DAY_WIDTH = 30;
@@ -120,15 +120,15 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
   },
   dayContainer: {
     width: dayWidth,
-    height: dayWidth, // Делаем контейнер квадратным
+    height: dayWidth, 
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
   },
   dayCell: {
     width: dayWidth * 0.8,
-    height: dayWidth * 0.8, // ИСПРАВЛЕНО: делаем квадратным для идеального круга
-    borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО: радиус = половина размера для круга
+    height: dayWidth * 0.8, 
+    borderRadius: (dayWidth * 0.8) / 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -145,7 +145,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
   },
   today: {
     backgroundColor: colors.primary + '50',
-    borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО: тоже круг
+    borderRadius: (dayWidth * 0.8) / 2, 
     borderWidth: 2,
     borderColor: colors.primary,
   },
@@ -155,15 +155,15 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
   },
   completeDay: {
     backgroundColor: colors.accent,
-    borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО
+    borderRadius: (dayWidth * 0.8) / 2, 
   },
   partialDay: {
     backgroundColor: colors.secondary,
-    borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО
+    borderRadius: (dayWidth * 0.8) / 2, 
   },
   snoozedDay: {
     backgroundColor: colors.primary,
-    borderRadius: (dayWidth * 0.8) / 2, // ИСПРАВЛЕНО
+    borderRadius: (dayWidth * 0.8) / 2, 
   },
   statusDayText: {
     color: '#FFFFFF',
