@@ -10,7 +10,7 @@ export function useMidnightReset(onMidnight: () => void) {
         lastDateRef.current = currentDate;
         onMidnight();
       }
-    }, 60000); // проверка каждую минуту
+    }, 60000); // check every minute
 
     return () => clearInterval(interval);
   }, [onMidnight]);
