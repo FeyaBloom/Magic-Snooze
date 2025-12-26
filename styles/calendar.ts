@@ -28,7 +28,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
 
   selectedDay: {
     backgroundColor: colors.primary,
-    borderRadius: (dayWidth * 0.8) / 2, // Делаем идеальный круг
+    borderRadius: (dayWidth * 0.8) / 2, 
   },
 
   selectedDayText: {
