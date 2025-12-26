@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 
 interface SurprisePromptsConfig {
-  probability?: number; // Вероятность появления (0-1)
-  intervalMinutes?: number; // Интервал проверки в минутах
+  probability?: number; 
+  intervalMinutes?: number; 
   enabled?: boolean;
 }
 
 export const useSurprisePrompts = (config: SurprisePromptsConfig = {}) => {
   const {
-    probability = 0.1, // 10% шанс
-    intervalMinutes = 5, // каждые 5 минут
+    probability = 0.1, 
+    intervalMinutes = 5, 
     enabled = true,
   } = config;
 
@@ -18,7 +18,7 @@ export const useSurprisePrompts = (config: SurprisePromptsConfig = {}) => {
   useEffect(() => {
     if (!enabled) return;
 
-    // Интервал для случайных подсказок
+    
     const promptInterval = setInterval(() => {
       if (Math.random() < probability && !showSurprisePrompt) {
         console.log('🎉 Showing surprise prompt!');
