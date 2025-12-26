@@ -28,7 +28,7 @@ export function useRoutinesBlock() {
     const progressData = await loadProgress(today);
     if (!progressData) return;
 
-    // ❗ Фикс бага: просто снимаем флаг, остальное сохраняем
+
     progressData.snoozed = false;
     await saveProgress(progressData);
   }, [loadProgress, saveProgress]);
