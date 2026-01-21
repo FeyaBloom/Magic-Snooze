@@ -9,13 +9,13 @@
     "confirm": "Confirma",
     "yes": "Sí",
     "no": "No",
-    "Sun": "Dg", 
-    "Mon": "Dl", 
-    "Tue": "Dt", 
-    "Wed": "Dc", 
-    "Thu": "Dj", 
-    "Fri": "Dv", 
-    "Sat": "Ds"
+    "Sun": "dg.", 
+    "Mon": "dl.", 
+    "Tue": "dt.", 
+    "Wed": "dc.", 
+    "Thu": "dj.", 
+    "Fri": "dv.", 
+    "Sat": "ds."
   },
   "today": {
     "title": "Bon dia, ànima bonica",
