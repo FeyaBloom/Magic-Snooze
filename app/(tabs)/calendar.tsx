@@ -46,6 +46,8 @@ export default function CalendarScreen() {
   const [progressData, setProgressData] = useState<Record<string, DailyProgress>>({});
   const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const [showDayDetails, setShowDayDetails] = useState(false);
+  const [victoriesData, setVictoriesData] = useState<Record<string, string[]>>({});
+  const [tasksData, setTasksData] = useState<any[]>([]);
   const styles = createCalendarStyles(colors);
 
   const loadProgressData = async () => {
@@ -55,17 +57,31 @@ export default function CalendarScreen() {
       const daysInMonth = new Date(year, month + 1, 0).getDate();
 
       const progress: Record<string, DailyProgress> = {};
+      const victories: Record<string, string[]> = {};
 
+      // Load progress and victories for each day of the month
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day);
         const dateString = getLocalDateString(date);
+        
         const dayProgress = await AsyncStorage.getItem(`progress_${dateString}`);
         if (dayProgress) {
           progress[dateString] = JSON.parse(dayProgress);
         }
+
+        const dayVictories = await AsyncStorage.getItem(`victories_${dateString}`);
+        if (dayVictories) {
+          victories[dateString] = JSON.parse(dayVictories);
+        }
       }
 
+      // Load tasks (global, will filter by date when needed)
+      const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
+      const tasks = tasksStr ? JSON.parse(tasksStr) : [];
+
       setProgressData(progress);
+      setVictoriesData(victories);
+      setTasksData(tasks);
     } catch (error) {
       console.error('Error loading progress data:', error);
     }
@@ -73,13 +89,46 @@ export default function CalendarScreen() {
 
   const getDayStatus = (dateString: string) => {
     const progress = progressData[dateString];
-    if (!progress) return 'none';
-    if (progress.snoozed) return 'snoozed';
-    const totalTasks = progress.morningTotal + progress.eveningTotal;
-    const completedTasks = progress.morningDone + progress.eveningDone;
-    if (completedTasks === 0) return 'none';
-    if (completedTasks === totalTasks) return 'complete';
-    return 'partial';
+    const hasRoutines = progress && !progress.snoozed;
+    
+    if (progress?.snoozed) return 'snoozed';
+
+    // Check routine completion
+    const routineActivity = (() => {
+      if (!progress) return 'none';
+      const totalTasks = progress.morningTotal + progress.eveningTotal;
+      const completedTasks = progress.morningDone + progress.eveningDone;
+      if (totalTasks === 0 || completedTasks === 0) return 'none';
+      if (completedTasks === totalTasks) return 'complete';
+      return 'partial';
+    })();
+
+    // Check victories activity
+    const hasVictories = victoriesData[dateString]?.length > 0;
+
+    // Check completed tasks - either with dueDate OR completedAt matching this day
+    const completedTasksThisDay = tasksData.filter(task => {
+      if (!task.completed) return false;
+      // Task completed with explicit dueDate for this day
+      if (task.dueDate === dateString) return true;
+      // Task completed (even without dueDate) and completedAt matches this day
+      if (task.completedAt === dateString) return true;
+      return false;
+    }).length;
+
+    // Determine final status based on all activity types
+    if (routineActivity !== 'none') {
+      // If routines have activity, use routine status
+      return routineActivity;
+    }
+
+    if (hasVictories || completedTasksThisDay > 0) {
+      // If no routine activity but has victories or completed tasks → partial
+      return 'partial';
+    }
+
+    // No activity of any kind
+    return 'none';
   };
 
   const customDayRenderer = (

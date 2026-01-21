@@ -18,6 +18,7 @@ interface Task {
   completed: boolean;
   dueDate?: string;
   createdAt: string;
+  completedAt?: string;
 }
 
 interface DayDetailsModalProps {
@@ -74,9 +75,14 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
       if (tasksData) {
         const allTasks: Task[] = JSON.parse(tasksData);
         const dayTasks = allTasks.filter(task => {
-          if (!task.dueDate) return false;
-          const taskDate = new Date(task.dueDate);
-          return getLocalDateString(taskDate) === dateString;
+          // Include tasks with matching dueDate
+          if (task.dueDate) {
+            const taskDate = new Date(task.dueDate);
+            if (getLocalDateString(taskDate) === dateString) return true;
+          }
+          // Include tasks completed on this day
+          if (task.completed && task.completedAt === dateString) return true;
+          return false;
         });
         setTasks(dayTasks);
       } else {

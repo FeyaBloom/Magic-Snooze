@@ -28,7 +28,7 @@ import { useTextStyles } from '@/hooks/useTextStyles';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
 import { useDailyProgress } from '@/hooks/useDailyProgress';
-import { useMidnightReset } from '@/hooks/useMidnightReset';
+import { useMidnightReset, type MidnightResetConfig } from '@/hooks/useMidnightReset';
 import { useRoutinesBlock } from '@/hooks/useRoutinesBlock';
 import { useVictories } from '@/hooks/useVictories';
 
@@ -49,7 +49,7 @@ export default function TodayScreen() {
   const { colors, currentTheme, setThemeManual, isMessyMode } = useTheme();
   
   const { progress: todayProgress, loadProgress, saveProgress, getLocalDateString } = useDailyProgress();
-  const { celebrateVictory } = useVictories();
+  const { celebrateVictory, resetVictories } = useVictories();
   const { snoozeDay: blockDay, unsnoozeDay: unblockDay } = useRoutinesBlock();
 
   // State
@@ -124,21 +124,22 @@ export default function TodayScreen() {
     }
   };
 
-  const resetDailyData = useCallback(async () => {
-    try {
-      const resetMorning = morningRoutine.map(step => ({ ...step, completed: false }));
+  // Midnight reset configuration
+  const midnightResetConfig: MidnightResetConfig = {
+    onResetMorningRoutine: async (resetMorning) => {
       setMorningRoutine(resetMorning);
       await AsyncStorage.setItem('morningRoutine', JSON.stringify(resetMorning));
-
-      const resetEvening = eveningRoutine.map(step => ({ ...step, completed: false }));
+    },
+    onResetEveningRoutine: async (resetEvening) => {
       setEveningRoutine(resetEvening);
       await AsyncStorage.setItem('eveningRoutine', JSON.stringify(resetEvening));
+    },
+    onResetVictories: resetVictories,
+    onResetSnooze: () => setIsSnoozed(false),
+  };
 
-      setIsSnoozed(false);
-    } catch (error) {
-      console.error('Error resetting daily data:', error);
-    }
-  }, [morningRoutine, eveningRoutine]);
+  // Register midnight reset
+  useMidnightReset(midnightResetConfig);
 
   const loadData = async () => {
     try {
@@ -326,8 +327,6 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
   };
 
   // Effects
-  useMidnightReset(resetDailyData);
-
   useEffect(() => {
     loadData();
     loadProgress();
