@@ -80,9 +80,9 @@
   },
   "stats": {
     "title": "Monthly Progress",
-    "complete": "Complete Days",
-    "partial": "Partial Days",
-    "snoozed": "Rest Days",
+    "complete": "Complete",
+    "partial": "Partial",
+    "snoozed": "Rest",
     "engagement": "Engagement",
     "weeklyStats": "Weekly Statistics",
     "morningRoutines": "Morning Routines",
@@ -98,9 +98,6 @@
       "mage": "Mage",
       "archmage": "Archmage"
     },
-    "perfect": "Perfect",
-    "partial": "Partial",
-    "rest": "Rest",
     "tasks": "Tasks",
     "victories": "Victories",
     "week": "Week",
@@ -229,7 +226,8 @@
     "dueDateOptional": "Due date (optional)",
     
     "deleteTitle": "Delete Task",
-    "deleteMessage": "Are you sure you want to delete this task?"
+    "deleteMessage": "Are you sure you want to delete this task?",
+    "planned": "Planned"
   },
 
 "languages": {

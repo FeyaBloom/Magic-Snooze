@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Plus, Edit, Trash2, Calendar, CalendarCheck, CheckCheck, ChartNoAxesCombined  } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getLocalDateString, formatDate } from '@/utils/dateUtils';
 
 // Components
 import { ScreenLayout } from '@/components/ScreenLayout';
@@ -76,13 +77,13 @@ export default function TasksScreen() {
         tasks = tasks.map((task: any) => {
           let updated = { ...task };
           
-          // Миграция: установить completedAt для старых выполненных задач без этого поля
+          // Migration: set completedAt for old completed tasks without this field
           if (task.completed && !task.completedAt) {
             needsSave = true;
             updated.completedAt = today;
           }
           
-          // Миграция: конвертировать dueDate из ISO формата в YYYY-MM-DD
+          // Migration: convert dueDate from ISO format to YYYY-MM-DD
           if (task.dueDate && task.dueDate.includes('T')) {
             needsSave = true;
             updated.dueDate = getLocalDateString(new Date(task.dueDate));
@@ -152,13 +153,6 @@ export default function TasksScreen() {
     setShowEditCalendar(false);
   };
 
-  const getLocalDateString = (date: Date = new Date()) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
-
   const toggleTask = async (taskId: string) => {
     const updatedTasks = tasks.map(task => {
       if (task.id === taskId) {
@@ -189,14 +183,6 @@ export default function TasksScreen() {
     });
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(i18n.language, {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  };
 
   const isOverdue = (dueDate: string) => {
     const today = new Date();
@@ -297,7 +283,7 @@ export default function TasksScreen() {
                               !task.completed && isDueToday(task.dueDate) && styles.dueToday
                             ]}
                           >
-                            {formatDate(task.dueDate)}
+                            {formatDate(task.dueDate, i18n.language)}
                           </Text>
                         </View>
                       )}
@@ -348,7 +334,7 @@ export default function TasksScreen() {
                         <View style={styles.dueDateContainer}>
                           <Calendar size={12} color={colors.textSecondary} />
                           <Text style={[textStyles.caption, { color: colors.textSecondary, opacity: 0.6 }]}>
-                            {formatDate(task.dueDate)}
+                            {formatDate(task.dueDate, i18n.language)}
                           </Text>
                         </View>
                       )}
@@ -397,7 +383,7 @@ export default function TasksScreen() {
             />
             <TouchableOpacity onPress={() => setShowCalendar(v => !v)}>
               <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 30 }]}>
-                {newTaskDueDate ? `📅 ${formatDate(newTaskDueDate)}` : t('tasks.dueDateOptional')}
+                {newTaskDueDate ? `📅 ${formatDate(newTaskDueDate, i18n.language)}` : t('tasks.dueDateOptional')}
               </Text>
             </TouchableOpacity>
 
@@ -469,7 +455,7 @@ export default function TasksScreen() {
             />
             <TouchableOpacity onPress={() => setShowEditCalendar(v => !v)}>
               <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 30 }]}>
-                {newTaskDueDate ? `📅 ${formatDate(newTaskDueDate)}` : t('tasks.dueDateOptional')}
+                {newTaskDueDate ? `📅 ${formatDate(newTaskDueDate, i18n.language)}` : t('tasks.dueDateOptional')}
               </Text>
             </TouchableOpacity>
 

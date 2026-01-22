@@ -34,8 +34,6 @@ export function useMidnightReset(config: MidnightResetConfig) {
 
       // Reset snooze status
       config.onResetSnooze();
-
-      console.log('[Midnight Reset] All daily data has been reset');
     } catch (error) {
       console.error('[Midnight Reset] Error during reset:', error);
     }

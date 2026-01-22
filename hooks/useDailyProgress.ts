@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { DeviceEventEmitter } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getLocalDateString } from '@/utils/dateUtils';
 
 export interface DailyProgress {
   date: string;
@@ -16,24 +17,14 @@ export interface DailyProgress {
   eveningRoutines?: { text: string; completed: boolean }[];
 }
 
-const getLocalDateString = (date: Date = new Date()) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
-
 export function useDailyProgress() {
   const [progress, setProgress] = useState<DailyProgress | null>(null);
 
   // listen to data reset
   useEffect(() => {
     const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
-      console.log('useDailyProgress received data reset event:', data);
-      
       // check routines progress
       if (data.categories.includes('progress')) {
-        console.log('Resetting daily progress state...');
         // clean progress state
         setProgress(null);
       }
@@ -89,7 +80,6 @@ export function useDailyProgress() {
 
   // forced progress reset
   const refreshProgress = useCallback(async (date: Date = new Date()) => {
-    console.log('Refreshing daily progress...');
     return await loadProgress(date);
   }, [loadProgress]);
 

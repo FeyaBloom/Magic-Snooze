@@ -1,30 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getLocalDateString, getPreviousDay, getNextDay } from '@/utils/dateUtils';
 
 export interface StreakData {
   currentStreak: number;
   longestStreak: number;
   lastActiveDate: string | null;
 }
-
-const getLocalDateString = (date: Date = new Date()) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
-
-const getPreviousDay = (dateStr: string) => {
-  const date = new Date(dateStr);
-  date.setDate(date.getDate() - 1);
-  return getLocalDateString(date);
-};
-
-const getNextDay = (dateStr: string) => {
-  const date = new Date(dateStr);
-  date.setDate(date.getDate() + 1);
-  return getLocalDateString(date);
-};
 
 export function useStreak() {
   const [streak, setStreak] = useState<StreakData>({

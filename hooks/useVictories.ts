@@ -1,16 +1,9 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getLocalDateString } from '@/utils/dateUtils';
 
 export const useVictories = () => {
   const [celebratedVictories, setCelebratedVictories] = useState<string[]>([]);
-
-  const getLocalDateString = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
 
   const loadCelebratedVictories = async () => {
     try {

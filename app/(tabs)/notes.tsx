@@ -15,6 +15,7 @@ import {
 import { Plus, Edit, Trash2, Search, BookOpen } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as NavigationBar from 'expo-navigation-bar';
+import { formatDate } from '@/utils/dateUtils';
 
 // Components
 import { ScreenLayout } from '@/components/ScreenLayout';
@@ -147,17 +148,6 @@ export default function NotesScreen() {
     });
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(i18n.language, {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
-
   const openNote = (note: Note) => {
     setViewingNote(note);
     setShowViewModal(true);
@@ -262,7 +252,7 @@ export default function NotesScreen() {
                   </Text>
                   <View style={styles.noteFooter}>
                     <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                      {formatDate(note.updatedAt)}
+                      {formatDate(note.updatedAt, i18n.language)}
                     </Text>
                     <TouchableOpacity
                       onPress={(e) => {
@@ -453,7 +443,7 @@ export default function NotesScreen() {
               </TouchableOpacity>
             </View>
             <Text style={[textStyles.caption, { color: colors.textSecondary, marginBottom: 16 }]}>
-              {viewingNote && formatDate(viewingNote.updatedAt)}
+              {viewingNote && formatDate(viewingNote.updatedAt, i18n.language)}
             </Text>
             <ScrollView
               style={styles.viewScroll}

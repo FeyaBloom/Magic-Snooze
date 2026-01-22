@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getLocalDateString } from '@/utils/dateUtils';
 import { DailyProgress } from './useDailyProgress';
 
 export interface WeeklyStats {
@@ -16,13 +17,6 @@ export interface WeeklyStats {
   totalDays: number; // Total days with any activity
   tasksCompleted: number; // Total completed tasks in the week
 }
-
-const getLocalDateString = (date: Date = new Date()) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
 
 const getWeeksInMonth = (date: Date) => {
   const year = date.getFullYear();
@@ -67,7 +61,6 @@ export function useWeeklyStats() {
   const calculateWeeklyStats = useCallback(async (date: Date = new Date()) => {
     try {
       const weeks = getWeeksInMonth(date);
-      console.log(`[useWeeklyStats] Calculating for date: ${date.toISOString()}, weeks count: ${weeks.length}`);
       const stats: WeeklyStats[] = [];
 
       // Загрузить все задачи для подсчета
@@ -155,11 +148,8 @@ export function useWeeklyStats() {
           totalDays: totalDaysInWeek,
           tasksCompleted,
         });
-
-        console.log(`[useWeeklyStats] Week ${weekIdx + 1}: ${startDate} - ${endDate}, days: ${totalDaysInWeek}, morning: ${morningFullDays}, evening: ${eveningFullDays}`);
       }
 
-      console.log(`[useWeeklyStats] Total stats returned: ${stats.length}`);
       setWeeklyStats(stats);
       return stats;
     } catch (error) {

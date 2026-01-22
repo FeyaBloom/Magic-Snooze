@@ -96,11 +96,7 @@ export default function SettingsScreen() {
             </TouchableOpacity>
 
           <ResetDataComponent />
-
-
           </View>
-
-
 
           {/* Contact & Support */}
           <View style={styles.section}>
@@ -169,10 +165,6 @@ export default function SettingsScreen() {
           </View>
 
           */}
-
-
-
-
         </ContentContainer>
       </ScrollView>
     </ScreenLayout>

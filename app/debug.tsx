@@ -28,7 +28,6 @@ export default function DebugScreen() {
       }
 
       setStorageData(allData);
-      console.log('Debug Storage Data:', allData);
     } catch (error) {
       console.error('Error loading storage data:', error);
     } finally {

@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getLocalDateString } from '@/utils/dateUtils';
 import { DailyProgress } from './useDailyProgress';
 
 export interface MagicLevel {
@@ -15,16 +16,9 @@ export interface MonthlyStats {
   engagementPercentage: number;
   magicLevel: MagicLevel;
   totalVictories: number;
-  morningCompletionRate: number; // % дней с полным выполнением утра
-  eveningCompletionRate: number; // % дней с полным выполнением вечера
+  morningCompletionRate: number; // % of days with full morning completion
+  eveningCompletionRate: number; // % of days with full evening completion
 }
-
-const getLocalDateString = (date: Date = new Date()) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
 
 const getMagicLevel = (percentage: number): MagicLevel => {
   if (percentage >= 75) {
@@ -65,7 +59,7 @@ export function useMonthlyStats() {
       const month = date.getMonth();
       const daysInMonth = getDaysInMonth(date);
 
-      // Подгружаем одноразовые задачи один раз за расчет
+      // Load one-time tasks once per calculation
       const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
       let tasks = tasksStr ? JSON.parse(tasksStr) : [];
       tasks = tasks.map((task: any) => {
@@ -83,12 +77,12 @@ export function useMonthlyStats() {
       let eveningFullDays = 0;
       const daysWithData: string[] = [];
 
-      // Проверить каждый день месяца
+      // Check each day of the month
       for (let day = 1; day <= daysInMonth; day++) {
-        const dayDate = new Date(year, month, day);
-        const dateStr = getLocalDateString(dayDate);
+        const date = new Date(year, month, day);
+        const dateString = getLocalDateString(date);
 
-        // Загрузить прогресс дня
+        // Load day progress
         const progressKey = `progress_${dateStr}`;
         const progressData = await AsyncStorage.getItem(progressKey);
 

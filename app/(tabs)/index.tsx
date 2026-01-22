@@ -15,6 +15,7 @@ import {
 import { useRouter } from 'expo-router';
 import { Plus, Edit, Trash2, Coffee, Moon, Pause, Sparkles, Trophy } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getLocalDateString } from '@/utils/dateUtils';
 
 // Components
 import { ScreenLayout } from '@/components/ScreenLayout';
@@ -573,8 +574,6 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               </Text>
             </TouchableOpacity>
           )}
-
-
 
           {/* Routines */}
           {renderRoutineSection(

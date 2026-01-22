@@ -97,7 +97,7 @@ export function StatsDashboard({
             {completeDays}
           </Text>
           <Text style={[textStyles.caption, { color: colors.secondary, marginTop: 2 }]}>
-            {t('calendar.stats.perfect')}
+            {t('calendar.stats.complete')}
           </Text>
         </View>
 
@@ -117,7 +117,7 @@ export function StatsDashboard({
             {snoozedDays}
           </Text>
           <Text style={[textStyles.caption, { color: colors.secondary, marginTop: 2 }]}>
-            {t('calendar.stats.rest')}
+            {t('calendar.stats.snoozed')}
           </Text>
         </View>
       </View>

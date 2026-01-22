@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, ScrollView, DeviceEventEmitter, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-//import { Trophy } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getLocalDateString } from '@/utils/dateUtils';
 
 // Components
 import { ScreenLayout } from '@/components/ScreenLayout';
@@ -37,14 +37,6 @@ interface DailyProgress {
   snoozed: boolean;
 }
 
-const getLocalDateString = (date: Date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
-
-
 export default function CalendarScreen() {
   const { t } = useTranslation();
   const textStyles = useTextStyles();
@@ -76,7 +68,7 @@ export default function CalendarScreen() {
       const weekEnd = new Date(currentWeekStart);
       weekEnd.setDate(weekEnd.getDate() + 6);
 
-      // Проверить, находится ли сегодня в этой неделе
+      // Check if today is in this week
       if (now >= currentWeekStart && now <= weekEnd) {
         return weekIdx;
       }
@@ -112,8 +104,6 @@ export default function CalendarScreen() {
       const month = currentMonth.getMonth();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-      console.log(`[Calendar] Loading progress for ${year}-${month + 1}`);
-
       const progress: Record<string, DailyProgress> = {};
       const victories: Record<string, string[]> = {};
 
@@ -137,7 +127,7 @@ export default function CalendarScreen() {
       const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
       let tasks = tasksStr ? JSON.parse(tasksStr) : [];
 
-      // Миграция: конвертировать dueDate из ISO формата в YYYY-MM-DD
+      // Migration: convert dueDate from ISO format to YYYY-MM-DD
       tasks = tasks.map((task: any) => {
         if (task.dueDate && task.dueDate.includes('T')) {
           return { ...task, dueDate: getLocalDateString(new Date(task.dueDate)) };
@@ -148,8 +138,6 @@ export default function CalendarScreen() {
       setProgressData(progress);
       setVictoriesData(victories);
       setTasksData(tasks);
-
-      console.log(`[Calendar] Progress days found: ${Object.keys(progress).length}`);
 
       // Update monthly and weekly stats
       await calculateMonthlyStats(currentMonth);

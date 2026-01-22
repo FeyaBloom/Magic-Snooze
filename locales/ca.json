@@ -80,9 +80,9 @@
     },
     "stats": {
       "title": "Progrés mensual",
-      "complete": "Dies complets",
-      "partial": "Dies parcials",
-      "snoozed": "Dies de descans",
+      "complete": "Complets",
+      "partial": "Parcials",
+      "snoozed": "Descans",
       "engagement": "Participació",
       "weeklyStats": "Estadístiques setmanals",
       "morningRoutines": "Rutines matinals",
@@ -98,9 +98,6 @@
         "mage": "Mag",
         "archmage": "Arximag"
       },
-      "perfect": "Perfecte",
-      "partial": "Parcial",
-      "rest": "Descans",
       "tasks": "Tasques",
       "victories": "Victòries",
       "week": "Setmana",
@@ -226,7 +223,8 @@
     "inputPlaceholder": "Què vols aconseguir?",
     "dueDateOptional": "Data límit (opcional)",
     "deleteTitle": "Elimina tasca",
-    "deleteMessage": "Segur que vols eliminar aquesta tasca?"
+    "deleteMessage": "Segur que vols eliminar aquesta tasca?",
+    "planned": "Planificada"
   },
   "languages": {
     "en": { "name": "Anglès", "native": "English", "flag": "🇺🇸" },

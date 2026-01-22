@@ -139,7 +139,8 @@
   "inputPlaceholder": "¿Qué te gustaría lograr?",
   "dueDateOptional": "Fecha límite (opcional)",
   "deleteTitle": "Eliminar tarea",
-  "deleteMessage": "¿Estás seguro de que quieres eliminar esta tarea?"
+  "deleteMessage": "¿Estás seguro de que quieres eliminar esta tarea?",
+  "planned": "Planificada"
 },
 
 "calendar": {
@@ -154,9 +155,8 @@
   },
   "stats": {
     "title": "Progreso mensual",
-    "complete": "Días completos",
-    "partial": "Días parciales",
-    "snoozed": "Días de descanso",
+    "complete": "Completado",
+    "snoozed": "Descanso",
     "engagement": "Participación",
     "weeklyStats": "Estadísticas semanales",
     "morningRoutines": "Rutinas matutinas",
@@ -172,9 +172,7 @@
         "mage": "Mago",
         "archmage": "Archimago"
       },
-    "perfect": "Perfecto",
     "partial": "Parcial",
-    "rest": "Descanso",
     "tasks": "Tareas",
     "victories": "Victorias",
     "week": "Semana",

@@ -21,7 +21,6 @@ export const useSurprisePrompts = (config: SurprisePromptsConfig = {}) => {
     
     const promptInterval = setInterval(() => {
       if (Math.random() < probability && !showSurprisePrompt) {
-        console.log('🎉 Showing surprise prompt!');
         setShowSurprisePrompt(true);
       }
     }, intervalMinutes * 60 * 1000);

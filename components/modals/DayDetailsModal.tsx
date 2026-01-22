@@ -11,6 +11,7 @@ import { X, Coffee, Moon, CheckCircle, Circle, Calendar as CalendarIcon } from '
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
+import { getLocalDateString, formatDate } from '@/utils/dateUtils';
 
 interface Task {
   id: string;
@@ -26,13 +27,6 @@ interface DayDetailsModalProps {
   date: Date | null;
   onClose: () => void;
 }
-
-const getLocalDateString = (date: Date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
 
 export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps) {
   const { colors } = useTheme();
@@ -92,14 +86,6 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
     }
   };
 
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString(i18n.language, {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  };
 
   if (!date) return null;
 
@@ -226,12 +212,12 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
                         <View style={{ marginTop: 4, marginLeft: 24 }}>
                           {task.completedAt && task.dueDate !== task.completedAt && (
                             <Text style={[styles.taskDateInfo, { color: colors.secondary }]}>
-                              Запланирована: {new Date(task.dueDate).toLocaleDateString()} | Выполнена: {new Date(task.completedAt).toLocaleDateString()}
+                              {t('tasks.planned')}: {new Date(task.dueDate).toLocaleDateString()} | {t('tasks.completed')}: {new Date(task.completedAt).toLocaleDateString()}
                             </Text>
                           )}
                           {(!task.completedAt || task.dueDate === task.completedAt) && (
                             <Text style={[styles.taskDateInfo, { color: colors.secondary }]}>
-                              {task.completed ? 'Выполнена' : 'Запланирована'}: {new Date(task.dueDate).toLocaleDateString()}
+                              {task.completed ? t('tasks.completed') : t('tasks.planned')}: {new Date(task.dueDate).toLocaleDateString()}
                             </Text>
                           )}
                         </View>

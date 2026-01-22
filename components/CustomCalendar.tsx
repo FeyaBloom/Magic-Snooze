@@ -9,7 +9,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles, calculateDayWidth } from '@/styles/calendar';
 import { useTranslation } from 'react-i18next';
-
+import { getLocalDateString } from '@/utils/dateUtils';
 
 const LeftArrow = ({ color }: { color: string }) =>
   Platform.OS === 'web'
@@ -20,8 +20,6 @@ const RightArrow = ({ color }: { color: string }) =>
   Platform.OS === 'web'
     ? <Text style={{ fontSize: 24, color, lineHeight: 38 }}>{'\u203A'}</Text>
     : <ChevronRight size={24} color={color} />;
-
-
 
 interface CalendarProps {
   // for the date choosing (modal)
@@ -47,13 +45,6 @@ interface CalendarProps {
   containerWidth?: number;
   maxWidth?: number; 
 }
-
-const getLocalDateString = (date: Date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
 
 export default function Calendar({
   selectedDate,
