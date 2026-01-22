@@ -157,7 +157,77 @@
     "complete": "Días completos",
     "partial": "Días parciales",
     "snoozed": "Días de descanso",
-    "engagement": "Participación"
+    "engagement": "Participación",
+    "weeklyStats": "Estadísticas semanales",
+    "morningRoutines": "Rutinas matutinas",
+    "eveningRoutines": "Rutinas nocturnas",
+    "currentStreak": "Racha actual",
+    "monthMaxStreak": "Racha máx del mes",
+    "record": "Récord",
+    "days": "días",
+    "level": "Nivel",
+      "levels": {
+        "novice": "Principiante",
+        "apprentice": "Aprendiz",
+        "mage": "Mago",
+        "archmage": "Archimago"
+      },
+    "perfect": "Perfecto",
+    "partial": "Parcial",
+    "rest": "Descanso",
+    "tasks": "Tareas",
+    "victories": "Victorias",
+    "week": "Semana",
+    "morning": "Mañana",
+    "evening": "Noche",
+    "motivations": {
+      "cosmic": "¡Simplemente cósmico! 🚀",
+      "excellent": "¡Excelente trabajo! ✨",
+      "good": "¡Buen comienzo! 💪",
+      "keep": "¡No te rindas! 🌱",
+      "believe": "¡Tú puedes! 💜"
+    },
+    "status": {
+      "excellent": "¡Semana genial! 🌟",
+      "good": "En proceso 💪",
+      "needsSupport": "Necesita apoyo 🤗"
+    },
+    "achievements": "Logros",
+    "topVictories": "Top-3 Victorias"
+  },
+  "achievements": {
+    "firstStep": {
+      "name": "Primer Paso",
+      "description": "Completa al menos 1 día"
+    },
+    "weekWarrior": {
+      "name": "Guerrero Semanal",
+      "description": "7 días seguidos"
+    },
+    "monthMaster": {
+      "name": "Maestro del Mes",
+      "description": "30 días perfectos"
+    },
+    "magicCollector": {
+      "name": "Coleccionista de Magia",
+      "description": "50 pequeñas victorias"
+    },
+    "unstoppable": {
+      "name": "Imparable",
+      "description": "14 días seguidos"
+    },
+    "legend": {
+      "name": "Leyenda",
+      "description": "100 días perfectos"
+    },
+    "recordHolder": {
+      "name": "Récord",
+      "description": "Racha de 30 días"
+    },
+    "victoryCollector": {
+      "name": "Coleccionista de Victorias",
+      "description": "100 pequeñas victorias"
+    }
   }
 },
 

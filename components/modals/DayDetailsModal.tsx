@@ -75,13 +75,12 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
       if (tasksData) {
         const allTasks: Task[] = JSON.parse(tasksData);
         const dayTasks = allTasks.filter(task => {
-          // Include tasks with matching dueDate
-          if (task.dueDate) {
-            const taskDate = new Date(task.dueDate);
-            if (getLocalDateString(taskDate) === dateString) return true;
-          }
-          // Include tasks completed on this day
-          if (task.completed && task.completedAt === dateString) return true;
+          // Show tasks with matching dueDate (regardless of completion)
+          if (task.dueDate && getLocalDateString(new Date(task.dueDate)) === dateString) return true;
+          // Or tasks completed on this day (if no dueDate or not matching)
+          if (!task.dueDate && task.completed && task.completedAt === dateString) return true;
+          // Also show if completed on this day but has different dueDate
+          if (task.completed && task.completedAt === dateString && task.dueDate && getLocalDateString(new Date(task.dueDate)) !== dateString) return true;
           return false;
         });
         setTasks(dayTasks);
@@ -143,28 +142,18 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
             )}
 
             {/* Morning Routines */}
-            {progress && progress.morningRoutines && progress.morningRoutines.length > 0 && (
+            {progress && progress.morningRoutines && progress.morningRoutines.filter((r: any) => r.completed).length > 0 && (
               <View style={styles.section}>
                 <View style={styles.sectionHeader}>
                   <Coffee size={20} color="#F59E0B" />
                   <Text style={[styles.sectionTitle, { color: colors.text }]}>
-                    {t('today.morningRoutine')} ({progress.morningDone}/{progress.morningTotal})
+                    {t('today.morningRoutine')}
                   </Text>
                 </View>
-                {progress.morningRoutines.map((routine: any, index: number) => (
+                {progress.morningRoutines.filter((r: any) => r.completed).map((routine: any, index: number) => (
                   <View key={index} style={styles.listItem}>
-                    {routine.completed ? (
-                      <CheckCircle size={16} color={colors.primary} />
-                    ) : (
-                      <Circle size={16} color={colors.textSecondary} />
-                    )}
-                    <Text
-                      style={[
-                        styles.listItemText,
-                        { color: colors.text },
-                        routine.completed && styles.completedText,
-                      ]}
-                    >
+                    <CheckCircle size={16} color={colors.primary} />
+                    <Text style={[styles.listItemText, { color: colors.text }]}>
                       {routine.text}
                     </Text>
                   </View>
@@ -173,28 +162,18 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
             )}
 
             {/* Evening Routines */}
-            {progress && progress.eveningRoutines && progress.eveningRoutines.length > 0 && (
+            {progress && progress.eveningRoutines && progress.eveningRoutines.filter((r: any) => r.completed).length > 0 && (
               <View style={styles.section}>
                 <View style={styles.sectionHeader}>
                   <Moon size={20} color="#8B5CF6" />
                   <Text style={[styles.sectionTitle, { color: colors.text }]}>
-                    {t('today.eveningRoutine')} ({progress.eveningDone}/{progress.eveningTotal})
+                    {t('today.eveningRoutine')}
                   </Text>
                 </View>
-                {progress.eveningRoutines.map((routine: any, index: number) => (
+                {progress.eveningRoutines.filter((r: any) => r.completed).map((routine: any, index: number) => (
                   <View key={index} style={styles.listItem}>
-                    {routine.completed ? (
-                      <CheckCircle size={16} color={colors.primary} />
-                    ) : (
-                      <Circle size={16} color={colors.textSecondary} />
-                    )}
-                    <Text
-                      style={[
-                        styles.listItemText,
-                        { color: colors.text },
-                        routine.completed && styles.completedText,
-                      ]}
-                    >
+                    <CheckCircle size={16} color={colors.primary} />
+                    <Text style={[styles.listItemText, { color: colors.text }]}>
                       {routine.text}
                     </Text>
                   </View>
@@ -225,20 +204,39 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
                 </View>
                 {tasks.map((task) => (
                   <View key={task.id} style={styles.listItem}>
-                    {task.completed ? (
-                      <CheckCircle size={16} color={colors.primary} />
-                    ) : (
-                      <Circle size={16} color={colors.textSecondary} />
-                    )}
-                    <Text
-                      style={[
-                        styles.listItemText,
-                        { color: colors.text },
-                        task.completed && styles.completedText,
-                      ]}
-                    >
-                      {task.text}
-                    </Text>
+                    <View style={{ flex: 1 }}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        {task.completed ? (
+                          <CheckCircle size={16} color={colors.primary} />
+                        ) : (
+                          <Circle size={16} color={colors.textSecondary} />
+                        )}
+                        <Text
+                          style={[
+                            styles.listItemText,
+                            { color: colors.text, marginLeft: 8 },
+                            task.completed && styles.completedText,
+                          ]}
+                        >
+                          {task.text}
+                        </Text>
+                      </View>
+                      {/* Show dates info if available */}
+                      {task.dueDate && (
+                        <View style={{ marginTop: 4, marginLeft: 24 }}>
+                          {task.completedAt && task.dueDate !== task.completedAt && (
+                            <Text style={[styles.taskDateInfo, { color: colors.secondary }]}>
+                              Запланирована: {new Date(task.dueDate).toLocaleDateString()} | Выполнена: {new Date(task.completedAt).toLocaleDateString()}
+                            </Text>
+                          )}
+                          {(!task.completedAt || task.dueDate === task.completedAt) && (
+                            <Text style={[styles.taskDateInfo, { color: colors.secondary }]}>
+                              {task.completed ? 'Выполнена' : 'Запланирована'}: {new Date(task.dueDate).toLocaleDateString()}
+                            </Text>
+                          )}
+                        </View>
+                      )}
+                    </View>
                   </View>
                 ))}
               </View>
@@ -342,6 +340,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     flex: 1,
     lineHeight: 20,
+  },
+  taskDateInfo: {
+    fontSize: 12,
+    fontStyle: 'italic',
   },
   completedText: {
     textDecorationLine: 'line-through',

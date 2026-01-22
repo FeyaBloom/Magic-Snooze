@@ -31,6 +31,7 @@ import { useDailyProgress } from '@/hooks/useDailyProgress';
 import { useMidnightReset, type MidnightResetConfig } from '@/hooks/useMidnightReset';
 import { useRoutinesBlock } from '@/hooks/useRoutinesBlock';
 import { useVictories } from '@/hooks/useVictories';
+import { useStreak } from '@/hooks/useStreak';
 
 // Styles
 import { createTodayStyles } from '@/styles/index';
@@ -51,6 +52,7 @@ export default function TodayScreen() {
   const { progress: todayProgress, loadProgress, saveProgress, getLocalDateString } = useDailyProgress();
   const { celebrateVictory, resetVictories } = useVictories();
   const { snoozeDay: blockDay, unsnoozeDay: unblockDay } = useRoutinesBlock();
+  const { updateStreak } = useStreak();
 
   // State
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
@@ -220,6 +222,13 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
     };
 
     await saveProgress(progressData);
+
+    // Update streak based on whether day has any activity
+    // Pass true - updateStreak will check all sources (routines, tasks, victories)
+    await updateStreak(true);
+
+    // Notify calendar to refresh stats
+    DeviceEventEmitter.emit('progressChanged', { timestamp: Date.now() });
   } catch (error) {
     console.error('Error saving progress:', error);
   }

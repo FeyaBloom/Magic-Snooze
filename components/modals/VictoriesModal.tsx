@@ -111,7 +111,7 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
 
         {/* Confetti */}
         {showConfetti && (
-          <View style={styles.confettiContainer} pointerEvents="none">
+          <View style={[styles.confettiContainer, { pointerEvents: 'none' }]}>
             <LottieView
               source={ConfettiJSON}
               autoPlay

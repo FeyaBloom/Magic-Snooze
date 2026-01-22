@@ -71,6 +71,8 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   },
   addButton: {
     padding: 8,
+    borderRadius: 20,
+    backgroundColor: colors.primary + '30',
   },
   stepContainer: {
     flexDirection: 'row',

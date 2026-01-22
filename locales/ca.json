@@ -19,7 +19,7 @@
   },
   "today": {
     "title": "Bon dia, ànima bonica",
-    "subtitle": "Pas a pas",
+    "subtitle": "Ves pas a pas",
     "subtitleSnoozed": "Avui et prens un descans suau",
     "snoozeToday": "Posa en pausa avui",
     "resumeToday": "Continua avui",
@@ -83,7 +83,77 @@
       "complete": "Dies complets",
       "partial": "Dies parcials",
       "snoozed": "Dies de descans",
-      "engagement": "Participació"
+      "engagement": "Participació",
+      "weeklyStats": "Estadístiques setmanals",
+      "morningRoutines": "Rutines matinals",
+      "eveningRoutines": "Rutines nocturnes",
+      "currentStreak": "Ratxa actual",
+      "monthMaxStreak": "Ratxa màx del mes",
+      "record": "Rècord",
+      "days": "dies",
+      "level": "Nivell",
+      "levels": {
+        "novice": "Principiant",
+        "apprentice": "Aprenent",
+        "mage": "Mag",
+        "archmage": "Arximag"
+      },
+      "perfect": "Perfecte",
+      "partial": "Parcial",
+      "rest": "Descans",
+      "tasks": "Tasques",
+      "victories": "Victòries",
+      "week": "Setmana",
+      "morning": "Matí",
+      "evening": "Vespre",
+      "motivations": {
+        "cosmic": "Simplement còsmic! 🚀",
+        "excellent": "Excel·lent feina! ✨",
+        "good": "Bon començament! 💪",
+        "keep": "No et rendeixis! 🌱",
+        "believe": "Tu pots! 💜"
+      },
+        "status": {
+          "excellent": "Setmana genial! 🌟",
+          "good": "En procés 💪",
+          "needsSupport": "Cal suport 🤗"
+        },
+      "achievements": "Assoliments",
+      "topVictories": "Top-3 Victòries"
+    },
+    "achievements": {
+      "firstStep": {
+        "name": "Primer Pas",
+        "description": "Completa almenys 1 dia"
+      },
+      "weekWarrior": {
+        "name": "Guerrer Setmanal",
+        "description": "7 dies seguits"
+      },
+      "monthMaster": {
+        "name": "Mestre del Mes",
+        "description": "30 dies perfectes"
+      },
+      "magicCollector": {
+        "name": "Col·leccionista de Màgia",
+        "description": "50 petites victòries"
+      },
+      "unstoppable": {
+        "name": "Imparable",
+        "description": "14 dies seguits"
+      },
+      "legend": {
+        "name": "Llegenda",
+        "description": "100 dies perfectes"
+      },
+      "recordHolder": {
+        "name": "Rècord",
+        "description": "Ratxa de 30 dies"
+      },
+      "victoryCollector": {
+        "name": "Col·leccionista de Victòries",
+        "description": "100 petites victòries"
+      }
     }
   },
   "notes": {
@@ -172,7 +242,7 @@
     "tasks": "Tasques",
     "calendar": "Calendari",
     "notes": "Notes",
-    "settings": "⚙ Configuració"
+    "settings": "⚙ Ajustos "
   },
   "reset": {
     "button": "Reinicia dades",

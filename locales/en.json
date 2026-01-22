@@ -83,7 +83,77 @@
     "complete": "Complete Days",
     "partial": "Partial Days",
     "snoozed": "Rest Days",
-    "engagement": "Engagement"
+    "engagement": "Engagement",
+    "weeklyStats": "Weekly Statistics",
+    "morningRoutines": "Morning Routines",
+    "eveningRoutines": "Evening Routines",
+    "currentStreak": "Current Streak",
+    "monthMaxStreak": "Max Streak for Month",
+    "record": "Record",
+    "days": "days",
+    "level": "Level",
+    "levels": {
+      "novice": "Novice",
+      "apprentice": "Apprentice",
+      "mage": "Mage",
+      "archmage": "Archmage"
+    },
+    "perfect": "Perfect",
+    "partial": "Partial",
+    "rest": "Rest",
+    "tasks": "Tasks",
+    "victories": "Victories",
+    "week": "Week",
+    "morning": "Morning",
+    "evening": "Evening",
+    "motivations": {
+      "cosmic": "Simply cosmic! 🚀",
+      "excellent": "Excellent work! ✨",
+      "good": "Good start! 💪",
+      "keep": "Keep going! 🌱",
+      "believe": "You can do it! 💜"
+    },
+    "status": {
+      "excellent": "Great week! 🌟",
+      "good": "In progress 💪",
+      "needsSupport": "Needs support 🤗"
+    },
+    "achievements": "Achievements",
+    "topVictories": "Top-3 Victories"
+  },
+  "achievements": {
+    "firstStep": {
+      "name": "First Step",
+      "description": "Complete at least 1 day"
+    },
+    "weekWarrior": {
+      "name": "Week Warrior",
+      "description": "7 days in a row"
+    },
+    "monthMaster": {
+      "name": "Month Master",
+      "description": "30 perfect days"
+    },
+    "magicCollector": {
+      "name": "Magic Collector",
+      "description": "50 tiny victories"
+    },
+    "unstoppable": {
+      "name": "Unstoppable",
+      "description": "14 days in a row"
+    },
+    "legend": {
+      "name": "Legend",
+      "description": "100 perfect days"
+    },
+    "recordHolder": {
+      "name": "Record Holder",
+      "description": "30 day streak"
+    },
+    "victoryCollector": {
+      "name": "Victory Collector",
+      "description": "100 tiny victories"
+    }
   }
   },
 

@@ -179,65 +179,6 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
   statusEmoji: {
     fontSize: 12,
   },
-  legendContainer: {
-    backgroundColor: colors.surface,
-    marginBottom: 20,
-    borderRadius: 16,    
-    padding: 20,
-    paddingLeft: 30,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 3,
-    opacity: 0.75,
-    justifyContent: 'center',
-
-  },
-  legendTitle: {
-    fontSize: 20,
-    color: colors.text,
-    marginBottom: 16,
-    textAlign: 'center',
-    fontFamily: 'CabinSketch-Regular',
-  },
-  legendGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-
-  },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '49%',
-    marginBottom: 12,
-
-  },
-  legendDot: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    marginHorizontal: 8,
-  },
-  completeLegend: {
-    backgroundColor: colors.accent,
-  },
-  partialLegend: {
-    backgroundColor: colors.secondary,
-  },
-  snoozedLegend: {
-    backgroundColor: colors.primary,
-  },
-  noneLegend: {
-    backgroundColor: '#E5E7EB',
-  },
-  legendText: {
-    fontSize: 13,
-    color: colors.text,
-    flex: 1,
-    fontFamily: 'ComicNeue-Regular',
-  },
   statsContainer: {
     backgroundColor: colors.surface,
     marginBottom: 20,
@@ -278,5 +219,83 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     color: colors.textSecondary,
     textAlign: 'center',
     fontFamily: 'ComicNeue-Regular',
+  },
+
+  // Базовый стиль для всех карточек (card container)
+  card: {
+    backgroundColor: colors.surface,
+    borderRadius: 16,
+    padding: 16,
+    shadowColor: colors.secondary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    elevation: 3,
+    opacity: 0.85,
+    marginVertical: 14,
+  },
+
+  // Компактная карточка (меньше padding, для статов)
+  compactCard: {
+    backgroundColor: colors.surface,
+    borderRadius: 12,
+    padding: 12,
+    shadowColor: colors.secondary,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 2,
+    opacity: 0.85,
+  },
+
+  // Карточка для строк в списках
+  rowCard: {
+    backgroundColor: colors.surface,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+    shadowColor: colors.secondary,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 2,
+    opacity: 0.85,
+  },
+
+  // Заголовок для секций
+  sectionHeader: {
+    fontSize: 20,
+    color: colors.text,
+    marginBottom: 12,
+    fontFamily: 'CabinSketch-Regular',
+  },
+
+  // Акцентная линия на левом краю карточки
+  accentBorder: {
+    borderLeftWidth: 4,
+    borderLeftColor: colors.accent,
+  },
+
+  secondaryBorder: {
+    borderLeftWidth: 4,
+    borderLeftColor: colors.secondary,
+  },
+
+  primaryBorder: {
+    borderLeftWidth: 4,
+    borderLeftColor: colors.primary,
+  },
+
+  // Контейнер для ряда статс-карт (3 или 2 колонки)
+  statCardRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+
+  // Отдельная карточка статса (получает flex: 1)
+  statCard: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

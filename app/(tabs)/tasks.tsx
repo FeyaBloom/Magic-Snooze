@@ -8,7 +8,8 @@ import {
   Modal,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  DeviceEventEmitter
 } from 'react-native';
 import { Plus, Edit, Trash2, Calendar, CalendarCheck, CheckCheck, ChartNoAxesCombined  } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -68,7 +69,34 @@ export default function TasksScreen() {
     try {
       const tasksData = await AsyncStorage.getItem('oneTimeTasks');
       if (tasksData) {
-        setTasks(JSON.parse(tasksData));
+        let tasks = JSON.parse(tasksData);
+        
+        let needsSave = false;
+        const today = getLocalDateString();
+        tasks = tasks.map((task: any) => {
+          let updated = { ...task };
+          
+          // Миграция: установить completedAt для старых выполненных задач без этого поля
+          if (task.completed && !task.completedAt) {
+            needsSave = true;
+            updated.completedAt = today;
+          }
+          
+          // Миграция: конвертировать dueDate из ISO формата в YYYY-MM-DD
+          if (task.dueDate && task.dueDate.includes('T')) {
+            needsSave = true;
+            updated.dueDate = getLocalDateString(new Date(task.dueDate));
+          }
+          
+          return updated;
+        });
+        
+        if (needsSave) {
+          await AsyncStorage.setItem('oneTimeTasks', JSON.stringify(tasks));
+          DeviceEventEmitter.emit('tasksChanged', { timestamp: Date.now() });
+        }
+        
+        setTasks(tasks);
       }
     } catch (error) {
       console.error('Error loading tasks:', error);
@@ -79,6 +107,8 @@ export default function TasksScreen() {
     try {
       await AsyncStorage.setItem('oneTimeTasks', JSON.stringify(updatedTasks));
       setTasks(updatedTasks);
+      // Notify calendar to refresh stats
+      DeviceEventEmitter.emit('tasksChanged', { timestamp: Date.now() });
     } catch (error) {
       console.error('Error saving tasks:', error);
     }
@@ -376,7 +406,7 @@ export default function TasksScreen() {
                 <CustomCalendar
                   selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
                   onDateSelect={(date) => {
-                    setNewTaskDueDate(date.toISOString());
+                    setNewTaskDueDate(getLocalDateString(date));
                     setShowCalendar(false);
                   }}
                   containerWidth={380}
@@ -448,7 +478,7 @@ export default function TasksScreen() {
                 <CustomCalendar
                   selectedDate={newTaskDueDate ? new Date(newTaskDueDate) : undefined}
                   onDateSelect={(date) => {
-                    setNewTaskDueDate(date.toISOString());
+                    setNewTaskDueDate(getLocalDateString(date));
                     setShowEditCalendar(false);
                   }}
                   minDate={new Date()}

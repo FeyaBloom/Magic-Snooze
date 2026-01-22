@@ -7,7 +7,6 @@ import {
  } from 'react-native';
 import { Stack } from 'expo-router';
 import { useEffect } from 'react';
-
 import * as SplashScreen from 'expo-splash-screen';
 import Toast from 'react-native-toast-message';
 import { AppToastConfig} from '@/components/Toast';
@@ -23,14 +22,14 @@ export default function RootLayout() {
 
 const [fontsLoaded, fontError] = useFonts({
   'Cormorant_400Regular': require('../assets/fonts/Cormorant-Regular.ttf'),
-    'Cormorant_500Medium': require('../assets/fonts/Cormorant-Medium.ttf'),
-      'Cormorant_500Medium_Italic': require('../assets/fonts/Cormorant-MediumItalic.ttf'),
-        'Cormorant_600SemiBold': require('../assets/fonts/Cormorant-SemiBold.ttf'),
-          'Cormorant_700Bold': require('../assets/fonts/Cormorant-Bold.ttf'),
-            'Nunito_400Regular': require('../assets/fonts/Nunito-Regular.ttf'),
-              'Nunito_600SemiBold': require('../assets/fonts/Nunito-SemiBold.ttf'),
-                'Nunito_700Bold': require('../assets/fonts/Nunito-Bold.ttf'),
-                });
+  'Cormorant_500Medium': require('../assets/fonts/Cormorant-Medium.ttf'),
+  'Cormorant_500Medium_Italic': require('../assets/fonts/Cormorant-MediumItalic.ttf'),
+  'Cormorant_600SemiBold': require('../assets/fonts/Cormorant-SemiBold.ttf'),
+  'Cormorant_700Bold': require('../assets/fonts/Cormorant-Bold.ttf'),
+  'Nunito_400Regular': require('../assets/fonts/Nunito-Regular.ttf'),
+  'Nunito_600SemiBold': require('../assets/fonts/Nunito-SemiBold.ttf'),
+  'Nunito_700Bold': require('../assets/fonts/Nunito-Bold.ttf'),
+});
 
 
 
