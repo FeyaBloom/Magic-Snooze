@@ -9,9 +9,16 @@ import { useFonts } from 'expo-font';
 import { AppToastConfig } from '@/components/Toast';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { LanguageProvider } from '@/components/LanguageProvider';
+import { useNotifications } from '@/hooks/useNotifications';
 import '@/i18n';
 
 SplashScreen.preventAutoHideAsync();
+
+function NotificationInitializer() {
+  // Инициализация системы уведомлений при старте приложения
+  const notifications = useNotifications();
+  return null;
+}
 
 export default function RootLayout() {
     const [fontsLoaded, fontError] = useFonts({
@@ -76,6 +83,7 @@ useEffect(() => {
     <StatusBar hidden={true} />
     <ThemeProvider>
       <LanguageProvider>
+        <NotificationInitializer />
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" />
         </Stack>

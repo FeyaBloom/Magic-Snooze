@@ -12,6 +12,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { showToast } from '@/utils/toast';
@@ -102,9 +103,9 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [operationMode, setOperationModeState] = useState<ThemeOperationMode>('manual');
-  const [selectedThemeManual, setSelectedThemeManual] = useState<ThemeMode>('daydream');
-  const [currentTheme, setCurrentTheme] = useState<ThemeMode>('daydream');
+  const [operationMode, setOperationModeState] = useState<ThemeOperationMode | null>(null);
+  const [selectedThemeManual, setSelectedThemeManual] = useState<ThemeMode | null>(null);
+  const [currentTheme, setCurrentTheme] = useState<ThemeMode | null>(null);
   const [isMessyMode, setIsMessyMode] = useState(false);
   const [messyColors, setMessyColors] = useState<ThemeColors | null>(null);
   const { t } = useTranslation();
@@ -231,7 +232,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       setSelectedThemeManual(theme);
       await AsyncStorage.setItem(STORAGE_KEYS.selectedTheme, theme);
 
-      if (isMessyMode) generateMessyColors(theme);
+      if (isMessyMode && theme) generateMessyColors(theme);
       setCurrentTheme(theme);
     } catch (e) {
       console.error('Error setting manual theme', e);
@@ -261,7 +262,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       const next = !isMessyMode;
       setIsMessyMode(next);
       await AsyncStorage.setItem(STORAGE_KEYS.messyMode, next.toString());
-      if (next) {
+      if (next && currentTheme) {
         generateMessyColors(currentTheme);
       } else {
         setMessyColors(null);
@@ -274,44 +275,51 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   // -------------------- computed values --------------------
   const colors = useMemo<ThemeColors>(() => {
-    return isMessyMode && messyColors ? messyColors : themes[currentTheme];
+    return isMessyMode && messyColors ? messyColors : themes[currentTheme || 'daydream'];
   }, [isMessyMode, messyColors, currentTheme]);
 
   const getTabGradient = useMemo(() => {
     return (tabName: string): readonly [string, string, ...string[]] => {
-      const themeGradients = tabGradients[currentTheme] ?? {};
-      const gradient = themeGradients[tabName] ?? themes[currentTheme].background;
-      const safe = gradient.length >= 2 ? gradient : [...themes[currentTheme].background];
+      const theme = currentTheme || 'daydream';
+      const themeGradients = tabGradients[theme] ?? {};
+      const gradient = themeGradients[tabName] ?? themes[theme].background;
+      const safe = gradient.length >= 2 ? gradient : [...themes[theme].background];
       return [safe[0], safe[1], ...safe.slice(2)] as readonly [string, string, ...string[]];
     };
   }, [currentTheme]);
 
   // -------------------- Render splash --------------------
-  if (isLoading) {
-    const splashTheme = operationMode === 'auto' ? getCurrentThemeByTime() : selectedThemeManual;
-    const splashBg = splashTheme === 'nightforest' ? '#064E3B' : '#FFE5E5';
+  if (isLoading || !currentTheme || !operationMode || !selectedThemeManual) {
+    // Определяем тему для splash: если данные еще не загружены, используем авто-определение по времени
+    const splashTheme = currentTheme || getCurrentThemeByTime();
+    const splashGradient = themes[splashTheme].background;
     const splashIcon = splashTheme === 'nightforest'
       ? require('@/assets/icon-dark.png')
       : require('@/assets/icon.png');
 
     return (
-      <View style={[styles.splashContainer, { backgroundColor: splashBg }]}>
+      <LinearGradient
+        colors={splashGradient as any}
+        style={styles.splashContainer}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
         <Image source={splashIcon} style={styles.splashIcon} resizeMode="contain" />
         <ActivityIndicator size="large" color={themes[splashTheme].primary} style={styles.splashLoader} />
-      </View>
+      </LinearGradient>
     );
   }
 
   const value: ThemeContextType = {
-    currentTheme,
-    operationMode,
+    currentTheme: currentTheme!,
+    operationMode: operationMode!,
     colors,
     setThemeManual,
     setOperationMode,
     toggleMessyMode,
     isMessyMode,
     getTabGradient,
-    effectiveThemeName: currentTheme,
+    effectiveThemeName: currentTheme!,
   };
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

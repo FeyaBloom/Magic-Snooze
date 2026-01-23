@@ -313,5 +313,11 @@
           "message": "Не удалось сбросить данные"
         }
       }
- } 
+ },
+  "notifications": {
+    "taskDueToday": "Задача на сегодня",
+    "taskDueTomorrow": "Задача на завтра",
+    "taskDueSoon": "Предстоящая задача",
+    "taskDueInDays": "{{task}} - через {{days}} дн. ({{date}})"
+  }
 }

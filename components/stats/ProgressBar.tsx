@@ -328,15 +328,32 @@ export function WeekCard({
                               
                               {points.map((point, index) => {
                                 const isDayComplete = dailyActivity[index].morningDone === 3 && dailyActivity[index].eveningDone === 3;
+                                const hasActivity = point.value > 0;
+                                const glowColor = isDayComplete ? colors.accent : hasActivity ? colors.secondary : colors.primary;
                                 return (
                                   <React.Fragment key={index}>
+                                    {/* Внешнее свечение */}
+                                    <Circle
+                                      cx={point.x}
+                                      cy={point.y}
+                                      r="12"
+                                      fill={glowColor}
+                                      opacity="0.3"
+                                    />
+                                    {/* Среднее свечение */}
+                                    <Circle
+                                      cx={point.x}
+                                      cy={point.y}
+                                      r="8"
+                                      fill={glowColor}
+                                      opacity="0.5"
+                                    />
+                                    {/* Основная точка */}
                                     <Circle
                                       cx={point.x}
                                       cy={point.y}
                                       r="5"
-                                      fill={isDayComplete ? colors.accent : point.value > 0 ? colors.secondary : colors.surface}
-                                      stroke="#FFFFFF"
-                                      strokeWidth="2"
+                                      fill={glowColor}
                                     />
                                   </React.Fragment>
                                 );

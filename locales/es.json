@@ -316,5 +316,11 @@
         }
       }
     }
-  
+  },
+  "notifications": {
+    "taskDueToday": "Tarea para hoy",
+    "taskDueTomorrow": "Tarea para mañana",
+    "taskDueSoon": "Tarea próxima",
+    "taskDueInDays": "{{task}} - en {{days}} días ({{date}})"
+  }
 }

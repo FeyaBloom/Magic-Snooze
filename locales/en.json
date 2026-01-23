@@ -317,7 +317,11 @@
         "message": "Failed to reset data"
       }
     }
+  },
+  "notifications": {
+    "taskDueToday": "Task due today",
+    "taskDueTomorrow": "Task due tomorrow",
+    "taskDueSoon": "Upcoming task",
+    "taskDueInDays": "{{task}} - due in {{days}} days ({{date}})"
   }
-
-  
 }

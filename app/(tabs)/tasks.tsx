@@ -26,6 +26,8 @@ import CustomCalendar from '@/components/CustomCalendar';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
+import { useNotifications } from '@/hooks/useNotifications';
+import { useTaskNotifications } from '@/hooks/useTaskNotifications';
 
 // Styles
 import { createTasksStyles } from '@/styles/tasks';
@@ -44,6 +46,9 @@ export default function TasksScreen() {
   const textStyles = useTextStyles();
   const { colors, isMessyMode } = useTheme();
   
+  // Инициализируем систему уведомлений
+  const notifications = useNotifications();
+  
   const [tasks, setTasks] = useState<Task[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -59,6 +64,12 @@ export default function TasksScreen() {
     message: '',
     onConfirm: () => {},
   });
+
+  // Подключаем хук для уведомлений о задачах
+  const taskNotifications = useTaskNotifications(
+    tasks,
+    notifications.shouldShowTaskNotifications()
+  );
 
   const styles = createTasksStyles(colors);
 
@@ -138,13 +149,20 @@ export default function TasksScreen() {
   const editTask = async () => {
     if (!editingTask || !newTaskText.trim()) return;
 
+    const updatedTask = {
+      ...editingTask,
+      text: newTaskText.trim(),
+      dueDate: newTaskDueDate || undefined,
+    };
+
     const updatedTasks = tasks.map(task =>
-      task.id === editingTask.id
-        ? { ...task, text: newTaskText.trim(), dueDate: newTaskDueDate || undefined }
-        : task
+      task.id === editingTask.id ? updatedTask : task
     );
 
     await saveTasks(updatedTasks);
+
+    // Обновляем уведомления для измененной задачи
+    await taskNotifications.handleTaskChange(updatedTask);
 
     setNewTaskText('');
     setNewTaskDueDate('');
@@ -157,11 +175,16 @@ export default function TasksScreen() {
     const updatedTasks = tasks.map(task => {
       if (task.id === taskId) {
         const isNowCompleted = !task.completed;
-        return {
+        const updatedTask = {
           ...task,
           completed: isNowCompleted,
           completedAt: isNowCompleted ? getLocalDateString() : undefined,
         };
+        
+        // Отменяем/создаем уведомления при изменении статуса
+        taskNotifications.handleTaskChange(updatedTask);
+        
+        return updatedTask;
       }
       return task;
     });
@@ -176,6 +199,10 @@ export default function TasksScreen() {
       onConfirm: async () => {
         const updatedTasks = tasks.filter(task => task.id !== taskId);
         await saveTasks(updatedTasks);
+        
+        // Отменяем уведомления для удаленной задачи
+        await taskNotifications.handleTaskDelete(taskId);
+        
         setShowEditModal(false);
         setEditingTask(null);
         setShowEditCalendar(false);

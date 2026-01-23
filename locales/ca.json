@@ -311,5 +311,11 @@
         "message": "No s'han pogut reiniciar les dades"
       }
     }
+  },
+  "notifications": {
+    "taskDueToday": "Tasca per avui",
+    "taskDueTomorrow": "Tasca per demà",
+    "taskDueSoon": "Tasca pròxima",
+    "taskDueInDays": "{{task}} - en {{days}} dies ({{date}})"
   }
 }
