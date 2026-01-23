@@ -63,6 +63,8 @@ export function ProgressBar({
 
 interface WeekCardProps {
   weekNumber: number;
+  startDate?: string;
+  endDate?: string;
   morningRate: number;
   eveningRate: number;
   overallRate: number;
@@ -71,6 +73,7 @@ interface WeekCardProps {
   totalDays?: number;
   tasksCompleted?: number;
   victoriesCount?: number;
+  dailyActivity?: Array<{ day: string; hasActivity: boolean; emoji: string }>; // Новая визуализация
   status: 'excellent' | 'good' | 'needsSupport';
   expanded?: boolean;
   onToggle?: () => void;
@@ -78,6 +81,8 @@ interface WeekCardProps {
 
 export function WeekCard({
   weekNumber,
+  startDate,
+  endDate,
   morningRate,
   eveningRate,
   overallRate,
@@ -86,6 +91,7 @@ export function WeekCard({
   totalDays = 5,
   tasksCompleted = 0,
   victoriesCount = 0,
+  dailyActivity = [],
   status,
   expanded = true,
   onToggle,
@@ -115,6 +121,23 @@ export function WeekCard({
     return t('calendar.stats.motivations.believe');
   };
 
+  const getGrowthEmoji = () => {
+    if (overallRate >= 75) return '🌳';
+    if (overallRate >= 50) return '🌿';
+    return '🌱';
+  };
+
+  const formatDateRange = () => {
+    if (!startDate || !endDate) return '';
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const startDay = start.getDate();
+    const endDay = end.getDate();
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const month = monthNames[start.getMonth()];
+    return `${startDay}-${endDay} ${month}`;
+  };
+
   return (
     <TouchableOpacity
       onPress={onToggle}
@@ -137,11 +160,21 @@ export function WeekCard({
           marginBottom: expanded ? 8 : 0,
         }}
       >
-        <Text style={[styles.h2, { color: colors.primary }]}>
-          {t('calendar.stats.week')} {weekNumber}
-        </Text>
+        <View>
+          <Text style={[styles.h2, { color: colors.primary }]}>
+            {t('calendar.stats.week')} {weekNumber}
+          </Text>
+          {startDate && endDate && (
+            <Text style={[styles.caption, { color: colors.secondary, marginTop: 2 }]}>
+              {formatDateRange()}
+            </Text>
+          )}
+        </View>
         <View style={{ alignItems: 'flex-end' }}>
-          <Text style={[styles.h2, { color: getStatusColor() }]}>{overallRate}%</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <Text style={{ fontSize: 32 }}>{getGrowthEmoji()}</Text>
+            <Text style={[styles.h2, { color: getStatusColor() }]}>{overallRate}%</Text>
+          </View>
           {expanded && (
             <Text style={[styles.caption, { color: getStatusColor(), fontSize: 11 }]}>
               {getMotivationalMessage()}
@@ -168,7 +201,51 @@ export function WeekCard({
             }}
           />
 
-          {/* Routines Chart */}
+          {/* Daily Activity Celebration Wall */}
+          {dailyActivity.length > 0 && (
+            <View style={{ marginBottom: 12 }}>
+              <Text style={[styles.caption, { color: colors.secondary, marginBottom: 8 }]}>
+                {t('calendar.stats.weekDays')}
+              </Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-around', gap: 4 }}>
+                {dailyActivity.map((day, index) => (
+                  <View key={index} style={{ alignItems: 'center', flex: 1 }}>
+                    <Text style={[styles.caption, { color: colors.textSecondary, fontSize: 10 }]}>
+                      {day.day}
+                    </Text>
+                    <View
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 8,
+                        backgroundColor: day.hasActivity ? colors.accent : colors.surface,
+                        opacity: day.hasActivity ? 1 : 0.3,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginTop: 4,
+                      }}
+                    >
+                      <Text style={{ fontSize: 20 }}>
+                        {day.hasActivity ? day.emoji : '·'}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
+              </View>
+            </View>
+          )}
+
+          {/* Divider */}
+          <View
+            style={{
+              height: 1,
+              backgroundColor: colors.secondary,
+              opacity: 0.2,
+              marginBottom: 12,
+            }}
+          />
+
+          {/* Routines Chart - упрощённо без процентов */}
           <View style={{ gap: 8, marginBottom: 12 }}>
             {/* Morning */}
             <View style={{ gap: 4 }}>
@@ -202,7 +279,7 @@ export function WeekCard({
               <View
                 style={{
                   height: 6,
-                  backgroundColor: colors.secondary,
+                  backgroundColor: colors.surface,
                   borderRadius: 3,
                   overflow: 'hidden',
                 }}
@@ -249,7 +326,7 @@ export function WeekCard({
               <View
                 style={{
                   height: 6,
-                  backgroundColor: colors.secondary,
+                  backgroundColor: colors.surface,
                   borderRadius: 3,
                   overflow: 'hidden',
                 }}

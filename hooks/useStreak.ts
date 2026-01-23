@@ -6,6 +6,8 @@ export interface StreakData {
   currentStreak: number;
   longestStreak: number;
   lastActiveDate: string | null;
+  freezeDaysAvailable: number; // Grace days для ADHD поддержки
+  lastFreezeDate: string | null; // Когда был использован последний freeze
 }
 
 export function useStreak() {
@@ -13,6 +15,8 @@ export function useStreak() {
     currentStreak: 0,
     longestStreak: 0,
     lastActiveDate: null,
+    freezeDaysAvailable: 1,
+    lastFreezeDate: null,
   });
 
   const loadStreak = useCallback(async () => {
@@ -32,7 +36,13 @@ export function useStreak() {
       const stored = await AsyncStorage.getItem('streakData');
       let streakData: StreakData = stored
         ? JSON.parse(stored)
-        : { currentStreak: 0, longestStreak: 0, lastActiveDate: null };
+        : { 
+            currentStreak: 0, 
+            longestStreak: 0, 
+            lastActiveDate: null,
+            freezeDaysAvailable: 1,
+            lastFreezeDate: null,
+          };
 
       // Проверить активность на основе всех источников (рутины, задачи, победы)
       let hasAnyActivity = dayHasActivity; // From progress/routines
@@ -60,10 +70,35 @@ export function useStreak() {
         }
       }
 
+      // Обновить freeze days каждую неделю
+      const checkAndRefreshFreezeDays = () => {
+        if (!streakData.lastFreezeDate) {
+          return;
+        }
+        const lastFreezeDate = new Date(streakData.lastFreezeDate);
+        const todayDate = new Date(today);
+        const daysDiff = Math.floor((todayDate.getTime() - lastFreezeDate.getTime()) / (1000 * 60 * 60 * 24));
+        
+        if (daysDiff >= 7) {
+          streakData.freezeDaysAvailable = Math.min(1, streakData.freezeDaysAvailable + 1);
+          streakData.lastFreezeDate = today;
+        }
+      };
+
+      checkAndRefreshFreezeDays();
+
       if (!hasAnyActivity) {
-        // День без активности - серия разбита
-        streakData.currentStreak = 0;
-        streakData.lastActiveDate = null;
+        // День без активности - проверяем grace period
+        if (streakData.freezeDaysAvailable > 0 && streakData.currentStreak > 0) {
+          // Используем freeze day - стрик НЕ сбрасывается
+          streakData.freezeDaysAvailable -= 1;
+          streakData.lastFreezeDate = today;
+          // currentStreak остаётся без изменений!
+        } else {
+          // Нет freeze days - серия разбита
+          streakData.currentStreak = 0;
+          streakData.lastActiveDate = null;
+        }
       } else {
         // День с активностью
         if (streakData.lastActiveDate === null) {

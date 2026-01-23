@@ -45,6 +45,204 @@ export default function DebugScreen() {
     }
   };
 
+  const generateMockData = async () => {
+    try {
+      setLoading(true);
+      
+      // Генерация данных за декабрь 2025 и январь 2026 (до 22 числа)
+      const startDate = new Date('2025-12-01');
+      const endDate = new Date('2026-01-22');
+      
+      const victories = [
+        'Встал с кровати',
+        'Пил воду',
+        'Упражнение на дыхание',
+        'Был терпелив',
+        'Погладил животное',
+        'Смотрел на небо',
+        'Улыбнулся',
+        'Поел здоровое',
+      ];
+
+      const morningRoutinesList = [
+        'Warm lemon-honey water',
+        'Energizing workout',
+        'Great healthy breakfast',
+      ];
+
+      const eveningRoutinesList = [
+        'Evening self-care',
+        'Short plan for tomorrow',
+        'Sleep before midnight',
+      ];
+
+      const tasks: any[] = [];
+      let taskId = 1;
+
+      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const dateStr = d.toISOString().split('T')[0];
+        
+        // Случайный день: 70% complete, 20% partial, 10% snoozed
+        const rand = Math.random();
+        const isSnoozed = rand < 0.1;
+        const isComplete = rand >= 0.1 && rand < 0.8;
+        
+        if (!isSnoozed) {
+          // Progress данные (рутины)
+          const morningTotal = 3;
+          const eveningTotal = 3;
+          const morningDone = isComplete ? morningTotal : Math.floor(Math.random() * morningTotal);
+          const eveningDone = isComplete ? eveningTotal : Math.floor(Math.random() * eveningTotal);
+          
+          // Создаём детальные рутины с completed статусом
+          const morningRoutines = morningRoutinesList.map((text, idx) => ({
+            text,
+            completed: idx < morningDone,
+          }));
+          
+          const eveningRoutines = eveningRoutinesList.map((text, idx) => ({
+            text,
+            completed: idx < eveningDone,
+          }));
+          
+          const progressData = {
+            morningTotal,
+            eveningTotal,
+            morningDone,
+            eveningDone,
+            morningCompleted: morningDone === morningTotal,
+            eveningCompleted: eveningDone === eveningTotal,
+            snoozed: false,
+            morningRoutines,
+            eveningRoutines,
+          };
+          
+          await AsyncStorage.setItem(`progress_${dateStr}`, JSON.stringify(progressData));
+          
+          // Victories (2-5 случайных побед)
+          const victoryCount = 2 + Math.floor(Math.random() * 4);
+          const dayVictories: string[] = [];
+          for (let i = 0; i < victoryCount; i++) {
+            const randomVictory = victories[Math.floor(Math.random() * victories.length)];
+            if (!dayVictories.includes(randomVictory)) {
+              dayVictories.push(randomVictory);
+            }
+          }
+          await AsyncStorage.setItem(`victories_${dateStr}`, JSON.stringify(dayVictories));
+          
+          // Случайные задачи (30% дней)
+          if (Math.random() < 0.3) {
+            tasks.push({
+              id: taskId++,
+              text: `Task ${taskId} - ${dateStr}`,
+              completed: true,
+              createdAt: dateStr,
+              completedAt: dateStr,
+              dueDate: dateStr,
+            });
+          }
+        } else {
+          // Snoozed day
+          const progressData = {
+            morningTotal: 3,
+            eveningTotal: 3,
+            morningDone: 0,
+            eveningDone: 0,
+            morningCompleted: false,
+            eveningCompleted: false,
+            snoozed: true,
+          };
+          await AsyncStorage.setItem(`progress_${dateStr}`, JSON.stringify(progressData));
+        }
+      }
+      
+      // Сохранить задачи
+      if (tasks.length > 0) {
+        await AsyncStorage.setItem('oneTimeTasks', JSON.stringify(tasks));
+      }
+      
+      // Сохранить рутины (дефолтные)
+      const defaultRoutines = {
+        morning: [
+          { text: 'Warm lemon-honey water', done: false },
+          { text: 'Energizing workout', done: false },
+          { text: 'Great healthy breakfast', done: false },
+        ],
+        evening: [
+          { text: 'Evening self-care', done: false },
+          { text: 'Short plan for tomorrow', done: false },
+          { text: 'Sleep before midnight', done: false },
+        ],
+      };
+      await AsyncStorage.setItem('routines', JSON.stringify(defaultRoutines));
+      
+      // Пересчитать стрик на основе сгенерированных данных
+      let currentStreak = 0;
+      let longestStreak = 0;
+      let lastActiveDate: string | null = null;
+      
+      // Считаем от самой старой даты к новой
+      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const dateStr = d.toISOString().split('T')[0];
+        const progressData = await AsyncStorage.getItem(`progress_${dateStr}`);
+        
+        let hasActivity = false;
+        if (progressData) {
+          const progress = JSON.parse(progressData);
+          hasActivity = !progress.snoozed && (progress.morningDone > 0 || progress.eveningDone > 0);
+        }
+        
+        // Проверяем victories
+        if (!hasActivity) {
+          const victoriesData = await AsyncStorage.getItem(`victories_${dateStr}`);
+          if (victoriesData) {
+            hasActivity = JSON.parse(victoriesData).length > 0;
+          }
+        }
+        
+        if (hasActivity) {
+          if (lastActiveDate === null) {
+            currentStreak = 1;
+          } else {
+            // Проверяем непрерывность
+            const yesterday = new Date(d);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = yesterday.toISOString().split('T')[0];
+            
+            if (yesterdayStr === lastActiveDate) {
+              currentStreak += 1;
+            } else {
+              currentStreak = 1;
+            }
+          }
+          
+          lastActiveDate = dateStr;
+          longestStreak = Math.max(longestStreak, currentStreak);
+        } else {
+          // День без активности - сброс стрика
+          currentStreak = 0;
+        }
+      }
+      
+      const streakData = {
+        currentStreak,
+        longestStreak,
+        lastActiveDate,
+        freezeDaysAvailable: 1,
+        lastFreezeDate: null,
+      };
+      await AsyncStorage.setItem('streakData', JSON.stringify(streakData));
+      
+      await loadAllData();
+      alert('Mock data generated! Dec 2025 + Jan 2026 (until today)');
+    } catch (error) {
+      console.error('Error generating mock data:', error);
+      alert('Error generating data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -74,6 +272,9 @@ export default function DebugScreen() {
       <View style={styles.footer}>
         <TouchableOpacity style={styles.reloadButton} onPress={loadAllData}>
           <Text style={styles.buttonText}>Refresh</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.generateButton} onPress={generateMockData}>
+          <Text style={styles.buttonText}>Generate Mock Data</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.clearButton} onPress={clearAllData}>
           <Text style={styles.buttonText}>Clear All</Text>
@@ -147,7 +348,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    gap: 12,
+    gap: 8,
     padding: 16,
     backgroundColor: '#fff',
     borderTopWidth: 1,
@@ -156,6 +357,13 @@ const styles = StyleSheet.create({
   reloadButton: {
     flex: 1,
     backgroundColor: '#8B5CF6',
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  generateButton: {
+    flex: 1,
+    backgroundColor: '#10B981',
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',

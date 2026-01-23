@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles } from '@/styles/calendar';
+import { Flower2 } from 'lucide-react-native';
 
 interface VictoryCount {
   name: string;
@@ -59,15 +60,14 @@ export function VictoriesStats({ month }: VictoriesStatsProps) {
         }
       }
 
-      // Преобразовать в массив и отсортировать
+      // Преобразовать в массив и показать ВСЕ (Victory Garden)
       const victoryArray = Object.entries(victoryMap)
         .map(([name, count]) => ({
           name,
           emoji: VICTORY_TYPES[name] || '✨',
           count,
         }))
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 3); // Топ-3 победы
+        .sort((a, b) => b.count - a.count); // Сортируем по количеству
 
       setVictories(victoryArray);
     } catch (error) {
@@ -80,63 +80,84 @@ export function VictoriesStats({ month }: VictoriesStatsProps) {
   }
 
   const maxCount = Math.max(...victories.map((v) => v.count), 1);
+  const daysInMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+
+  // Функция для генерации визуализации роста с эмодзи и прогрессивными размерами
+  const renderGrowthPath = (count: number) => {
+    const plants: { emoji: string; size: number }[] = [];
+    
+    // 1-3: 🌱 8pt
+    if (count >= 1) plants.push({ emoji: '🌱', size: 8 });
+    
+    // 4-6: + 🌱 12pt
+    if (count >= 4) plants.push({ emoji: '🌱', size: 12 });
+    
+    // 7-9: + 🌿 16pt
+    if (count >= 7) plants.push({ emoji: '🌿', size: 16 });
+    
+    // 10-12: + 🌿 20pt
+    if (count >= 10) plants.push({ emoji: '🌿', size: 20 });
+    
+    // 13-15: + 🌷 24pt
+    if (count >= 13) plants.push({ emoji: '🌷', size: 24 });
+    
+    // 16-18: + 🌷 28pt
+    if (count >= 16) plants.push({ emoji: '🌷', size: 28 });
+    
+    // 19-21: + 🌺 30pt
+    if (count >= 19) plants.push({ emoji: '🌺', size: 30 });
+    
+    // 22+: + 🌺 32pt
+    if (count >= 22) plants.push({ emoji: '🌺', size: 32 });
+    
+    return plants.map((plant, index) => (
+      <Text key={index} style={{ fontSize: plant.size, marginHorizontal: 1 }}>
+        {plant.emoji}
+      </Text>
+    ));
+  };
 
   return (
     <View style={calendarStyles.card}>
-      <Text style={[styles.h2, { marginBottom: 16 }]}>
-        {t('calendar.stats.topVictories')}
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 8 }}>
+        <Flower2 size={24} color={colors.primary} />
+        <Text style={styles.h2}>
+          {t('calendar.stats.victoryGarden')}
+        </Text>
+      </View>
+      <Text style={[styles.caption, { marginBottom: 16, color: colors.secondary }]}>
+        {t('calendar.stats.victoryGardenSubtitle')}
       </Text>
-      {victories.map((victory, index) => {
-        const percentage = Math.round((victory.count / maxCount) * 100);
-
-        return (
-          <View key={index} style={{ marginVertical: 12 }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 8,
-              }}
-            >
-              <Text
-                style={[styles.body, { color: colors.text, minWidth: 120 }]}
-                numberOfLines={1}
-              >
-                {victory.emoji} {victory.name}
-              </Text>
-              <View
-                style={{
-                  flex: 1,
-                  height: 12,
-                  backgroundColor: colors.surface,
-                  borderRadius: 6,
-                  overflow: 'hidden',
-                }}
-              >
-                <View
-                  style={{
-                    height: '100%',
-                    width: `${percentage}%`,
-                    backgroundColor: colors.accent,
-                    borderRadius: 6,
-                  }}
-                />
+      
+      {/* Lollipop chart с растениями */}
+      <View style={{ gap: 12 }}>
+        {victories.map((victory, index) => {
+          return (
+            <View key={index} style={{ gap: 4 }}>
+              {/* Название победы и количество */}
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Text
+                  style={[
+                    styles.body,
+                    { color: colors.text, flex: 1 }
+                  ]}
+                  numberOfLines={1}
+                >
+                  {victory.emoji} {victory.name}
+                </Text>
+                <Text style={[styles.caption, { color: colors.secondary, marginLeft: 8 }]}>
+                  {victory.count}×
+                </Text>
               </View>
-              <Text
-                style={{
-                  ...styles.caption,
-                  color: colors.secondary,
-                  fontWeight: 'bold',
-                  minWidth: 32,
-                  textAlign: 'right',
-                }}
-              >
-                {victory.count}
-              </Text>
+              
+              {/* Визуализация роста растения */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 4 }}>
+                {renderGrowthPath(victory.count)}
+              </View>
             </View>
-          </View>
-        );
-      })}
+          );
+        })}
+      </View>
     </View>
   );
 }

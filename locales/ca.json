@@ -103,6 +103,15 @@
       "week": "Setmana",
       "morning": "Matí",
       "evening": "Vespre",
+      "freezeAvailable": "Dia de gràcia disponible",
+      "focusAll": "Tot",
+      "focusStreak": "Ratxa",
+      "focusMagic": "Nivell",
+      "focusVictories": "Petites Victòries",
+      "celebrateSmallWins": "Cada victòria compta ✨",
+      "weekDays": "Aquesta setmana",
+      "victoryGarden": "Jardí de Victòries",
+      "victoryGardenSubtitle": "Cada flor és una victòria que vas celebrar 🌸",
       "motivations": {
         "cosmic": "Simplement còsmic! 🚀",
         "excellent": "Excel·lent feina! ✨",
@@ -235,6 +244,17 @@
     "it": { "name": "Italià", "native": "Italiano", "flag": "🇮🇹" },
     "ca": { "name": "Català", "native": "Català", "flag": "🇦🇩" }
   },
+  "badDay": {
+    "title": "Avui, només això",
+    "subtitle": "Quan tot sembla pesat, comença petit:",
+    "drinkWater": "Pren un glop d'aigua",
+    "openWindow": "Obre una finestra per aire fresc",
+    "deepBreath": "Fes 3 respiracions lentes",
+    "lookOutside": "Mira fora un moment",
+    "favoriteSound": "Posa un so que t'agradi",
+    "youreEnough": "Ets suficient, exactament com ets 💜"
+  },
+
   "navigation": {
     "today": "Avui",
     "tasks": "Tasques",

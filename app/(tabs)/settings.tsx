@@ -142,8 +142,7 @@ export default function SettingsScreen() {
             </TouchableOpacity>
           </View>
 
-          {/* Debug Section 
-
+          {/* Debug Section */}
           <View style={styles.section}>
             <TouchableOpacity
               style={styles.row}
@@ -157,14 +156,12 @@ export default function SettingsScreen() {
                     Debug: View Storage
                   </Text>
                   <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                    View all stored data
+                    View all stored data & generate mock data
                   </Text>
                 </View>
               </View>
             </TouchableOpacity>
           </View>
-
-          */}
         </ContentContainer>
       </ScrollView>
     </ScreenLayout>

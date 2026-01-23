@@ -103,6 +103,15 @@
     "week": "Week",
     "morning": "Morning",
     "evening": "Evening",
+    "freezeAvailable": "Grace day available",
+    "focusAll": "All",
+    "focusStreak": "Streak",
+    "focusMagic": "Level",
+    "focusVictories": "Tiny Victories",
+    "celebrateSmallWins": "Every victory counts ✨",
+    "weekDays": "This week",
+    "victoryGarden": "Victory Garden",
+    "victoryGardenSubtitle": "Every bloom is a win you celebrated 🌸",
     "motivations": {
       "cosmic": "Simply cosmic! 🚀",
       "excellent": "Excellent work! ✨",
@@ -239,6 +248,17 @@
   "it": { "name": "Italian", "native": "Italiano", "flag": "🇮🇹" },
   "ca": { "name": "Catalan", "native": "Català", "flag": "🇦🇩" }
 },
+  "badDay": {
+    "title": "Today, just this",
+    "subtitle": "When everything feels heavy, start tiny:",
+    "drinkWater": "Take a sip of water",
+    "openWindow": "Open a window for fresh air",
+    "deepBreath": "Take 3 slow breaths",
+    "lookOutside": "Look outside for a moment",
+    "favoriteSound": "Play a sound you like",
+    "youreEnough": "You're enough, exactly as you are 💜"
+  },
+
   "navigation": {
   "today": "Today",
   "tasks": "Tasks",

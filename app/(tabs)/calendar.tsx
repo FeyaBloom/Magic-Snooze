@@ -3,6 +3,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, ScrollView, DeviceEventEmitter, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getLocalDateString } from '@/utils/dateUtils';
+import { Coffee, Moon } from 'lucide-react-native';
 
 // Components
 import { ScreenLayout } from '@/components/ScreenLayout';
@@ -510,104 +511,106 @@ export default function CalendarScreen() {
                     <View>
                       {morningArr.length > 0 && (
                         <>
-                          <Text style={[textStyles.h2, { marginVertical: 16 }]}>🌅 {t('calendar.stats.morningRoutines')}</Text>
-                          <View style={{ alignItems: 'center', position: 'relative' }}>
-                            <ParetoChart data={morningArr} maxItems={5} onLabelPress={(routine) => setMorningTooltip({ name: routine.name })} />
-                            {morningTooltip && (
-                              <>
-                                <TouchableWithoutFeedback onPress={() => setMorningTooltip(null)}>
-                                  <View
-                                    style={{
-                                      position: 'absolute',
-                                      top: 0,
-                                      left: 0,
-                                      right: 0,
-                                      bottom: 0,
-                                      zIndex: 900,
-                                    }}
-                                  />
-                                </TouchableWithoutFeedback>
+                          <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 16, gap: 8 }}>
+                            <Coffee size={24} color={colors.primary} />
+                            <Text style={textStyles.h2}>{t('calendar.stats.morningRoutines')}</Text>
+                          </View>
+                          <ParetoChart data={morningArr} maxItems={5} onLabelPress={(routine) => setMorningTooltip({ name: routine.name })} />
+                          {morningTooltip && (
+                            <>
+                              <TouchableWithoutFeedback onPress={() => setMorningTooltip(null)}>
                                 <View
                                   style={{
                                     position: 'absolute',
-                                    bottom: 20,
+                                    top: 0,
                                     left: 0,
                                     right: 0,
-                                    alignItems: 'center',
-                                    zIndex: 1001,
+                                    bottom: 0,
+                                    zIndex: 900,
+                                  }}
+                                />
+                              </TouchableWithoutFeedback>
+                              <View
+                                style={{
+                                  position: 'absolute',
+                                  bottom: 20,
+                                  left: 0,
+                                  right: 0,
+                                  alignItems: 'center',
+                                  zIndex: 1001,
+                                }}
+                              >
+                                <View
+                                  style={{
+                                    backgroundColor: colors.surface,
+                                    borderRadius: 10,
+                                    padding: 12,
+                                    shadowColor: colors.secondary,
+                                    shadowOffset: { width: 0, height: 2 },
+                                    shadowOpacity: 0.4,
+                                    shadowRadius: 4,
+                                    elevation: 3,
+                                    minWidth: 160,
+                                    maxWidth: 260,
                                   }}
                                 >
-                                  <View
-                                    style={{
-                                      backgroundColor: colors.surface,
-                                      borderRadius: 10,
-                                      padding: 12,
-                                      shadowColor: colors.secondary,
-                                      shadowOffset: { width: 0, height: 2 },
-                                      shadowOpacity: 0.4,
-                                      shadowRadius: 4,
-                                      elevation: 3,
-                                      minWidth: 160,
-                                      maxWidth: 260,
-                                    }}
-                                  >
-                                    <Text style={[textStyles.body, { color: colors.text, textAlign: 'center' }]}>{morningTooltip.name}</Text>
-                                  </View>
+                                  <Text style={[textStyles.body, { color: colors.text, textAlign: 'center' }]}>{morningTooltip.name}</Text>
                                 </View>
-                              </>
-                            )}
-                          </View>
+                              </View>
+                            </>
+                          )}
                         </>
                       )}
                       {eveningArr.length > 0 && (
                         <>
-                          <Text style={[textStyles.h2, { marginVertical: 16 }]}>🌙 {t('calendar.stats.eveningRoutines')}</Text>
-                          <View style={{ alignItems: 'center', position: 'relative' }}>
-                            <ParetoChart data={eveningArr} maxItems={5} onLabelPress={(routine) => setEveningTooltip({ name: routine.name })} />
-                            {eveningTooltip && (
-                              <>
-                                <TouchableWithoutFeedback onPress={() => setEveningTooltip(null)}>
-                                  <View
-                                    style={{
-                                      position: 'absolute',
-                                      top: 0,
-                                      left: 0,
-                                      right: 0,
-                                      bottom: 0,
-                                      zIndex: 900,
-                                    }}
-                                  />
-                                </TouchableWithoutFeedback>
+                          <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 16, gap: 8 }}>
+                            <Moon size={24} color={colors.primary} />
+                            <Text style={textStyles.h2}>{t('calendar.stats.eveningRoutines')}</Text>
+                          </View>
+                          <ParetoChart data={eveningArr} maxItems={5} onLabelPress={(routine) => setEveningTooltip({ name: routine.name })} />
+                          {eveningTooltip && (
+                            <>
+                              <TouchableWithoutFeedback onPress={() => setEveningTooltip(null)}>
                                 <View
                                   style={{
                                     position: 'absolute',
-                                    bottom: 20,
+                                    top: 0,
                                     left: 0,
                                     right: 0,
-                                    alignItems: 'center',
-                                    zIndex: 1001,
+                                    bottom: 0,
+                                    zIndex: 900,
+                                  }}
+                                />
+                              </TouchableWithoutFeedback>
+                              <View
+                                style={{
+                                  position: 'absolute',
+                                  bottom: 20,
+                                  left: 0,
+                                  right: 0,
+                                  alignItems: 'center',
+                                  zIndex: 1001,
+                                }}
+                              >
+                                <View
+                                  style={{
+                                    backgroundColor: colors.surface,
+                                    borderRadius: 10,
+                                    padding: 12,
+                                    shadowColor: colors.secondary,
+                                    shadowOffset: { width: 0, height: 2 },
+                                    shadowOpacity: 0.4,
+                                    shadowRadius: 4,
+                                    elevation: 3,
+                                    minWidth: 160,
+                                    maxWidth: 260,
                                   }}
                                 >
-                                  <View
-                                    style={{
-                                      backgroundColor: colors.surface,
-                                      borderRadius: 10,
-                                      padding: 12,
-                                      shadowColor: colors.secondary,
-                                      shadowOffset: { width: 0, height: 2 },
-                                      shadowOpacity: 0.4,
-                                      shadowRadius: 4,
-                                      elevation: 3,
-                                      minWidth: 160,
-                                      maxWidth: 260,
-                                    }}
-                                  >
-                                    <Text style={[textStyles.body, { color: colors.text, textAlign: 'center' }]}>{eveningTooltip.name}</Text>
-                                  </View>
+                                  <Text style={[textStyles.body, { color: colors.text, textAlign: 'center' }]}>{eveningTooltip.name}</Text>
                                 </View>
-                              </>
-                            )}
-                          </View>
+                              </View>
+                            </>
+                          )}
                         </>
                       )}
                     </View>

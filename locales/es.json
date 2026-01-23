@@ -18,6 +18,17 @@
     "Fri":  "Vie", 
     "Sat": "Sab"
   },
+  "badDay": {
+    "title": "Hoy, solo esto",
+    "subtitle": "Cuando todo se siente pesado, empieza pequeño:",
+    "drinkWater": "Toma un sorbo de agua",
+    "openWindow": "Abre una ventana para aire fresco",
+    "deepBreath": "Haz 3 respiraciones lentas",
+    "lookOutside": "Mira afuera un momento",
+    "favoriteSound": "Pon un sonido que te guste",
+    "youreEnough": "Eres suficiente, exactamente como eres 💜"
+  },
+
   "navigation": {
   "today": "Hoy",
   "tasks": "Tareas",
@@ -178,6 +189,15 @@
     "week": "Semana",
     "morning": "Mañana",
     "evening": "Noche",
+    "freezeAvailable": "Día de gracia disponible",
+    "focusAll": "Todo",
+    "focusStreak": "Racha",
+    "focusMagic": "Nivel",
+    "focusVictories": "Pequeñas Victorias",
+    "celebrateSmallWins": "Cada victoria cuenta ✨",
+    "weekDays": "Esta semana",
+    "victoryGarden": "Jardín de Victorias",
+    "victoryGardenSubtitle": "Cada flor es una victoria que celebraste 🌸",
     "motivations": {
       "cosmic": "¡Simplemente cósmico! 🚀",
       "excellent": "¡Excelente trabajo! ✨",

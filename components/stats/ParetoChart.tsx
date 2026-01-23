@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { View } from 'react-native';
-import { Svg, Rect, Line, Text as SvgText } from 'react-native-svg';
+import { View, Text, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { Svg, Rect, Text as SvgText } from 'react-native-svg';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { createCalendarStyles } from '@/styles/calendar';
@@ -9,139 +9,115 @@ type RoutineStat = { name: string; count: number };
 
 interface ParetoChartProps {
   data: RoutineStat[];
-  maxItems?: number; // limit categories (top-N)
+  maxItems?: number;
   height?: number;
-  originOffset?: { x: number; y: number };
-  onLabelPress?: (routine: RoutineStat, position: { x: number; y: number }) => void;
+  onLabelPress?: (routine: RoutineStat) => void;
 }
 
-export function ParetoChart({ data, maxItems = 6, height = 220, originOffset, onLabelPress }: ParetoChartProps) {
+export function ParetoChart({ data, maxItems = 6, height = 240, onLabelPress }: ParetoChartProps) {
   const { colors } = useTheme();
   const styles = useTextStyles();
   const calendarStyles = createCalendarStyles(colors);
+  const { width: screenWidth } = useWindowDimensions();
 
   const sorted = useMemo(() => {
     const arr = [...data].sort((a, b) => b.count - a.count);
     return arr.slice(0, Math.max(1, Math.min(maxItems, arr.length)));
   }, [data, maxItems]);
 
-  const total = sorted.reduce((s, d) => s + d.count, 0);
   const maxCount = Math.max(1, ...sorted.map(d => d.count));
 
-  // layout
-  const width = 340; // card inner drawing width; responsive enough for phone
-  const leftPadding = 36; // for Y ticks (counts)
-  const rightPadding = 32; // for right % axis
-  const bottomPadding = 48; // for X labels
-  const topPadding = 16;
+  // layout - адаптивная ширина
+  const width = Math.min(screenWidth, 600);
+  const leftPadding = 20;
+  const rightPadding = 20;
+  const bottomPadding = 20;
+  const topPadding = 20;
   const chartW = width - leftPadding - rightPadding;
   const chartH = height - topPadding - bottomPadding;
 
   // scales
-  const barW = chartW / sorted.length * 0.7;
-  const gap = chartW / sorted.length * 0.3;
-
-  const yCount = (v: number) => topPadding + chartH * (1 - v / maxCount);
-  const yPct = (p: number) => topPadding + chartH * (1 - p / 100);
-
-
-  // ticks
-  const countTicks = 4; // 0..maxCount
-  const pctTicks = [0, 25, 50, 75, 100];
-
-  const truncate = (s: string, n = 8) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
+  const barW = Math.min(50, chartW / sorted.length * 0.8);
+  const spacing = chartW / sorted.length;
 
   return (
     <View style={calendarStyles.card}>
-      <Svg width={width} height={height}>
-        {/* grid lines for counts */}
-        {Array.from({ length: countTicks + 1 }).map((_, i) => {
-          const v = (maxCount / countTicks) * i;
-          const y = yCount(v);
-          return (
-            <Line
-              key={`g-${i}`}
-              x1={leftPadding}
-              y1={y}
-              x2={leftPadding + chartW}
-              y2={y}
-              stroke={colors.secondary + '40'}
-              strokeWidth={1}
-            />
-          );
-        })}
+      {/* Центрируем всю область графика */}
+      <View style={{ alignItems: 'center' }}>
+        <View style={{ width }}>
+          <Svg width={width} height={height}>
+            {/* Bars только визуальное соотношение */}
+            {sorted.map((d, i) => {
+              const x = leftPadding + i * spacing + (spacing - barW) / 2;
+              const barHeight = (d.count / maxCount) * chartH;
+              const y = topPadding + (chartH - barHeight);
+              
+              // Градиент яркости через opacity
+              const opacity = 0.5 + (d.count / maxCount) * 0.5;
+              
+              return (
+                <Rect
+                  key={`b-${i}`}
+                  x={x}
+                  y={y}
+                  width={barW}
+                  height={barHeight}
+                  rx={8}
+                  fill={colors.accent}
+                  opacity={opacity}
+                />
+              );
+            })}
+            
+            {/* Числа над столбиками */}
+            {sorted.map((d, i) => {
+              const barHeight = (d.count / maxCount) * chartH;
+              const y = topPadding + (chartH - barHeight) - 4;
+              const x = leftPadding + i * spacing + spacing / 2;
+              
+              return (
+                <SvgText
+                  key={`count-${i}`}
+                  x={x}
+                  y={y}
+                  fill={colors.text}
+                  fontSize="12"
+                  fontWeight="600"
+                  textAnchor="middle"
+                >
+                  {d.count}
+                </SvgText>
+              );
+            })}
+          </Svg>
 
-        {/* bars */}
-        {sorted.map((d, i) => {
-          const x = leftPadding + i * (barW + gap) + gap * 0.5;
-          const h = total === 0 ? 0 : chartH * (d.count / maxCount);
-          const y = topPadding + (chartH - h);
-          return (
-            <Rect
-              key={`b-${i}`}
-              x={x}
-              y={y}
-              width={barW}
-              height={h}
-              rx={6}
-              fill={colors.accent}
-              opacity={0.9}
-            />
-          );
-        })}
-
-        {/* cumulative line удалена по просьбе пользователя */}
-
-        {/* left axis labels (counts) */}
-        {Array.from({ length: countTicks + 1 }).map((_, i) => {
-          const v = Math.round((maxCount / countTicks) * i);
-          const y = yCount(v);
-          return (
-            <SvgText
-              key={`yl-${i}`}
-              x={leftPadding - 6}
-              y={y + 4}
-              fontSize={10}
-              fill={colors.textSecondary}
-              textAnchor="end"
-            >
-              {v}
-            </SvgText>
-          );
-        })}
-
-        {/* right axis labels (% ticks) */}
-        {pctTicks.map((p, i) => (
-          <SvgText
-            key={`pr-${i}`}
-            x={leftPadding + chartW + 4}
-            y={yPct(p) + 4}
-            fontSize={10}
-            fill={colors.textSecondary}
-          >
-            {p}%
-          </SvgText>
-        ))}
-
-        {/* x labels */}
-        {sorted.map((d, i) => {
-          const x = leftPadding + i * (barW + gap) + gap * 0.5 + barW / 2;
-          const y = height - 16;
-          return (
-            <SvgText
-              key={`xl-${i}`}
-              x={x}
-              y={y}
-              fontSize={10}
-              fill={colors.text}
-              textAnchor="middle"
-              onPress={onLabelPress ? () => onLabelPress(d, { x: (originOffset?.x || 0) + x, y: (originOffset?.y || 0) + y - 8 }) : undefined}
-            >
-              {truncate(d.name)}
-            </SvgText>
-          );
-        })}
-      </Svg>
+          {/* Labels под графиком - названия рутин */}
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 8 }}>
+            {sorted.map((d, i) => (
+              <TouchableOpacity
+                key={`label-${i}`}
+                style={{ alignItems: 'center', flex: 1, paddingHorizontal: 2 }}
+                onPress={() => onLabelPress && onLabelPress(d)}
+                activeOpacity={onLabelPress ? 0.7 : 1}
+              >
+                <Text
+                  style={[
+                    styles.caption,
+                    {
+                      color: colors.text,
+                      fontSize: 10,
+                      textAlign: 'center',
+                    },
+                  ]}
+                  numberOfLines={3}
+                >
+                  {d.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </View>
     </View>
   );
 }

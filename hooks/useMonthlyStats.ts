@@ -83,7 +83,7 @@ export function useMonthlyStats() {
         const dateString = getLocalDateString(date);
 
         // Load day progress
-        const progressKey = `progress_${dateStr}`;
+        const progressKey = `progress_${dateString}`;
         const progressData = await AsyncStorage.getItem(progressKey);
 
         let routineActivity: 'complete' | 'partial' | 'snoozed' | 'none' = 'none';
@@ -102,7 +102,7 @@ export function useMonthlyStats() {
         }
 
         // Загрузить победы дня
-        const victoriesKey = `victories_${dateStr}`;
+        const victoriesKey = `victories_${dateString}`;
         const victoriesData = await AsyncStorage.getItem(victoriesKey);
         const dayVictories = victoriesData ? (JSON.parse(victoriesData) as string[]) : [];
         if (dayVictories.length) {
@@ -112,8 +112,8 @@ export function useMonthlyStats() {
         // Задачи, связанные с этим днем
         const hasTaskActivity = tasks.some((task: any) => {
           if (!task.completed) return false;
-          if (task.dueDate) return task.dueDate === dateStr;
-          return task.completedAt === dateStr;
+          if (task.dueDate) return task.dueDate === dateString;
+          return task.completedAt === dateString;
         });
 
         const hasVictories = dayVictories.length > 0;
@@ -123,20 +123,20 @@ export function useMonthlyStats() {
           completeDays += 1;
           morningFullDays += 1;
           eveningFullDays += 1;
-          daysWithData.push(dateStr);
+          daysWithData.push(dateString);
         } else if (routineActivity === 'snoozed') {
           snoozedDays += 1;
-          daysWithData.push(dateStr);
+          daysWithData.push(dateString);
         } else if (routineActivity === 'partial') {
           partialDays += 1;
           if (progress?.morningCompleted) morningFullDays += 1;
           if (progress?.eveningCompleted) eveningFullDays += 1;
-          daysWithData.push(dateStr);
+          daysWithData.push(dateString);
         } else {
           // Нет активности по рутинам. Если есть победы или задачи — считаем partial, чтобы совпадало с календарем.
           if (hasVictories || hasTaskActivity) {
             partialDays += 1;
-            daysWithData.push(dateStr);
+            daysWithData.push(dateString);
           }
         }
       }
