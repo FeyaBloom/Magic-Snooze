@@ -17,6 +17,10 @@ export const createSettingsStyles = (colors: any) => StyleSheet.create({
     marginBottom: 15,
     opacity: 0.8,
   },
+  sectionSubtitle: {
+    marginBottom: 12,
+    opacity: 0.7,
+  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -40,6 +44,18 @@ export const createSettingsStyles = (colors: any) => StyleSheet.create({
   textContainer: {
     marginLeft: 12,
     flex: 1,
+  },
+  button: {
+    padding: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  infoBox: {
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 8,
+    marginBottom: 8,
   },
   
   // Modal styles

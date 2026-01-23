@@ -6,6 +6,7 @@ import {
   cancelNotificationsByRelatedId,
 } from '../utils/notificationScheduler';
 import { formatDate } from '../utils/dateUtils';
+import { getMorningNotificationTime, getEveningNotificationTime } from '../utils/notificationTimes';
 
 export interface Task {
   id: string;
@@ -100,15 +101,21 @@ export const useTaskNotifications = (
       try {
         // Получаем настройки за сколько дней напоминать
         const notificationDays = await getNotificationDays();
+        
+        // Получаем настроенное время для уведомлений
+        const [morningTime, eveningTime] = await Promise.all([
+          getMorningNotificationTime(),
+          getEveningNotificationTime(),
+        ]);
 
         // Парсим дату задачи
         const dueDate = new Date(task.dueDate);
-        dueDate.setHours(9, 0, 0, 0); // Устанавливаем 9:00 утра дня дедлайна
+        dueDate.setHours(morningTime.hour, morningTime.minute, 0, 0); // Утреннее время
 
         const now = new Date();
         now.setHours(0, 0, 0, 0);
 
-        // Планируем уведомление на день дедлайна (9:00)
+        // Планируем уведомление на день дедлайна (утреннее время)
         const dueDateNotificationTime = new Date(dueDate);
         if (dueDateNotificationTime > now) {
           const { title, body } = getNotificationText(task, 0, i18n.language);
@@ -120,11 +127,11 @@ export const useTaskNotifications = (
           const notificationDate = new Date(dueDate);
           notificationDate.setDate(notificationDate.getDate() - days);
 
-          // Для напоминаний "за N дней" выбираем время 18:00 предыдущего дня
+          // За 1 день - вечернее время, за N дней - утреннее
           if (days === 1) {
-            notificationDate.setHours(18, 0, 0, 0); // 18:00 накануне
+            notificationDate.setHours(eveningTime.hour, eveningTime.minute, 0, 0);
           } else {
-            notificationDate.setHours(10, 0, 0, 0); // 10:00 за N дней
+            notificationDate.setHours(morningTime.hour, morningTime.minute, 0, 0);
           }
 
           // Проверяем что дата в будущем

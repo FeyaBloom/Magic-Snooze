@@ -249,71 +249,70 @@
   }
 },
 
-"notes": {
-  "untitled": "Nota sin título",
-  "title": "Tus notas",
-  "subtitle": "Captura tus pensamientos e ideas",
-  "searchPlaceholder": "Buscar en tus notas...",
-  "addButton": "Agregar nueva nota",
-  "emptyTitle": "Aún no hay notas",
-  "emptySubtitle": "Comienza a capturar tus ideas y pensamientos",
-  "emptySearchTitle": "No se encontraron notas",
-  "emptySearchSubtitle": "Intenta buscar otra cosa",
-  "addModalTitle": "Agregar nueva nota",
-  "editModalTitle": "Editar nota",
-  "titlePlaceholder": "Título de la nota (opcional)",
-  "contentPlaceholder": "¿Qué estás pensando?",
-   "deleteTitle": "Eliminar nota",
-  "deleteMessage": "¿Estás seguro de que quieres eliminar esta nota?"  
-},
- "reset": {
-      "button": "Restablecer datos",
-      "modal": {
-        "title": "Restablecer datos",
-        "subtitle": "Selecciona qué datos eliminar:",
-        "delete": "ELIMINAR", 
-        "deleting": "Eliminando..."
+  "notes": {
+    "untitled": "Nota sin título",
+    "title": "Tus notas",
+    "subtitle": "Captura tus pensamientos e ideas",
+    "searchPlaceholder": "Buscar en tus notas...",
+    "addButton": "Agregar nueva nota",
+    "emptyTitle": "Aún no hay notas",
+    "emptySubtitle": "Comienza a capturar tus ideas y pensamientos",
+    "emptySearchTitle": "No se encontraron notas",
+    "emptySearchSubtitle": "Intenta buscar otra cosa",
+    "addModalTitle": "Agregar nueva nota",
+    "editModalTitle": "Editar nota",
+    "titlePlaceholder": "Título de la nota (opcional)",
+    "contentPlaceholder": "¿Qué estás pensando?",
+    "deleteTitle": "Eliminar nota",
+    "deleteMessage": "¿Estás seguro de que quieres eliminar esta nota?"  
+  },
+  "reset": {
+    "button": "Restablecer datos",
+    "modal": {
+      "title": "Restablecer datos",
+      "subtitle": "Selecciona qué datos eliminar:",
+      "delete": "ELIMINAR", 
+      "deleting": "Eliminando..."
+    },
+    "options": {
+      "tasks": {
+        "title": "Tareas",
+        "description": "Todas las tareas únicas"
       },
-      "options": {
-        "tasks": {
-          "title": "Tareas",
-          "description": "Todas las tareas únicas"
-        },
-        "routines": {
-          "title": "Rutinas",
-          "description": "Rutinas matutinas y nocturnas"
-        },
-        "notes": {
-          "title": "Notas",
-          "description": "Todas las notas personales"
-        },
-        "progress": {
-          "title": "Progreso y victorias", 
-          "description": "Historial de completado y logros"
-        },
-        "settings": {
-          "title": "Configuración",
-          "description": "Idioma, tema, modos"
-        }
+      "routines": {
+        "title": "Rutinas",
+        "description": "Rutinas matutinas y nocturnas"
       },
-      "confirm": {
-        "title": "⚠️ ¡Atención!",
-        "message": "Vas a eliminar permanentemente {{count}} tipos de datos.\n\n¡Esta acción no se puede deshacer!",
-        "delete": "ELIMINAR"
+      "notes": {
+        "title": "Notas",
+        "description": "Todas las notas personales"
       },
-      "alerts": {
-        "nothingSelected": {
-          "title": "Nada seleccionado",
-          "message": "Selecciona datos para restablecer"
-        },
-        "success": {
-          "title": "¡Listo! ✅",
-          "message": "Claves eliminadas: {{count}}\n\nReinicia la app para actualización completa."
-        },
-        "error": {
-          "title": "Error",
-          "message": "No se pudieron restablecer los datos"
-        }
+      "progress": {
+        "title": "Progreso y victorias", 
+        "description": "Historial de completado y logros"
+      },
+      "settings": {
+        "title": "Configuración",
+        "description": "Idioma, tema, modos"
+      }
+    },
+    "confirm": {
+      "title": "⚠️ ¡Atención!",
+      "message": "Vas a eliminar permanentemente {{count}} tipos de datos.\n\n¡Esta acción no se puede deshacer!",
+      "delete": "ELIMINAR"
+    },
+    "alerts": {
+      "nothingSelected": {
+        "title": "Nada seleccionado",
+        "message": "Selecciona datos para restablecer"
+      },
+      "success": {
+        "title": "¡Listo! ✅",
+        "message": "Claves eliminadas: {{count}}\n\nReinicia la app para actualización completa."
+      },
+      "error": {
+        "title": "Error",
+        "message": "No se pudieron restablecer los datos"
       }
     }
   },
@@ -321,6 +320,37 @@
     "taskDueToday": "Tarea para hoy",
     "taskDueTomorrow": "Tarea para mañana",
     "taskDueSoon": "Tarea próxima",
-    "taskDueInDays": "{{task}} - en {{days}} días ({{date}})"
+    "taskDueInDays": "{{task}} - en {{days}} días ({{date}})",
+    "settings": {
+      "title": "Recordatorios Suaves",
+      "subtitle": "Notificaciones que respetan tu cerebro",
+      "notSupported": "Las notificaciones no son compatibles con este dispositivo",
+      "masterToggle": "Activar Recordatorios",
+      "masterToggleDesc": "Activa notificaciones suaves (tú tienes el control)",
+      "permissionNeeded": "Permiso Necesario",
+      "permissionDesc": "Necesitamos tu permiso para enviarte recordatorios suaves. ¡Sin presión!",
+      "requestPermission": "Permitir Notificaciones",
+      "permissionDenied": "Permiso denegado",
+      "permissionDeniedDesc": "Puedes activar las notificaciones cuando quieras en la configuración. ¡No pasa nada!",
+      "taskReminders": "Recordatorios de Tareas",
+      "taskRemindersDesc": "Recibe avisos suaves sobre tareas próximas",
+      "reminderDays": "Recuérdame:",
+      "days3Before": "3 días antes",
+      "days1Before": "1 día antes",
+      "onDueDate": "El día límite",
+      "customDays": "Días personalizados antes:",
+      "comingSoon": "Próximamente",
+      "routineReminders": "Recordatorios de Rutina",
+      "routineRemindersDesc": "Avisos opcionales matutinos y nocturnos",
+      "surprisePrompts": "Mensajes Sorpresa",
+      "surprisePromptsDesc": "Mensajes aleatorios divertidos para alegrar tu día",
+      "testNotification": "Enviar Notificación de Prueba",
+      "testSent": "¡Notificación de prueba enviada! Échale un vistazo 🌸",
+      "notificationTimes": "Horarios de Notificación",
+      "notificationTimesDesc": "Sincronizados con el cambio de tema (Daydream ↔ Night Forest)",
+      "morningTime": "Notificaciones matutinas",
+      "eveningTime": "Notificaciones nocturnas",
+      "defaultTimes": "Por defecto: 07:00 (mañana) y 19:00 (noche)"
+    }
   }
 }

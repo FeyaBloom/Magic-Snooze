@@ -151,15 +151,15 @@ export default function TodayScreen() {
       const morningData = await AsyncStorage.getItem('morningRoutine');
       const eveningData = await AsyncStorage.getItem('eveningRoutine');
       const progressData = await AsyncStorage.getItem(`progress_${currentDate}`);
+      const lastProgressDate = await AsyncStorage.getItem('lastProgressDate');
+      const needsReset = lastProgressDate !== currentDate;
 
       if (morningData) {
         const parsedMorning = JSON.parse(morningData);
-        const lastProgressDate = await AsyncStorage.getItem('lastProgressDate');
-        if (lastProgressDate !== currentDate) {
+        if (needsReset) {
           const resetMorning = parsedMorning.map((step: RoutineStep) => ({ ...step, completed: false }));
-          setMorningRoutine(resetMorning);
           await AsyncStorage.setItem('morningRoutine', JSON.stringify(resetMorning));
-          await AsyncStorage.setItem('lastProgressDate', currentDate);
+          setMorningRoutine(resetMorning);
         } else {
           setMorningRoutine(parsedMorning);
         }
@@ -175,11 +175,10 @@ export default function TodayScreen() {
 
       if (eveningData) {
         const parsedEvening = JSON.parse(eveningData);
-        const lastProgressDate = await AsyncStorage.getItem('lastProgressDate');
-        if (lastProgressDate !== currentDate) {
+        if (needsReset) {
           const resetEvening = parsedEvening.map((step: RoutineStep) => ({ ...step, completed: false }));
-          setEveningRoutine(resetEvening);
           await AsyncStorage.setItem('eveningRoutine', JSON.stringify(resetEvening));
+          setEveningRoutine(resetEvening);
         } else {
           setEveningRoutine(parsedEvening);
         }
@@ -191,6 +190,11 @@ export default function TodayScreen() {
         ];
         setEveningRoutine(defaultEvening);
         await AsyncStorage.setItem('eveningRoutine', JSON.stringify(defaultEvening));
+      }
+
+      // Сохраняем дату только после обработки обеих рутин
+      if (needsReset) {
+        await AsyncStorage.setItem('lastProgressDate', currentDate);
       }
 
       if (progressData) {

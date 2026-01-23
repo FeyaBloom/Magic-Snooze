@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, DeviceEventEmitter, Alert, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, DeviceEventEmitter, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Trash2, RotateCcw, AlertTriangle } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +22,7 @@ export default function ResetDataComponent() {
   const textStyles = useTextStyles();
 
   const [showResetModal, setShowResetModal] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [resetting, setResetting] = useState(false);
 
   const resetOptions: ResetOption[] = [
@@ -132,19 +133,15 @@ export default function ResetDataComponent() {
 
   const confirmReset = () => {
     const selectedCount = Object.values(selectedOptions).filter(Boolean).length;
-
-    Alert.alert(
-      t('reset.confirm.title'),
-      t('reset.confirm.message', { count: selectedCount }),
-      [
-        { text: t('common.cancel'), style: 'cancel' },
-        {
-          text: t('reset.confirm.delete'),
-          style: 'destructive',
-          onPress: performReset,
-        },
-      ]
-    );
+    
+    if (selectedCount === 0) {
+      showToast('info', t('reset.alerts.nothingSelected.title'),
+        t('reset.alerts.nothingSelected.message')
+      );
+      return;
+    }
+    
+    setShowConfirmDialog(true);
   };
 
   return (
@@ -289,6 +286,95 @@ export default function ResetDataComponent() {
                 <Trash2 size={16} color="#FFFFFF" />
                 <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
                   {resetting ? t('reset.modal.deleting') : t('reset.modal.delete')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Confirmation Dialog */}
+      <Modal visible={showConfirmDialog} animationType="fade" transparent={true}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingHorizontal: 20,
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: colors.surface,
+              borderRadius: 20,
+              padding: 24,
+              width: '100%',
+              maxWidth: 400,
+              borderWidth: 2,
+              borderColor: '#EF4444',
+            }}
+          >
+            <View style={{ alignItems: 'center', marginBottom: 16 }}>
+              <AlertTriangle size={48} color="#EF4444" />
+            </View>
+
+            <Text
+              style={[
+                textStyles.h2,
+                { color: colors.text, textAlign: 'center', marginBottom: 12 },
+              ]}
+            >
+              {t('reset.confirm.title')}
+            </Text>
+
+            <Text
+              style={[
+                textStyles.body,
+                { color: colors.textSecondary, textAlign: 'center', marginBottom: 24 },
+              ]}
+            >
+              {t('reset.confirm.message', { 
+                count: Object.values(selectedOptions).filter(Boolean).length 
+              })}
+            </Text>
+
+            <View style={{ flexDirection: 'row', gap: 12 }}>
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  padding: 14,
+                  borderRadius: 12,
+                  alignItems: 'center',
+                  backgroundColor: colors.background[0],
+                }}
+                onPress={() => setShowConfirmDialog(false)}
+              >
+                <Text style={[textStyles.button, { color: colors.text }]}>
+                  {t('common.cancel')}
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  padding: 14,
+                  borderRadius: 12,
+                  backgroundColor: '#EF4444',
+                }}
+                onPress={() => {
+                  setShowConfirmDialog(false);
+                  performReset();
+                }}
+                disabled={resetting}
+              >
+                <Trash2 size={16} color="#FFFFFF" />
+                <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+                  {t('reset.confirm.delete')}
                 </Text>
               </TouchableOpacity>
             </View>

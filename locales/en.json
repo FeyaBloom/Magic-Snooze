@@ -322,6 +322,37 @@
     "taskDueToday": "Task due today",
     "taskDueTomorrow": "Task due tomorrow",
     "taskDueSoon": "Upcoming task",
-    "taskDueInDays": "{{task}} - due in {{days}} days ({{date}})"
+    "taskDueInDays": "{{task}} - due in {{days}} days ({{date}})",
+    "settings": {
+      "title": "Gentle Reminders",
+      "subtitle": "Notifications that respect your brain",
+      "notSupported": "Notifications are not supported on this device",
+      "masterToggle": "Enable Reminders",
+      "masterToggleDesc": "Turn on gentle notifications (you're in control)",
+      "permissionNeeded": "Permission Needed",
+      "permissionDesc": "We need your permission to send you gentle reminders. No pressure though!",
+      "requestPermission": "Allow Notifications",
+      "permissionDenied": "Permission denied",
+      "permissionDeniedDesc": "You can enable notifications anytime in your device settings. No worries!",
+      "taskReminders": "Task Reminders",
+      "taskRemindersDesc": "Get gentle nudges about upcoming tasks",
+      "reminderDays": "Remind me:",
+      "days3Before": "3 days before",
+      "days1Before": "1 day before",
+      "onDueDate": "On due date",
+      "customDays": "Custom days before:",
+      "comingSoon": "Coming Soon",
+      "routineReminders": "Routine Reminders",
+      "routineRemindersDesc": "Optional morning & evening nudges",
+      "surprisePrompts": "Surprise Prompts",
+      "surprisePromptsDesc": "Random fun messages to brighten your day",
+      "testNotification": "Send Test Notification",
+      "testSent": "Test notification sent! Check it out 🌸",
+      "notificationTimes": "Notification Times",
+      "notificationTimesDesc": "Synced with theme change times (Daydream ↔ Night Forest)",
+      "morningTime": "Morning notifications",
+      "eveningTime": "Evening notifications",
+      "defaultTimes": "Default: 07:00 (morning) & 19:00 (evening)"
+    }
   }
 }

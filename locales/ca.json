@@ -316,6 +316,37 @@
     "taskDueToday": "Tasca per avui",
     "taskDueTomorrow": "Tasca per demà",
     "taskDueSoon": "Tasca pròxima",
-    "taskDueInDays": "{{task}} - en {{days}} dies ({{date}})"
+    "taskDueInDays": "{{task}} - en {{days}} dies ({{date}})",
+    "settings": {
+      "title": "Recordatoris Suaus",
+      "subtitle": "Notificacions que respecten el teu cervell",
+      "notSupported": "Les notificacions no són compatibles amb aquest dispositiu",
+      "masterToggle": "Activar Recordatoris",
+      "masterToggleDesc": "Activa notificacions suaus (tu tens el control)",
+      "permissionNeeded": "Permís Necessari",
+      "permissionDesc": "Necessitem el teu permís per enviar-te recordatoris suaus. Sense pressió!",
+      "requestPermission": "Permetre Notificacions",
+      "permissionDenied": "Permís denegat",
+      "permissionDeniedDesc": "Pots activar les notificacions quan vulguis a la configuració. No passa res!",
+      "taskReminders": "Recordatoris de Tasques",
+      "taskRemindersDesc": "Rep avisos suaus sobre tasques pròximes",
+      "reminderDays": "Recorda'm:",
+      "days3Before": "3 dies abans",
+      "days1Before": "1 dia abans",
+      "onDueDate": "El dia límit",
+      "customDays": "Dies personalitzats abans:",
+      "comingSoon": "Properament",
+      "routineReminders": "Recordatoris de Rutina",
+      "routineRemindersDesc": "Avisos opcionals matinals i nocturns",
+      "surprisePrompts": "Missatges Sorpresa",
+      "surprisePromptsDesc": "Missatges aleatoris divertits per alegrar el dia",
+      "testNotification": "Enviar Notificació de Prova",
+      "testSent": "Notificació de prova enviada! Fes-hi un cop d'ull 🌸",
+      "notificationTimes": "Horaris de Notificació",
+      "notificationTimesDesc": "Sincronitzats amb el canvi de tema (Daydream ↔ Night Forest)",
+      "morningTime": "Notificacions matinals",
+      "eveningTime": "Notificacions nocturnes",
+      "defaultTimes": "Per defecte: 07:00 (matí) i 19:00 (nit)"
+    }
   }
 }
