@@ -28,22 +28,22 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
   const [celebratedToday, setCelebratedToday] = useState<string[]>([]);
 
   const victories = [
-    { text: t('today.bed'), emoji: '🛏️' },
-    { text: t('today.water'), emoji: '💧' },
-    { text: t('today.breath'), emoji: '🌬️' },
-    { text: t('today.patient'), emoji: '😌' },
-    { text: t('today.pet'), emoji: '🐱' },
-    { text: t('today.sky'), emoji: '☁️' },
-    { text: t('today.smile'), emoji: '😊' },
-    { text: t('today.food'), emoji: '🍎' },
+    { id: 'bed', text: t('today.bed'), emoji: '🛏️' },
+    { id: 'water', text: t('today.water'), emoji: '💧' },
+    { id: 'breath', text: t('today.breath'), emoji: '🌬️' },
+    { id: 'patient', text: t('today.patient'), emoji: '🍎' },
+    { id: 'pet', text: t('today.pet'), emoji: '🌤' },
+    { id: 'sky', text: t('today.sky'), emoji: '😊' },
+    { id: 'smile', text: t('today.smile'), emoji: '❤️' },
+    { id: 'food', text: t('today.food'), emoji: '⏸️' },
   ];
 
-  const handleVictory = async (text: string) => {
-    if (celebratedToday.includes(text)) return;
+  const handleVictory = async (id: string) => {
+    if (celebratedToday.includes(id)) return;
 
     try {
-      await onVictoryPress(text);
-      setCelebratedToday(prev => [...prev, text]);
+      await onVictoryPress(id);
+      setCelebratedToday(prev => [...prev, id]);
       
       // show confetti
       setShowConfetti(true);

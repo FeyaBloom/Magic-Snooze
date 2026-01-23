@@ -3,7 +3,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, ScrollView, DeviceEventEmitter, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getLocalDateString } from '@/utils/dateUtils';
-import { Coffee, Moon } from 'lucide-react-native';
+import { Coffee, Moon, CalendarDays, Trophy } from 'lucide-react-native';
 
 // Components
 import { ScreenLayout } from '@/components/ScreenLayout';
@@ -42,6 +42,7 @@ export default function CalendarScreen() {
   const { t } = useTranslation();
   const textStyles = useTextStyles();
   const { colors, isMessyMode } = useTheme();
+  const calendarStyles = createCalendarStyles(colors);
 
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [progressData, setProgressData] = useState<Record<string, DailyProgress>>({});
@@ -254,10 +255,9 @@ export default function CalendarScreen() {
             calendarStyles.dayCell,
             !isCurrentMonth && calendarStyles.otherMonth,
             isToday && calendarStyles.today,
-            dayStatus === 'complete' && calendarStyles.completeDay,
-            dayStatus === 'partial' && calendarStyles.partialDay,
-            dayStatus === 'snoozed' && calendarStyles.snoozedDay,
-            dayStatus !== 'none' && { opacity: getHeatmapOpacity() },
+            !isToday && dayStatus === 'complete' && calendarStyles.completeDay,
+            !isToday && dayStatus === 'partial' && calendarStyles.partialDay,
+            !isToday && dayStatus === 'snoozed' && calendarStyles.snoozedDay,
           ]}
         >
           <Text
@@ -265,19 +265,11 @@ export default function CalendarScreen() {
               calendarStyles.dayText,
               isCurrentMonth ? { color: colors.text } : calendarStyles.otherMonthText,
               isToday && calendarStyles.todayText,
-              dayStatus !== 'none' && calendarStyles.statusDayText,
             ]}
           >
             {date.getDate()}
           </Text>
         </View>
-        {dayStatus !== 'none' && (
-          <View style={calendarStyles.statusDot}>
-            <Text style={calendarStyles.statusEmoji}>
-              {dayStatus === 'complete' ? '🏆' : dayStatus === 'partial' ? '🌟' : '💤'}
-            </Text>
-          </View>
-        )}
         {/* Tasks indicator */}
         {(() => {
           const dateString = getLocalDateString(date);
@@ -299,8 +291,8 @@ export default function CalendarScreen() {
           const icon = completedTask ? '✅' : plannedTask ? '📋' : null;
           
           return icon ? (
-            <View style={{ position: 'absolute', bottom: 2, right: 2 }}>
-              <Text style={{ fontSize: 10 }}>{icon}</Text>
+            <View style={calendarStyles.taskIcon}>
+              <Text style={calendarStyles.taskIconText}>{icon}</Text>
             </View>
           ) : null;
         })()}
@@ -449,11 +441,16 @@ export default function CalendarScreen() {
           {/* Статистика: недели или месячный график по рутинам */}
           {isViewingCurrentMonth && (
                 <View style={{ marginVertical: 16 }}>
-                  <Text style={[textStyles.h2, { marginBottom: 16 }]}>📅 {t('calendar.stats.weeklyStats')}</Text>
+                  <View style={calendarStyles.sectionHeaderWithIcon}>
+                    <CalendarDays size={24} color="#10B981" />
+                    <Text style={textStyles.h2}>{t('calendar.stats.weeklyStats')}</Text>
+                  </View>
                   {weeklyStats.map((week) => (
                     <WeekCard
                       key={week.weekNumber}
                       weekNumber={week.weekNumber}
+                      startDate={week.startDate}
+                      endDate={week.endDate}
                       morningRate={week.morningCompletionRate}
                       eveningRate={week.eveningCompletionRate}
                       overallRate={week.overallRate}
@@ -462,6 +459,7 @@ export default function CalendarScreen() {
                       totalDays={week.totalDays}
                       tasksCompleted={week.tasksCompleted}
                       victoriesCount={week.totalVictories}
+                      dailyActivity={week.dailyActivity}
                       status={week.status}
                       expanded={expandedWeeks.has(week.weekNumber - 1)}
                       onToggle={() => {
@@ -511,8 +509,8 @@ export default function CalendarScreen() {
                     <View>
                       {morningArr.length > 0 && (
                         <>
-                          <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 16, gap: 8 }}>
-                            <Coffee size={24} color={colors.primary} />
+                          <View style={calendarStyles.sectionHeaderWithIconVertical}>
+                            <Coffee size={24} color="#F59E0B" />
                             <Text style={textStyles.h2}>{t('calendar.stats.morningRoutines')}</Text>
                           </View>
                           <ParetoChart data={morningArr} maxItems={5} onLabelPress={(routine) => setMorningTooltip({ name: routine.name })} />
@@ -530,30 +528,8 @@ export default function CalendarScreen() {
                                   }}
                                 />
                               </TouchableWithoutFeedback>
-                              <View
-                                style={{
-                                  position: 'absolute',
-                                  bottom: 20,
-                                  left: 0,
-                                  right: 0,
-                                  alignItems: 'center',
-                                  zIndex: 1001,
-                                }}
-                              >
-                                <View
-                                  style={{
-                                    backgroundColor: colors.surface,
-                                    borderRadius: 10,
-                                    padding: 12,
-                                    shadowColor: colors.secondary,
-                                    shadowOffset: { width: 0, height: 2 },
-                                    shadowOpacity: 0.4,
-                                    shadowRadius: 4,
-                                    elevation: 3,
-                                    minWidth: 160,
-                                    maxWidth: 260,
-                                  }}
-                                >
+                              <View style={calendarStyles.tooltipContainer}>
+                                <View style={calendarStyles.tooltip}>
                                   <Text style={[textStyles.body, { color: colors.text, textAlign: 'center' }]}>{morningTooltip.name}</Text>
                                 </View>
                               </View>
@@ -563,8 +539,8 @@ export default function CalendarScreen() {
                       )}
                       {eveningArr.length > 0 && (
                         <>
-                          <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 16, gap: 8 }}>
-                            <Moon size={24} color={colors.primary} />
+                          <View style={calendarStyles.sectionHeaderWithIconVertical}>
+                            <Moon size={24} color="#8B5CF6" />
                             <Text style={textStyles.h2}>{t('calendar.stats.eveningRoutines')}</Text>
                           </View>
                           <ParetoChart data={eveningArr} maxItems={5} onLabelPress={(routine) => setEveningTooltip({ name: routine.name })} />
@@ -582,30 +558,8 @@ export default function CalendarScreen() {
                                   }}
                                 />
                               </TouchableWithoutFeedback>
-                              <View
-                                style={{
-                                  position: 'absolute',
-                                  bottom: 20,
-                                  left: 0,
-                                  right: 0,
-                                  alignItems: 'center',
-                                  zIndex: 1001,
-                                }}
-                              >
-                                <View
-                                  style={{
-                                    backgroundColor: colors.surface,
-                                    borderRadius: 10,
-                                    padding: 12,
-                                    shadowColor: colors.secondary,
-                                    shadowOffset: { width: 0, height: 2 },
-                                    shadowOpacity: 0.4,
-                                    shadowRadius: 4,
-                                    elevation: 3,
-                                    minWidth: 160,
-                                    maxWidth: 260,
-                                  }}
-                                >
+                              <View style={calendarStyles.tooltipContainer}>
+                                <View style={calendarStyles.tooltip}>
                                   <Text style={[textStyles.body, { color: colors.text, textAlign: 'center' }]}>{eveningTooltip.name}</Text>
                                 </View>
                               </View>

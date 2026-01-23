@@ -14,7 +14,7 @@ interface ParetoChartProps {
   onLabelPress?: (routine: RoutineStat) => void;
 }
 
-export function ParetoChart({ data, maxItems = 6, height = 240, onLabelPress }: ParetoChartProps) {
+export function ParetoChart({ data, maxItems = 6, height = 120, onLabelPress }: ParetoChartProps) {
   const { colors } = useTheme();
   const styles = useTextStyles();
   const calendarStyles = createCalendarStyles(colors);
@@ -63,7 +63,7 @@ export function ParetoChart({ data, maxItems = 6, height = 240, onLabelPress }: 
                   width={barW}
                   height={barHeight}
                   rx={8}
-                  fill={colors.accent}
+                  fill={colors.secondary}
                   opacity={opacity}
                 />
               );

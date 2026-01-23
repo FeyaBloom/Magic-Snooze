@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { useTheme } from '@/components/ThemeProvider';
 import { createCalendarStyles } from '@/styles/calendar';
-import { Flower2 } from 'lucide-react-native';
+import { Flower } from 'lucide-react-native';
 
 interface VictoryCount {
   name: string;
@@ -18,14 +18,88 @@ interface VictoriesStatsProps {
 }
 
 const VICTORY_TYPES: Record<string, string> = {
-  'Встал с кровати': '🛏️',
-  'Пил воду': '💧',
-  'Упражнение на дыхание': '🌬️',
-  'Был терпелив': '😌',
-  'Погладил животное': '🐱',
-  'Смотрел на небо': '☁️',
-  'Улыбнулся': '😊',
-  'Поел здоровое': '🍎',
+  'bed': '🛏️',
+  'water': '💧',
+  'breath': '🌬️',
+  'patient': '🍎',
+  'pet': '🌤',
+  'sky': '😊',
+  'smile': '❤️',
+  'food': '⏸️',
+};
+
+// Маппинг старых переведенных текстов на ID для обратной совместимости
+const LEGACY_VICTORY_MAPPING: Record<string, string> = {
+  // Русский (старые)
+  'Встал с кровати': 'bed',
+  'Пил воду': 'water',
+  'Упражнение на дыхание': 'breath',
+  'Был терпелив': 'patient',
+  'Погладил животное': 'pet',
+  'Смотрел на небо': 'sky',
+  'Улыбнулся': 'smile',
+  'Поел здоровое': 'food',
+  // Русский (новые)
+  'Выспался': 'bed',
+  'Выпил воды': 'water',
+  'Подышал глубоко': 'breath',
+  'Поел вовремя': 'patient',
+  'Вышел на улицу': 'pet',
+  'Пообщался': 'sky',
+  'Порадовал себя': 'smile',
+  'Сделал перерыв': 'food',
+  // English (старые)
+  'Got out of bed': 'bed',
+  'Drank water': 'water',
+  'Took a deep breath': 'breath',
+  'Was patient': 'patient',
+  'Pet an animal': 'pet',
+  'Looked at the sky': 'sky',
+  'Smiled at something': 'smile',
+  'Ate something': 'food',
+  // English (новые)
+  'Slept well': 'bed',
+  'Breathed deeply': 'breath',
+  'Ate on time': 'patient',
+  'Went outside': 'pet',
+  'Had a talk': 'sky',
+  'Treated myself': 'smile',
+  'Took a break': 'food',
+  // Español (старые)
+  'Me levanté de la cama': 'bed',
+  'Bebí agua': 'water',
+  'Respiré profundamente': 'breath',
+  'Fui paciente': 'patient',
+  'Acaricié un animal': 'pet',
+  'Miré el cielo': 'sky',
+  'Sonreí por algo': 'smile',
+  'Comí algo': 'food',
+  // Español (nuevые)
+  'Dormí bien': 'bed',
+  'Respiré hondo': 'breath',
+  'Comí a tiempo': 'patient',
+  'Salí afuera': 'pet',
+  'Charlé': 'sky',
+  'Me mimé': 'smile',
+  'Tomé un descanso': 'food',
+  // Català (старые)
+  'He sortit del llit': 'bed',
+  'He begut aigua': 'water',
+  'He respirat profundament': 'breath',
+  'He tingut paciència': 'patient',
+  'He acariciat un animal': 'pet',
+  'He mirat el cel': 'sky',
+  'He somrigut per alguna cosa': 'smile',
+  'He menjat alguna cosa': 'food',
+  // Català (nuevые)
+  'Vaig dormir bé': 'bed',
+  'Vaig beure aigua': 'water',
+  'Vaig respirar profund': 'breath',
+  'Vaig menjar a temps': 'patient',
+  'Vaig sortir a fora': 'pet',
+  'Vaig xarrar': 'sky',
+  'Em vaig mimar': 'smile',
+  'Vaig fer una pausa': 'food',
 };
 
 export function VictoriesStats({ month }: VictoriesStatsProps) {
@@ -55,16 +129,18 @@ export function VictoriesStats({ month }: VictoriesStatsProps) {
         if (victoriesData) {
           const dayVictories: string[] = JSON.parse(victoriesData);
           dayVictories.forEach((victory) => {
-            victoryMap[victory] = (victoryMap[victory] || 0) + 1;
+            // Преобразовать старые тексты в ID если нужно
+            const victoryId = LEGACY_VICTORY_MAPPING[victory] || victory;
+            victoryMap[victoryId] = (victoryMap[victoryId] || 0) + 1;
           });
         }
       }
 
       // Преобразовать в массив и показать ВСЕ (Victory Garden)
       const victoryArray = Object.entries(victoryMap)
-        .map(([name, count]) => ({
-          name,
-          emoji: VICTORY_TYPES[name] || '✨',
+        .map(([id, count]) => ({
+          name: t(`today.${id}`),
+          emoji: VICTORY_TYPES[id] || '✨',
           count,
         }))
         .sort((a, b) => b.count - a.count); // Сортируем по количеству
@@ -120,7 +196,7 @@ export function VictoriesStats({ month }: VictoriesStatsProps) {
   return (
     <View style={calendarStyles.card}>
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-        <Flower2 size={24} color={colors.primary} />
+        <Flower size={24} color="#EC4899" />
         <Text style={styles.h2}>
           {t('calendar.stats.victoryGarden')}
         </Text>
@@ -151,7 +227,7 @@ export function VictoriesStats({ month }: VictoriesStatsProps) {
               </View>
               
               {/* Визуализация роста растения */}
-              <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 4 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 4 }}>
                 {renderGrowthPath(victory.count)}
               </View>
             </View>

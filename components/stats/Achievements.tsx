@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { View, Text } from 'react-native';
+import { Trophy } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { useTheme } from '@/components/ThemeProvider';
@@ -99,7 +100,8 @@ export function Achievements({
 
   return (
     <View style={calendarStyles.card}>
-      <View style={{ marginBottom: 12 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+        <Trophy size={24} color="#F59E0B" />
         <Text style={styles.h2}>
           {t('calendar.stats.achievements')}
         </Text>
@@ -117,19 +119,8 @@ export function Achievements({
             }}
           >
             {/* Badge */}
-            <View
-              style={{
-                width: 50,
-                height: 50,
-                borderRadius: 25,
-                backgroundColor: colors.accent,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderWidth: 2,
-                borderColor: colors.primary,
-              }}
-            >
-              <Text style={{ fontSize: 24 }}>{achievement.emoji}</Text>
+            <View style={calendarStyles.achievementBadge}>
+              <Text style={calendarStyles.achievementEmoji}>{achievement.emoji}</Text>
             </View>
 
             {/* Label */}

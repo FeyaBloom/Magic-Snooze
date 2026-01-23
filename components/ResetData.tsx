@@ -58,7 +58,7 @@ export default function ResetDataComponent() {
       id: 'settings',
       titleKey: 'reset.options.settings.title',
       descriptionKey: 'reset.options.settings.description',
-      keys: ['selectedLanguage', 'selectedTheme', 'messyMode'],
+      keys: ['selectedLanguage', 'selectedTheme', 'messyMode', 'dashboard_focus_mode'],
       destructive: false,
     },
   ];

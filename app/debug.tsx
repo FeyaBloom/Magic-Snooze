@@ -54,14 +54,14 @@ export default function DebugScreen() {
       const endDate = new Date('2026-01-22');
       
       const victories = [
-        'Встал с кровати',
-        'Пил воду',
-        'Упражнение на дыхание',
-        'Был терпелив',
-        'Погладил животное',
-        'Смотрел на небо',
-        'Улыбнулся',
-        'Поел здоровое',
+        'bed',
+        'water',
+        'breath',
+        'patient',
+        'pet',
+        'sky',
+        'smile',
+        'food',
       ];
 
       const morningRoutinesList = [

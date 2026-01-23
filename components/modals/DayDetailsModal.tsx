@@ -13,6 +13,78 @@ import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
 import { getLocalDateString, formatDate } from '@/utils/dateUtils';
 
+// Маппинг старых переведенных текстов на ID для обратной совместимости
+const LEGACY_VICTORY_MAPPING: Record<string, string> = {
+  // Русский (старые)
+  'Встал с кровати': 'bed',
+  'Пил воду': 'water',
+  'Упражнение на дыхание': 'breath',
+  'Был терпелив': 'patient',
+  'Погладил животное': 'pet',
+  'Смотрел на небо': 'sky',
+  'Улыбнулся': 'smile',
+  'Поел здоровое': 'food',
+  // Русский (новые)
+  'Выспался': 'bed',
+  'Выпил воды': 'water',
+  'Подышал глубоко': 'breath',
+  'Поел вовремя': 'patient',
+  'Вышел на улицу': 'pet',
+  'Пообщался': 'sky',
+  'Порадовал себя': 'smile',
+  'Сделал перерыв': 'food',
+  // English (старые)
+  'Got out of bed': 'bed',
+  'Drank water': 'water',
+  'Took a deep breath': 'breath',
+  'Was patient': 'patient',
+  'Pet an animal': 'pet',
+  'Looked at the sky': 'sky',
+  'Smiled at something': 'smile',
+  'Ate something': 'food',
+  // English (новые)
+  'Slept well': 'bed',
+  'Breathed deeply': 'breath',
+  'Ate on time': 'patient',
+  'Went outside': 'pet',
+  'Had a talk': 'sky',
+  'Treated myself': 'smile',
+  'Took a break': 'food',
+  // Español
+  'Me levanté de la cama': 'bed',
+  'Bebí agua': 'water',
+  'Respiré profundamente': 'breath',
+  'Fui paciente': 'patient',
+  'Acaricié un animal': 'pet',
+  'Miré el cielo': 'sky',
+  'Sonreí por algo': 'smile',
+  'Comí algo': 'food',
+  'Dormí bien': 'bed',
+  'Respiré hondo': 'breath',
+  'Comí a tiempo': 'patient',
+  'Salí afuera': 'pet',
+  'Charlé': 'sky',
+  'Me mimé': 'smile',
+  'Tomé un descanso': 'food',
+  // Català
+  'He sortit del llit': 'bed',
+  'He begut aigua': 'water',
+  'He respirat profundament': 'breath',
+  'He tingut paciència': 'patient',
+  'He acariciat un animal': 'pet',
+  'He mirat el cel': 'sky',
+  'He somrigut per alguna cosa': 'smile',
+  'He menjat alguna cosa': 'food',
+  'Vaig dormir bé': 'bed',
+  'Vaig beure aigua': 'water',
+  'Vaig respirar profund': 'breath',
+  'Vaig menjar a temps': 'patient',
+  'Vaig sortir a fora': 'pet',
+  'Vaig xarrar': 'sky',
+  'Em vaig mimar': 'smile',
+  'Vaig fer una pausa': 'food',
+};
+
 interface Task {
   id: string;
   text: string;
@@ -59,7 +131,10 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
       // Load victories
       const victoriesData = await AsyncStorage.getItem(`victories_${dateString}`);
       if (victoriesData) {
-        setVictories(JSON.parse(victoriesData));
+        const rawVictories: string[] = JSON.parse(victoriesData);
+        // Преобразовать старые тексты в ID
+        const victoryIds = rawVictories.map(v => LEGACY_VICTORY_MAPPING[v] || v);
+        setVictories(victoryIds);
       } else {
         setVictories([]);
       }
@@ -237,11 +312,11 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
                     {t('today.tinyVictories')}
                   </Text>
                 </View>
-                {victories.map((victory, index) => (
+                {victories.map((victoryId, index) => (
                   <View key={index} style={styles.listItem}>
                     <Text style={styles.victoryBullet}>•</Text>
                     <Text style={[styles.listItemText, { color: colors.text }]}>
-                      {victory}
+                      {t(`today.${victoryId}`)}
                     </Text>
                   </View>
                 ))}

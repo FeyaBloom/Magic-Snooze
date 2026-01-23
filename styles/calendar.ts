@@ -154,16 +154,31 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     fontWeight: 'bold',
   },
   completeDay: {
-    backgroundColor: colors.accent,
-    borderRadius: (dayWidth * 0.8) / 2, 
+    borderWidth: 2,
+    borderColor: colors.accent,
+    width: dayWidth * 0.6,
+    height: dayWidth * 0.6,
+    shadowColor: colors.accent,
+    shadowOpacity: 0.8,
+    shadowRadius: 12,
   },
   partialDay: {
-    backgroundColor: colors.secondary,
-    borderRadius: (dayWidth * 0.8) / 2, 
+    borderWidth: 2,
+    borderColor: colors.secondary,
+    width: dayWidth * 0.6,
+    height: dayWidth * 0.6,
+    shadowColor: colors.secondary,
+    shadowOpacity: 0.8,
+    shadowRadius: 12,
   },
   snoozedDay: {
-    backgroundColor: colors.primary,
-    borderRadius: (dayWidth * 0.8) / 2, 
+    borderWidth: 2,
+    borderColor: colors.primary,
+    width: dayWidth * 0.6,
+    height: dayWidth * 0.6,
+    shadowColor: colors.primary,
+    shadowOpacity: 0.8,
+    shadowRadius: 12,
   },
   statusDayText: {
     color: '#FFFFFF',
@@ -297,5 +312,72 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  // Иконка задачи на дне календаря
+  taskIcon: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: [{ translateX: 3 }, { translateY: 3 }],
+  },
+  taskIconText: {
+    fontSize: 14,
+  },
+
+  // Tooltip для информации
+  tooltip: {
+    backgroundColor: colors.surface,
+    borderRadius: 10,
+    padding: 12,
+    shadowColor: colors.secondary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    elevation: 3,
+    minWidth: 160,
+    maxWidth: 260,
+  },
+  tooltipContainer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 1001,
+  },
+
+  // Badge для достижений
+  achievementBadge: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: colors.accent,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: colors.primary,
+    shadowColor: colors.accent,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  achievementEmoji: {
+    fontSize: 24,
+  },
+
+  // Заголовок секции с иконкой
+  sectionHeaderWithIcon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 16,
+  },
+  sectionHeaderWithIconVertical: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 16,
+    gap: 8,
   },
 });

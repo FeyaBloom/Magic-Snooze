@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Animated } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { useTheme } from '@/components/ThemeProvider';
@@ -37,6 +38,31 @@ export function StatsDashboard({
   const textStyles = useTextStyles();
   const calendarStyles = createCalendarStyles(colors);
   const [focusMode, setFocusMode] = useState<FocusMetric>('all');
+
+  // Загрузка сохраненного режима при монтировании
+  useEffect(() => {
+    const loadFocusMode = async () => {
+      try {
+        const saved = await AsyncStorage.getItem('dashboard_focus_mode');
+        if (saved && ['streak', 'magic', 'victories', 'all'].includes(saved)) {
+          setFocusMode(saved as FocusMetric);
+        }
+      } catch (error) {
+        console.error('Failed to load focus mode:', error);
+      }
+    };
+    loadFocusMode();
+  }, []);
+
+  // Сохранение режима при изменении
+  const updateFocusMode = async (mode: FocusMetric) => {
+    setFocusMode(mode);
+    try {
+      await AsyncStorage.setItem('dashboard_focus_mode', mode);
+    } catch (error) {
+      console.error('Failed to save focus mode:', error);
+    }
+  };
 
   const getStreakEmojis = (count: number) => {
     const flames = Math.ceil(count / 7);
@@ -140,7 +166,7 @@ export function StatsDashboard({
       {/* Focus Mode Toggle */}
       <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
         <TouchableOpacity
-          onPress={() => setFocusMode('all')}
+          onPress={() => updateFocusMode('all')}
           style={[
             calendarStyles.compactCard,
             { paddingVertical: 8, paddingHorizontal: 12 },
@@ -153,7 +179,7 @@ export function StatsDashboard({
         </TouchableOpacity>
         
         <TouchableOpacity
-          onPress={() => setFocusMode('streak')}
+          onPress={() => updateFocusMode('streak')}
           style={[
             calendarStyles.compactCard,
             { paddingVertical: 8, paddingHorizontal: 12 },
@@ -166,7 +192,7 @@ export function StatsDashboard({
         </TouchableOpacity>
         
         <TouchableOpacity
-          onPress={() => setFocusMode('magic')}
+          onPress={() => updateFocusMode('magic')}
           style={[
             calendarStyles.compactCard,
             { paddingVertical: 8, paddingHorizontal: 12 },
@@ -179,7 +205,7 @@ export function StatsDashboard({
         </TouchableOpacity>
         
         <TouchableOpacity
-          onPress={() => setFocusMode('victories')}
+          onPress={() => updateFocusMode('victories')}
           style={[
             calendarStyles.compactCard,
             { paddingVertical: 8, paddingHorizontal: 12 },
@@ -260,29 +286,6 @@ export function StatsDashboard({
           </Text>
           <Text style={[textStyles.caption, { color: colors.secondary, marginTop: 2 }]}>
             {t('calendar.stats.snoozed')}
-          </Text>
-        </View>
-      </View>
-
-      {/* Вторая строка: Tasks, Victories */}
-      <View style={[calendarStyles.statCardRow, {justifyContent: 'space-between'}]}>
-        <View style={[calendarStyles.compactCard, calendarStyles.statCard]}>
-          <Text style={{ fontSize: 24, marginBottom: 8 }}>✅️</Text>
-          <Text style={[textStyles.h2, { color: colors.primary }]}>
-            {completedTasks}
-          </Text>
-          <Text style={[textStyles.caption, { color: colors.secondary, marginTop: 2 }]}>
-            {t('calendar.stats.tasks')}
-          </Text>
-        </View>
-
-        <View style={[calendarStyles.compactCard, calendarStyles.statCard]}>
-          <Text style={{ fontSize: 24, marginBottom: 8 }}>✨</Text>
-          <Text style={[textStyles.h2, { color: colors.primary }]}>
-            {totalVictories}
-          </Text>
-          <Text style={[textStyles.caption, { color: colors.secondary, marginTop: 2 }]}>
-            {t('calendar.stats.victories')}
           </Text>
         </View>
       </View>
