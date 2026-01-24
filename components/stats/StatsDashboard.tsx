@@ -98,20 +98,20 @@ export function StatsDashboard({
       case 'streak':
         return (
           <View style={[calendarStyles.card, { padding: 24, alignItems: 'center' }]}>
-            <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 8 }]}>
-              {t('calendar.stats.currentStreak')}
+            <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 8 }]}> 
+              {isCurrentMonth ? t('calendar.stats.currentStreak') : t('calendar.stats.monthMaxStreak')}
             </Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-              <Text style={{ fontSize: 72, color: colors.primary, fontWeight: 'bold' }}>
-                {streak.currentStreak}
+              <Text style={{ fontSize: isCurrentMonth ? 72 : 56, color: colors.primary, fontWeight: 'bold' }}>
+                {isCurrentMonth ? streak.currentStreak : monthStreak}
               </Text>
-              <Text style={{ fontSize: 48 }}>{getStreakDisplay()}</Text>
+              <Text style={{ fontSize: isCurrentMonth ? 48 : 36 }}>{getStreakDisplay()}</Text>
             </View>
-            <Text style={[textStyles.body, { color: colors.secondary, marginTop: 8 }]}>
+            <Text style={[textStyles.body, { color: colors.secondary, marginTop: 8 }]}> 
               {t('calendar.stats.record')}: {streak.longestStreak} {t('calendar.stats.days')}
             </Text>
-            {streak.freezeDaysAvailable > 0 && (
-              <Text style={[textStyles.caption, { color: colors.accent, marginTop: 8 }]}>
+            {isCurrentMonth && streak.freezeDaysAvailable > 0 && (
+              <Text style={[textStyles.caption, { color: colors.accent, marginTop: 8 }]}> 
                 🧊 {t('calendar.stats.freezeAvailable')}
               </Text>
             )}
@@ -227,19 +227,18 @@ export function StatsDashboard({
           <View style={calendarStyles.card}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View style={{ flex: 1 }}>
-            <Text style={[textStyles.caption, { color: colors.secondary }]}>
+            <Text style={[textStyles.caption, { color: colors.secondary }]}> 
               {isCurrentMonth ? t('calendar.stats.currentStreak') : t('calendar.stats.monthMaxStreak')}
             </Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 }}>
-              <Text style={[textStyles.h1, { color: colors.primary }]}>
+              <Text style={[isCurrentMonth ? textStyles.h1 : textStyles.h2, { color: colors.primary }]}> 
                 {isCurrentMonth ? streak.currentStreak : monthStreak}
               </Text>
               <Text style={{ fontSize: 24 }}>{getStreakDisplay()}</Text>
             </View>
-            <Text style={[textStyles.caption, { color: colors.secondary, marginTop: 4 }]}>
-              {isCurrentMonth 
-                ? `${t('calendar.stats.record')}: ${streak.longestStreak} ${t('calendar.stats.days')}${streak.freezeDaysAvailable > 0 ? ` · ${t('calendar.stats.freezeAvailable')}` : ''}` 
-                : t('calendar.stats.days')}
+            <Text style={[textStyles.caption, { color: colors.secondary, marginTop: 4 }]}> 
+              {t('calendar.stats.record')}: {streak.longestStreak} {t('calendar.stats.days')}
+              {isCurrentMonth && streak.freezeDaysAvailable > 0 ? ` · ${t('calendar.stats.freezeAvailable')}` : ''}
             </Text>
           </View>
 

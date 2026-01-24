@@ -23,13 +23,9 @@ export const createTasksStyles = (colors: Theme['colors']) => StyleSheet.create(
     padding: 16,
     borderRadius: 16,
     marginBottom: 12,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 3,
+    // @ts-ignore
+    boxShadow: `0 3px 6px ${colors.secondary}33`,
     opacity: 0.75
-
   },
   taskContent: {
     flex: 1,

@@ -26,6 +26,7 @@ import { useWeeklyStats } from '@/hooks/useWeeklyStats';
 
 // Styles
 import { createCalendarStyles } from '@/styles/calendar';
+import { TOUCHABLE_CONFIG } from '@/styles/touchable';
 
 interface DailyProgress {
   date: string;
@@ -56,15 +57,21 @@ export default function CalendarScreen() {
   // Определить текущую неделю
   const getCurrentWeekIndex = () => {
     const now = new Date();
+    // Сбросить время для корректного сравнения дат
+    now.setHours(0, 0, 0, 0);
+    
     const year = now.getFullYear();
     const month = now.getMonth();
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
-    const firstSunday = new Date(firstDay);
-    firstSunday.setDate(firstSunday.getDate() - firstDay.getDay());
+    const firstMonday = new Date(firstDay);
+    const dayOfWeek = firstDay.getDay();
+    const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    firstMonday.setDate(firstMonday.getDate() - daysToMonday);
+    firstMonday.setHours(0, 0, 0, 0);
 
     let weekIdx = 0;
-    let currentWeekStart = new Date(firstSunday);
+    let currentWeekStart = new Date(firstMonday);
 
     while (currentWeekStart <= lastDay) {
       const weekEnd = new Date(currentWeekStart);
@@ -82,7 +89,7 @@ export default function CalendarScreen() {
     return 0; // Fallback
   };
 
-  const [expandedWeeks, setExpandedWeeks] = useState<Set<number>>(new Set());
+  const [expandedWeeks, setExpandedWeeks] = useState<Set<number>>(new Set([getCurrentWeekIndex()]));
   
   const [monthStreak, setMonthStreak] = useState(0);
   const styles = createCalendarStyles(colors);
@@ -100,6 +107,24 @@ export default function CalendarScreen() {
     useMonthlyStats();
   const { weeklyStats, calculateWeeklyStats } = useWeeklyStats();
 
+  const tasksByDate = useMemo(() => {
+    const completed: Record<string, number> = {};
+    const planned: Record<string, number> = {};
+
+    for (const task of tasksData) {
+      if (task.completed) {
+        const date = task.dueDate ? task.dueDate : task.completedAt;
+        if (date) {
+          completed[date] = (completed[date] || 0) + 1;
+        }
+      } else if (task.dueDate) {
+        planned[task.dueDate] = (planned[task.dueDate] || 0) + 1;
+      }
+    }
+
+    return { completed, planned };
+  }, [tasksData]);
+
   const loadProgressData = async () => {
     try {
       const year = currentMonth.getFullYear();
@@ -109,20 +134,32 @@ export default function CalendarScreen() {
       const progress: Record<string, DailyProgress> = {};
       const victories: Record<string, string[]> = {};
 
+      const progressKeys: string[] = [];
+      const victoriesKeys: string[] = [];
+
       // Load progress and victories for each day of the month
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day);
         const dateString = getLocalDateString(date);
-        
-        const dayProgress = await AsyncStorage.getItem(`progress_${dateString}`);
-        if (dayProgress) {
-          progress[dateString] = JSON.parse(dayProgress);
-        }
+        progressKeys.push(`progress_${dateString}`);
+        victoriesKeys.push(`victories_${dateString}`);
+      }
 
-        const dayVictories = await AsyncStorage.getItem(`victories_${dateString}`);
-        if (dayVictories) {
-          victories[dateString] = JSON.parse(dayVictories);
-        }
+      const [progressPairs, victoriesPairs] = await Promise.all([
+        AsyncStorage.multiGet(progressKeys),
+        AsyncStorage.multiGet(victoriesKeys),
+      ]);
+
+      for (const [key, value] of progressPairs) {
+        if (!value) continue;
+        const dateString = key.replace('progress_', '');
+        progress[dateString] = JSON.parse(value);
+      }
+
+      for (const [key, value] of victoriesPairs) {
+        if (!value) continue;
+        const dateString = key.replace('victories_', '');
+        victories[dateString] = JSON.parse(value);
       }
 
       // Load tasks (global, will filter by date when needed)
@@ -176,21 +213,8 @@ export default function CalendarScreen() {
     // Check victories activity
     const hasVictories = victoriesData[dateString]?.length > 0;
 
-    // Check completed tasks - prioritize dueDate if exists, otherwise use completedAt
-    const completedTasksThisDay = tasksData.filter(task => {
-      if (!task.completed) return false;
-      // If task has dueDate, show it only on dueDate
-      if (task.dueDate) return task.dueDate === dateString;
-      // If no dueDate, show it on completedAt
-      return task.completedAt === dateString;
-    }).length;
-
-    // Check planned (not completed) tasks with dueDate
-    const plannedTasksThisDay = tasksData.filter(task => {
-      if (task.completed) return false;
-      // Show planned tasks only on their dueDate
-      return task.dueDate === dateString;
-    }).length;
+    const completedTasksThisDay = tasksByDate.completed[dateString] || 0;
+    const plannedTasksThisDay = tasksByDate.planned[dateString] || 0;
 
     // Determine final status based on all activity types
     if (routineActivity !== 'none') {
@@ -199,7 +223,7 @@ export default function CalendarScreen() {
     }
 
     if (hasVictories || completedTasksThisDay > 0) {
-      // If no routine activity but has victories or completed tasks → partial
+      // Если нет активности по рутинам, но есть победы/задачи — partial
       return 'partial';
     }
 
@@ -247,7 +271,7 @@ export default function CalendarScreen() {
           setSelectedDay(date);
           setShowDayDetails(true);
         }}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}
         activeOpacity={0.7}
       >
         <View
@@ -255,9 +279,9 @@ export default function CalendarScreen() {
             calendarStyles.dayCell,
             !isCurrentMonth && calendarStyles.otherMonth,
             isToday && calendarStyles.today,
-            !isToday && dayStatus === 'complete' && calendarStyles.completeDay,
-            !isToday && dayStatus === 'partial' && calendarStyles.partialDay,
-            !isToday && dayStatus === 'snoozed' && calendarStyles.snoozedDay,
+            dayStatus === 'complete' && calendarStyles.completeDay,
+            dayStatus === 'partial' && calendarStyles.partialDay,
+            dayStatus === 'snoozed' && calendarStyles.snoozedDay,
           ]}
         >
           <Text
@@ -273,26 +297,24 @@ export default function CalendarScreen() {
         {/* Tasks indicator */}
         {(() => {
           const dateString = getLocalDateString(date);
+          const isFrozenDay = (streak.freezeDates || []).includes(dateString);
           
           // Check for completed tasks
-          const completedTask = tasksData.find(task => {
-            if (!task.completed) return false;
-            if (task.dueDate) return task.dueDate === dateString;
-            return task.completedAt === dateString;
-          });
+          const completedTask = (tasksByDate.completed[dateString] || 0) > 0;
           
           // Check for planned (not completed) tasks
-          const plannedTask = tasksData.find(task => {
-            if (task.completed) return false;
-            return task.dueDate === dateString;
-          });
+          const plannedTask = (tasksByDate.planned[dateString] || 0) > 0;
           
           // Show completed task icon if any, otherwise show planned task icon
           const icon = completedTask ? '✅' : plannedTask ? '📋' : null;
+          const freezeIcon = isFrozenDay ? '🧊' : null;
           
-          return icon ? (
-            <View style={calendarStyles.taskIcon}>
-              <Text style={calendarStyles.taskIconText}>{icon}</Text>
+          return icon || freezeIcon ? (
+            <View style={[calendarStyles.taskIcon, { flexDirection: 'row', alignItems: 'center' }]}> 
+              {freezeIcon && (
+                <Text style={[calendarStyles.taskIconText, { marginRight: icon ? 2 : 0 }]}>{freezeIcon}</Text>
+              )}
+              {icon && <Text style={calendarStyles.taskIconText}>{icon}</Text>}
             </View>
           ) : null;
         })()}
@@ -330,7 +352,6 @@ export default function CalendarScreen() {
   useFocusEffect(
     useCallback(() => {
       setCurrentMonth(new Date());
-      loadProgressData();
     }, [])
   );
 
@@ -379,7 +400,7 @@ export default function CalendarScreen() {
   }, []);
 
   return (
-    <ScreenLayout tabName="calendar">
+    <ScreenLayout tabName="calendar" scroll={false}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 40 }}

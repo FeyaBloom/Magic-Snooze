@@ -102,7 +102,13 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
+export function ThemeProvider({
+  children,
+  onReady,
+}: {
+  children: ReactNode;
+  onReady?: () => void;
+}) {
   const [operationMode, setOperationModeState] = useState<ThemeOperationMode | null>(null);
   const [selectedThemeManual, setSelectedThemeManual] = useState<ThemeMode | null>(null);
   const [currentTheme, setCurrentTheme] = useState<ThemeMode | null>(null);
@@ -164,7 +170,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         AsyncStorage.getItem(STORAGE_KEYS.messyColors),
       ]);
 
-      const opMode = rawOpMode === 'auto' || rawOpMode === 'manual' ? (rawOpMode as ThemeOperationMode) : 'manual';
+      const opMode = rawOpMode === 'auto' || rawOpMode === 'manual' ? (rawOpMode as ThemeOperationMode) : 'auto';
       const selectedTheme = (rawSelected === 'daydream' || rawSelected === 'nightforest')
         ? (rawSelected as ThemeMode)
         : 'daydream';
@@ -198,6 +204,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     loadAllSettings();
   }, []);
+
+  useEffect(() => {
+    if (!isLoading && currentTheme && operationMode && selectedThemeManual) {
+      onReady?.();
+    }
+  }, [isLoading, currentTheme, operationMode, selectedThemeManual, onReady]);
 
   // -------------------- auto mode: update theme on time change --------------------
   useEffect(() => {

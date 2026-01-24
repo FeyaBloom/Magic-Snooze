@@ -104,7 +104,7 @@ export function WeekCard({
   expanded = true,
   onToggle,
 }: WeekCardProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors } = useTheme();
   const styles = useTextStyles();
   const calendarStyles = createCalendarStyles(colors);
@@ -142,8 +142,7 @@ export function WeekCard({
     const end = new Date(endDate);
     const startDay = start.getDate();
     const endDay = end.getDate();
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const month = monthNames[start.getMonth()];
+    const month = start.toLocaleDateString(i18n.language, { month: 'short' });
     return `${startDay}-${endDay} ${month}`;
   };
 

@@ -51,7 +51,7 @@ export default function ResetDataComponent() {
       id: 'progress',
       titleKey: 'reset.options.progress.title',
       descriptionKey: 'reset.options.progress.description',
-      keys: ['lastProgressDate'],
+      keys: ['lastProgressDate', 'streakData'],
       pattern: ['progress_', 'victories_'],
       destructive: true,
     },

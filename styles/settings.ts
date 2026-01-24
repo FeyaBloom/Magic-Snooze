@@ -29,11 +29,8 @@ export const createSettingsStyles = (colors: any) => StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     marginBottom: 10,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 3,
+    // @ts-ignore
+    boxShadow: `0 2px 4px ${colors.secondary}66`,
     opacity: 0.75
   },
   leftContent: {
@@ -74,11 +71,8 @@ export const createSettingsStyles = (colors: any) => StyleSheet.create({
     padding: 24,
     width: 320,
     maxHeight: 500,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    elevation: 10,
+    // @ts-ignore
+    boxShadow: '0 10px 10px rgba(0, 0, 0, 0.25)',
   },
   modalTitle: {
     marginBottom: 20,

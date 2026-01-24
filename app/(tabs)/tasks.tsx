@@ -31,6 +31,7 @@ import { useTaskNotifications } from '@/hooks/useTaskNotifications';
 
 // Styles
 import { createTasksStyles } from '@/styles/tasks';
+import { TOUCHABLE_CONFIG } from '@/styles/touchable';
 
 interface Task {
   id: string;
@@ -265,6 +266,7 @@ export default function TasksScreen() {
           <TouchableOpacity
             style={[styles.addTaskButton, { backgroundColor: colors.primary }]}
             onPress={() => setShowAddModal(true)}
+            activeOpacity={0.7}
           >
             <Plus size={24} color="#FFFFFF" />
             <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
@@ -325,6 +327,7 @@ export default function TasksScreen() {
                       setShowEditModal(true);
                     }}
                     style={styles.actionButton}
+                    activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
                   >
                     <Edit size={16} color={colors.textSecondary} />
                   </TouchableOpacity>
@@ -368,7 +371,7 @@ export default function TasksScreen() {
                     </View>
                   </TouchableWithoutFeedback>
 
-                  <TouchableOpacity onPress={() => deleteTask(task.id)} style={styles.actionButton}>
+                  <TouchableOpacity onPress={() => deleteTask(task.id)} style={styles.actionButton} activeOpacity={TOUCHABLE_CONFIG.activeOpacity}>
                     <Trash2 size={16} color="#EF4444" />
                   </TouchableOpacity>
                 </View>
@@ -408,7 +411,7 @@ export default function TasksScreen() {
               multiline
               autoFocus
             />
-            <TouchableOpacity onPress={() => setShowCalendar(v => !v)}>
+            <TouchableOpacity onPress={() => setShowCalendar(v => !v)} activeOpacity={TOUCHABLE_CONFIG.activeOpacity}>
               <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 30 }]}>
                 {newTaskDueDate ? `📅 ${formatDate(newTaskDueDate, i18n.language)}` : t('tasks.dueDateOptional')}
               </Text>
@@ -438,6 +441,7 @@ export default function TasksScreen() {
                   setNewTaskDueDate('');
                   setShowCalendar(false);
                 }}
+                activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
               >
                 <Text style={[textStyles.button, { color: colors.text }]}>
                   {t('common.cancel')}
@@ -446,6 +450,7 @@ export default function TasksScreen() {
               <TouchableOpacity
                 style={[styles.modalButton, { backgroundColor: colors.secondary }]}
                 onPress={addTask}
+                activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
               >
                 <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
                   {t('common.add')}
@@ -480,7 +485,7 @@ export default function TasksScreen() {
               multiline
               autoFocus
             />
-            <TouchableOpacity onPress={() => setShowEditCalendar(v => !v)}>
+            <TouchableOpacity onPress={() => setShowEditCalendar(v => !v)} activeOpacity={TOUCHABLE_CONFIG.activeOpacity}>
               <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 30 }]}>
                 {newTaskDueDate ? `📅 ${formatDate(newTaskDueDate, i18n.language)}` : t('tasks.dueDateOptional')}
               </Text>
@@ -511,6 +516,7 @@ export default function TasksScreen() {
                   setEditingTask(null);
                   setShowEditCalendar(false);
                 }}
+                activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
               >
                 <Text style={[textStyles.button, { color: colors.text }]}>
                   {t('common.cancel')}
@@ -519,6 +525,7 @@ export default function TasksScreen() {
               <TouchableOpacity
                 style={[styles.modalButton, { backgroundColor: colors.secondary }]}
                 onPress={editTask}
+                activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
               >
                 <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
                   {t('common.save')}

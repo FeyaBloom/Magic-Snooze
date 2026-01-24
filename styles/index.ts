@@ -40,23 +40,17 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     backgroundColor: colors.surface,
     height: 48,
     marginHorizontal: 20,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
+    // @ts-ignore
+    boxShadow: '0 2px 4px rgba(204, 204, 204, 0.5)',
   },
   routineSection: {
     padding: 16,
     borderRadius: 16,
     marginBottom: 16,
     backgroundColor: colors.surface,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 3,
+    // @ts-ignore
+    boxShadow: `0 3px 6px ${colors.secondary}33`,
     opacity: 0.75
-
   },
   routineHeader: {
     flexDirection: 'row',
@@ -96,31 +90,41 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
     gap: 10,
     justifyContent: 'center',
     marginHorizontal: 60,
-    paddingVertical: 14,
-    borderRadius: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 30,
     marginBottom: 40,
     backgroundColor: colors.primary,
-    color: '#ffffff'
+    color: '#ffffff',
+    // @ts-ignore
+    boxShadow: `0 4px 12px ${colors.primary}66`,
+  },
+  snoozeButtonPressed: {
+    // @ts-ignore
+    boxShadow: `0 6px 30px ${colors.primary}cc`,
   },
   resumeButton: {
     marginHorizontal: 60,
-    paddingVertical: 14,
-    borderRadius: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 30,
     alignItems: 'center',
     marginBottom: 40,
     backgroundColor: colors.secondary,
-    color: '#ffffff'
+    // @ts-ignore
+    boxShadow: `0 4px 12px ${colors.secondary}66`,
+  },
+  resumeButtonPressed: {
+    // @ts-ignore
+    boxShadow: `0 6px 30px ${colors.secondary}cc`,
   },
   progressSection: {
     padding: 16,
     borderRadius: 16,
     marginTop: 8,
     backgroundColor: colors.surface,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 3,
+    // @ts-ignore
+    boxShadow: `0 2px 4px ${colors.secondary}66`,
     opacity: 0.75
   },
   progressStats: {

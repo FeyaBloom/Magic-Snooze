@@ -75,8 +75,8 @@ export default function Calendar({
   
   const styles = useMemo(() => {
     if (!colors) return null;
-    return createCalendarStyles(colors);
-  }, [colors]);
+    return createCalendarStyles(colors, dayWidth);
+  }, [colors, dayWidth]);
 
   
   useEffect(() => {
@@ -117,7 +117,7 @@ export default function Calendar({
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
     const firstDay = new Date(year, month, 1);
-    const startDay = firstDay.getDay(); // 0 (Sun) - 6 (Sat)
+    const startDay = (firstDay.getDay() + 6) % 7; // 0 (Mon) - 6 (Sun)
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -183,7 +183,10 @@ export default function Calendar({
     for (let i = 0; i < 6; i++) {
       const week = calendarDays.slice(i * 7, i * 7 + 7);
       rows.push(
-        <View key={i} style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <View
+          key={i}
+          style={{ flexDirection: 'row', justifyContent: 'flex-start', width: dayWidth * 7, alignSelf: 'center' }}
+        >
           {week}
         </View>
       );
@@ -197,13 +200,13 @@ export default function Calendar({
     if (!styles) return null;
 
     const weekDays = [
-      t('common.Sun'), 
       t('common.Mon'),
       t('common.Tue'),
       t('common.Wed'),
       t('common.Thu'),
       t('common.Fri'),
       t('common.Sat'),
+      t('common.Sun'),
     ];
 
     return weekDays.map((day) => (
@@ -211,7 +214,7 @@ export default function Calendar({
         {day}
       </Text>
     ));
-  }, [styles, dayWidth]);
+  }, [styles, dayWidth, i18n.language]);
 
   const capitalizeFirst = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -278,12 +281,17 @@ export default function Calendar({
       </View>
 
       <View style={styles.weekDaysContainer}>
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: dayWidth * 7, alignSelf: 'center' }}>
           {weekDaysComponent}
         </View>
       </View>
 
-      <View style={[styles.daysContainer, { flexDirection: 'column', alignItems: 'center' }]}>
+      <View
+        style={[
+          styles.daysContainer,
+          { flexDirection: 'column', alignItems: 'center', width: dayWidth * 7, alignSelf: 'center', marginTop: 12 },
+        ]}
+      > 
         {renderCalendar()}
       </View>
     </View>

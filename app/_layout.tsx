@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Platform, AppState, Keyboard } from 'react-native';
 import { Stack } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import Toast from 'react-native-toast-message';
 import { useFonts } from 'expo-font';
@@ -31,6 +31,9 @@ export default function RootLayout() {
     'Nunito_600SemiBold': require('../assets/fonts/Nunito-SemiBold.ttf'),
     'Nunito_700Bold': require('../assets/fonts/Nunito-Bold.ttf'),
   });
+
+  const [themeReady, setThemeReady] = useState(false);
+  const handleThemeReady = useCallback(() => setThemeReady(true), []);
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -67,12 +70,12 @@ export default function RootLayout() {
 }, []);
 
 useEffect(() => {
-    if (fontsLoaded || fontError) {
+    if ((fontsLoaded || fontError) && themeReady) {
       setTimeout(() => {
         SplashScreen.hideAsync();
       }, 100);
     }
-  }, [fontsLoaded, fontError]);
+  }, [fontsLoaded, fontError, themeReady]);
 
   if (!fontsLoaded && !fontError) {
     return null;
@@ -81,7 +84,7 @@ useEffect(() => {
   return (
     <>
     <StatusBar hidden={true} />
-    <ThemeProvider>
+    <ThemeProvider onReady={handleThemeReady}>
       <LanguageProvider>
         <NotificationInitializer />
         <Stack screenOptions={{ headerShown: false }}>

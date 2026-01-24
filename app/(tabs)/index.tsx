@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef, memo } from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,9 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView, 
   Platform,
-  Keyboard
+  Keyboard,
+  Animated,
+  FlatList
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Plus, Edit, Trash2, Coffee, Moon, Pause, Sparkles, Trophy } from 'lucide-react-native';
@@ -36,12 +38,70 @@ import { useStreak } from '@/hooks/useStreak';
 
 // Styles
 import { createTodayStyles } from '@/styles/index';
+import { TOUCHABLE_CONFIG } from '@/styles/touchable';
 
 interface RoutineStep {
   id: string;
   text: string;
   completed: boolean;
 }
+
+const RoutineStepRow = memo(function RoutineStepRow({
+  step,
+  isSnoozed,
+  isExpanded,
+  onToggle,
+  onToggleExpand,
+  onEdit,
+  colors,
+  textStyles,
+  styles,
+}: {
+  step: RoutineStep;
+  isSnoozed: boolean;
+  isExpanded: boolean;
+  onToggle: () => void;
+  onToggleExpand: () => void;
+  onEdit: () => void;
+  colors: any;
+  textStyles: any;
+  styles: any;
+}) {
+  return (
+    <View style={styles.stepContainer}>
+      <MagicalCheckbox
+        completed={step.completed}
+        onPress={onToggle}
+        disabled={isSnoozed}
+      />
+      <TouchableWithoutFeedback onPress={onToggleExpand}>
+        <Text
+          style={[
+            textStyles.body,
+            { color: colors.text, flex: 1 },
+            step.completed && styles.stepTextCompleted,
+            isSnoozed && styles.stepTextDisabled,
+          ]}
+          numberOfLines={isExpanded ? undefined : 3}
+          ellipsizeMode="tail"
+        >
+          {step.text}
+        </Text>
+      </TouchableWithoutFeedback>
+
+      <TouchableOpacity
+        style={styles.actionButton}
+        onPress={onEdit}
+        disabled={isSnoozed}
+      >
+        <Edit
+          size={16}
+          color={isSnoozed ? colors.textSecondary + '50' : colors.textSecondary}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+});
 
 export default function TodayScreen() {
   // Hooks
@@ -54,6 +114,9 @@ export default function TodayScreen() {
   const { celebrateVictory, resetVictories } = useVictories();
   const { snoozeDay: blockDay, unsnoozeDay: unblockDay } = useRoutinesBlock();
   const { updateStreak } = useStreak();
+  const streakUpdateTimer = useRef<NodeJS.Timeout | null>(null);
+  const saveProgressTimer = useRef<NodeJS.Timeout | null>(null);
+  const pendingProgress = useRef<{ morning: RoutineStep[]; evening: RoutineStep[] } | null>(null);
 
   // State
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
@@ -66,6 +129,8 @@ export default function TodayScreen() {
   const [editingStep, setEditingStep] = useState<RoutineStep | null>(null);
   const [isSnoozed, setIsSnoozed] = useState(false);
   const [expandedStepId, setExpandedStepId] = useState<string | null>(null);
+  const [isSnoozePressed, setIsSnoozePressed] = useState(false);
+  
   const [confirmDialog, setConfirmDialog] = useState({
     visible: false,
     title: '',
@@ -76,8 +141,29 @@ export default function TodayScreen() {
   const styles = createTodayStyles(colors);
 
   // Functions
-  const toggleStepExpand = (stepId: string) => {
+  const toggleStepExpand = useCallback((stepId: string) => {
     setExpandedStepId(prev => (prev === stepId ? null : stepId));
+  }, []);
+
+  const scheduleStreakUpdate = (hasActivity: boolean) => {
+    if (streakUpdateTimer.current) {
+      clearTimeout(streakUpdateTimer.current);
+    }
+    streakUpdateTimer.current = setTimeout(() => {
+      updateStreak(hasActivity);
+    }, 300);
+  };
+
+  const scheduleSaveProgress = (morning: RoutineStep[], evening: RoutineStep[]) => {
+    pendingProgress.current = { morning, evening };
+    if (saveProgressTimer.current) {
+      clearTimeout(saveProgressTimer.current);
+    }
+    saveProgressTimer.current = setTimeout(() => {
+      const payload = pendingProgress.current;
+      if (!payload) return;
+      saveProgressData(payload.morning, payload.evening);
+    }, 120);
   };
 
   const loadDefaultRoutines = async () => {
@@ -230,7 +316,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
 
     // Update streak based on whether day has any activity
     // Pass true - updateStreak will check all sources (routines, tasks, victories)
-    await updateStreak(true);
+    scheduleStreakUpdate(true);
 
     // Notify calendar to refresh stats
     DeviceEventEmitter.emit('progressChanged', { timestamp: Date.now() });
@@ -240,7 +326,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
 };
 
 
-  const toggleStep = async (stepId: string, routine: 'morning' | 'evening') => {
+  const toggleStep = useCallback(async (stepId: string, routine: 'morning' | 'evening') => {
     if (isSnoozed) return;
 
     const updateRoutine = routine === 'morning' ? morningRoutine : eveningRoutine;
@@ -254,11 +340,11 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
     await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
 
     const otherRoutine = routine === 'morning' ? eveningRoutine : morningRoutine;
-    saveProgressData(
+    scheduleSaveProgress(
       routine === 'morning' ? updated : otherRoutine,
       routine === 'evening' ? updated : otherRoutine
     );
-  };
+  }, [isSnoozed, morningRoutine, eveningRoutine, scheduleSaveProgress]);
 
   const addStep = async () => {
     if (!newStepText.trim()) return;
@@ -277,7 +363,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
     await AsyncStorage.setItem(`${currentRoutine}Routine`, JSON.stringify(updated));
 
     const otherRoutine = currentRoutine === 'morning' ? eveningRoutine : morningRoutine;
-    saveProgressData(
+    scheduleSaveProgress(
       currentRoutine === 'morning' ? updated : otherRoutine,
       currentRoutine === 'evening' ? updated : otherRoutine
     );
@@ -318,7 +404,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
         await AsyncStorage.setItem(`${routine}Routine`, JSON.stringify(updated));
 
         const otherRoutine = routine === 'morning' ? eveningRoutine : morningRoutine;
-        saveProgressData(
+        scheduleSaveProgress(
           routine === 'morning' ? updated : otherRoutine,
           routine === 'evening' ? updated : otherRoutine
         );
@@ -335,6 +421,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
 
     if (newSnoozed) {
       await blockDay?.();
+      scheduleStreakUpdate(false);
     } else {
       await unblockDay?.();
     }
@@ -344,6 +431,23 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
   useEffect(() => {
     loadData();
     loadProgress();
+    scheduleStreakUpdate(false);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      const pending = pendingProgress.current;
+      if (pending) {
+        // Принудительно сохранить последнюю отложенную запись
+        saveProgressData(pending.morning, pending.evening);
+      }
+      if (streakUpdateTimer.current) {
+        clearTimeout(streakUpdateTimer.current);
+      }
+      if (saveProgressTimer.current) {
+        clearTimeout(saveProgressTimer.current);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -447,50 +551,35 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
         </TouchableOpacity>
       </View>
 
-      {routine.map((step) => (
-        <View key={step.id} style={styles.stepContainer}>
-          <MagicalCheckbox
-            completed={step.completed}
-            onPress={() => toggleStep(step.id, routineType)}
-            disabled={isSnoozed}
-          />
-          <TouchableWithoutFeedback onPress={() => toggleStepExpand(step.id)}>
-            <Text
-              style={[
-                textStyles.body,
-                { color: colors.text, flex: 1 },
-                step.completed && styles.stepTextCompleted,
-                isSnoozed && styles.stepTextDisabled,
-              ]}
-              numberOfLines={expandedStepId === step.id ? undefined : 3}
-              ellipsizeMode="tail"
-            >
-              {step.text}
-            </Text>
-          </TouchableWithoutFeedback>
-
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => {
+      <FlatList
+        data={routine}
+        keyExtractor={(item) => item.id}
+        scrollEnabled={false}
+        removeClippedSubviews
+        renderItem={({ item }) => (
+          <RoutineStepRow
+            step={item}
+            isSnoozed={isSnoozed}
+            isExpanded={expandedStepId === item.id}
+            onToggle={() => toggleStep(item.id, routineType)}
+            onToggleExpand={() => toggleStepExpand(item.id)}
+            onEdit={() => {
               setCurrentRoutine(routineType);
-              setEditingStep(step);
-              setNewStepText(step.text);
+              setEditingStep(item);
+              setNewStepText(item.text);
               setShowEditModal(true);
             }}
-            disabled={isSnoozed}
-          >
-            <Edit
-              size={16}
-              color={isSnoozed ? colors.textSecondary + '50' : colors.textSecondary}
-            />
-          </TouchableOpacity>
-        </View>
-      ))}
+            colors={colors}
+            textStyles={textStyles}
+            styles={styles}
+          />
+        )}
+      />
     </View>
   );
 
   return (
-    <ScreenLayout tabName="index">
+    <ScreenLayout tabName="index" scroll={false}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 40 }}
@@ -532,6 +621,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
                 borderRadius: 16,
               }}
               onPress={() => setShowTinyVictories(true)}
+              activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
             >
               <Sparkles size={20} color={colors.primary} />
               <Text style={[textStyles.button, { color: colors.text }]}>
@@ -543,6 +633,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               <TouchableOpacity
                 style={{ backgroundColor: colors.surface, paddingHorizontal: 25, paddingVertical: 12, borderRadius: 12 }}
                 onPress={() => setThemeManual(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
+                activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
               >
                 <Text style={[textStyles.caption, { color: colors.text }]}>
                   {currentTheme === 'daydream' ? t('today.nightForest') : t('today.dayDream')}
@@ -552,6 +643,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               <TouchableOpacity
                 style={{ backgroundColor: colors.surface, paddingHorizontal: 25, paddingVertical: 12, borderRadius: 12 }}
                 onPress={() => router.push('/settings')}
+                activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
               >
                 <Text style={[textStyles.caption, { color: colors.text }]}>
                   {t('navigation.settings')}
@@ -562,7 +654,13 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
 
           {/* Snooze button */}
           {!isSnoozed && (
-            <TouchableOpacity style={styles.snoozeButton} onPress={snoozeToday}>
+            <TouchableOpacity 
+              onPress={snoozeToday} 
+              style={[styles.snoozeButton, isSnoozePressed && styles.snoozeButtonPressed]}
+              activeOpacity={1}
+              onPressIn={() => setIsSnoozePressed(true)}
+              onPressOut={() => setIsSnoozePressed(false)}
+            >
               <Pause size={20}/>
               <Text style={textStyles.button}>
                 {t('today.snoozeToday')}
@@ -572,7 +670,13 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
 
                     {/* Resume button if snoozed */}
           {isSnoozed && (
-            <TouchableOpacity style={styles.resumeButton} onPress={snoozeToday}>
+            <TouchableOpacity 
+              onPress={snoozeToday} 
+              style={[styles.resumeButton, isSnoozePressed && styles.resumeButtonPressed]}
+              activeOpacity={1}
+              onPressIn={() => setIsSnoozePressed(true)}
+              onPressOut={() => setIsSnoozePressed(false)}
+            >
               <Text style={textStyles.button}>
                 {t('today.resumeToday')}
               </Text>
@@ -660,8 +764,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
                 onPress={() => {
                   setShowAddModal(false);
                   setNewStepText('');
-                }}
-              >
+                }}                activeOpacity={TOUCHABLE_CONFIG.activeOpacity}              >
                 <Text style={[textStyles.button, { color: colors.text }]}>
                   {t('common.cancel')}
                 </Text>
@@ -669,6 +772,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               <TouchableOpacity
                 style={[styles.modalButton, { backgroundColor: colors.secondary }]}
                 onPress={addStep}
+                activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
               >
                 <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
                   {t('common.add')}

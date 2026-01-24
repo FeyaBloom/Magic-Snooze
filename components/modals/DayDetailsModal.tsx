@@ -164,7 +164,9 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
 
   if (!date) return null;
 
-  const hasData = progress || victories.length > 0 || tasks.length > 0;
+  const routineDoneCount = progress ? (progress.morningDone || 0) + (progress.eveningDone || 0) : 0;
+  const hasRoutineActivity = !!progress && (progress.snoozed || routineDoneCount > 0);
+  const hasData = hasRoutineActivity || victories.length > 0 || tasks.length > 0;
 
   return (
     <Modal visible={visible} animationType="fade" transparent={true} statusBarTranslucent={true}>
@@ -190,7 +192,7 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
             )}
 
             {/* Status Badge */}
-            {progress && (
+            {hasRoutineActivity && (
               <View style={[styles.statusBadge, { backgroundColor: colors.background[0] }]}>
                 <Text style={[styles.statusText, { color: colors.text }]}>
                   {progress.snoozed

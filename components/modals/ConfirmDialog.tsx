@@ -77,11 +77,8 @@ const styles = StyleSheet.create({
     maxWidth: 400,
     borderRadius: 16,
     padding: 24,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    elevation: 10,
+    // @ts-ignore
+    boxShadow: '0 10px 10px rgba(0, 0, 0, 0.25)',
   },
   title: {
     marginBottom: 12,

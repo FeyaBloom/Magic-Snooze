@@ -8,14 +8,71 @@ interface StorageData {
   [key: string]: string | null;
 }
 
+interface WeekDebugInfo {
+  currentWeekIndex: number;
+  expandedWeeksArray: number[];
+  weeklyStatsCount: number;
+  dateNow: string;
+  weeksInfo?: string[];
+}
+
 export default function DebugScreen() {
   const router = useRouter();
   const [storageData, setStorageData] = useState<StorageData>({});
   const [loading, setLoading] = useState(true);
+  const [weekDebug, setWeekDebug] = useState<WeekDebugInfo | null>(null);
 
   useEffect(() => {
     loadAllData();
+    calculateWeekDebug();
   }, []);
+
+  const calculateWeekDebug = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const firstSunday = new Date(firstDay);
+    firstSunday.setDate(firstSunday.getDate() - firstDay.getDay());
+
+    let weekIdx = 0;
+    let currentWeekStart = new Date(firstSunday);
+    let foundWeekIndex = 0;
+    const weeksInfo: string[] = [];
+
+    weeksInfo.push(`NOW: ${now.toISOString()} (time: ${now.getTime()})`);
+    weeksInfo.push('---');
+
+    while (currentWeekStart <= lastDay) {
+      const weekEnd = new Date(currentWeekStart);
+      weekEnd.setDate(weekEnd.getDate() + 6);
+
+      const startStr = currentWeekStart.toISOString().split('T')[0];
+      const endStr = weekEnd.toISOString().split('T')[0];
+      const isCurrentWeek = now >= currentWeekStart && now <= weekEnd;
+      
+      weeksInfo.push(`Week ${weekIdx + 1} (idx ${weekIdx}): ${startStr} - ${endStr}${isCurrentWeek ? ' ⭐ CURRENT' : ''}`);
+      weeksInfo.push(`  Start time: ${currentWeekStart.getTime()}, End time: ${weekEnd.getTime()}`);
+      weeksInfo.push(`  Check: ${now.getTime()} >= ${currentWeekStart.getTime()} && ${now.getTime()} <= ${weekEnd.getTime()} = ${isCurrentWeek}`);
+
+      if (isCurrentWeek) {
+        foundWeekIndex = weekIdx;
+      }
+
+      currentWeekStart = new Date(weekEnd);
+      currentWeekStart.setDate(currentWeekStart.getDate() + 1);
+      weekIdx += 1;
+    }
+
+    setWeekDebug({
+      currentWeekIndex: foundWeekIndex,
+      expandedWeeksArray: [foundWeekIndex],
+      weeklyStatsCount: weekIdx,
+      dateNow: now.toISOString(),
+      weeksInfo,
+    } as any);
+  };
 
   const loadAllData = async () => {
     try {
@@ -253,6 +310,25 @@ export default function DebugScreen() {
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={true}>
+        {/* Week Debug Info */}
+        {weekDebug && (
+          <View style={[styles.dataItem, { borderLeftColor: '#10B981', marginBottom: 16 }]}>
+            <Text style={[styles.keyText, { fontSize: 16, marginBottom: 8 }]}>📅 Week Stats Debug</Text>
+            <Text style={styles.debugText}>Date Now: {weekDebug.dateNow}</Text>
+            <Text style={styles.debugText}>Current Week Index: {weekDebug.currentWeekIndex}</Text>
+            <Text style={styles.debugText}>Expanded Weeks Array: [{weekDebug.expandedWeeksArray.join(', ')}]</Text>
+            <Text style={styles.debugText}>Total Weeks in Month: {weekDebug.weeklyStatsCount}</Text>
+            {weekDebug.weeksInfo && (
+              <View style={{ marginTop: 8 }}>
+                <Text style={[styles.debugText, { fontWeight: '600' }]}>Weeks breakdown:</Text>
+                {weekDebug.weeksInfo.map((info, idx) => (
+                  <Text key={idx} style={[styles.debugText, { fontSize: 11, marginLeft: 8 }]}>{info}</Text>
+                ))}
+              </View>
+            )}
+          </View>
+        )}
+
         {loading ? (
           <Text style={styles.loadingText}>Loading...</Text>
         ) : Object.keys(storageData).length === 0 ? (
@@ -345,6 +421,12 @@ const styles = StyleSheet.create({
     color: '#999',
     textAlign: 'center',
     marginTop: 32,
+  },
+  debugText: {
+    fontSize: 13,
+    color: '#333',
+    marginBottom: 4,
+    fontFamily: 'monospace',
   },
   footer: {
     flexDirection: 'row',

@@ -13,7 +13,10 @@ export const calculateDayWidth = (containerWidth?: number) => {
   return Math.max(MIN_DAY_WIDTH, Math.min(calculatedWidth, MAX_DAY_WIDTH));
 };
 
-export const createCalendarStyles = (colors: any) => StyleSheet.create({
+export const createCalendarStyles = (colors: any, dayWidthOverride?: number) => {
+  const resolvedDayWidth = dayWidthOverride ?? dayWidth;
+
+  return StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -28,7 +31,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
 
   selectedDay: {
     backgroundColor: colors.primary,
-    borderRadius: (dayWidth * 0.8) / 2, 
+    borderRadius: (resolvedDayWidth * 0.8) / 2, 
   },
 
   selectedDayText: {
@@ -68,14 +71,9 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     marginBottom: 20,
     borderRadius: 16,
     padding: 20,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 3,
+    // @ts-ignore
+    boxShadow: `0 3px 6px ${colors.secondary}33`,
     opacity: 0.75,
-
-
   },
   monthHeader: {
     flexDirection: 'row',
@@ -108,7 +106,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     fontSize: 14,
     color: colors.textSecondary,
     textAlign: 'center',
-    width: dayWidth,
+    width: resolvedDayWidth,
     fontFamily: 'ComicNeue-Bold',
     alignItems: 'center',
   },
@@ -119,16 +117,16 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
   },
   dayContainer: {
-    width: dayWidth,
-    height: dayWidth, 
+    width: resolvedDayWidth,
+    height: resolvedDayWidth, 
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
   },
   dayCell: {
-    width: dayWidth * 0.8,
-    height: dayWidth * 0.8, 
-    borderRadius: (dayWidth * 0.8) / 2,
+    width: resolvedDayWidth * 0.8,
+    height: resolvedDayWidth * 0.8, 
+    borderRadius: (resolvedDayWidth * 0.8) / 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -145,7 +143,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
   },
   today: {
     backgroundColor: colors.primary + '50',
-    borderRadius: (dayWidth * 0.8) / 2, 
+    borderRadius: (resolvedDayWidth * 0.8) / 2, 
     borderWidth: 2,
     borderColor: colors.primary,
   },
@@ -156,29 +154,20 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
   completeDay: {
     borderWidth: 2,
     borderColor: colors.accent,
-    width: dayWidth * 0.6,
-    height: dayWidth * 0.6,
-    shadowColor: colors.accent,
-    shadowOpacity: 0.8,
-    shadowRadius: 12,
+    // @ts-ignore
+    boxShadow: `0 0 12px ${colors.accent}cc`,
   },
   partialDay: {
     borderWidth: 2,
     borderColor: colors.secondary,
-    width: dayWidth * 0.6,
-    height: dayWidth * 0.6,
-    shadowColor: colors.secondary,
-    shadowOpacity: 0.8,
-    shadowRadius: 12,
+    // @ts-ignore
+    boxShadow: `0 0 12px ${colors.secondary}cc`,
   },
   snoozedDay: {
     borderWidth: 2,
     borderColor: colors.primary,
-    width: dayWidth * 0.6,
-    height: dayWidth * 0.6,
-    shadowColor: colors.primary,
-    shadowOpacity: 0.8,
-    shadowRadius: 12,
+    // @ts-ignore
+    boxShadow: `0 0 12px ${colors.primary}cc`,
   },
   statusDayText: {
     color: '#FFFFFF',
@@ -199,11 +188,8 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     marginBottom: 20,
     borderRadius: 16,
     padding: 20,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 3,
+    // @ts-ignore
+    boxShadow: `0 2px 4px ${colors.secondary}66`,
     opacity: 0.75,
   },
   statsTitle: {
@@ -241,11 +227,8 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: 16,
     padding: 16,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 3,
+    // @ts-ignore
+    boxShadow: `0 2px 4px ${colors.secondary}66`,
     opacity: 0.85,
     marginVertical: 14,
   },
@@ -255,11 +238,8 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: 12,
     padding: 12,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 2,
+    // @ts-ignore
+    boxShadow: `0 1px 3px ${colors.secondary}4d`,
     opacity: 0.85,
   },
 
@@ -269,11 +249,8 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     borderRadius: 12,
     padding: 12,
     marginBottom: 12,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 2,
+    // @ts-ignore
+    boxShadow: `0 1px 3px ${colors.secondary}4d`,
     opacity: 0.85,
   },
 
@@ -319,7 +296,7 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: [{ translateX: 3 }, { translateY: 3 }],
+    transform: [{ translateX: 9 }, { translateY: 9 }],
   },
   taskIconText: {
     fontSize: 14,
@@ -330,11 +307,8 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: 10,
     padding: 12,
-    shadowColor: colors.secondary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 4,
-    elevation: 3,
+    // @ts-ignore
+    boxShadow: `0 2px 4px ${colors.secondary}66`,
     minWidth: 160,
     maxWidth: 260,
   },
@@ -357,11 +331,8 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     alignItems: 'center',
     borderWidth: 2,
     borderColor: colors.primary,
-    shadowColor: colors.accent,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.8,
-    shadowRadius: 12,
-    elevation: 8,
+    // @ts-ignore
+    boxShadow: `0 0 12px ${colors.accent}cc`,
   },
   achievementEmoji: {
     fontSize: 24,
@@ -381,3 +352,4 @@ export const createCalendarStyles = (colors: any) => StyleSheet.create({
     gap: 8,
   },
 });
+};

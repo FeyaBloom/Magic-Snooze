@@ -25,7 +25,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const textStyles = useTextStyles();
   const styles = createSettingsStyles(colors);
   
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>('ca');
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {

@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getLocalDateString } from '@/utils/dateUtils';
 import { DailyProgress } from './useDailyProgress';
+import { useTranslation } from 'react-i18next';
 
 export interface WeeklyStats {
   weekNumber: number;
@@ -31,11 +32,13 @@ const getWeeksInMonth = (date: Date) => {
   const month = date.getMonth();
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
-  const firstSunday = new Date(firstDay);
-  firstSunday.setDate(firstSunday.getDate() - firstDay.getDay());
+  const firstMonday = new Date(firstDay);
+  const dayOfWeek = firstDay.getDay();
+  const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  firstMonday.setDate(firstMonday.getDate() - daysToMonday);
 
   const weeks = [];
-  let currentWeekStart = new Date(firstSunday);
+  let currentWeekStart = new Date(firstMonday);
 
   while (currentWeekStart <= lastDay) {
     const weekEnd = new Date(currentWeekStart);
@@ -64,6 +67,7 @@ const getStatus = (overallRate: number): { status: 'excellent' | 'good' | 'needs
 };
 
 export function useWeeklyStats() {
+  const { t, i18n } = useTranslation();
   const [weeklyStats, setWeeklyStats] = useState<WeeklyStats[]>([]);
 
   const calculateWeeklyStats = useCallback(async (date: Date = new Date()) => {
@@ -102,7 +106,15 @@ export function useWeeklyStats() {
         }
 
         // Проверить каждый день
-        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const dayNames = [
+          t('common.Mon'),
+          t('common.Tue'),
+          t('common.Wed'),
+          t('common.Thu'),
+          t('common.Fri'),
+          t('common.Sat'),
+          t('common.Sun'),
+        ];
         for (const dayDate of daysToCheck) {
           const dateStr = getLocalDateString(dayDate);
           const progressKey = `progress_${dateStr}`;
@@ -116,45 +128,36 @@ export function useWeeklyStats() {
 
           if (progressData) {
             const progress: DailyProgress = JSON.parse(progressData);
-            if (!progress.snoozed) {
+            if (progress.snoozed) {
+              dayEmoji = '💤';
               hasActivity = true;
-              totalDaysInWeek += 1;
-              
+            } else {
               morningDone = progress.morningDone || 0;
               eveningDone = progress.eveningDone || 0;
               totalRoutines = morningDone + eveningDone;
-              
-              if (progress.morningCompleted) {
-                morningFullDays += 1;
+
+              if (totalRoutines > 0) {
+                hasActivity = true;
+                totalDaysInWeek += 1;
+
+                if (progress.morningCompleted) {
+                  morningFullDays += 1;
+                }
+                if (progress.eveningCompleted) {
+                  eveningFullDays += 1;
+                }
+
+                // Определяем эмодзи дня
+                if (progress.morningCompleted && progress.eveningCompleted) {
+                  dayEmoji = '🏆';
+                } else if (progress.morningCompleted || progress.eveningCompleted) {
+                  dayEmoji = '⭐';
+                } else {
+                  dayEmoji = '💫';
+                }
               }
-              if (progress.eveningCompleted) {
-                eveningFullDays += 1;
-              }
-              
-              // Определяем эмодзи дня
-              if (progress.morningCompleted && progress.eveningCompleted) {
-                dayEmoji = '🏆';
-              } else if (progress.morningCompleted || progress.eveningCompleted) {
-                dayEmoji = '⭐';
-              } else {
-                dayEmoji = '💫';
-              }
-            } else {
-              dayEmoji = '💤';
-              hasActivity = true;
             }
           }
-
-          // Добавляем информацию о дне
-          const dayName = dayNames[dayDate.getDay()];
-          dailyActivity.push({
-            day: dayName,
-            hasActivity,
-            emoji: dayEmoji,
-            morningDone,
-            eveningDone,
-            totalRoutines,
-          });
 
           // Загрузить победы
           const victoriesKey = `victories_${dateStr}`;
@@ -172,6 +175,24 @@ export function useWeeklyStats() {
             return false;
           }).length;
           tasksCompleted += dayCompletedTasks;
+
+          if (!hasActivity && ((victoriesData && JSON.parse(victoriesData).length > 0) || dayCompletedTasks > 0)) {
+            hasActivity = true;
+            totalDaysInWeek += 1;
+            dayEmoji = '💫';
+          }
+
+          // Добавляем информацию о дне
+          const dayIndex = (dayDate.getDay() + 6) % 7;
+          const dayName = dayNames[dayIndex];
+          dailyActivity.push({
+            day: dayName,
+            hasActivity,
+            emoji: dayEmoji,
+            morningDone,
+            eveningDone,
+            totalRoutines,
+          });
         }
 
         const morningRate =
@@ -209,7 +230,7 @@ export function useWeeklyStats() {
       console.error('Error calculating weekly stats:', error);
       return [];
     }
-  }, []);
+  }, [t, i18n.language]);
 
   return { weeklyStats, calculateWeeklyStats };
 }

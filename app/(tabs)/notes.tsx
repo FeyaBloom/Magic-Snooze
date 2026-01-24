@@ -29,6 +29,7 @@ import { useTranslation } from 'react-i18next';
 
 // Styles
 import { createNotesStyles } from '@/styles/notes';
+import { TOUCHABLE_CONFIG } from '@/styles/touchable';
 
 interface Note {
   id: string;
@@ -222,6 +223,7 @@ export default function NotesScreen() {
           <TouchableOpacity
             style={[styles.addNoteButton, { backgroundColor: colors.primary }]}
             onPress={() => setShowAddModal(true)}
+            activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
           >
             <Plus size={24} color="#FFFFFF" />
             <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
@@ -233,41 +235,46 @@ export default function NotesScreen() {
           {filteredNotes.length > 0 ? (
             <View style={styles.notesContainer}>
               {filteredNotes.map((note) => (
-                <TouchableOpacity
+                <View
                   key={note.id}
                   style={[styles.noteCard, { backgroundColor: colors.surface }]}
-                  onPress={() => openNote(note)}
                 >
-                  <Text
-                    style={[textStyles.h2, { color: colors.text, marginBottom: 8 }]}
-                    numberOfLines={1}
+                  <TouchableOpacity
+                    onPress={() => openNote(note)}
+                    activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                    style={{ flex: 1 }}
                   >
-                    {note.title}
-                  </Text>
-                  <Text
-                    style={[textStyles.body, { color: colors.textSecondary, marginBottom: 12 }]}
-                    numberOfLines={3}
-                  >
-                    {note.content}
-                  </Text>
+                    <Text
+                      style={[textStyles.h2, { color: colors.text, marginBottom: 8 }]}
+                      numberOfLines={1}
+                    >
+                      {note.title}
+                    </Text>
+                    <Text
+                      style={[textStyles.body, { color: colors.textSecondary, marginBottom: 12 }]}
+                      numberOfLines={3}
+                    >
+                      {note.content}
+                    </Text>
+                  </TouchableOpacity>
                   <View style={styles.noteFooter}>
                     <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
                       {formatDate(note.updatedAt, i18n.language)}
                     </Text>
                     <TouchableOpacity
-                      onPress={(e) => {
-                        e.stopPropagation();
+                      onPress={() => {
                         setEditingNote(note);
                         setNoteTitle(note.title);
                         setNoteContent(note.content);
                         setShowEditModal(true);
                       }}
                       style={styles.editButton}
+                      activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
                     >
                       <Edit size={16} color={colors.textSecondary} />
                     </TouchableOpacity>
                   </View>
-                </TouchableOpacity>
+                </View>
               ))}
             </View>
           ) : (
@@ -338,6 +345,7 @@ export default function NotesScreen() {
                       setNoteTitle('');
                       setNoteContent('');
                     }}
+                    activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
                   >
                     <Text style={[textStyles.button, { color: colors.text }]}>
                       {t('common.cancel')}
@@ -346,6 +354,7 @@ export default function NotesScreen() {
                   <TouchableOpacity
                     style={[styles.modalButton, { backgroundColor: colors.primary }]}
                     onPress={addNote}
+                    activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
                   >
                     <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
                       {t('common.add')}
@@ -376,6 +385,7 @@ export default function NotesScreen() {
                 <TouchableOpacity
                   style={styles.deleteButton}
                   onPress={() => editingNote && deleteNote(editingNote.id)}
+                  activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
                 >
                   <Trash2 size={20} color="#EF4444" />
                 </TouchableOpacity>
@@ -415,6 +425,7 @@ export default function NotesScreen() {
                   <TouchableOpacity
                     style={[styles.modalButton, { backgroundColor: colors.primary }]}
                     onPress={editNote}
+                    activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
                   >
                     <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
                       {t('common.save')}
@@ -438,7 +449,7 @@ export default function NotesScreen() {
               >
                 {viewingNote?.title}
               </Text>
-              <TouchableOpacity onPress={openEditFromView} style={styles.editIconButton}>
+              <TouchableOpacity onPress={openEditFromView} style={styles.editIconButton} activeOpacity={TOUCHABLE_CONFIG.activeOpacity}>
                 <Edit size={20} color={colors.primary} />
               </TouchableOpacity>
             </View>
@@ -459,6 +470,7 @@ export default function NotesScreen() {
                 setShowViewModal(false);
                 setViewingNote(null);
               }}
+              activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
             >
               <Text style={[textStyles.button, { color: colors.text }]}>
                 {t('common.close')}

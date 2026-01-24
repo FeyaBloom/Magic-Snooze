@@ -20,14 +20,13 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        lazy: true,
+        detachInactiveScreens: true,
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopWidth: 0,
-          elevation: 8,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: -2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
+          // @ts-ignore
+          boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
           height: 70,
           paddingTop: 5,
           paddingHorizontal: 20,

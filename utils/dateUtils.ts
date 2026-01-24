@@ -13,10 +13,18 @@ export const getLocalDateString = (date: Date = new Date()): string => {
 };
 
 /**
+ * Parses YYYY-MM-DD as local date (no timezone shift)
+ */
+const parseLocalDateString = (dateStr: string): Date => {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, (month ?? 1) - 1, day ?? 1);
+};
+
+/**
  * Gets the previous day as YYYY-MM-DD string
  */
 export const getPreviousDay = (dateStr: string): string => {
-  const date = new Date(dateStr);
+  const date = parseLocalDateString(dateStr);
   date.setDate(date.getDate() - 1);
   return getLocalDateString(date);
 };
@@ -25,7 +33,7 @@ export const getPreviousDay = (dateStr: string): string => {
  * Gets the next day as YYYY-MM-DD string
  */
 export const getNextDay = (dateStr: string): string => {
-  const date = new Date(dateStr);
+  const date = parseLocalDateString(dateStr);
   date.setDate(date.getDate() + 1);
   return getLocalDateString(date);
 };
