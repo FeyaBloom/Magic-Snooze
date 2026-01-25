@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, memo } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
@@ -81,13 +81,14 @@ interface WeekCardProps {
     morningDone: number;
     eveningDone: number;
     totalRoutines: number;
+    totalPlanned: number;
   }>; // Новая визуализация
   status: 'excellent' | 'good' | 'needsSupport';
   expanded?: boolean;
   onToggle?: () => void;
 }
 
-export function WeekCard({
+export const WeekCard = memo(function WeekCard({
   weekNumber,
   startDate,
   endDate,
@@ -110,6 +111,56 @@ export function WeekCard({
   const calendarStyles = createCalendarStyles(colors);
   const statusLabel = t(`calendar.stats.status.${status}`);
   const [svgWidth, setSvgWidth] = useState(0);
+
+  const maxDataValue = useMemo(() => {
+    return Math.max(...dailyActivity.map(d => d.totalRoutines), 0);
+  }, [dailyActivity]);
+
+  const maxRoutines = Math.max(maxDataValue + 1, 6);
+
+  const chartData = useMemo(() => {
+    if (svgWidth <= 0 || dailyActivity.length === 0) {
+      return null;
+    }
+
+    const height = 110;
+    const paddingTop = 20;
+    const paddingBottom = 20;
+    const paddingLeft = 40;
+    const paddingRight = 40;
+    const chartWidth = svgWidth - paddingLeft - paddingRight;
+    const chartHeight = height - paddingTop - paddingBottom;
+
+    const points = dailyActivity.map((day, index) => {
+      const x = paddingLeft + (index / (dailyActivity.length - 1)) * chartWidth;
+      const y = paddingTop + chartHeight - ((day.totalRoutines / maxRoutines) * chartHeight);
+      return { x, y, value: day.totalRoutines };
+    });
+
+    let pathData = '';
+    if (points.length > 0) {
+      pathData = `M ${points[0].x} ${points[0].y}`;
+      for (let i = 0; i < points.length - 1; i++) {
+        const x0 = i > 0 ? points[i - 1].x : points[i].x;
+        const y0 = i > 0 ? points[i - 1].y : points[i].y;
+        const x1 = points[i].x;
+        const y1 = points[i].y;
+        const x2 = points[i + 1].x;
+        const y2 = points[i + 1].y;
+        const x3 = i < points.length - 2 ? points[i + 2].x : x2;
+        const y3 = i < points.length - 2 ? points[i + 2].y : y2;
+
+        const cp1x = x1 + (x2 - x0) / 6;
+        const cp1y = y1 + (y2 - y0) / 6;
+        const cp2x = x2 - (x3 - x1) / 6;
+        const cp2y = y2 - (y3 - y1) / 6;
+
+        pathData += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${x2} ${y2}`;
+      }
+    }
+
+    return { points, pathData };
+  }, [svgWidth, dailyActivity, maxRoutines]);
 
   const getStatusColor = () => {
     switch (status) {
@@ -269,121 +320,62 @@ export function WeekCard({
                   }
                 }}
               >
-                {svgWidth > 0 && (
+                {svgWidth > 0 && chartData && (
                   <>
                     <View style={{ height: 110, position: 'relative' }}>
                       <Svg height="110" width={svgWidth}>
-                        {(() => {
-                          // Находим максимальное количество рутин для правильного масштаба
-                          const maxDataValue = Math.max(...dailyActivity.map(d => d.totalRoutines), 0);
-                          const maxRoutines = Math.max(maxDataValue + 1, 6); // Минимум 6 для красоты
-                          const height = 110;
-                          const paddingTop = 20;
-                          const paddingBottom = 20;
-                          const paddingLeft = 40;
-                          const paddingRight = 40;
-                          const chartWidth = svgWidth - paddingLeft - paddingRight;
-                          const chartHeight = height - paddingTop - paddingBottom;
-                          
-                          // Вычисляем точки
-                          const points = dailyActivity.map((day, index) => {
-                            const x = paddingLeft + (index / (dailyActivity.length - 1)) * chartWidth;
-                            const y = paddingTop + chartHeight - ((day.totalRoutines / maxRoutines) * chartHeight);
-                            return { x, y, value: day.totalRoutines };
-                          });
+                        <Path
+                          d={chartData.pathData}
+                          stroke={colors.accent}
+                          strokeWidth="3"
+                          fill="none"
+                        />
 
-                          // Создаем плавную кривую (Catmull-Rom)
-                          let pathData = '';
-                          if (points.length > 0) {
-                            pathData = `M ${points[0].x} ${points[0].y}`;
-                            
-                            for (let i = 0; i < points.length - 1; i++) {
-                              const x0 = i > 0 ? points[i - 1].x : points[i].x;
-                              const y0 = i > 0 ? points[i - 1].y : points[i].y;
-                              const x1 = points[i].x;
-                              const y1 = points[i].y;
-                              const x2 = points[i + 1].x;
-                              const y2 = points[i + 1].y;
-                              const x3 = i < points.length - 2 ? points[i + 2].x : x2;
-                              const y3 = i < points.length - 2 ? points[i + 2].y : y2;
-                              
-                              const cp1x = x1 + (x2 - x0) / 6;
-                              const cp1y = y1 + (y2 - y0) / 6;
-                              const cp2x = x2 - (x3 - x1) / 6;
-                              const cp2y = y2 - (y3 - y1) / 6;
-                              
-                              pathData += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${x2} ${y2}`;
-                            }
-                          }
-
+                        {chartData.points.map((point, index) => {
+                          const totalPlanned = dailyActivity[index].totalPlanned || 0;
+                          const isDayComplete = totalPlanned > 0 && dailyActivity[index].totalRoutines >= totalPlanned;
+                          const hasActivity = point.value > 0;
+                          const glowColor = isDayComplete ? colors.accent : hasActivity ? colors.secondary : colors.primary;
                           return (
-                            <>
-                              <Path
-                                d={pathData}
-                                stroke={colors.accent}
-                                strokeWidth="3"
-                                fill="none"
+                            <React.Fragment key={index}>
+                              {/* Внешнее свечение */}
+                              <Circle
+                                cx={point.x}
+                                cy={point.y}
+                                r="12"
+                                fill={glowColor}
+                                opacity="0.3"
                               />
-                              
-                              {points.map((point, index) => {
-                                const isDayComplete = dailyActivity[index].morningDone === 3 && dailyActivity[index].eveningDone === 3;
-                                const hasActivity = point.value > 0;
-                                const glowColor = isDayComplete ? colors.accent : hasActivity ? colors.secondary : colors.primary;
-                                return (
-                                  <React.Fragment key={index}>
-                                    {/* Внешнее свечение */}
-                                    <Circle
-                                      cx={point.x}
-                                      cy={point.y}
-                                      r="12"
-                                      fill={glowColor}
-                                      opacity="0.3"
-                                    />
-                                    {/* Среднее свечение */}
-                                    <Circle
-                                      cx={point.x}
-                                      cy={point.y}
-                                      r="8"
-                                      fill={glowColor}
-                                      opacity="0.5"
-                                    />
-                                    {/* Основная точка */}
-                                    <Circle
-                                      cx={point.x}
-                                      cy={point.y}
-                                      r="5"
-                                      fill={glowColor}
-                                    />
-                                  </React.Fragment>
-                                );
-                              })}
-                            </>
+                              {/* Среднее свечение */}
+                              <Circle
+                                cx={point.x}
+                                cy={point.y}
+                                r="8"
+                                fill={glowColor}
+                                opacity="0.5"
+                              />
+                              {/* Основная точка */}
+                              <Circle
+                                cx={point.x}
+                                cy={point.y}
+                                r="5"
+                                fill={glowColor}
+                              />
+                            </React.Fragment>
                           );
-                        })()}
+                        })}
                       </Svg>
                       
                       {/* Числа над точками */}
                       {dailyActivity.map((day, index) => {
-                        const maxDataValue = Math.max(...dailyActivity.map(d => d.totalRoutines), 0);
-                        const maxRoutines = Math.max(maxDataValue + 1, 6);
-                        const height = 110;
-                        const paddingTop = 20;
-                        const paddingBottom = 20;
-                        const paddingLeft = 40;
-                        const paddingRight = 40;
-                        const chartWidth = svgWidth - paddingLeft - paddingRight;
-                        const chartHeight = height - paddingTop - paddingBottom;
-                        
-                        const x = paddingLeft + (index / (dailyActivity.length - 1)) * chartWidth;
-                        const y = paddingTop + chartHeight - ((day.totalRoutines / maxRoutines) * chartHeight);
-                        
-                        return day.totalRoutines > 0 ? (
+                        const point = chartData.points[index];
+                        return day.totalRoutines > 0 && point ? (
                           <Text
                             key={index}
                             style={[styles.caption, {
                               position: 'absolute',
-                              left: x - 6,
-                              top: y - 18,
+                              left: point.x - 6,
+                              top: point.y - 18,
                               color: colors.text,
                               fontSize: 10,
                               fontWeight: 'bold',
@@ -452,4 +444,4 @@ export function WeekCard({
       )}
     </TouchableOpacity>
   );
-}
+});

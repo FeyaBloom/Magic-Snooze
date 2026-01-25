@@ -54,41 +54,6 @@ export function useStreak() {
       const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
       const allTasks = tasksStr ? JSON.parse(tasksStr) : [];
 
-      const getDayInfo = async (dateStr: string, baseHasActivity = false) => {
-        let hasAnyActivity = baseHasActivity;
-        let isSnoozed = false;
-
-        const progressStr = await AsyncStorage.getItem(`progress_${dateStr}`);
-        if (progressStr) {
-          const progress = JSON.parse(progressStr);
-          isSnoozed = !!progress.snoozed;
-          if (!hasAnyActivity) {
-            if (progress.morningDone > 0 || progress.eveningDone > 0) {
-              hasAnyActivity = true;
-            }
-          }
-        }
-
-        if (!hasAnyActivity) {
-          const completedToday = allTasks.some((t: any) => {
-            if (!t.completed) return false;
-            if (t.completedAt === dateStr) return true;
-            if (t.dueDate === dateStr) return true;
-            return false;
-          });
-          if (completedToday) hasAnyActivity = true;
-        }
-
-        if (!hasAnyActivity) {
-          const victoriesStr = await AsyncStorage.getItem(`victories_${dateStr}`);
-          if (victoriesStr) {
-            hasAnyActivity = true;
-          }
-        }
-
-        return { hasAnyActivity, isSnoozed };
-      };
-
       // Обновить freeze days каждую неделю
       const checkAndRefreshFreezeDays = () => {
         if (!streakData.lastFreezeDate) {
@@ -119,6 +84,72 @@ export function useStreak() {
 
       const allDates = [...dateKeys, ...taskDates, today].filter(Boolean);
       const earliestDate = allDates.sort()[0] || today;
+
+      const completedTasksByDate: Record<string, number> = {};
+      for (const t of allTasks) {
+        if (!t.completed) continue;
+        if (t.completedAt) {
+          completedTasksByDate[t.completedAt] = (completedTasksByDate[t.completedAt] || 0) + 1;
+        }
+        if (t.dueDate) {
+          completedTasksByDate[t.dueDate] = (completedTasksByDate[t.dueDate] || 0) + 1;
+        }
+      }
+
+      const dateRange: string[] = [];
+      let cursorForRange = earliestDate;
+      while (cursorForRange <= today) {
+        dateRange.push(cursorForRange);
+        cursorForRange = getNextDay(cursorForRange);
+      }
+
+      const progressKeys = dateRange.map((d) => `progress_${d}`);
+      const victoriesKeys = dateRange.map((d) => `victories_${d}`);
+
+      const [progressPairs, victoriesPairs] = await Promise.all([
+        AsyncStorage.multiGet(progressKeys),
+        AsyncStorage.multiGet(victoriesKeys),
+      ]);
+
+      const progressByDate: Record<string, any> = {};
+      for (const [key, value] of progressPairs) {
+        if (!value) continue;
+        const dateStr = key.replace('progress_', '');
+        progressByDate[dateStr] = JSON.parse(value);
+      }
+
+      const victoriesByDate: Record<string, boolean> = {};
+      for (const [key, value] of victoriesPairs) {
+        if (!value) continue;
+        const dateStr = key.replace('victories_', '');
+        victoriesByDate[dateStr] = true;
+      }
+
+      const getDayInfo = async (dateStr: string, baseHasActivity = false) => {
+        let hasAnyActivity = baseHasActivity;
+        let isSnoozed = false;
+
+        const progress = progressByDate[dateStr];
+        if (progress) {
+          isSnoozed = !!progress.snoozed;
+          if (!hasAnyActivity) {
+            if (progress.morningDone > 0 || progress.eveningDone > 0) {
+              hasAnyActivity = true;
+            }
+          }
+        }
+
+        if (!hasAnyActivity) {
+          const completedToday = (completedTasksByDate[dateStr] || 0) > 0;
+          if (completedToday) hasAnyActivity = true;
+        }
+
+        if (!hasAnyActivity && victoriesByDate[dateStr]) {
+          hasAnyActivity = true;
+        }
+
+        return { hasAnyActivity, isSnoozed };
+      };
 
       let currentStreak = 0;
       let longestStreak = 0;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -102,7 +102,7 @@ const LEGACY_VICTORY_MAPPING: Record<string, string> = {
   'Vaig fer una pausa': 'food',
 };
 
-export function VictoriesStats({ month }: VictoriesStatsProps) {
+export const VictoriesStats = memo(function VictoriesStats({ month }: VictoriesStatsProps) {
   const { t } = useTranslation();
   const [victories, setVictories] = useState<VictoryCount[]>([]);
   const { colors } = useTheme();
@@ -121,19 +121,25 @@ export function VictoriesStats({ month }: VictoriesStatsProps) {
 
       const victoryMap: Record<string, number> = {};
 
-      // Загрузить все победы за месяц
+      const victoryKeys: string[] = [];
+      const dateStrings: string[] = [];
+
       for (let day = 1; day <= daysInMonth; day++) {
         const dateStr = `${year}-${String(monthNum + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        const victoriesData = await AsyncStorage.getItem(`victories_${dateStr}`);
+        dateStrings.push(dateStr);
+        victoryKeys.push(`victories_${dateStr}`);
+      }
 
-        if (victoriesData) {
-          const dayVictories: string[] = JSON.parse(victoriesData);
-          dayVictories.forEach((victory) => {
-            // Преобразовать старые тексты в ID если нужно
-            const victoryId = LEGACY_VICTORY_MAPPING[victory] || victory;
-            victoryMap[victoryId] = (victoryMap[victoryId] || 0) + 1;
-          });
-        }
+      const victoryPairs = await AsyncStorage.multiGet(victoryKeys);
+
+      for (const [key, value] of victoryPairs) {
+        if (!value) continue;
+        const dayVictories: string[] = JSON.parse(value);
+        dayVictories.forEach((victory) => {
+          // Преобразовать старые тексты в ID если нужно
+          const victoryId = LEGACY_VICTORY_MAPPING[victory] || victory;
+          victoryMap[victoryId] = (victoryMap[victoryId] || 0) + 1;
+        });
       }
 
       // Преобразовать в массив и показать ВСЕ (Victory Garden)
@@ -236,4 +242,4 @@ export function VictoriesStats({ month }: VictoriesStatsProps) {
       </View>
     </View>
   );
-}
+});

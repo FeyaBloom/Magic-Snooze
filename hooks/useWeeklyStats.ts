@@ -24,6 +24,7 @@ export interface WeeklyStats {
     morningDone: number;
     eveningDone: number;
     totalRoutines: number;
+    totalPlanned: number;
   }>;
 }
 
@@ -79,6 +80,52 @@ export function useWeeklyStats() {
       const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
       const allTasks = tasksStr ? JSON.parse(tasksStr) : [];
 
+      // Предзагрузить прогресс и победы по всему месяцу
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const progressKeys: string[] = [];
+      const victoriesKeys: string[] = [];
+      const dateStrings: string[] = [];
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const d = new Date(year, month, day);
+        const dateStr = getLocalDateString(d);
+        dateStrings.push(dateStr);
+        progressKeys.push(`progress_${dateStr}`);
+        victoriesKeys.push(`victories_${dateStr}`);
+      }
+
+      const [progressPairs, victoriesPairs] = await Promise.all([
+        AsyncStorage.multiGet(progressKeys),
+        AsyncStorage.multiGet(victoriesKeys),
+      ]);
+
+      const progressByDate: Record<string, DailyProgress | null> = {};
+      for (const [key, value] of progressPairs) {
+        if (!value) continue;
+        const dateStr = key.replace('progress_', '');
+        progressByDate[dateStr] = JSON.parse(value);
+      }
+
+      const victoriesByDate: Record<string, string[]> = {};
+      for (const [key, value] of victoriesPairs) {
+        if (!value) continue;
+        const dateStr = key.replace('victories_', '');
+        victoriesByDate[dateStr] = JSON.parse(value);
+      }
+
+      const tasksCompletedByDate: Record<string, number> = {};
+      for (const task of allTasks) {
+        if (!task.completed) continue;
+        if (task.dueDate) {
+          tasksCompletedByDate[task.dueDate] = (tasksCompletedByDate[task.dueDate] || 0) + 1;
+        }
+        if (task.completedAt) {
+          tasksCompletedByDate[task.completedAt] = (tasksCompletedByDate[task.completedAt] || 0) + 1;
+        }
+      }
+
       for (let weekIdx = 0; weekIdx < weeks.length; weekIdx++) {
         const { startDate, endDate } = weeks[weekIdx];
         const start = new Date(startDate);
@@ -97,6 +144,7 @@ export function useWeeklyStats() {
           morningDone: number;
           eveningDone: number;
           totalRoutines: number;
+          totalPlanned: number;
         }> = [];
 
         // Собрать все дни в неделе
@@ -117,17 +165,16 @@ export function useWeeklyStats() {
         ];
         for (const dayDate of daysToCheck) {
           const dateStr = getLocalDateString(dayDate);
-          const progressKey = `progress_${dateStr}`;
-          const progressData = await AsyncStorage.getItem(progressKey);
-          
+          const progress = progressByDate[dateStr];
+
           let hasActivity = false;
           let dayEmoji = '·';
           let morningDone = 0;
           let eveningDone = 0;
           let totalRoutines = 0;
+          let totalPlanned = 0;
 
-          if (progressData) {
-            const progress: DailyProgress = JSON.parse(progressData);
+          if (progress) {
             if (progress.snoozed) {
               dayEmoji = '💤';
               hasActivity = true;
@@ -135,6 +182,7 @@ export function useWeeklyStats() {
               morningDone = progress.morningDone || 0;
               eveningDone = progress.eveningDone || 0;
               totalRoutines = morningDone + eveningDone;
+              totalPlanned = (progress.morningTotal || 0) + (progress.eveningTotal || 0);
 
               if (totalRoutines > 0) {
                 hasActivity = true;
@@ -160,23 +208,16 @@ export function useWeeklyStats() {
           }
 
           // Загрузить победы
-          const victoriesKey = `victories_${dateStr}`;
-          const victoriesData = await AsyncStorage.getItem(victoriesKey);
-          if (victoriesData) {
-            const victories: string[] = JSON.parse(victoriesData);
-            totalVictories += victories.length;
+          const dayVictories = victoriesByDate[dateStr] || [];
+          if (dayVictories.length) {
+            totalVictories += dayVictories.length;
           }
 
           // Подсчитать завершенные задачи на этот день
-          const dayCompletedTasks = allTasks.filter((task: any) => {
-            if (!task.completed) return false;
-            if (task.dueDate === dateStr) return true;
-            if (task.completedAt === dateStr) return true;
-            return false;
-          }).length;
+          const dayCompletedTasks = tasksCompletedByDate[dateStr] || 0;
           tasksCompleted += dayCompletedTasks;
 
-          if (!hasActivity && ((victoriesData && JSON.parse(victoriesData).length > 0) || dayCompletedTasks > 0)) {
+          if (!hasActivity && (dayVictories.length > 0 || dayCompletedTasks > 0)) {
             hasActivity = true;
             totalDaysInWeek += 1;
             dayEmoji = '💫';
@@ -192,6 +233,7 @@ export function useWeeklyStats() {
             morningDone,
             eveningDone,
             totalRoutines,
+            totalPlanned,
           });
         }
 

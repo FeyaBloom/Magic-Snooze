@@ -1,6 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import LottieView from 'lottie-react-native';
 import { StyleSheet, View } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import { useTheme } from './ThemeProvider';
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 export function ScreenBackground({ tabName }: Props) {
   const { getTabGradient, currentTheme } = useTheme();
   const gradient = getTabGradient(tabName);
+  const isFocused = useIsFocused();
 
   return (
     <View style={styles.container}>
@@ -21,7 +23,7 @@ export function ScreenBackground({ tabName }: Props) {
 
       {/* animation between background and content*/}
       <View style={styles.animationContainer}>
-        {currentTheme === 'daydream' ? (
+        {isFocused && (currentTheme === 'daydream' ? (
           <LottieView
             source={require('@/assets/animations/floating-cloud.json')}
             autoPlay
@@ -35,7 +37,7 @@ export function ScreenBackground({ tabName }: Props) {
             loop
             style={styles.animation}
           />
-        )}
+        ))}
       </View>
     </View>
   );

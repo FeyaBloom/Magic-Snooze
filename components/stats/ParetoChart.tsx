@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { View, Text, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { Svg, Rect, Text as SvgText } from 'react-native-svg';
 import { useTheme } from '@/components/ThemeProvider';
@@ -14,7 +14,7 @@ interface ParetoChartProps {
   onLabelPress?: (routine: RoutineStat) => void;
 }
 
-export function ParetoChart({ data, maxItems = 6, height = 120, onLabelPress }: ParetoChartProps) {
+export const ParetoChart = memo(function ParetoChart({ data, maxItems = 6, height = 120, onLabelPress }: ParetoChartProps) {
   const { colors } = useTheme();
   const styles = useTextStyles();
   const calendarStyles = createCalendarStyles(colors);
@@ -120,4 +120,4 @@ export function ParetoChart({ data, maxItems = 6, height = 120, onLabelPress }: 
       </View>
     </View>
   );
-}
+});

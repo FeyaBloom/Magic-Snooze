@@ -77,21 +77,52 @@ export function useMonthlyStats() {
       let eveningFullDays = 0;
       const daysWithData: string[] = [];
 
-      // Check each day of the month
+      const progressKeys: string[] = [];
+      const victoriesKeys: string[] = [];
+      const dateStrings: string[] = [];
+
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day);
         const dateString = getLocalDateString(date);
+        dateStrings.push(dateString);
+        progressKeys.push(`progress_${dateString}`);
+        victoriesKeys.push(`victories_${dateString}`);
+      }
 
-        // Load day progress
-        const progressKey = `progress_${dateString}`;
-        const progressData = await AsyncStorage.getItem(progressKey);
+      const [progressPairs, victoriesPairs] = await Promise.all([
+        AsyncStorage.multiGet(progressKeys),
+        AsyncStorage.multiGet(victoriesKeys),
+      ]);
+
+      const progressByDate: Record<string, DailyProgress | null> = {};
+      for (const [key, value] of progressPairs) {
+        if (!value) continue;
+        const dateString = key.replace('progress_', '');
+        progressByDate[dateString] = JSON.parse(value);
+      }
+
+      const victoriesByDate: Record<string, string[]> = {};
+      for (const [key, value] of victoriesPairs) {
+        if (!value) continue;
+        const dateString = key.replace('victories_', '');
+        victoriesByDate[dateString] = JSON.parse(value);
+      }
+
+      const completedTasksByDate: Record<string, number> = {};
+      for (const task of tasks) {
+        if (!task.completed) continue;
+        const taskDate = task.dueDate || task.completedAt;
+        if (!taskDate) continue;
+        completedTasksByDate[taskDate] = (completedTasksByDate[taskDate] || 0) + 1;
+      }
+
+      // Check each day of the month
+      for (const dateString of dateStrings) {
+        const progress = progressByDate[dateString] || null;
 
         let routineActivity: 'complete' | 'partial' | 'snoozed' | 'none' = 'none';
-        let progress: DailyProgress | null = null;
 
-        if (progressData) {
-          progress = JSON.parse(progressData);
-
+        if (progress) {
           if (progress?.snoozed) {
             routineActivity = 'snoozed';
           } else if (progress?.morningCompleted && progress?.eveningCompleted) {
@@ -101,21 +132,12 @@ export function useMonthlyStats() {
           }
         }
 
-        // Загрузить победы дня
-        const victoriesKey = `victories_${dateString}`;
-        const victoriesData = await AsyncStorage.getItem(victoriesKey);
-        const dayVictories = victoriesData ? (JSON.parse(victoriesData) as string[]) : [];
+        const dayVictories = victoriesByDate[dateString] || [];
         if (dayVictories.length) {
           totalVictories += dayVictories.length;
         }
 
-        // Задачи, связанные с этим днем
-        const hasTaskActivity = tasks.some((task: any) => {
-          if (!task.completed) return false;
-          if (task.dueDate) return task.dueDate === dateString;
-          return task.completedAt === dateString;
-        });
-
+        const hasTaskActivity = (completedTasksByDate[dateString] || 0) > 0;
         const hasVictories = dayVictories.length > 0;
 
         // Финальная классификация дня

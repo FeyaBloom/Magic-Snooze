@@ -53,13 +53,45 @@ export default function CalendarScreen() {
   const [tasksData, setTasksData] = useState<any[]>([]);
   const [morningTooltip, setMorningTooltip] = useState<{ name: string } | null>(null);
   const [eveningTooltip, setEveningTooltip] = useState<{ name: string } | null>(null);
-  
+
+  const handleMonthChange = useCallback((date: Date) => {
+    setCurrentMonth(date);
+  }, []);
+
+  const handleOpenDay = useCallback((date: Date) => {
+    setSelectedDay(date);
+    setShowDayDetails(true);
+  }, []);
+
+  const handleMorningLabelPress = useCallback((routine: { name: string }) => {
+    setMorningTooltip({ name: routine.name });
+  }, []);
+
+  const handleEveningLabelPress = useCallback((routine: { name: string }) => {
+    setEveningTooltip({ name: routine.name });
+  }, []);
+
+  const handleCloseMorningTooltip = useCallback(() => {
+    setMorningTooltip(null);
+  }, []);
+
+  const handleCloseEveningTooltip = useCallback(() => {
+    setEveningTooltip(null);
+  }, []);
+
+  const handleCloseTooltip = useCallback(() => {
+    setMorningTooltip(null);
+    setEveningTooltip(null);
+  }, []);
+
+  const activeTooltip = morningTooltip || eveningTooltip;
+
   // Определить текущую неделю
   const getCurrentWeekIndex = () => {
     const now = new Date();
     // Сбросить время для корректного сравнения дат
     now.setHours(0, 0, 0, 0);
-    
+
     const year = now.getFullYear();
     const month = now.getMonth();
     const firstDay = new Date(year, month, 1);
@@ -90,7 +122,7 @@ export default function CalendarScreen() {
   };
 
   const [expandedWeeks, setExpandedWeeks] = useState<Set<number>>(new Set([getCurrentWeekIndex()]));
-  
+
   const [monthStreak, setMonthStreak] = useState(0);
   const styles = createCalendarStyles(colors);
 
@@ -103,8 +135,7 @@ export default function CalendarScreen() {
     );
   }, [currentMonth]);
   const { streak, updateStreak, loadStreak, calculateMonthStreak } = useStreak();
-  const { stats: monthlyStats, calculateStats: calculateMonthlyStats } =
-    useMonthlyStats();
+  const { stats: monthlyStats, calculateStats: calculateMonthlyStats } = useMonthlyStats();
   const { weeklyStats, calculateWeeklyStats } = useWeeklyStats();
 
   const tasksByDate = useMemo(() => {
@@ -124,6 +155,10 @@ export default function CalendarScreen() {
 
     return { completed, planned };
   }, [tasksData]);
+
+  const completedTasksCount = useMemo(() => {
+    return Object.values(tasksByDate.completed).reduce((sum, val) => sum + val, 0);
+  }, [tasksByDate]);
 
   const loadProgressData = async () => {
     try {
@@ -197,7 +232,7 @@ export default function CalendarScreen() {
   const getDayStatus = (dateString: string) => {
     const progress = progressData[dateString];
     const hasRoutines = progress && !progress.snoozed;
-    
+
     if (progress?.snoozed) return 'snoozed';
 
     // Check routine completion
@@ -247,7 +282,7 @@ export default function CalendarScreen() {
     return cache;
   }, [progressData, victoriesData, tasksData, currentMonth]);
 
-  const customDayRenderer = (
+  const customDayRenderer = useCallback((
     date: Date,
     isCurrentMonth: boolean,
     isToday: boolean,
@@ -267,10 +302,7 @@ export default function CalendarScreen() {
 
     return (
       <TouchableOpacity
-        onPress={() => {
-          setSelectedDay(date);
-          setShowDayDetails(true);
-        }}
+        onPress={() => handleOpenDay(date)}
         style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}
         activeOpacity={0.7}
       >
@@ -298,17 +330,17 @@ export default function CalendarScreen() {
         {(() => {
           const dateString = getLocalDateString(date);
           const isFrozenDay = (streak.freezeDates || []).includes(dateString);
-          
+
           // Check for completed tasks
           const completedTask = (tasksByDate.completed[dateString] || 0) > 0;
-          
+
           // Check for planned (not completed) tasks
           const plannedTask = (tasksByDate.planned[dateString] || 0) > 0;
-          
+
           // Show completed task icon if any, otherwise show planned task icon
           const icon = completedTask ? '✅' : plannedTask ? '📋' : null;
           const freezeIcon = isFrozenDay ? '🧊' : null;
-          
+
           return icon || freezeIcon ? (
             <View style={[calendarStyles.taskIcon, { flexDirection: 'row', alignItems: 'center' }]}> 
               {freezeIcon && (
@@ -320,7 +352,116 @@ export default function CalendarScreen() {
         })()}
       </TouchableOpacity>
     );
-  };
+  }, [dayStatusesCache, tasksByDate, streak.freezeDates, colors.text, handleOpenDay]);
+
+  const toggleWeekExpanded = useCallback((weekNumber: number) => {
+    setExpandedWeeks((prev) => {
+      const next = new Set(prev);
+      if (next.has(weekNumber - 1)) {
+        next.delete(weekNumber - 1);
+      } else {
+        next.add(weekNumber - 1);
+      }
+      return next;
+    });
+  }, []);
+
+  const weeklyStatsContent = useMemo(() => {
+    return weeklyStats.map((week) => (
+      <WeekCard
+        key={week.weekNumber}
+        weekNumber={week.weekNumber}
+        startDate={week.startDate}
+        endDate={week.endDate}
+        morningRate={week.morningCompletionRate}
+        eveningRate={week.eveningCompletionRate}
+        overallRate={week.overallRate}
+        morningDays={week.morningDays}
+        eveningDays={week.eveningDays}
+        totalDays={week.totalDays}
+        tasksCompleted={week.tasksCompleted}
+        victoriesCount={week.totalVictories}
+        dailyActivity={week.dailyActivity}
+        status={week.status}
+        expanded={expandedWeeks.has(week.weekNumber - 1)}
+        onToggle={() => toggleWeekExpanded(week.weekNumber)}
+      />
+    ));
+  }, [weeklyStats, expandedWeeks, toggleWeekExpanded]);
+
+  const monthlyRoutineStats = useMemo(() => {
+    if (isViewingCurrentMonth) {
+      return { morningArr: [], eveningArr: [] };
+    }
+
+    const morningStats: Record<string, number> = {};
+    const eveningStats: Record<string, number> = {};
+
+    Object.values(progressData).forEach((progress: any) => {
+      if (progress.morningRoutines) {
+        progress.morningRoutines.forEach((r: any) => {
+          if (r.completed) {
+            morningStats[r.text] = (morningStats[r.text] || 0) + 1;
+          }
+        });
+      }
+      if (progress.eveningRoutines) {
+        progress.eveningRoutines.forEach((r: any) => {
+          if (r.completed) {
+            eveningStats[r.text] = (eveningStats[r.text] || 0) + 1;
+          }
+        });
+      }
+    });
+
+    const morningArr = Object.entries(morningStats)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+    const eveningArr = Object.entries(eveningStats)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+
+    return { morningArr, eveningArr };
+  }, [progressData, isViewingCurrentMonth]);
+
+  const monthlyRoutineSection = useMemo(() => {
+    if (isViewingCurrentMonth) {
+      return null;
+    }
+
+    const { morningArr, eveningArr } = monthlyRoutineStats;
+
+    return (
+      <View>
+        {morningArr.length > 0 && (
+          <>
+            <View style={calendarStyles.sectionHeaderWithIconVertical}>
+              <Coffee size={24} color="#F59E0B" />
+              <Text style={textStyles.h2}>{t('calendar.stats.morningRoutines')}</Text>
+            </View>
+            <ParetoChart data={morningArr} maxItems={5} onLabelPress={handleMorningLabelPress} />
+          </>
+        )}
+        {eveningArr.length > 0 && (
+          <>
+            <View style={calendarStyles.sectionHeaderWithIconVertical}>
+              <Moon size={24} color="#6366F1" />
+              <Text style={textStyles.h2}>{t('calendar.stats.eveningRoutines')}</Text>
+            </View>
+            <ParetoChart data={eveningArr} maxItems={5} onLabelPress={handleEveningLabelPress} />
+          </>
+        )}
+      </View>
+    );
+  }, [
+    isViewingCurrentMonth,
+    monthlyRoutineStats,
+    calendarStyles.sectionHeaderWithIconVertical,
+    textStyles.h2,
+    t,
+    handleMorningLabelPress,
+    handleEveningLabelPress,
+  ]);
 
   // Мемоизировать месячные статы тоже
   const monthlyStatsMemo = useMemo(() => {
@@ -364,7 +505,7 @@ export default function CalendarScreen() {
     if (isViewingCurrentMonth) {
       setExpandedWeeks(new Set([getCurrentWeekIndex()]));
     } else {
-      setExpandedWeeks(new Set([])); // No expandir ninguna semana para meses pasados
+      setExpandedWeeks(new Set([]));
     }
   }, [currentMonth, isViewingCurrentMonth]);
 
@@ -391,7 +532,7 @@ export default function CalendarScreen() {
     const resetListener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
     const tasksListener = DeviceEventEmitter.addListener('tasksChanged', handleTasksChanged);
     const progressListener = DeviceEventEmitter.addListener('progressChanged', handleProgressChanged);
-    
+
     return () => {
       resetListener.remove();
       tasksListener.remove();
@@ -437,161 +578,58 @@ export default function CalendarScreen() {
             <CustomCalendar
               customDayRenderer={customDayRenderer}
               initialMonth={currentMonth}
-              onMonthChange={(date) => setCurrentMonth(date)}
+              onMonthChange={handleMonthChange}
             />
           </View>
 
           {/* New: Stats Dashboard */}
-          {(() => {
-            const completedTasksCount = tasksData.filter(t => t.completed).length;
-            return (
-              <StatsDashboard
-                streak={streak}
-                magicLevel={monthlyStats.magicLevel}
-                completeDays={monthlyStats.completeDays}
-                partialDays={monthlyStats.partialDays}
-                snoozedDays={monthlyStats.snoozedDays}
-                totalVictories={monthlyStats.totalVictories}
-                monthStreak={monthStreak}
-                isCurrentMonth={isViewingCurrentMonth}
-                completedTasks={completedTasksCount}
-              />
-            );
-          })()}
+          <StatsDashboard
+            streak={streak}
+            magicLevel={monthlyStats.magicLevel}
+            completeDays={monthlyStats.completeDays}
+            partialDays={monthlyStats.partialDays}
+            snoozedDays={monthlyStats.snoozedDays}
+            totalVictories={monthlyStats.totalVictories}
+            monthStreak={monthStreak}
+            isCurrentMonth={isViewingCurrentMonth}
+            completedTasks={completedTasksCount}
+          />
 
           {/* Статистика: недели или месячный график по рутинам */}
           {isViewingCurrentMonth && (
-                <View style={{ marginVertical: 16 }}>
-                  <View style={calendarStyles.sectionHeaderWithIcon}>
-                    <CalendarDays size={24} color="#10B981" />
-                    <Text style={textStyles.h2}>{t('calendar.stats.weeklyStats')}</Text>
-                  </View>
-                  {weeklyStats.map((week) => (
-                    <WeekCard
-                      key={week.weekNumber}
-                      weekNumber={week.weekNumber}
-                      startDate={week.startDate}
-                      endDate={week.endDate}
-                      morningRate={week.morningCompletionRate}
-                      eveningRate={week.eveningCompletionRate}
-                      overallRate={week.overallRate}
-                      morningDays={week.morningDays}
-                      eveningDays={week.eveningDays}
-                      totalDays={week.totalDays}
-                      tasksCompleted={week.tasksCompleted}
-                      victoriesCount={week.totalVictories}
-                      dailyActivity={week.dailyActivity}
-                      status={week.status}
-                      expanded={expandedWeeks.has(week.weekNumber - 1)}
-                      onToggle={() => {
-                        const newExpanded = new Set(expandedWeeks);
-                        if (newExpanded.has(week.weekNumber - 1)) {
-                          newExpanded.delete(week.weekNumber - 1);
-                        } else {
-                          newExpanded.add(week.weekNumber - 1);
-                        }
-                        setExpandedWeeks(newExpanded);
-                      }}
-                    />
-                  ))}
-                </View>
-              )}
+            <View style={{ marginVertical: 16 }}>
+              <View style={calendarStyles.sectionHeaderWithIcon}>
+                <CalendarDays size={24} color="#10B981" />
+                <Text style={textStyles.h2}>{t('calendar.stats.weeklyStats')}</Text>
+              </View>
+              {weeklyStatsContent}
+            </View>
+          )}
 
-          {!isViewingCurrentMonth && (() => {
-                  // Собрать статистику по рутинам за месяц (отдельно утро и вечер)
-                  const morningStats: Record<string, number> = {};
-                  const eveningStats: Record<string, number> = {};
-                  
-                  Object.values(progressData).forEach((progress: any) => {
-                    if (progress.morningRoutines) {
-                      progress.morningRoutines.forEach((r: any) => {
-                        if (r.completed) {
-                          morningStats[r.text] = (morningStats[r.text] || 0) + 1;
-                        }
-                      });
-                    }
-                    if (progress.eveningRoutines) {
-                      progress.eveningRoutines.forEach((r: any) => {
-                        if (r.completed) {
-                          eveningStats[r.text] = (eveningStats[r.text] || 0) + 1;
-                        }
-                      });
-                    }
-                  });
-                  
-                  const morningArr = Object.entries(morningStats)
-                    .map(([name, count]) => ({ name, count }))
-                    .sort((a, b) => b.count - a.count);
-                  const eveningArr = Object.entries(eveningStats)
-                    .map(([name, count]) => ({ name, count }))
-                    .sort((a, b) => b.count - a.count);
-                  
-                  return (
-                    <View>
-                      {morningArr.length > 0 && (
-                        <>
-                          <View style={calendarStyles.sectionHeaderWithIconVertical}>
-                            <Coffee size={24} color="#F59E0B" />
-                            <Text style={textStyles.h2}>{t('calendar.stats.morningRoutines')}</Text>
-                          </View>
-                          <ParetoChart data={morningArr} maxItems={5} onLabelPress={(routine) => setMorningTooltip({ name: routine.name })} />
-                          {morningTooltip && (
-                            <>
-                              <TouchableWithoutFeedback onPress={() => setMorningTooltip(null)}>
-                                <View
-                                  style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    zIndex: 900,
-                                  }}
-                                />
-                              </TouchableWithoutFeedback>
-                              <View style={calendarStyles.tooltipContainer}>
-                                <View style={calendarStyles.tooltip}>
-                                  <Text style={[textStyles.body, { color: colors.text, textAlign: 'center' }]}>{morningTooltip.name}</Text>
-                                </View>
-                              </View>
-                            </>
-                          )}
-                        </>
-                      )}
-                      {eveningArr.length > 0 && (
-                        <>
-                          <View style={calendarStyles.sectionHeaderWithIconVertical}>
-                            <Moon size={24} color="#8B5CF6" />
-                            <Text style={textStyles.h2}>{t('calendar.stats.eveningRoutines')}</Text>
-                          </View>
-                          <ParetoChart data={eveningArr} maxItems={5} onLabelPress={(routine) => setEveningTooltip({ name: routine.name })} />
-                          {eveningTooltip && (
-                            <>
-                              <TouchableWithoutFeedback onPress={() => setEveningTooltip(null)}>
-                                <View
-                                  style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    zIndex: 900,
-                                  }}
-                                />
-                              </TouchableWithoutFeedback>
-                              <View style={calendarStyles.tooltipContainer}>
-                                <View style={calendarStyles.tooltip}>
-                                  <Text style={[textStyles.body, { color: colors.text, textAlign: 'center' }]}>{eveningTooltip.name}</Text>
-                                </View>
-                              </View>
-                            </>
-                          )}
-                        </>
-                      )}
-                    </View>
-                  );
-                })()}
-          
+          {monthlyRoutineSection}
+
+          {activeTooltip && (
+            <>
+              <TouchableWithoutFeedback onPress={handleCloseTooltip}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 900,
+                  }}
+                />
+              </TouchableWithoutFeedback>
+              <View style={calendarStyles.tooltipContainer}>
+                <View style={calendarStyles.tooltip}>
+                  <Text style={[textStyles.body, { color: colors.text, textAlign: 'center' }]}>{activeTooltip.name}</Text>
+                </View>
+              </View>
+            </>
+          )}
+
           {/* New: Victories Stats */}
           <VictoriesStats month={currentMonth} />
 
@@ -601,15 +639,14 @@ export default function CalendarScreen() {
             completeDays={monthlyStats.completeDays}
             totalVictories={monthlyStats.totalVictories}
           />
-
         </ContentContainer>
       </ScrollView>
 
-<DayDetailsModal
-  visible={showDayDetails}
-      date={selectedDay}
-      onClose={() => setShowDayDetails(false)}
-    />
-  </ScreenLayout>
-);
+      <DayDetailsModal
+        visible={showDayDetails}
+        date={selectedDay}
+        onClose={() => setShowDayDetails(false)}
+      />
+    </ScreenLayout>
+  );
 }

@@ -40,15 +40,31 @@ export function useMidnightReset(config: MidnightResetConfig) {
   }, [config]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const currentDate = new Date().toDateString();
-      if (currentDate !== lastDateRef.current) {
-        lastDateRef.current = currentDate;
-        performMidnightReset();
-      }
-    }, 60000); // check every minute
+    let timeoutId: NodeJS.Timeout | null = null;
 
-    return () => clearInterval(interval);
+    const scheduleNextReset = () => {
+      const now = new Date();
+      const nextMidnight = new Date(now);
+      nextMidnight.setHours(24, 0, 0, 0);
+      const msUntilMidnight = nextMidnight.getTime() - now.getTime();
+
+      timeoutId = setTimeout(async () => {
+        const currentDate = new Date().toDateString();
+        if (currentDate !== lastDateRef.current) {
+          lastDateRef.current = currentDate;
+          await performMidnightReset();
+        }
+        scheduleNextReset();
+      }, msUntilMidnight);
+    };
+
+    scheduleNextReset();
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, [performMidnightReset]);
 }
  

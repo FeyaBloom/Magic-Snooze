@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -29,6 +29,8 @@ export const useTaskNotifications = (
   shouldShowNotifications: boolean
 ) => {
   const { t, i18n } = useTranslation();
+  const updateTimer = useRef<NodeJS.Timeout | null>(null);
+  const lastSignatureRef = useRef<string | null>(null);
 
   /**
    * Получает настройки: за сколько дней напоминать
@@ -216,10 +218,31 @@ export const useTaskNotifications = (
 
   // При изменении настроек или задач, обновляем уведомления
   useEffect(() => {
-    if (shouldShowNotifications) {
-      updateAllTaskNotifications();
+    const signature = tasks
+      .map((t) => `${t.id}:${t.dueDate || ''}:${t.completed ? '1' : '0'}`)
+      .sort()
+      .join('|');
+
+    if (signature === lastSignatureRef.current) {
+      return;
     }
-  }, [tasks, shouldShowNotifications]); // Пересоздаем уведомления при изменении задач
+    lastSignatureRef.current = signature;
+
+    if (shouldShowNotifications) {
+      if (updateTimer.current) {
+        clearTimeout(updateTimer.current);
+      }
+      updateTimer.current = setTimeout(() => {
+        updateAllTaskNotifications();
+      }, 300);
+    }
+
+    return () => {
+      if (updateTimer.current) {
+        clearTimeout(updateTimer.current);
+      }
+    };
+  }, [tasks, shouldShowNotifications, updateAllTaskNotifications]); // Пересоздаем уведомления при изменении задач
 
   return {
     scheduleTaskNotifications,

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { View, Text } from 'react-native';
 import { Trophy } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,7 @@ interface AchievementsProps {
   totalVictories: number;
 }
 
-export function Achievements({
+export const Achievements = memo(function Achievements({
   streak,
   completeDays,
   totalVictories,
@@ -142,4 +142,4 @@ export function Achievements({
       </View>
     </View>
   );
-}
+});

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Animated } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +22,7 @@ interface StatsDashboardProps {
   isCurrentMonth?: boolean; // Текущий ли месяц
 }
 
-export function StatsDashboard({
+export const StatsDashboard = memo(function StatsDashboard({
   streak,
   magicLevel,
   completeDays,
@@ -292,4 +292,4 @@ export function StatsDashboard({
       )}
     </View>
   );
-}
+});

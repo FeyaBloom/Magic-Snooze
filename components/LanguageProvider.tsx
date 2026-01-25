@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { View, Text, TouchableOpacity, Modal, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, FlatList, DeviceEventEmitter } from 'react-native';
 import { Check } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,6 +18,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const languageCodes: Language[] = ['en', 'ca', 'es', 'ru'];
+const DEFAULT_LANGUAGE: Language = 'ca';
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const { i18n, t } = useTranslation();
@@ -25,12 +26,24 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const textStyles = useTextStyles();
   const styles = createSettingsStyles(colors);
   
-  const [language, setLanguage] = useState<Language>('ca');
+  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     loadLanguage();
   }, []);
+
+  useEffect(() => {
+    const handleDataReset = (data: { categories: string[]; deletedKeys: string[]; timestamp: number }) => {
+      if (data.categories.includes('settings') || data.deletedKeys.includes('selectedLanguage')) {
+        setLanguage(DEFAULT_LANGUAGE);
+        i18n.changeLanguage(DEFAULT_LANGUAGE);
+      }
+    };
+
+    const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
+    return () => listener.remove();
+  }, [i18n]);
 
   const loadLanguage = async () => {
     try {
@@ -38,6 +51,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       if (saved && languageCodes.includes(saved as Language)) {
         setLanguage(saved as Language);
         await i18n.changeLanguage(saved);
+      } else {
+        setLanguage(DEFAULT_LANGUAGE);
+        await i18n.changeLanguage(DEFAULT_LANGUAGE);
       }
     } catch (error) {
       console.error('Error loading language:', error);
