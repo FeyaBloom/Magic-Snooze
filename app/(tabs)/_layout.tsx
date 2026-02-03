@@ -17,30 +17,30 @@ export default function TabLayout() {
   }, []);
 
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        lazy: true,
-        detachInactiveScreens: true,
-        tabBarStyle: {
-          backgroundColor: colors.surface,
-          borderTopWidth: 0,
-          // @ts-ignore
-          boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
-          height: 70,
-          paddingTop: 5,
-          paddingHorizontal: 20,
-          paddingBottom: Platform.OS === 'android' ? 15 : 25,
-        },
-        tabBarActiveTintColor: colors.secondary,
-        tabBarInactiveTintColor: colors.textSecondary,
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '600',
-          marginTop: 1,
-        },
-      }}
-    >
+    <Tabs    
+        detachInactiveScreens
+        screenOptions={{
+          headerShown: false,
+          lazy: true,
+          tabBarStyle: {
+            backgroundColor: colors.surface,
+            borderTopWidth: 0,
+            // @ts-ignore
+            boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
+            height: 70,
+            paddingTop: 5,
+            paddingHorizontal: 20,
+            paddingBottom: Platform.OS === 'android' ? 15 : 25,
+          },
+          tabBarActiveTintColor: colors.secondary,
+          tabBarInactiveTintColor: colors.textSecondary,
+          tabBarLabelStyle: {
+            fontSize: 11,
+            fontWeight: '600',
+            marginTop: 1,
+          },
+        }}
+      >
       <Tabs.Screen
         name="index"
         options={{

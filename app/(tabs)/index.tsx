@@ -114,8 +114,8 @@ export default function TodayScreen() {
   const { celebrateVictory, resetVictories } = useVictories();
   const { snoozeDay: blockDay, unsnoozeDay: unblockDay } = useRoutinesBlock();
   const { updateStreak } = useStreak();
-  const streakUpdateTimer = useRef<NodeJS.Timeout | null>(null);
-  const saveProgressTimer = useRef<NodeJS.Timeout | null>(null);
+  const streakUpdateTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const saveProgressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingProgress = useRef<{ morning: RoutineStep[]; evening: RoutineStep[] } | null>(null);
 
   // State

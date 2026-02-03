@@ -67,10 +67,7 @@ export default function TasksScreen() {
   });
 
   // Подключаем хук для уведомлений о задачах
-  const taskNotifications = useTaskNotifications(
-    tasks,
-    notifications.shouldShowTaskNotifications()
-  );
+  useTaskNotifications(tasks, notifications.shouldShow);
 
   const styles = createTasksStyles(colors);
 
@@ -162,9 +159,6 @@ export default function TasksScreen() {
 
     await saveTasks(updatedTasks);
 
-    // Обновляем уведомления для измененной задачи
-    await taskNotifications.handleTaskChange(updatedTask);
-
     setNewTaskText('');
     setNewTaskDueDate('');
     setEditingTask(null);
@@ -182,9 +176,6 @@ export default function TasksScreen() {
           completedAt: isNowCompleted ? getLocalDateString() : undefined,
         };
         
-        // Отменяем/создаем уведомления при изменении статуса
-        taskNotifications.handleTaskChange(updatedTask);
-        
         return updatedTask;
       }
       return task;
@@ -200,9 +191,6 @@ export default function TasksScreen() {
       onConfirm: async () => {
         const updatedTasks = tasks.filter(task => task.id !== taskId);
         await saveTasks(updatedTasks);
-        
-        // Отменяем уведомления для удаленной задачи
-        await taskNotifications.handleTaskDelete(taskId);
         
         setShowEditModal(false);
         setEditingTask(null);
