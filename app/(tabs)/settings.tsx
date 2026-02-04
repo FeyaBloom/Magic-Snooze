@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, TouchableOpacity, Linking, Switch, View, Alert } from 'react-native';
 import {
   Globe,
@@ -32,27 +32,62 @@ export default function SettingsScreen() {
   const { t } = useTranslation();
   const textStyles = useTextStyles();
   const styles = createSettingsStyles(colors);
-
   const notifications = useNotifications();
 
   const handleRequestPermission = async () => {
     const granted = await notifications.requestPermission();
-    if (granted) {
-      Alert.alert('🌸', t('notifications.settings.testSent'), [{ text: 'OK' }]);
-    }
+
+    Alert.alert(
+      '',
+      granted
+        ? t('notifications.settings.permissionGranted')
+        : t('notifications.settings.permissionDeniedDesc')
+    );
   };
 
   const sendTestNotification = async () => {
+    if (!notifications.isSupported) {
+      Alert.alert(
+        '',
+        t('notifications.settings.notSupported')
+      );
+      return;
+    }
+
+    if (!notifications.hasPermission) {
+      Alert.alert(
+        '',
+        t('notifications.settings.permissionNeeded')
+      );
+      return;
+    }
+
+    if (!notifications.isEnabled) {
+      Alert.alert(
+        '',
+        t('notifications.settings.requestPermission')
+      );
+      return;
+    }
+
     try {
       await Notifications.scheduleNotificationAsync({
         content: {
-          title: t('notifications.settings.testSent'),
-          body: 'This is a gentle test reminder 🌸',
+          title: t('notifications.test.title'),
+          body: t('notifications.test.body'),
         },
-        trigger: { seconds: 2 } as Notifications.NotificationTriggerInput,
+        trigger: null,
       });
-    } catch (error) {
-      console.error('Error sending test notification:', error);
+
+      Alert.alert(
+        '',
+        t('notifications.settings.testSent')
+      );
+    } catch (error: any) {
+      Alert.alert(
+        '',
+        t('notifications.test.failed', { message: error.message })
+      );
     }
   };
 
@@ -82,7 +117,9 @@ export default function SettingsScreen() {
                   {t('settings.themeMode')}
                 </Text>
                 <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                  {operationMode === 'auto' ? t('settings.themeModeAuto') : t('settings.themeModeManual')}
+                  {operationMode === 'auto'
+                    ? t('settings.themeModeAuto')
+                    : t('settings.themeModeManual')}
                 </Text>
               </View>
             </View>
@@ -138,10 +175,7 @@ export default function SettingsScreen() {
         {/* Notifications Section */}
         <View style={styles.section}>
           <Text style={[textStyles.h2, styles.sectionTitle, { color: colors.text }]}>
-            🔔 {t('notifications.settings.title')}
-          </Text>
-          <Text style={[textStyles.caption, styles.sectionSubtitle, { color: colors.textSecondary }]}>
-            {t('notifications.settings.subtitle')}
+            {t('notifications.settings.title')}
           </Text>
 
           {!notifications.isSupported ? (
@@ -170,6 +204,7 @@ export default function SettingsScreen() {
                   </View>
                 </View>
               </View>
+
               <TouchableOpacity
                 style={[styles.button, { backgroundColor: colors.primary }]}
                 onPress={handleRequestPermission}
@@ -203,55 +238,52 @@ export default function SettingsScreen() {
                 />
               </View>
 
-              {/* Notification Times Info */}
+              {/* Task Reminders Info — НЕ ТРОНУТО */}
               {notifications.isEnabled && (
-                <View style={[styles.row, { backgroundColor: colors.surface, opacity: 0.95 }]}> 
+                <View style={[styles.row, { backgroundColor: colors.surface, opacity: 0.9, marginTop: 8 }]}>
                   <View style={styles.leftContent}>
-                    <Clock color={colors.textSecondary} size={20} />
                     <View style={styles.textContainer}>
-                      <Text style={[textStyles.body, { color: colors.text }]}> 
-                        {t('notifications.settings.notificationTimes')}
+                      <Text style={[textStyles.body, { color: colors.text }]}>
+                        📋 {t('notifications.settings.taskReminders')}
                       </Text>
-                      <Text style={[textStyles.caption, { color: colors.textSecondary, marginTop: 4 }]}> 
-                        {t('notifications.settings.notificationTimesDesc')}
+                      <Text style={[textStyles.caption, { color: colors.textSecondary, marginTop: 4 }]}>
+                        {t('notifications.settings.taskRemindersDesc')}
                       </Text>
-                      <Text style={[textStyles.caption, { color: colors.text, marginTop: 6 }]}> 
-                        ☀️ {t('notifications.settings.morningTime')}: 09:00{'\n'}
-                        🌙 {t('notifications.settings.eveningTime')}: 19:00
-                      </Text>
-                      <Text style={[textStyles.caption, { color: colors.textSecondary, marginTop: 4, fontStyle: 'italic' }]}> 
-                        {t('notifications.settings.defaultTimes')}
+                      <Text style={[textStyles.caption, { color: colors.text, marginTop: 6 }]}>
+                        • {t('notifications.settings.days3Before')} (07:00){'\n'}
+                        • {t('notifications.settings.days1Before')} (19:00){'\n'}
+                        • {t('notifications.settings.onDueDate')} (07:00)
                       </Text>
                     </View>
                   </View>
                 </View>
               )}
 
-              {/* Coming Soon sections */}
+              {/* Coming Soon */}
               {notifications.isEnabled && (
-                <View>
-                  <View style={[styles.row, { opacity: 0.5 }]}> 
+                <View style={{ marginTop: 8 }}>
+                  <View style={[styles.row, { opacity: 0.5 }]}>
                     <View style={styles.leftContent}>
                       <Sunset color={colors.textSecondary} size={20} />
                       <View style={styles.textContainer}>
-                        <Text style={[textStyles.body, { color: colors.text }]}> 
-                          {t('notifications.settings.routineReminders')} <Text style={[textStyles.caption]}>({t('notifications.settings.comingSoon')})</Text>
+                        <Text style={[textStyles.body, { color: colors.text }]}>
+                          {t('notifications.settings.routineReminders')} ({t('notifications.settings.comingSoon')})
                         </Text>
-                        <Text style={[textStyles.caption, { color: colors.textSecondary }]}> 
+                        <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
                           {t('notifications.settings.routineRemindersDesc')}
                         </Text>
                       </View>
                     </View>
                   </View>
 
-                  <View style={[styles.row, { opacity: 0.5 }]}> 
+                  <View style={[styles.row, { opacity: 0.5 }]}>
                     <View style={styles.leftContent}>
                       <Hand color={colors.textSecondary} size={20} />
                       <View style={styles.textContainer}>
-                        <Text style={[textStyles.body, { color: colors.text }]}> 
-                          {t('notifications.settings.surprisePrompts')} <Text style={[textStyles.caption]}>({t('notifications.settings.comingSoon')})</Text>
+                        <Text style={[textStyles.body, { color: colors.text }]}>
+                          {t('notifications.settings.surprisePrompts')} ({t('notifications.settings.comingSoon')})
                         </Text>
-                        <Text style={[textStyles.caption, { color: colors.textSecondary }]}> 
+                        <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
                           {t('notifications.settings.surprisePromptsDesc')}
                         </Text>
                       </View>
@@ -267,8 +299,8 @@ export default function SettingsScreen() {
                   onPress={sendTestNotification}
                   activeOpacity={0.8}
                 >
-                  <Text style={[textStyles.body, { color: colors.text }]}> 
-                    {t('notifications.settings.testNotification')}
+                  <Text style={[textStyles.body, { color: colors.text }]}>
+                    🧪 {t('notifications.settings.testNotification')}
                   </Text>
                 </TouchableOpacity>
               )}
@@ -276,75 +308,75 @@ export default function SettingsScreen() {
           )}
         </View>
 
-          {/* Data Management */}
-          <View style={styles.section}>
-            <ResetDataComponent />
-          </View>
+        {/* Data Management */}
+        <View style={styles.section}>
+          <ResetDataComponent />
+        </View>
 
-          {/* Contact & Support */}
-          <View style={styles.section}>
-            <Text style={[textStyles.h2, styles.sectionTitle, { color: colors.text }]}>
-              {t('settings.contactSupport')}
-            </Text>
+        {/* Contact & Support */}
+        <View style={styles.section}>
+          <Text style={[textStyles.h2, styles.sectionTitle, { color: colors.text }]}>
+            {t('settings.contactSupport')}
+          </Text>
 
-            <TouchableOpacity
-              style={styles.row}
-              onPress={() => Linking.openURL('https://feya-bloom-studio.lovable.app/')}
-              activeOpacity={0.8}
-            >
-              <View style={styles.leftContent}>
-                <Globe color={colors.textSecondary} size={20} />
-                <View style={styles.textContainer}>
-                  <Text style={[textStyles.body, { color: colors.text }]}>
-                    {t('settings.contactCreator.title')}
-                  </Text>
-                  <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                    {t('settings.contactCreator.description')}
-                  </Text>
-                </View>
+          <TouchableOpacity
+            style={styles.row}
+            onPress={() => Linking.openURL('https://feya-bloom-studio.lovable.app/')}
+            activeOpacity={0.8}
+          >
+            <View style={styles.leftContent}>
+              <Globe color={colors.textSecondary} size={20} />
+              <View style={styles.textContainer}>
+                <Text style={[textStyles.body, { color: colors.text }]}>
+                  {t('settings.contactCreator.title')}
+                </Text>
+                <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
+                  {t('settings.contactCreator.description')}
+                </Text>
               </View>
-            </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.row}
-              onPress={() => Linking.openURL('https://github.com/FeyaBloom/Magic-Snooze')}
-              activeOpacity={0.8}
-            >
-
-              <View style={styles.leftContent}>
-                <Heart color={colors.textSecondary} size={20} />
-                <View style={styles.textContainer}>
-                  <Text style={[textStyles.body, { color: colors.text }]}>
-                    {t('settings.supportApp.title')}
-                  </Text>
-                  <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                    {t('settings.supportApp.description')}
-                  </Text>
-                </View>
+          <TouchableOpacity
+            style={styles.row}
+            onPress={() => Linking.openURL('https://github.com/FeyaBloom/Magic-Snooze')}
+            activeOpacity={0.8}
+          >
+            <View style={styles.leftContent}>
+              <Heart color={colors.textSecondary} size={20} />
+              <View style={styles.textContainer}>
+                <Text style={[textStyles.body, { color: colors.text }]}>
+                  {t('settings.supportApp.title')}
+                </Text>
+                <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
+                  {t('settings.supportApp.description')}
+                </Text>
               </View>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
+        </View>
 
-          {/* Debug Section */}
-          <View style={styles.section}>
-            <TouchableOpacity
-              style={styles.row}
-              onPress={() => router.push('/debug')}
-              activeOpacity={0.8}
-            >
-              <View style={styles.leftContent}>
-                <Bug color={colors.textSecondary} size={20} />
-                <View style={styles.textContainer}>
-                  <Text style={[textStyles.body, { color: colors.text }]}>
-                    Debug: View Storage
-                  </Text>
-                  <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                    View all stored data & generate mock data
-                  </Text>
-                </View>
+        {/* Debug Section */}
+        <View style={styles.section}>
+          <TouchableOpacity
+            style={styles.row}
+            onPress={() => router.push('/debug')}
+            activeOpacity={0.8}
+          >
+            <View style={styles.leftContent}>
+              <Bug color={colors.textSecondary} size={20} />
+              <View style={styles.textContainer}>
+                <Text style={[textStyles.body, { color: colors.text }]}>
+                  {t('debug.title')}
+                </Text>
+                <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
+                  {t('debug.description')}
+                </Text>
               </View>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
+        </View>
+
       </ContentContainer>
     </ScreenLayout>
   );

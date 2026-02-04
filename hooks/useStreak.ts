@@ -6,10 +6,37 @@ export interface StreakData {
   currentStreak: number;
   longestStreak: number;
   lastActiveDate: string | null;
-  freezeDaysAvailable: number; // Grace days для ADHD поддержки
-  lastFreezeDate: string | null; // Когда был использован последний freeze
-  freezeDates?: string[]; // Даты, когда был использован freeze
+  freezeDaysAvailable: number;
+  lastFreezeDate: string | null;
+  freezeDates?: string[];
 }
+
+export interface StreakStatus {
+  streak: number;
+  status: 'ok' | 'freeze_available' | 'at_risk' | null;
+  message?: string;
+}
+
+// Проверка начала новой календарной недели (пн-вс)
+const isNewCalendarWeek = (lastDate: string | null, currentDate: string): boolean => {
+  if (!lastDate) return true;
+  
+  const last = new Date(lastDate);
+  const current = new Date(currentDate);
+  
+  // Получаем понедельник недели для каждой даты
+  const getMondayOfWeek = (date: Date) => {
+    const d = new Date(date);
+    const day = d.getDay();
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Корректируем для воскресенья
+    return new Date(d.setDate(diff));
+  };
+  
+  const lastMonday = getMondayOfWeek(last);
+  const currentMonday = getMondayOfWeek(current);
+  
+  return currentMonday.getTime() > lastMonday.getTime();
+};
 
 export function useStreak() {
   const [streak, setStreak] = useState<StreakData>({
@@ -53,23 +80,6 @@ export function useStreak() {
 
       const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
       const allTasks = tasksStr ? JSON.parse(tasksStr) : [];
-
-      // Обновить freeze days каждую неделю
-      const checkAndRefreshFreezeDays = () => {
-        if (!streakData.lastFreezeDate) {
-          return;
-        }
-        const lastFreezeDate = new Date(streakData.lastFreezeDate);
-        const todayDate = new Date(today);
-        const daysDiff = Math.floor((todayDate.getTime() - lastFreezeDate.getTime()) / (1000 * 60 * 60 * 24));
-        
-        if (daysDiff >= 7) {
-          streakData.freezeDaysAvailable = Math.min(1, streakData.freezeDaysAvailable + 1);
-          streakData.lastFreezeDate = today;
-        }
-      };
-
-      checkAndRefreshFreezeDays();
 
       const allKeys = await AsyncStorage.getAllKeys();
       const dateKeys = allKeys
@@ -154,39 +164,37 @@ export function useStreak() {
       let currentStreak = 0;
       let longestStreak = 0;
       let lastActiveDate: string | null = null;
-      let freezeAvailable = 1;
-      let lastFreezeDate: string | null = null;
+      let freezeAvailable = streakData.freezeDaysAvailable;
+      let lastFreezeDate: string | null = streakData.lastFreezeDate;
       const freezeDates: string[] = [];
 
       let cursorDate = earliestDate;
       while (cursorDate <= today) {
         const info = await getDayInfo(cursorDate, cursorDate === today ? dayHasActivity : false);
 
-        if (lastFreezeDate) {
-          const lastFreezeDateObj = new Date(lastFreezeDate);
-          const cursorDateObj = new Date(cursorDate);
-          const daysDiff = Math.floor((cursorDateObj.getTime() - lastFreezeDateObj.getTime()) / (1000 * 60 * 60 * 24));
-          if (daysDiff >= 7) {
-            freezeAvailable = Math.min(1, freezeAvailable + 1);
-            lastFreezeDate = cursorDate;
-          }
-        }
-
         if (info.hasAnyActivity) {
+          // Проверяем начало новой недели при активности
+          if (isNewCalendarWeek(lastActiveDate, cursorDate)) {
+            freezeAvailable = 1;
+          }
+          
           currentStreak += 1;
           lastActiveDate = cursorDate;
         } else if (info.isSnoozed) {
+          // Снуз продолжает стрик
           currentStreak += 1;
-        } else if (cursorDate === today) {
-          currentStreak = 0;
         } else if (currentStreak > 0 && freezeAvailable > 0) {
+          // Используем заморозку
           freezeAvailable -= 1;
           lastFreezeDate = cursorDate;
           freezeDates.push(cursorDate);
           currentStreak += 1;
-        } else {
+        } else if (cursorDate !== today) {
+          // Прошлый день без активности/заморозки/снуза - ломаем стрик
           currentStreak = 0;
         }
+        // Если cursorDate === today и нет активности/заморозки - НЕ ломаем стрик,
+        // дадим юзеру время до конца дня
 
         if (currentStreak > longestStreak) {
           longestStreak = currentStreak;
@@ -209,6 +217,70 @@ export function useStreak() {
     }
   }, []);
 
+  // Получить статус стрика для UI (учитывает сегодняшний день)
+  const getStreakStatus = useCallback(async (): Promise<StreakStatus> => {
+    try {
+      const today = getLocalDateString();
+      
+      // Проверяем есть ли активность сегодня
+      const progressKey = `progress_${today}`;
+      const progress = await AsyncStorage.getItem(progressKey);
+      let hasActivityToday = false;
+      
+      if (progress) {
+        const data = JSON.parse(progress);
+        if (data.morningDone > 0 || data.eveningDone > 0 || data.snoozed) {
+          hasActivityToday = true;
+        }
+      }
+      
+      if (!hasActivityToday) {
+        const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
+        if (tasksStr) {
+          const tasks = JSON.parse(tasksStr);
+          const completedToday = tasks.some((t: any) => 
+            t.completed && t.completedAt === today
+          );
+          if (completedToday) hasActivityToday = true;
+        }
+      }
+      
+      if (!hasActivityToday) {
+        const victoriesStr = await AsyncStorage.getItem(`victories_${today}`);
+        if (victoriesStr) hasActivityToday = true;
+      }
+      
+      // Если есть активность - всё ок
+      if (hasActivityToday) {
+        return {
+          streak: streak.currentStreak,
+          status: 'ok',
+        };
+      }
+      
+      // Нет активности сегодня - проверяем заморозку
+      if (streak.freezeDaysAvailable > 0) {
+        return {
+          streak: streak.currentStreak,
+          status: 'freeze_available',
+          message: '❄️ Можно пропустить - заморозим',
+        };
+      } else {
+        return {
+          streak: streak.currentStreak,
+          status: 'at_risk',
+          message: '⚠️ Стрик под угрозой!',
+        };
+      }
+    } catch (error) {
+      console.error('Error getting streak status:', error);
+      return {
+        streak: streak.currentStreak,
+        status: null,
+      };
+    }
+  }, [streak]);
+
   useEffect(() => {
     loadStreak();
   }, [loadStreak]);
@@ -224,12 +296,10 @@ export function useStreak() {
       let maxStreak = 0;
       let currentStreak = 0;
 
-      // Проверить каждый день месяца
       for (let d = new Date(firstDay); d <= lastDay; d.setDate(d.getDate() + 1)) {
         const dateStr = getLocalDateString(d);
         let dayHasActivity = false;
 
-        // Проверить рутины/прогресс
         const progressKey = `progress_${dateStr}`;
         const progress = await AsyncStorage.getItem(progressKey);
         if (progress) {
@@ -239,7 +309,6 @@ export function useStreak() {
           }
         }
 
-        // Проверить задачи
         if (!dayHasActivity) {
           const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
           if (tasksStr) {
@@ -254,7 +323,6 @@ export function useStreak() {
           }
         }
 
-        // Проверить победы
         if (!dayHasActivity) {
           const victoriesStr = await AsyncStorage.getItem(`victories_${dateStr}`);
           if (victoriesStr) {
@@ -277,5 +345,11 @@ export function useStreak() {
     }
   }, []);
 
-  return { streak, updateStreak, loadStreak, calculateMonthStreak };
+  return { 
+    streak, 
+    updateStreak, 
+    loadStreak, 
+    calculateMonthStreak,
+    getStreakStatus, // Новый метод для UI
+  };
 }

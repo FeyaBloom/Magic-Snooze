@@ -154,18 +154,21 @@ export const createCalendarStyles = (colors: any, dayWidthOverride?: number) => 
   completeDay: {
     borderWidth: 2,
     borderColor: colors.accent,
+    borderRadius: (resolvedDayWidth * 0.8) / 2,
     // @ts-ignore
     boxShadow: `0 0 12px ${colors.accent}cc`,
   },
   partialDay: {
     borderWidth: 2,
     borderColor: colors.secondary,
+    borderRadius: (resolvedDayWidth * 0.8) / 2,
     // @ts-ignore
     boxShadow: `0 0 12px ${colors.secondary}cc`,
   },
   snoozedDay: {
     borderWidth: 2,
     borderColor: colors.primary,
+    borderRadius: (resolvedDayWidth * 0.8) / 2,
     // @ts-ignore
     boxShadow: `0 0 12px ${colors.primary}cc`,
   },

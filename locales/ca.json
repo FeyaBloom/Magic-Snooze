@@ -317,23 +317,30 @@
     "taskDueTomorrow": "Tasca per demà",
     "taskDueSoon": "Tasca pròxima",
     "taskDueInDays": "{{task}} - en {{days}} dies ({{date}})",
+    "test": {
+      "title": "🌸 Notificació de prova",
+      "body": "Si ho veus, tot funciona!",
+      "failed": "No s'ha pogut programar la notificació:\n{{message}}"
+    },
     "settings": {
-      "title": "Recordatoris Suaus",
+      "title": "Notificacions",
       "subtitle": "Notificacions que respecten el teu cervell",
       "notSupported": "Les notificacions no són compatibles amb aquest dispositiu",
-      "masterToggle": "Activar Recordatoris",
+      "masterToggle": "Activar/Desactivar tot",
       "masterToggleDesc": "Activa notificacions suaus (tu tens el control)",
+      
       "permissionNeeded": "Permís Necessari",
       "permissionDesc": "Necessitem el teu permís per enviar-te recordatoris suaus. Sense pressió!",
       "requestPermission": "Permetre Notificacions",
       "permissionDenied": "Permís denegat",
       "permissionDeniedDesc": "Pots activar les notificacions quan vulguis a la configuració. No passa res!",
+      
       "taskReminders": "Recordatoris de Tasques",
       "taskRemindersDesc": "Rep avisos suaus sobre tasques pròximes",
       "reminderDays": "Recorda'm:",
       "days3Before": "3 dies abans",
       "days1Before": "1 dia abans",
-      "onDueDate": "El dia límit",
+      "onDueDate": "El dia límit ",
       "customDays": "Dies personalitzats abans:",
       "comingSoon": "Properament",
       "routineReminders": "Recordatoris de Rutina",
@@ -348,5 +355,9 @@
       "eveningTime": "Notificacions nocturnes",
       "defaultTimes": "Per defecte: 07:00 (matí) i 19:00 (nit)"
     }
+  },
+  "debug": {
+    "title": "Depuració: veure l'emmagatzematge",
+    "description": "Veure totes les dades desades i generar dades de prova"
   }
 }

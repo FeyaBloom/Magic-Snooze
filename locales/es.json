@@ -321,17 +321,24 @@
     "taskDueTomorrow": "Tarea para mañana",
     "taskDueSoon": "Tarea próxima",
     "taskDueInDays": "{{task}} - en {{days}} días ({{date}})",
+    "test": {
+      "title": "🌸 Notificación de prueba",
+      "body": "Si ves esto, ¡todo funciona!",
+      "failed": "No se pudo programar la notificación:\n{{message}}"
+    },
     "settings": {
-      "title": "Recordatorios Suaves",
+      "title": "Notificaciones",
       "subtitle": "Notificaciones que respetan tu cerebro",
       "notSupported": "Las notificaciones no son compatibles con este dispositivo",
-      "masterToggle": "Activar Recordatorios",
+      "masterToggle": "Activar/desactivar todo",
       "masterToggleDesc": "Activa notificaciones suaves (tú tienes el control)",
+    
       "permissionNeeded": "Permiso Necesario",
       "permissionDesc": "Necesitamos tu permiso para enviarte recordatorios suaves. ¡Sin presión!",
       "requestPermission": "Permitir Notificaciones",
       "permissionDenied": "Permiso denegado",
       "permissionDeniedDesc": "Puedes activar las notificaciones cuando quieras en la configuración. ¡No pasa nada!",
+      
       "taskReminders": "Recordatorios de Tareas",
       "taskRemindersDesc": "Recibe avisos suaves sobre tareas próximas",
       "reminderDays": "Recuérdame:",
@@ -339,18 +346,27 @@
       "days1Before": "1 día antes",
       "onDueDate": "El día límite",
       "customDays": "Días personalizados antes:",
+   
       "comingSoon": "Próximamente",
+
       "routineReminders": "Recordatorios de Rutina",
       "routineRemindersDesc": "Avisos opcionales matutinos y nocturnos",
+    
       "surprisePrompts": "Mensajes Sorpresa",
       "surprisePromptsDesc": "Mensajes aleatorios divertidos para alegrar tu día",
+    
       "testNotification": "Enviar Notificación de Prueba",
       "testSent": "¡Notificación de prueba enviada! Échale un vistazo 🌸",
+  
       "notificationTimes": "Horarios de Notificación",
       "notificationTimesDesc": "Sincronizados con el cambio de tema (Daydream ↔ Night Forest)",
       "morningTime": "Notificaciones matutinas",
       "eveningTime": "Notificaciones nocturnas",
       "defaultTimes": "Por defecto: 07:00 (mañana) y 19:00 (noche)"
     }
+  },
+  "debug": {
+    "title": "Depuración: ver almacenamiento",
+    "description": "Ver todos los datos guardados y generar datos de prueba"
   }
 }

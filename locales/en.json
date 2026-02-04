@@ -7,6 +7,8 @@
     "add": "Add",
     "close": "Close",
     "confirm": "Confirm",
+    "ok": "OK",
+    "error": "Error",
     "yes": "Yes",
     "no": "No",
     "Sun": "Sun", 
@@ -323,18 +325,26 @@
     "taskDueTomorrow": "Task due tomorrow",
     "taskDueSoon": "Upcoming task",
     "taskDueInDays": "{{task}} - due in {{days}} days ({{date}})",
+    "test": {
+      "title": "🌸 Test notification",
+      "body": "If you see this — everything works!",
+      "failed": "Failed to schedule notification:\n{{message}}"
+    },
     "settings": {
-      "title": "Gentle Reminders",
+      "title": "Notifications",
       "subtitle": "Notifications that respect your brain",
       "notSupported": "Notifications are not supported on this device",
-      "masterToggle": "Enable Reminders",
+      "masterToggle": "Enable/disable all",
       "masterToggleDesc": "Turn on gentle notifications (you're in control)",
+      
+      "permissionDesc": "Allow notifications to get gentle reminders",
+      "requestPermission": "Enable Notifications",
+      "permissionGranted": "Notifications enabled! 🌸",
       "permissionNeeded": "Permission Needed",
-      "permissionDesc": "We need your permission to send you gentle reminders. No pressure though!",
-      "requestPermission": "Allow Notifications",
       "permissionDenied": "Permission denied",
       "permissionDeniedDesc": "You can enable notifications anytime in your device settings. No worries!",
-      "taskReminders": "Task Reminders",
+     
+      "taskReminders": "Reminders",
       "taskRemindersDesc": "Get gentle nudges about upcoming tasks",
       "reminderDays": "Remind me:",
       "days3Before": "3 days before",
@@ -354,5 +364,9 @@
       "eveningTime": "Evening notifications",
       "defaultTimes": "Default: 07:00 (morning) & 19:00 (evening)"
     }
+  },
+  "debug": {
+    "title": "Debug: View storage",
+    "description": "View all stored data and generate mock data"
   }
 }
