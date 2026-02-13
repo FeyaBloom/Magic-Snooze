@@ -319,8 +319,10 @@
   "notifications": {
     "taskDueToday": "Tarea para hoy",
     "taskDueTomorrow": "Tarea para mañana",
-    "taskDueSoon": "Tarea próxima",
-    "taskDueInDays": "{{task}} - en {{days}} días ({{date}})",
+    "taskDueIn3Days": "Tarea para dentro de 3 días",
+    "routineReminder": "El dia sigue abierto!",
+    "routineReminderWithFreeze": "Hay una congelación por si acaso ❄️",
+    "routineReminderNoFreeze": "Aún puedes mantener el ritmo 🔥",
     "test": {
       "title": "🌸 Notificación de prueba",
       "body": "Si ves esto, ¡todo funciona!",
@@ -350,7 +352,8 @@
       "comingSoon": "Próximamente",
 
       "routineReminders": "Recordatorios de Rutina",
-      "routineRemindersDesc": "Avisos opcionales matutinos y nocturnos",
+      "routineRemindersDesc": "Recordatorio a las 23:00 si no hay actividad hoy",
+      "routineReminderTime": "23:00 (si no hay actividad hoy)",
     
       "surprisePrompts": "Mensajes Sorpresa",
       "surprisePromptsDesc": "Mensajes aleatorios divertidos para alegrar tu día",

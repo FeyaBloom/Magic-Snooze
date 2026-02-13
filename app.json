@@ -6,8 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "magic-snooze",
-    "userInterfaceStyle": "automatic"
-    },
+    "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -89,4 +88,4 @@
     },
     "owner": "feya-bloom-studio"
   }
-
+}

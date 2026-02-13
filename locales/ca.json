@@ -315,8 +315,10 @@
   "notifications": {
     "taskDueToday": "Tasca per avui",
     "taskDueTomorrow": "Tasca per demà",
-    "taskDueSoon": "Tasca pròxima",
-    "taskDueInDays": "{{task}} - en {{days}} dies ({{date}})",
+    "taskDueIn3Days": "Tasca per d'aquí a 3 dies",
+    "routineReminder": "El dia encara és obert!",
+    "routineReminderWithFreeze": "Hi ha una congelació per si de cas ❄️",
+    "routineReminderNoFreeze": "Hi ha temps per mantenir el ritme 🔥",
     "test": {
       "title": "🌸 Notificació de prova",
       "body": "Si ho veus, tot funciona!",
@@ -344,7 +346,8 @@
       "customDays": "Dies personalitzats abans:",
       "comingSoon": "Properament",
       "routineReminders": "Recordatoris de Rutina",
-      "routineRemindersDesc": "Avisos opcionals matinals i nocturns",
+      "routineRemindersDesc": "Recordatori a les 23:00 si no hi ha activitat avui",
+      "routineReminderTime": "23:00 (si no hi ha activitat avui)",
       "surprisePrompts": "Missatges Sorpresa",
       "surprisePromptsDesc": "Missatges aleatoris divertits per alegrar el dia",
       "testNotification": "Enviar Notificació de Prova",

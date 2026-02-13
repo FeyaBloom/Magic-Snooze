@@ -323,8 +323,10 @@
   "notifications": {
     "taskDueToday": "Task due today",
     "taskDueTomorrow": "Task due tomorrow",
-    "taskDueSoon": "Upcoming task",
-    "taskDueInDays": "{{task}} - due in {{days}} days ({{date}})",
+    "taskDueIn3Days": "Task due in 3 days",
+    "routineReminder": "The day is still open!",
+    "routineReminderWithFreeze": "A freeze is there, just in case ❄️",
+    "routineReminderNoFreeze": "There's time to keep the rhythm 🔥",
     "test": {
       "title": "🌸 Test notification",
       "body": "If you see this — everything works!",
@@ -344,7 +346,7 @@
       "permissionDenied": "Permission denied",
       "permissionDeniedDesc": "You can enable notifications anytime in your device settings. No worries!",
      
-      "taskReminders": "Reminders",
+      "taskReminders": "Task Reminders",
       "taskRemindersDesc": "Get gentle nudges about upcoming tasks",
       "reminderDays": "Remind me:",
       "days3Before": "3 days before",
@@ -353,7 +355,8 @@
       "customDays": "Custom days before:",
       "comingSoon": "Coming Soon",
       "routineReminders": "Routine Reminders",
-      "routineRemindersDesc": "Optional morning & evening nudges",
+      "routineRemindersDesc": "Reminder at 23:00 if no activity today",
+      "routineReminderTime": "23:00 (if no activity today)",
       "surprisePrompts": "Surprise Prompts",
       "surprisePromptsDesc": "Random fun messages to brighten your day",
       "testNotification": "Send Test Notification",

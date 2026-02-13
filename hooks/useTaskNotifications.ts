@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
+
 
 interface Task {
   id: string;
@@ -13,6 +15,7 @@ export const useTaskNotifications = (tasks: Task[], enabled: boolean) => {
   // Используем ref чтобы не планировать уведомления при каждом рендере
   const lastTasksHash = useRef<string>('');
   const scheduleLock = useRef(false);
+  const { t, i18n } = useTranslation();
 
   const NOTIFICATION_IDS_KEY = 'taskNotificationIds';
 
@@ -74,7 +77,7 @@ export const useTaskNotifications = (tasks: Task[], enabled: boolean) => {
           if (remind3 > minFutureTime) {
             const id = await Notifications.scheduleNotificationAsync({
               content: {
-                title: 'Task due in 3 days',
+                title: t('notifications.taskDueIn3Days'),
                 body: taskShort,
               },
               trigger: {
@@ -94,7 +97,7 @@ export const useTaskNotifications = (tasks: Task[], enabled: boolean) => {
           if (remind1 > minFutureTime) {
             const id = await Notifications.scheduleNotificationAsync({
               content: {
-                title: 'Task due tomorrow',
+                title: t('notifications.taskDueTomorrow'),
                 body: taskShort,
               },
               trigger: {
@@ -113,7 +116,7 @@ export const useTaskNotifications = (tasks: Task[], enabled: boolean) => {
           if (remindToday > minFutureTime) {
             const id = await Notifications.scheduleNotificationAsync({
               content: {
-                title: 'Task due today!',
+                title: t('notifications.taskDueToday'),
                 body: taskShort,
               },
               trigger: {
@@ -142,5 +145,5 @@ export const useTaskNotifications = (tasks: Task[], enabled: boolean) => {
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [tasks, enabled]);
+  }, [tasks, enabled, i18n.language]);
 };

@@ -242,53 +242,71 @@ export default function SettingsScreen() {
 
             {/* Task Reminders Info */}
               {notifications.isEnabled && (
-                <View style={[styles.row, { backgroundColor: colors.surface, opacity: 0.9, marginTop: 8 }]}>
-                  <View style={styles.leftContent}>
-                    <View style={styles.textContainer}>
-                      <Text style={[textStyles.body, { color: colors.text }]}>
-                        📋 {t('notifications.settings.taskReminders')}
-                      </Text>
-                      <Text style={[textStyles.caption, { color: colors.textSecondary, marginTop: 4 }]}>
-                        {t('notifications.settings.taskRemindersDesc')}
-                      </Text>
-                      <Text style={[textStyles.caption, { color: colors.text, marginTop: 6 }]}>
-                        • {t('notifications.settings.days3Before')} (07:00){'\n'}
-                        • {t('notifications.settings.days1Before')} (19:00){'\n'}
-                        • {t('notifications.settings.onDueDate')} (07:00)
-                      </Text>
+                <>
+                  {/* Task Notifications Toggle */}
+                  <View style={[styles.row, { marginTop: 8 }]}>
+                    <View style={styles.leftContent}>
+                      <Clock color={colors.textSecondary} size={20} />
+                      <View style={styles.textContainer}>
+                        <Text style={[textStyles.body, { color: colors.text }]}>
+                          {t('notifications.settings.taskReminders')}
+                        </Text>
+                        <Text style={[textStyles.caption, { color: colors.textSecondary, marginTop: 4 }]}>
+                          {t('notifications.settings.taskRemindersDesc')}
+                        </Text>
+                        <Text style={[textStyles.caption, { color: colors.text, marginTop: 6 }]}>
+                          • {t('notifications.settings.days3Before')} (07:00){'\n'}
+                          • {t('notifications.settings.days1Before')} (19:00){'\n'}
+                          • {t('notifications.settings.onDueDate')} (07:00)
+                        </Text>
+                      </View>
                     </View>
+                    <Switch
+                      value={notifications.tasksEnabled}
+                      onValueChange={notifications.toggleTasks}
+                      trackColor={{ false: colors.textSecondary, true: colors.primary }}
+                      thumbColor="#fff"
+                    />
                   </View>
-                </View>
-              )}
 
-              {/* Coming Soon */}
-              {notifications.isEnabled && (
-                <View style={{ marginTop: 8 }}>
-                  <View style={[styles.row, { opacity: 0.5 }]}>
+                  {/* Routine Notifications Toggle */}
+                  <View style={[styles.row, { marginTop: 8 }]}>
                     <View style={styles.leftContent}>
                       <Sunset color={colors.textSecondary} size={20} />
                       <View style={styles.textContainer}>
                         <Text style={[textStyles.body, { color: colors.text }]}>
-                          {t('notifications.settings.routineReminders')} ({t('notifications.settings.comingSoon')})
+                          {t('notifications.settings.routineReminders')}
                         </Text>
-                        <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
+                        <Text style={[textStyles.caption, { color: colors.textSecondary, marginTop: 4 }]}>
                           {t('notifications.settings.routineRemindersDesc')}
+                        </Text>
+                        <Text style={[textStyles.caption, { color: colors.text, marginTop: 6 }]}>
+                          • {t('notifications.settings.routineReminderTime')}
                         </Text>
                       </View>
                     </View>
+                    <Switch
+                      value={notifications.routinesEnabled}
+                      onValueChange={notifications.toggleRoutines}
+                      trackColor={{ false: colors.textSecondary, true: colors.primary }}
+                      thumbColor="#fff"
+                    />
                   </View>
+                </>
+              )}
 
-                  <View style={[styles.row, { opacity: 0.5 }]}>
-                    <View style={styles.leftContent}>
-                      <Hand color={colors.textSecondary} size={20} />
-                      <View style={styles.textContainer}>
-                        <Text style={[textStyles.body, { color: colors.text }]}>
-                          {t('notifications.settings.surprisePrompts')} ({t('notifications.settings.comingSoon')})
-                        </Text>
-                        <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                          {t('notifications.settings.surprisePromptsDesc')}
-                        </Text>
-                      </View>
+              {/* Coming Soon - Surprise Prompts */}
+              {notifications.isEnabled && (
+                <View style={[styles.row, { opacity: 0.5, marginTop: 8 }]}>
+                  <View style={styles.leftContent}>
+                    <Hand color={colors.textSecondary} size={20} />
+                    <View style={styles.textContainer}>
+                      <Text style={[textStyles.body, { color: colors.text }]}>
+                        {t('notifications.settings.surprisePrompts')} ({t('notifications.settings.comingSoon')})
+                      </Text>
+                      <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
+                        {t('notifications.settings.surprisePromptsDesc')}
+                      </Text>
                     </View>
                   </View>
                 </View>

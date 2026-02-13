@@ -26,8 +26,6 @@ import CustomCalendar from '@/components/CustomCalendar';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
-import { useNotifications } from '@/hooks/useNotifications';
-import { useTaskNotifications } from '@/hooks/useTaskNotifications';
 
 // Styles
 import { createTasksStyles } from '@/styles/tasks';
@@ -47,9 +45,6 @@ export default function TasksScreen() {
   const textStyles = useTextStyles();
   const { colors, isMessyMode } = useTheme();
   
-  // Инициализируем систему уведомлений
-  const notifications = useNotifications();
-  
   const [tasks, setTasks] = useState<Task[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -65,9 +60,6 @@ export default function TasksScreen() {
     message: '',
     onConfirm: () => {},
   });
-
-  // Подключаем хук для уведомлений о задачах
-  useTaskNotifications(tasks, notifications.shouldShow);
 
   const styles = createTasksStyles(colors);
 
