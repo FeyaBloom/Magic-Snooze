@@ -309,7 +309,7 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
             {victories.length > 0 && (
               <View style={styles.section}>
                 <View style={styles.sectionHeader}>
-                  <Text style={styles.victoryEmoji}>✨</Text>
+                  <Text style={styles.victoryEmoji}>🎉</Text>
                   <Text style={[styles.sectionTitle, { color: colors.text }]}>
                     {t('today.tinyVictories')}
                   </Text>

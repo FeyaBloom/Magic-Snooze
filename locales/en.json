@@ -23,8 +23,8 @@
     "title": "Good day, beautiful soul",
     "subtitle": "Take it one step at a time",
     "subtitleSnoozed": "You're taking a gentle break today",
-    "snoozeToday": "Snooze Today",
-    "resumeToday": "Resume Today",
+    "snoozeToday": "Snooze Day",
+    "resumeToday": "Resume Day",
     "tinyVictories": " Tiny Victories",
     "nightForest": "🌙 Night Forest",
     "dayDream": "⛅ Daydream",
@@ -60,7 +60,7 @@
     "Maybelater": "Maybe later",
     "Letsdoit": "Let's do it!",
     "defaultMorning": {
-      "stretch": "Warm lemon-honey water",
+      "stretch": "Glass of warm water first",
       "breathing": "Energizing workout",
       "intention": "Great healthy breakfast"
     },
@@ -95,10 +95,10 @@
     "days": "days",
     "level": "Level",
     "levels": {
-      "novice": "Novice",
-      "apprentice": "Apprentice",
-      "mage": "Mage",
-      "archmage": "Archmage"
+      "novice": "Rookie",
+      "apprentice": "Skilled",
+      "mage": "Master",
+      "archmage": "Hero"
     },
     "tasks": "Tasks",
     "victories": "Victories",
@@ -110,13 +110,13 @@
     "focusStreak": "Streak",
     "focusMagic": "Level",
     "focusVictories": "Tiny Victories",
-    "celebrateSmallWins": "Every victory counts ✨",
+    "celebrateSmallWins": "Every victory counts",
     "weekDays": "This week",
     "victoryGarden": "Victory Garden",
     "victoryGardenSubtitle": "Every bloom is a win to celebrate 🌸",
     "motivations": {
       "cosmic": "Simply cosmic! 🚀",
-      "excellent": "Excellent work! ✨",
+      "excellent": "Excellent work! 🎉",
       "good": "Good start! 💪",
       "keep": "Keep going! 🌱",
       "believe": "You can do it! 💜"

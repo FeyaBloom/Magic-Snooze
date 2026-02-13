@@ -384,20 +384,25 @@ export default function TasksScreen() {
 
       {/* Add Modal */}
       <Modal visible={showAddModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalOverlay}>
+        <KeyboardAvoidingView
+            behavior="padding"
+            keyboardVerticalOffset={0}
+            style={styles.modalOverlay}
+          >
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
             <ScrollView showsVerticalScrollIndicator={false}  keyboardShouldPersistTaps="handled">
             <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
               {t('tasks.addTitle')}
             </Text>
             <TextInput
-              style={[styles.textInput, { color: colors.text, borderColor: colors.primary }]}
+              style={[styles.textInput, { color: colors.text, borderColor: colors.primary, maxHeight: 100 }]}
               placeholder={t('tasks.inputPlaceholder')}
               placeholderTextColor={colors.textSecondary}
               value={newTaskText}
               onChangeText={setNewTaskText}
               multiline
               autoFocus
+              scrollEnabled={true}
             />
             <TouchableOpacity onPress={() => setShowCalendar(v => !v)} activeOpacity={TOUCHABLE_CONFIG.activeOpacity}>
               <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 30 }]}>
@@ -451,7 +456,11 @@ export default function TasksScreen() {
 
       {/* Edit Modal */}
       <Modal visible={showEditModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
-        <KeyboardAvoidingView     behavior={Platform.OS === 'ios' ? 'padding' : undefined}        style={styles.modalOverlay}          >       
+        <KeyboardAvoidingView
+            behavior="padding"
+            keyboardVerticalOffset={0}
+            style={styles.modalOverlay}
+             >       
           <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
             <ScrollView showsVerticalScrollIndicator={false}  keyboardShouldPersistTaps="handled">
             <TouchableOpacity
@@ -465,13 +474,14 @@ export default function TasksScreen() {
               {t('tasks.editTitle')}
             </Text>
             <TextInput
-              style={[styles.textInput, { color: colors.text, borderColor: colors.primary }]}
+              style={[styles.textInput, { color: colors.text, borderColor: colors.primary, maxHeight: 100 }]}
               placeholder={t('tasks.inputPlaceholder')}
               placeholderTextColor={colors.textSecondary}
               value={newTaskText}
               onChangeText={setNewTaskText}
               multiline
               autoFocus
+              scrollEnabled={true}
             />
             <TouchableOpacity onPress={() => setShowEditCalendar(v => !v)} activeOpacity={TOUCHABLE_CONFIG.activeOpacity}>
               <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 30 }]}>

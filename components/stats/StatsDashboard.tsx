@@ -148,7 +148,7 @@ export const StatsDashboard = memo(function StatsDashboard({
               <Text style={{ fontSize: 72, color: colors.primary, fontWeight: 'bold' }}>
                 {totalVictories}
               </Text>
-              <Text style={{ fontSize: 48 }}>✨</Text>
+              <Text style={{ fontSize: 48 }}>🎉</Text>
             </View>
             <Text style={[textStyles.body, { color: colors.secondary, marginTop: 8 }]}>
               {t('calendar.stats.celebrateSmallWins')}
@@ -200,7 +200,7 @@ export const StatsDashboard = memo(function StatsDashboard({
           ]}
         >
           <Text style={[textStyles.caption, { color: focusMode === 'magic' ? colors.background[0] : colors.text }]}>
-            ✨ {t('calendar.stats.focusMagic')}
+            🏅 {t('calendar.stats.focusMagic')}
           </Text>
         </TouchableOpacity>
         

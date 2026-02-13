@@ -1,10 +1,10 @@
 // Универсальные параметры для тачабл элементов
 export const TOUCHABLE_CONFIG = {
   // Прозрачность при нажатии (0.0 - 1.0)
-  activeOpacity: 0.7,
+  activeOpacity: 0.5,
   
   // Параметры для hover/press эффектов
-  pressScale: 0.98, // Легкое "вдавливание" при нажатии
+  pressScale: 0.85, // Легкое "вдавливание" при нажатии
   
   // Увеличение тени при hover
   shadowHover: {

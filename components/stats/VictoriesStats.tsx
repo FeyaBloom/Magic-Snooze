@@ -146,7 +146,7 @@ export const VictoriesStats = memo(function VictoriesStats({ month }: VictoriesS
       const victoryArray = Object.entries(victoryMap)
         .map(([id, count]) => ({
           name: t(`today.${id}`),
-          emoji: VICTORY_TYPES[id] || '✨',
+          emoji: VICTORY_TYPES[id] || '🎉',
           count,
         }))
         .sort((a, b) => b.count - a.count); // Сортируем по количеству

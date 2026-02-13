@@ -58,7 +58,7 @@ export const Achievements = memo(function Achievements({
         id: 'magic-collector',
         name: t('calendar.achievements.magicCollector.name'),
         description: t('calendar.achievements.magicCollector.description'),
-        emoji: '✨',
+        emoji: '🌟',
         unlocked: totalVictories >= 50,
       },
       {

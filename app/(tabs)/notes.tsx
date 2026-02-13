@@ -329,13 +329,14 @@ export default function NotesScreen() {
                   onChangeText={setNoteTitle}
                 />
                 <TextInput
-                  style={[styles.contentInput, { color: colors.text, borderColor: colors.primary }]}
+                  style={[styles.contentInput, { color: colors.text, borderColor: colors.primary, maxHeight: 100 }]}
                   placeholder={t('notes.contentPlaceholder')}
                   placeholderTextColor={colors.textSecondary}
                   value={noteContent}
                   onChangeText={setNoteContent}
                   multiline
                   autoFocus
+                  scrollEnabled={true}
                 />
                 <View style={styles.modalButtons}>
                   <TouchableOpacity
@@ -400,13 +401,14 @@ export default function NotesScreen() {
                   onChangeText={setNoteTitle}
                 />
                 <TextInput
-                  style={[styles.contentInput, { color: colors.text, borderColor: colors.primary }]}
+                  style={[styles.contentInput, { color: colors.text, borderColor: colors.primary, maxHeight: 100 }]}
                   placeholder={t('notes.contentPlaceholder')}
                   placeholderTextColor={colors.textSecondary}
                   value={noteContent}
                   onChangeText={setNoteContent}
                   multiline
                   autoFocus
+                  scrollEnabled={true}
                 />
                 <View style={styles.modalButtons}>
                   <TouchableOpacity

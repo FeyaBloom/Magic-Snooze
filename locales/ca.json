@@ -21,8 +21,8 @@
     "title": "Bon dia, ànima bonica",
     "subtitle": "Ves pas a pas",
     "subtitleSnoozed": "Avui et prens un descans suau",
-    "snoozeToday": "Posa en pausa avui",
-    "resumeToday": "Continua avui",
+    "snoozeToday": "Pausa Dia",
+    "resumeToday": "Continua Dia",
     "tinyVictories": "Petites victòries",
     "nightForest": "🌙 Bosc nocturn",
     "dayDream": "⛅ Somni de dia",
@@ -58,7 +58,7 @@
     "Maybelater": "Potser més tard",
     "Letsdoit": "Fem-ho!",
     "defaultMorning": {
-      "stretch": "Aigua tèbia amb mel i llimona",
+      "stretch": "Aigua tèbia en dejú",
       "breathing": "Exercici energitzant",
       "intention": "Gran esmorzar saludable"
     },
@@ -93,10 +93,10 @@
       "days": "dies",
       "level": "Nivell",
       "levels": {
-        "novice": "Principiant",
-        "apprentice": "Aprenent",
-        "mage": "Mag",
-        "archmage": "Arximag"
+        "novice": "Novell",
+        "apprentice": "Actiu",
+        "mage": "Mestre",
+        "archmage": "Heroi"
       },
       "tasks": "Tasques",
       "victories": "Victòries",
@@ -108,13 +108,13 @@
       "focusStreak": "Ratxa",
       "focusMagic": "Nivell",
       "focusVictories": "Petites Victòries",
-      "celebrateSmallWins": "Cada victòria compta ✨",
+      "celebrateSmallWins": "Cada victòria compta",
       "weekDays": "Aquesta setmana",
       "victoryGarden": "Jardí de Victòries",
       "victoryGardenSubtitle": "Cada flor és una victòria per celebrar 🌸",
       "motivations": {
         "cosmic": "Simplement còsmic! 🚀",
-        "excellent": "Excel·lent feina! ✨",
+        "excellent": "Excel·lent feina! 🎉",
         "good": "Bon començament! 💪",
         "keep": "No et rendeixis! 🌱",
         "believe": "Tu pots! 💜"

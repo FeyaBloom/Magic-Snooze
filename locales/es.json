@@ -90,8 +90,8 @@
     "title": "Buen día, alma hermosa",
     "subtitle": "Ve paso a paso",
     "subtitleSnoozed": "Te estás tomando un descanso",
-    "snoozeToday": "Aplazar todo",
-    "resumeToday": "Reanudar",
+    "snoozeToday": "Pausa Día",
+    "resumeToday": "Sigue Día",
     "tinyVictories": "Pequeñas victorias",
     "nightForest": "🌙 Bosque nocturno",
     "dayDream": "⛅ Ensueño",
@@ -126,7 +126,7 @@
    "Maybelater": "Más tarde",
     "Letsdoit": "Vamos!",
     "defaultMorning": {
-      "stretch": "Agua tibia con miel y limón",
+      "stretch": "Agua tibia en ayunas",
       "breathing": "Ejercicio energizante",
       "intention": "Gran desayuno saludable"
     },
@@ -178,10 +178,10 @@
     "days": "días",
     "level": "Nivel",
       "levels": {
-        "novice": "Principiante",
-        "apprentice": "Aprendiz",
-        "mage": "Mago",
-        "archmage": "Archimago"
+        "novice": "Novato",
+        "apprentice": "Activo",
+        "mage": "Maestro",
+        "archmage": "Heroe"
       },
     "partial": "Parcial",
     "tasks": "Tareas",
@@ -194,13 +194,13 @@
     "focusStreak": "Racha",
     "focusMagic": "Nivel",
     "focusVictories": "Pequeñas Victorias",
-    "celebrateSmallWins": "Cada victoria cuenta ✨",
+    "celebrateSmallWins": "Cada victoria cuenta",
     "weekDays": "Esta semana",
     "victoryGarden": "Jardín de Victorias",
     "victoryGardenSubtitle": "Cada flor es una victoria para celebrar 🌸",
     "motivations": {
       "cosmic": "¡Simplemente cósmico! 🚀",
-      "excellent": "¡Excelente trabajo! ✨",
+      "excellent": "¡Excelente trabajo! 🎉",
       "good": "¡Buen comienzo! 💪",
       "keep": "¡No te rindas! 🌱",
       "believe": "¡Tú puedes! 💜"

@@ -430,7 +430,7 @@ export const WeekCard = memo(function WeekCard({
               </Text>
             </View>
             <View style={{ alignItems: 'center', gap: 4 }}>
-              <Text style={{ fontSize: 16 }}>✨</Text>
+              <Text style={{ fontSize: 16 }}>🎉</Text>
               <Text style={[styles.caption, { color: colors.secondary }]}>
                 {t('calendar.stats.victories')}
               </Text>

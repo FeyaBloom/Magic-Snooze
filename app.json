@@ -6,11 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "magic-snooze",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#000000"
+    "userInterfaceStyle": "automatic"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -46,7 +42,7 @@
           "dark": {
             "image": "./assets/splash-icon.png"
           },
-          "backgroundColor": "#8B5CF6",
+          "backgroundColor": "#000000",
           "resizeMode": "contain"
         }
       ],
@@ -93,4 +89,4 @@
     },
     "owner": "feya-bloom-studio"
   }
-}
+

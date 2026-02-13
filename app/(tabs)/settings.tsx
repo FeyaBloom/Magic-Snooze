@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity, Linking, Switch, View, Alert } from 'react-native';
 import {
   Globe,
@@ -22,6 +22,7 @@ import ResetDataComponent from '@/components/ResetData';
 import { useTranslation } from 'react-i18next';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { createSettingsStyles } from '@/styles/settings';
+import { TOUCHABLE_CONFIG } from '@/styles/touchable';
 import { useNotifications } from '@/hooks/useNotifications';
 import * as Notifications from 'expo-notifications';
 
@@ -109,6 +110,7 @@ export default function SettingsScreen() {
           <TouchableOpacity
             style={styles.row}
             onPress={() => setOperationMode(operationMode === 'auto' ? 'manual' : 'auto')}
+            activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
           >
             <View style={styles.leftContent}>
               <Lightbulb color={colors.textSecondary} size={20} />
@@ -156,7 +158,7 @@ export default function SettingsScreen() {
           <TouchableOpacity
             style={styles.row}
             onPress={showLanguageModal}
-            activeOpacity={0.8}
+            activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
           >
             <View style={styles.leftContent}>
               <Languages color={colors.textSecondary} size={20} />
@@ -208,7 +210,7 @@ export default function SettingsScreen() {
               <TouchableOpacity
                 style={[styles.button, { backgroundColor: colors.primary }]}
                 onPress={handleRequestPermission}
-                activeOpacity={0.8}
+                activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
               >
                 <Text style={[textStyles.body, { color: '#fff', fontWeight: '600' }]}>
                   {t('notifications.settings.requestPermission')}
@@ -238,7 +240,7 @@ export default function SettingsScreen() {
                 />
               </View>
 
-              {/* Task Reminders Info — НЕ ТРОНУТО */}
+            {/* Task Reminders Info */}
               {notifications.isEnabled && (
                 <View style={[styles.row, { backgroundColor: colors.surface, opacity: 0.9, marginTop: 8 }]}>
                   <View style={styles.leftContent}>
@@ -297,7 +299,7 @@ export default function SettingsScreen() {
                 <TouchableOpacity
                   style={[styles.button, { backgroundColor: colors.surface, marginTop: 12 }]}
                   onPress={sendTestNotification}
-                  activeOpacity={0.8}
+                  activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
                 >
                   <Text style={[textStyles.body, { color: colors.text }]}>
                     🧪 {t('notifications.settings.testNotification')}
@@ -322,7 +324,7 @@ export default function SettingsScreen() {
           <TouchableOpacity
             style={styles.row}
             onPress={() => Linking.openURL('https://feya-bloom-studio.lovable.app/')}
-            activeOpacity={0.8}
+            activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
           >
             <View style={styles.leftContent}>
               <Globe color={colors.textSecondary} size={20} />
@@ -340,7 +342,7 @@ export default function SettingsScreen() {
           <TouchableOpacity
             style={styles.row}
             onPress={() => Linking.openURL('https://github.com/FeyaBloom/Magic-Snooze')}
-            activeOpacity={0.8}
+            activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
           >
             <View style={styles.leftContent}>
               <Heart color={colors.textSecondary} size={20} />
@@ -361,7 +363,7 @@ export default function SettingsScreen() {
           <TouchableOpacity
             style={styles.row}
             onPress={() => router.push('/debug')}
-            activeOpacity={0.8}
+            activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
           >
             <View style={styles.leftContent}>
               <Bug color={colors.textSecondary} size={20} />

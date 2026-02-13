@@ -698,32 +698,6 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
             <Moon size={20} color="#8B5CF6" />
           )}
 
-          {/* Progress Stats */}
-          {todayProgress && (
-            <View style={styles.progressSection}>
-              <Text style={[textStyles.h2, { color: colors.text, marginBottom: 12 }]}>
-                {t('today.todaysProgress')} <Trophy size={20} color={colors.secondary} />
-              </Text>
-              <View style={styles.progressStats}>
-                <View style={styles.progressStat}>
-                  <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                    {t('today.morning')}
-                  </Text>
-                  <Text style={[textStyles.h2, { color: colors.primary }]}>
-                    {todayProgress.morningDone}/{todayProgress.morningTotal}
-                  </Text>
-                </View>
-                <View style={styles.progressStat}>
-                  <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                    {t('today.evening')}
-                  </Text>
-                  <Text style={[textStyles.h2, { color: colors.primary }]}>
-                    {todayProgress.eveningDone}/{todayProgress.eveningTotal}
-                  </Text>
-                </View>
-              </View>
-            </View>
-          )}
         </ContentContainer>
       </ScrollView>
 
@@ -742,21 +716,23 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView 
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined} 
-        style={styles.modalOverlay}
+            behavior="padding"
+            keyboardVerticalOffset={0}
+            style={styles.modalOverlay}
         >      
           <View style={styles.modalContent}>
             <Text style={[textStyles.h2, { color: colors.text, marginBottom: 16 }]}>
               {t('today.addNewStep')}
             </Text>
             <TextInput
-              style={styles.textInput}
+              style={[styles.textInput, {maxHeight: 150}]}
               placeholder={t('today.enterGentleStep')}
               placeholderTextColor={colors.textSecondary}
               value={newStepText}
               onChangeText={setNewStepText}
               multiline
               autoFocus
+              scrollEnabled={ true }
             />
             <View style={styles.modalButtons}>
               <TouchableOpacity
@@ -792,8 +768,9 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView 
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined} 
-      style={styles.modalOverlay}
+            behavior="padding"
+            keyboardVerticalOffset={0}
+            style={styles.modalOverlay}
       >
            <View style={styles.modalContent}>
             <TouchableOpacity
@@ -808,13 +785,14 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               {t('today.editStep')}
             </Text>
             <TextInput
-              style={styles.textInput}
+              style={[styles.textInput, {maxHeight: 150}]}
               placeholder={t('today.enterGentleStep')}
               placeholderTextColor={colors.textSecondary}
               value={newStepText}
               onChangeText={setNewStepText}
               multiline
               autoFocus
+              scrollEnabled={ true }
             />
             <View style={styles.modalButtons}>
               <TouchableOpacity

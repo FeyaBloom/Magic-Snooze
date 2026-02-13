@@ -367,26 +367,31 @@ export default function CalendarScreen() {
   }, []);
 
   const weeklyStatsContent = useMemo(() => {
-    return weeklyStats.map((week) => (
-      <WeekCard
-        key={week.weekNumber}
-        weekNumber={week.weekNumber}
-        startDate={week.startDate}
-        endDate={week.endDate}
-        morningRate={week.morningCompletionRate}
-        eveningRate={week.eveningCompletionRate}
-        overallRate={week.overallRate}
-        morningDays={week.morningDays}
-        eveningDays={week.eveningDays}
-        totalDays={week.totalDays}
-        tasksCompleted={week.tasksCompleted}
-        victoriesCount={week.totalVictories}
-        dailyActivity={week.dailyActivity}
-        status={week.status}
-        expanded={expandedWeeks.has(week.weekNumber - 1)}
-        onToggle={() => toggleWeekExpanded(week.weekNumber)}
-      />
-    ));
+    return weeklyStats
+      .filter((week) => {
+        // Показываем только недели с данными
+        return week.totalDays > 0 || week.tasksCompleted > 0 || week.totalVictories > 0;
+      })
+      .map((week) => (
+        <WeekCard
+          key={week.weekNumber}
+          weekNumber={week.weekNumber}
+          startDate={week.startDate}
+          endDate={week.endDate}
+          morningRate={week.morningCompletionRate}
+          eveningRate={week.eveningCompletionRate}
+          overallRate={week.overallRate}
+          morningDays={week.morningDays}
+          eveningDays={week.eveningDays}
+          totalDays={week.totalDays}
+          tasksCompleted={week.tasksCompleted}
+          victoriesCount={week.totalVictories}
+          dailyActivity={week.dailyActivity}
+          status={week.status}
+          expanded={expandedWeeks.has(week.weekNumber - 1)}
+          onToggle={() => toggleWeekExpanded(week.weekNumber)}
+        />
+      ));
   }, [weeklyStats, expandedWeeks, toggleWeekExpanded]);
 
   const monthlyRoutineStats = useMemo(() => {
