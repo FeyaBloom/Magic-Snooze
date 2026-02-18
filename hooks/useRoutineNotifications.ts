@@ -69,8 +69,8 @@ export const useRoutineNotifications = (enabled: boolean) => {
       const hours = now.getHours();
       const minutes = now.getMinutes();
       
-      // Проверяем только в 23:00 (с погрешностью в минуту)
-      if (hours !== 23 || minutes > 1) {
+      // Проверяем только в 20:00 (с погрешностью в минуту)
+      if (hours !== 20 || minutes > 1) {
         return;
       }
 

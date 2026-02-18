@@ -73,7 +73,12 @@
     },
     "supportApp": {
       "title": "Apoyar esta aplicación",
-      "description": "Magic Snooze es gratuita, de código abierto y sin anuncios.\nCreada por una persona neurodivergente navegando la vida como inmigrante. Actualmente gestionando papeleos legales para aceptar donaciones.\nMientras tanto:\n⭐️ dale una estrella en GitHub\n📋 deja una reseña en Google Play\n🐛 reporta bugs\n💬 corre la voz"
+      "description": "Magic Snooze es gratuita, de código abierto y sin anuncios. Si te ayuda, puedes apoyar el proyecto:",
+      "starGithub": "Dar estrella en Github",
+      "leaveReview": "Dejar una reseña",
+      "reportBugs": "Reportar errores",
+      "spreadWord": "Comparte la app",
+      "shareMessage": "Prueba Magic Snooze - una app de productividad suave que respeta tu mente: https://github.com/FeyaBloom/Magic-Snooze"
     }
   },
 "languages": {
@@ -352,8 +357,8 @@
       "comingSoon": "Próximamente",
 
       "routineReminders": "Recordatorios de Rutina",
-      "routineRemindersDesc": "Recordatorio a las 23:00 si no hay actividad hoy",
-      "routineReminderTime": "23:00 (si no hay actividad hoy)",
+      "routineRemindersDesc": "Recordatorio a las 20:00 si no hay actividad hoy",
+      "routineReminderTime": "20:00 (si no hay actividad hoy)",
     
       "surprisePrompts": "Mensajes Sorpresa",
       "surprisePromptsDesc": "Mensajes aleatorios divertidos para alegrar tu día",

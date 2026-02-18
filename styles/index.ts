@@ -46,7 +46,7 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   routineSection: {
     padding: 16,
     borderRadius: 16,
-    marginBottom: 16,
+    marginTop: 20,
     backgroundColor: colors.surface,
     // @ts-ignore
     boxShadow: `0 3px 6px ${colors.secondary}33`,
@@ -117,23 +117,6 @@ export const createTodayStyles = (colors: any) => StyleSheet.create({
   resumeButtonPressed: {
     // @ts-ignore
     boxShadow: `0 6px 30px ${colors.secondary}cc`,
-  },
-  progressSection: {
-    padding: 16,
-    borderRadius: 16,
-    marginTop: 8,
-    backgroundColor: colors.surface,
-    // @ts-ignore
-    boxShadow: `0 2px 4px ${colors.secondary}66`,
-    opacity: 0.75
-  },
-  progressStats: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  progressStat: {
-    alignItems: 'center',
-    gap: 4,
   },
   modalOverlay: {
     flex: 1,

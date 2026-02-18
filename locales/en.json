@@ -219,7 +219,12 @@
     },
     "supportApp": {
       "title": "Support this app",
-      "description": "Magic Snooze is free, open source, no ads. \nBuilt by one neurodivergent human navigating life as an immigrant. Currently sorting out legal stuff to accept donations.\nMeanwhile: \n⭐️ star on Github\n📋 leave a review on Google Play\n🐛 report bugs\n💬 spread the word"
+      "description": "Magic Snooze is free, open source, no ads. \nIf it helps you, you can support the project:",
+      "starGithub": "Star on Github",
+      "leaveReview": "Leave a review",
+      "reportBugs": "Report bugs",
+      "spreadWord": "Spread the word",
+      "shareMessage": "Check out Magic Snooze - a gentle productivity app that respects your brain: https://github.com/FeyaBloom/Magic-Snooze"
     }
   },
 
@@ -355,8 +360,8 @@
       "customDays": "Custom days before:",
       "comingSoon": "Coming Soon",
       "routineReminders": "Routine Reminders",
-      "routineRemindersDesc": "Reminder at 23:00 if no activity today",
-      "routineReminderTime": "23:00 (if no activity today)",
+      "routineRemindersDesc": "Reminder at 20:00 if no activity today",
+      "routineReminderTime": "20:00 (if no activity today)",
       "surprisePrompts": "Surprise Prompts",
       "surprisePromptsDesc": "Random fun messages to brighten your day",
       "testNotification": "Send Test Notification",

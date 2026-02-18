@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, TouchableOpacity, Linking, Switch, View, Alert } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, TouchableOpacity, Linking, Switch, View, Alert, Share } from 'react-native';
 import {
   Globe,
   Heart,
@@ -34,6 +34,25 @@ export default function SettingsScreen() {
   const textStyles = useTextStyles();
   const styles = createSettingsStyles(colors);
   const notifications = useNotifications();
+
+  // Автоматически выключаем общий тумблер, если оба подтумблера выключены
+  useEffect(() => {
+    if (notifications.isEnabled && !notifications.tasksEnabled && !notifications.routinesEnabled) {
+      notifications.toggle(false);
+    }
+  }, [notifications.tasksEnabled, notifications.routinesEnabled]);
+
+  // Автоматически включаем оба подтумблера при включении общего тумблера
+  useEffect(() => {
+    if (notifications.isEnabled && (!notifications.tasksEnabled || !notifications.routinesEnabled)) {
+      if (!notifications.tasksEnabled) {
+        notifications.toggleTasks(true);
+      }
+      if (!notifications.routinesEnabled) {
+        notifications.toggleRoutines(true);
+      }
+    }
+  }, [notifications.isEnabled]);
 
   const handleRequestPermission = async () => {
     const granted = await notifications.requestPermission();
@@ -279,10 +298,7 @@ export default function SettingsScreen() {
                         </Text>
                         <Text style={[textStyles.caption, { color: colors.textSecondary, marginTop: 4 }]}>
                           {t('notifications.settings.routineRemindersDesc')}
-                        </Text>
-                        <Text style={[textStyles.caption, { color: colors.text, marginTop: 6 }]}>
-                          • {t('notifications.settings.routineReminderTime')}
-                        </Text>
+                        </Text>                        
                       </View>
                     </View>
                     <Switch
@@ -295,35 +311,6 @@ export default function SettingsScreen() {
                 </>
               )}
 
-              {/* Coming Soon - Surprise Prompts */}
-              {notifications.isEnabled && (
-                <View style={[styles.row, { opacity: 0.5, marginTop: 8 }]}>
-                  <View style={styles.leftContent}>
-                    <Hand color={colors.textSecondary} size={20} />
-                    <View style={styles.textContainer}>
-                      <Text style={[textStyles.body, { color: colors.text }]}>
-                        {t('notifications.settings.surprisePrompts')} ({t('notifications.settings.comingSoon')})
-                      </Text>
-                      <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                        {t('notifications.settings.surprisePromptsDesc')}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              )}
-
-              {/* Test Notification Button */}
-              {notifications.isEnabled && (
-                <TouchableOpacity
-                  style={[styles.button, { backgroundColor: colors.surface, marginTop: 12 }]}
-                  onPress={sendTestNotification}
-                  activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
-                >
-                  <Text style={[textStyles.body, { color: colors.text }]}>
-                    🧪 {t('notifications.settings.testNotification')}
-                  </Text>
-                </TouchableOpacity>
-              )}
             </View>
           )}
         </View>
@@ -357,26 +344,42 @@ export default function SettingsScreen() {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.row}
-            onPress={() => Linking.openURL('https://github.com/FeyaBloom/Magic-Snooze')}
-            activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
-          >
-            <View style={styles.leftContent}>
-              <Heart color={colors.textSecondary} size={20} />
-              <View style={styles.textContainer}>
-                <Text style={[textStyles.body, { color: colors.text }]}>
-                  {t('settings.supportApp.title')}
-                </Text>
-                <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                  {t('settings.supportApp.description')}
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        </View>
+<View style={styles.row}>
+  <View style={styles.leftContent}>
+    <Heart color={colors.textSecondary} size={20} />
+    <View style={styles.textContainer}>
+      <Text style={[textStyles.body, { color: colors.text }]}>
+        {t('settings.supportApp.title')}
+      </Text>
+      <Text style={[textStyles.caption, { color: colors.textSecondary, marginTop: 4 }]}>
+        {t('settings.supportApp.description')}
+      </Text>
 
-        {/* Debug Section */}
+  <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+      {[
+        { emoji: '⭐️', key: 'starGithub', url: 'https://github.com/FeyaBloom/Magic-Snooze' },
+        { emoji: '📋', key: 'leaveReview', url: 'https://play.google.com/store/apps/details?id=YOUR_APP_ID' },
+        { emoji: '🐛', key: 'reportBugs', url: 'https://github.com/FeyaBloom/Magic-Snooze/issues' },
+        { emoji: '💬', key: 'spreadWord', share: true },
+      ].map((btn, i) => (
+        <TouchableOpacity
+          key={i}
+          style={[styles.infoBox, { flex: 1, minWidth: '47%', backgroundColor: colors.surface }]}
+          onPress={() => btn.share ? Share.share({ message: t('settings.supportApp.shareMessage') }) : btn.url && Linking.openURL(btn.url)}
+          activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+        >
+          <Text style={[textStyles.caption, { color: colors.text, textAlign: 'center' }]}>
+            {btn.emoji} {t(`settings.supportApp.${btn.key}`)}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    </View>
+    </View>
+</View>
+
+</View>
+        {/* Debug Section 
         <View style={styles.section}>
           <TouchableOpacity
             style={styles.row}
@@ -395,7 +398,7 @@ export default function SettingsScreen() {
               </View>
             </View>
           </TouchableOpacity>
-        </View>
+        </View>*/}
 
       </ContentContainer>
     </ScreenLayout>

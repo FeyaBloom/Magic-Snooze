@@ -6,7 +6,7 @@ export const createSettingsStyles = (colors: any) => StyleSheet.create({
   },
   title: {
     marginBottom: 30,
-    marginTop: 50,
+    marginTop: 20,
     textAlign: 'center'
   },
   section: {

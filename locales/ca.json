@@ -216,7 +216,12 @@
     },
     "supportApp": {
       "title": "Dona-li suport a l'aplicació",
-      "description": "Magic Snooze és gratuïta, de codi obert i sense anuncis.\nCreada per una persona neurodivergent navegant la vida com a immigrant. Actualment gestionant tràmits legals per acceptar donacions.\nMentrestant:\n⭐️ dona-li una estrella a GitHub\n📋 deixa una ressenya a Google Play\n🐛 reporta bugs\n💬 passa la veu"
+      "description": "Magic Snooze és gratuïta, de codi obert i sense anuncis. Si t'ajuda, pots donar suport al projecte:",
+      "starGithub": "Dona estrella a Github",
+      "leaveReview": "Deixar una ressenya",
+      "reportBugs": "Informar d'errors",
+      "spreadWord": "Comparteix l'app",
+      "shareMessage": "Prova Magic Snooze - una app de productivitat suau que respecta la teva ment: https://github.com/FeyaBloom/Magic-Snooze"
     }
   },
   "tasks": {
@@ -346,8 +351,8 @@
       "customDays": "Dies personalitzats abans:",
       "comingSoon": "Properament",
       "routineReminders": "Recordatoris de Rutina",
-      "routineRemindersDesc": "Recordatori a les 23:00 si no hi ha activitat avui",
-      "routineReminderTime": "23:00 (si no hi ha activitat avui)",
+      "routineRemindersDesc": "Recordatori a les 20:00 si no hi ha activitat avui",
+      "routineReminderTime": "20:00 (si no hi ha activitat avui)",
       "surprisePrompts": "Missatges Sorpresa",
       "surprisePromptsDesc": "Missatges aleatoris divertits per alegrar el dia",
       "testNotification": "Enviar Notificació de Prova",
