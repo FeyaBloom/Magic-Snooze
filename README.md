@@ -1,14 +1,3 @@
-Magic Snooze 
-
-A productivity app that makes stopping safe.
-
-Most productivity systems are built around momentum.
-Magic Snooze is built around recovery.
-Real life has dips — low-energy days, executive dysfunction, burnout, emotional overload.
-Those moments shouldn’t erase your progress or force you to start from zero.
-Consistency shouldn’t collapse because you needed rest.
-Magic Snooze protects your continuity — even when you can’t show up.
-
 What you can actually do
 
 💤 Snooze Day
@@ -68,3 +57,15 @@ A shuffle button for a small visual reset when you need it.
 
 No chaotic pop-ups. No gamified pressure.
 Just quiet support when you need it.
+
+
+Why it feels different
+
+• Designed with ADHD brains in mind
+• Tracks progress without tracking failure
+• Protects consistency from bad days
+• Makes rest part of the system
+• Looks beautiful without being distracting
+Magic Snooze won’t try to fix you.
+It assumes you’re already doing your best.
+It just holds the structure while you live your life.
