@@ -62,10 +62,14 @@ Just quiet support when you need it.
 Why it feels different
 
 • Designed with ADHD brains in mind
+
 • Tracks progress without tracking failure
+
 • Protects consistency from bad days
+
 • Makes rest part of the system
+
 • Looks beautiful without being distracting
-Magic Snooze won’t try to fix you.
-It assumes you’re already doing your best.
+
+Magic Snooze assumes you’re already doing your best.
 It just holds the structure while you live your life.
