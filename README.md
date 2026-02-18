@@ -56,5 +56,6 @@ Minimal functionality. Strong aesthetic.
 A shuffle button for a small visual reset when you need it.
 
 🔔 Gentle reminders
+
 No chaotic pop-ups. No gamified pressure.
 Just quiet support when you need it.
