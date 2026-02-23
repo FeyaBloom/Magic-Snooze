@@ -322,6 +322,7 @@ section:nth-child(even) { background: var(--purple-pale); }
 .step {
   text-align: center;
   position: relative;
+   list-style: none;
 }
 .step-number {
   width: 3rem; height: 3rem;
