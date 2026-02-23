@@ -210,7 +210,10 @@ Have ideas? Open an issue!
 
 ## Landing Page 🌐
 
-A Catalan GitHub Pages landing page lives in the `docs/` folder (`docs/index.html` + `docs/styles.css`).  
+A bilingual GitHub Pages landing lives in the `docs/` folder:  
+- Catalan: `docs/index.html`  
+- English: `docs/index-en.html`  
+- Shared styles: `docs/styles.css`  
 A `docs/.nojekyll` file is also present so GitHub Pages skips Jekyll processing (prevents CSS variables and HTML being mangled).
 
 **To enable GitHub Pages:**
@@ -237,6 +240,21 @@ The site will be published at:
 | **Google Play button goes nowhere** | The CTA `href="#"` is intentional until the app is published. Replace it with the real store URL once available. |
 
 > Once the app is available on Google Play, replace every `href="#"` on the CTA buttons in `docs/index.html` with the real store URL.
+
+### Google Play compliance docs
+
+- Privacy Policy (public URL, EN):
+  - `https://feyabloom.github.io/Magic-Snooze/privacy-policy.html`
+- Privacy Policy (public URL, CA):
+  - `https://feyabloom.github.io/Magic-Snooze/privacy-policy-ca.html`
+- License summary in Catalan (informative):
+  - `docs/license-ca.html`
+- Data Safety draft answers:
+  - `docs/google-play-data-safety.md`
+- Store listing copy pack (ready to paste):
+  - `docs/google-play-store-copy.md`
+- Full release checklist:
+  - `docs/google-play-release-checklist.md`
 
 ---
 
