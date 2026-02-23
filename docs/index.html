@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── SEO meta tags ────────────────────────────────────── -->
+  <title>Magic Snooze — L'app de productivitat que no et castiga | Android</title>
+  <meta name="description"
+        content="Magic Snooze és una app de productivitat per a Android dissenyada per a persones amb TDAH i per a tothom qui necessita estructura sense culpa. Celebra petites victòries, protegeix les teves ratxes i descansa sense por." />
+  <meta name="keywords"
+        content="Magic Snooze, app TDAH, productivitat Android, hàbits saludables, mindfulness, app en català, sense culpa, rutines, petites victòries" />
+  <meta name="author" content="FeyaBloom" />
+  <link rel="canonical" href="https://feyabloom.github.io/Magic-Snooze/" />
+
+  <!-- ── OpenGraph tags ───────────────────────────────────── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://feyabloom.github.io/Magic-Snooze/" />
+  <meta property="og:title"       content="Magic Snooze — L'app de productivitat que no et castiga" />
+  <meta property="og:description" content="Rutines, petites victòries i dies de descans per al teu ritme. Sense culpa, sense pressió. Per a Android." />
+  <meta property="og:image"       content="https://feyabloom.github.io/Magic-Snooze/assets/og-image.png" />
+  <meta property="og:locale"      content="ca_ES" />
+  <meta property="og:site_name"   content="Magic Snooze" />
+
+  <!-- ── Twitter Card ─────────────────────────────────────── -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Magic Snooze — L'app de productivitat que no et castiga" />
+  <meta name="twitter:description" content="Rutines, petites victòries i dies de descans per al teu ritme. Sense culpa, sense pressió. Per a Android." />
+  <meta name="twitter:image"       content="https://feyabloom.github.io/Magic-Snooze/assets/og-image.png" />
+
+  <!-- ── Favicon placeholder ──────────────────────────────── -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💜</text></svg>" />
+
+  <!-- ── Stylesheet ───────────────────────────────────────── -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════════════════════ -->
+  <nav class="site-nav" aria-label="Navegació principal">
+    <div class="container">
+      <a class="nav-logo" href="#inici" aria-label="Torna a l'inici">
+        💜 Magic <span>Snooze</span>
+      </a>
+
+      <button class="nav-toggle" aria-controls="nav-links" aria-expanded="false" aria-label="Obre el menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#problema">El Problema</a></li>
+        <li><a href="#solucio">La Solució</a></li>
+        <li><a href="#com-funciona">Com Funciona</a></li>
+        <li><a href="#funcionalitats">Funcionalitats</a></li>
+        <li><a href="#per-a-qui">Per a Qui</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <!-- TODO: Replace "#" with the real Google Play Store URL when published -->
+        <li><a class="btn btn-primary nav-cta" href="#" aria-label="Descarrega Magic Snooze per a Android">Descarrega per a Android</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════ -->
+  <section id="inici" class="hero" aria-labelledby="hero-heading">
+    <div class="container">
+      <span class="emoji-big" aria-hidden="true">💜</span>
+      <h1 id="hero-heading">L'app de productivitat<br>que no et castiga</h1>
+      <p class="tagline">
+        Feta amb amor per a la comunitat TDAH i per a tothom qui s'ha cansat
+        de les llistes de tasques que fan sentir malament.
+      </p>
+
+      <div class="hero-ctas">
+        <!-- TODO: Replace "#" with the real Google Play Store URL when published -->
+        <a class="btn btn-primary" href="#" aria-label="Descarrega Magic Snooze a Google Play">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M3.18 23.76a1.5 1.5 0 0 0 2.1.56l12.06-7-2.95-2.95L3.18 23.76zm17.7-12.19L17.1 9.6 2.12.31A1.5 1.5 0 0 0 0 1.62v20.76c0 .9.96 1.44 1.74 1.02l1.44-.84 14.1-8.14 3.6 3.61 2.94-1.7a1.5 1.5 0 0 0 0-2.6l-2.94-1.7zm-3.6-2.08L3.18.24l11.22 6.48-3.32 3.32 7.2 4.16-1.02.59z"/>
+          </svg>
+          Descarrega per a Android
+        </a>
+        <a class="btn btn-outline" href="#com-funciona" style="color:#C9A6E6;border-color:#C9A6E6;">
+          Com funciona →
+        </a>
+      </div>
+
+      <div class="hero-badges" aria-label="Característiques destacades">
+        <span class="hero-badge">💤 Dies de descans</span>
+        <span class="hero-badge">🧊 Protecció setmanal</span>
+        <span class="hero-badge">✨ Petites victòries</span>
+        <span class="hero-badge">🔒 Sense registre ni servidors</span>
+        <span class="hero-badge">🆓 Gratis i codi obert</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PROBLEMA
+  ════════════════════════════════════════════════════════ -->
+  <section id="problema" aria-labelledby="problema-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">El Problema</span>
+        <h2 id="problema-heading">Les apps de productivitat tradicionals et fan sentir pitjor</h2>
+        <p>Si alguna vegada has abandonat un hàbit i has sentit culpa, no és culpa teva. El sistema estava dissenyat malament.</p>
+      </div>
+
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="emoji" aria-hidden="true">💔</span>
+          <h3>Ratxes trencades = motivació perduda</h3>
+          <p>Saltar un dia i perdre-ho tot fa que moltes persones llencin la tovallola completament. Però la vida no és lineal.</p>
+        </article>
+        <article class="problem-card">
+          <span class="emoji" aria-hidden="true">🔔</span>
+          <h3>Notificacions que generen ansietat</h3>
+          <p>Recordatoris agressius i constants creen pressió en lloc d'ajuda. Per a cervells TDAH, això pot ser paralalitzant.</p>
+        </article>
+        <article class="problem-card">
+          <span class="emoji" aria-hidden="true">📋</span>
+          <h3>Focus en el que NO has fet</h3>
+          <p>Les llistes de tasques sense marcar s'acumulen. Les apps tradicionals puneixen la inacció en lloc de celebrar el progrés.</p>
+        </article>
+        <article class="problem-card">
+          <span class="emoji" aria-hidden="true">😔</span>
+          <h3>La rigidesa no funciona per a tothom</h3>
+          <p>Sistemes únics que no s'adapten al teu ritme, al teu cervell ni als teus dies dolents.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SOLUCIÓ
+  ════════════════════════════════════════════════════════ -->
+  <section id="solucio" aria-labelledby="solucio-heading">
+    <div class="container">
+      <div class="solution-content">
+        <div class="solution-text">
+          <span class="section-label">La Solució</span>
+          <h2 id="solucio-heading">Estructura sense rigidesa. Celebració sense pressió.</h2>
+          <p>
+            Magic Snooze parteix d'una premissa diferent: <strong>ja estàs fent el millor que pots</strong>.
+            L'app et dóna eines per mantenir el ritme sense castigar-te quan la vida s'interposa.
+          </p>
+          <p>
+            Seguim el progrés, no els fracassos. Cada petita victòria compta.
+            El descans és part del sistema, no una fallada.
+          </p>
+          <div class="solution-pills">
+            <span class="pill">TDAH-friendly</span>
+            <span class="pill">Sense culpa</span>
+            <span class="pill">Progrés &gt; Perfecció</span>
+            <span class="pill">Privacitat total</span>
+            <span class="pill">Codi obert</span>
+          </div>
+        </div>
+
+        <div class="solution-visual" aria-hidden="true">
+          <p class="quote">
+            "Aquesta app és la meva carta d'amor a tothom qui s'ha sentit trencat per una llista de tasques."
+          </p>
+          <p class="author">— FeyaBloom, creadora de Magic Snooze 💜</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       COM FUNCIONA
+  ════════════════════════════════════════════════════════ -->
+  <section id="com-funciona" aria-labelledby="com-funciona-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Com Funciona</span>
+        <h2 id="com-funciona-heading">Senzill, amable i adaptat al teu ritme</h2>
+        <p>Quatre passos per construir hàbits sostenibles sense estrès.</p>
+      </div>
+
+      <ol class="steps" aria-label="Passos per començar">
+        <li class="step">
+          <div class="step-number" aria-hidden="true">1</div>
+          <h3>Configura les teves rutines</h3>
+          <p>Crea rutines de matí i de vespre. L'app et proposa passos suaus, però tu decideixes quins té sentit tenir.</p>
+        </li>
+        <li class="step">
+          <div class="step-number" aria-hidden="true">2</div>
+          <h3>Celebra cada petita victòria</h3>
+          <p>Vas beure aigua? Vas sortir a fora? Cada petita cosa mereix ser celebrada amb confeti 🎊.</p>
+        </li>
+        <li class="step">
+          <div class="step-number" aria-hidden="true">3</div>
+          <h3>Prem Pausa quan necessitis</h3>
+          <p>Un dia difícil? Activa el Dia de Descans. La teva ratxa seguirà intacta. Descansar és vàlid.</p>
+        </li>
+        <li class="step">
+          <div class="step-number" aria-hidden="true">4</div>
+          <h3>Mira créixer el teu jardí</h3>
+          <p>El Jardí de Victòries floreix amb cada celebració. Una representació visual del teu progrés real.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FUNCIONALITATS
+  ════════════════════════════════════════════════════════ -->
+  <section id="funcionalitats" aria-labelledby="funcionalitats-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Funcionalitats</span>
+        <h2 id="funcionalitats-heading">Tot el que necessites, res del que no vols</h2>
+        <p>Eines pensades per a com funciona el teu cervell, no al revés.</p>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">💤</span>
+          <h3>Dies de Descans</h3>
+          <p>Prem el botó Pausa per aturar el progrés d'un dia sense trencar la ratxa ni afectar les estadístiques.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">🧊</span>
+          <h3>Protecció Setmanal</h3>
+          <p>Si perds un dia, l'app l'absorbeix automàticament una vegada per setmana. Sense penalitzacions. Es reinicia cada dilluns.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">⏰</span>
+          <h3>Rutines Personalitzades</h3>
+          <p>Rutines de matí i de vespre amb barres de progrés visuals. Es reinicien soles a mitjanit.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">✨</span>
+          <h3>Petites Victòries</h3>
+          <p>8 micro-celebracions: dormir bé, beure aigua, respirar profund, menjar a temps, sortir a fora, xerrar, mimar-te, fer una pausa.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">🌻</span>
+          <h3>Jardí de Victòries</h3>
+          <p>Un jardí visual que floreix amb cada victòria celebrada. Mira créixer el teu progrés de manera tangible i bonica.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">🔥</span>
+          <h3>Sistema de Ratxes Intel·ligent</h3>
+          <p>Segueix la ratxa actual i la màxima. L'app et protegeix i t'anima, no et castiga.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">🌟</span>
+          <h3>Nivells Màgics i Assoliments</h3>
+          <p>Guanya nivells (Novell → Aprenent → Mestre → Heroi) i desbloqueja 8 assoliments basats en el teu compromís mensual.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">🤗</span>
+          <h3>Kit del Dia Difícil</h3>
+          <p>Quan tot sembla pesat, l'app et proposa tasques ultra-simples: "pren un glop d'aigua", "obre una finestra". I sempre recorda: ets suficient 💜.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">🎨</span>
+          <h3>Temes Dinàmics</h3>
+          <p>Dos temes bellíssims: ⛅ Somni de Dia (pastels suaus) i 🌙 Bosc Nocturn (tons acollidors). Canvi automàtic a les 7h i 19h, o manual.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">🔒</span>
+          <h3>Privacitat Total</h3>
+          <p>Totes les dades es queden al teu dispositiu. Sense registre, sense seguiment, sense servidors. Les teves dades, el teu control.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">🌍</span>
+          <h3>En Català i Més</h3>
+          <p>Disponible en català, anglès, espanyol i rus. Detecció automàtica de l'idioma del dispositiu.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">🔔</span>
+          <h3>Recordatoris Suaus</h3>
+          <p>Notificacions amables i opcionals. Sense missatges agressius ni ansietat. Tu tens el control total.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PER A QUI
+  ════════════════════════════════════════════════════════ -->
+  <section id="per-a-qui" aria-labelledby="per-a-qui-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Per a Qui</span>
+        <h2 id="per-a-qui-heading">Magic Snooze és per a tu si…</h2>
+      </div>
+
+      <div class="for-who-grid">
+        <article class="for-who-card">
+          <span class="icon" aria-hidden="true">🧠</span>
+          <p>Tens TDAH o altres diferències neurològiques i les apps de productivitat habituals et fallen.</p>
+        </article>
+        <article class="for-who-card">
+          <span class="icon" aria-hidden="true">💔</span>
+          <p>Has abandonat tantes vegades les aplicacions d'hàbits que ja ni ho intentes.</p>
+        </article>
+        <article class="for-who-card">
+          <span class="icon" aria-hidden="true">😮‍💨</span>
+          <p>L'ansietat per productivitat et paralitza més que t'ajuda a avançar.</p>
+        </article>
+        <article class="for-who-card">
+          <span class="icon" aria-hidden="true">🌱</span>
+          <p>Vols construir rutines saludables a poc a poc, sense pressió ni rigidesa excessiva.</p>
+        </article>
+        <article class="for-who-card">
+          <span class="icon" aria-hidden="true">🎉</span>
+          <p>Creus que les petites coses mereixen ser celebrades i que el progrés és el camí.</p>
+        </article>
+        <article class="for-who-card">
+          <span class="icon" aria-hidden="true">🔒</span>
+          <p>Valores la teva privacitat i no vols que les teves dades personals surtin del teu dispositiu.</p>
+        </article>
+        <article class="for-who-card">
+          <span class="icon" aria-hidden="true">💜</span>
+          <p>Simplement necessites una mica d'estructura amable i un recordatori que estàs fent bé.</p>
+        </article>
+        <article class="for-who-card">
+          <span class="icon" aria-hidden="true">🌍</span>
+          <p>Prefereixes una app en català (o en qualsevol de les quatre llengües disponibles).</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FAQ
+  ════════════════════════════════════════════════════════ -->
+  <section id="faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Preguntes Freqüents</span>
+        <h2 id="faq-heading">Tens dubtes? Et responem.</h2>
+      </div>
+
+      <dl class="faq-list">
+        <div class="faq-item">
+          <dt>
+            <button class="faq-question" aria-expanded="false">
+              Magic Snooze és completament gratuïta?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd class="faq-answer">
+            Sí, Magic Snooze és totalment gratuïta i de codi obert (llicència GNU AGPL 3.0). No hi ha compres dins de l'app, no hi ha anuncis i no necessites cap subscripció.
+          </dd>
+        </div>
+
+        <div class="faq-item">
+          <dt>
+            <button class="faq-question" aria-expanded="false">
+              Les meves dades estan segures? Qui les pot veure?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd class="faq-answer">
+            Les teves dades es guarden <strong>únicament al teu dispositiu</strong>. No hi ha servidors, no hi ha compte, no hi ha seguiment. Ningú més pot veure el teu progrés. Si desinstales l'app, les dades s'esborren amb ella.
+          </dd>
+        </div>
+
+        <div class="faq-item">
+          <dt>
+            <button class="faq-question" aria-expanded="false">
+              Haig de tenir TDAH per usar l'app?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd class="faq-answer">
+            Per res! Magic Snooze ha estat dissenyada pensant en cervells TDAH, però qualsevol persona que vulgui una app de rutines amable i sense pressió la trobarà útil.
+          </dd>
+        </div>
+
+        <div class="faq-item">
+          <dt>
+            <button class="faq-question" aria-expanded="false">
+              Quina diferència hi ha entre un Dia de Descans i la Protecció Setmanal?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd class="faq-answer">
+            El <strong>Dia de Descans</strong> l'actives tu manualment quan saps que necessites una pausa. La <strong>Protecció Setmanal (Congelació)</strong> s'activa automàticament si perds un dia sense haver-ho planificat, com un coixí de seguretat. Cada setmana en tens una de disponible.
+          </dd>
+        </div>
+
+        <div class="faq-item">
+          <dt>
+            <button class="faq-question" aria-expanded="false">
+              Puc canviar l'idioma a català?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd class="faq-answer">
+            Sí! L'app detecta automàticament l'idioma del teu dispositiu i, si tens el català configurat, l'usarà directament. També pots canviar l'idioma manualment en qualsevol moment des de Configuració.
+          </dd>
+        </div>
+
+        <div class="faq-item">
+          <dt>
+            <button class="faq-question" aria-expanded="false">
+              Puc desactivar les notificacions?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd class="faq-answer">
+            Absolutament. Les notificacions de Magic Snooze són completament opcionals. Pots desactivar-les totes des de Configuració sense cap conseqüència per al funcionament de l'app. No et farem sentir culpable per apagar-les 😊.
+          </dd>
+        </div>
+
+        <div class="faq-item">
+          <dt>
+            <button class="faq-question" aria-expanded="false">
+              Puc contribuir al projecte?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+          </dt>
+          <dd class="faq-answer">
+            Molt benvingut/da! El codi és obert a <a href="https://github.com/FeyaBloom/Magic-Snooze" target="_blank" rel="noopener noreferrer">GitHub</a>. Pots reportar errors, proposar funcionalitats, millorar traduccions o simplement donar una estrella. Cada contribució suma 💜.
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       CTA FINAL
+  ════════════════════════════════════════════════════════ -->
+  <section class="final-cta" aria-labelledby="cta-heading">
+    <div class="container">
+      <span aria-hidden="true" style="font-size:2.5rem; display:block; margin-bottom:1rem;">💜</span>
+      <h2 id="cta-heading">Estàs fent millor del que creus.</h2>
+      <p>
+        Prova Magic Snooze avui. Gratuïta, sense registre, sense pressió.
+        Just tu, el teu ritme i una mica de màgia.
+      </p>
+      <!-- TODO: Replace "#" with the real Google Play Store URL when published -->
+      <a class="btn btn-primary" href="#" style="font-size:1.1rem; padding:1rem 2.4rem;"
+         aria-label="Descarrega Magic Snooze a Google Play">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M3.18 23.76a1.5 1.5 0 0 0 2.1.56l12.06-7-2.95-2.95L3.18 23.76zm17.7-12.19L17.1 9.6 2.12.31A1.5 1.5 0 0 0 0 1.62v20.76c0 .9.96 1.44 1.74 1.02l1.44-.84 14.1-8.14 3.6 3.61 2.94-1.7a1.5 1.5 0 0 0 0-2.6l-2.94-1.7zm-3.6-2.08L3.18.24l11.22 6.48-3.32 3.32 7.2 4.16-1.02.59z"/>
+        </svg>
+        Descarrega per a Android
+      </a>
+      <p style="margin-top:1.2rem; font-size:0.85rem; color:rgba(201,166,230,0.7);">
+        Gratis · Sense anuncis · Codi obert · Privacitat garantida
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════════ -->
+  <footer class="site-footer" aria-label="Peu de pàgina">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <p class="nav-logo">💜 Magic Snooze</p>
+          <p>Una app de productivitat<br>feta amb amor per a la comunitat TDAH.</p>
+        </div>
+        <nav aria-label="Enllaços del peu de pàgina">
+          <ul class="footer-links" role="list">
+            <li><a href="#inici">Inici</a></li>
+            <li><a href="#funcionalitats">Funcionalitats</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="https://github.com/FeyaBloom/Magic-Snooze" target="_blank" rel="noopener noreferrer">Codi a GitHub ↗</a></li>
+            <li><a href="https://github.com/FeyaBloom/Magic-Snooze/issues" target="_blank" rel="noopener noreferrer">Reporta un error ↗</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          © 2025 <a href="https://github.com/FeyaBloom" target="_blank" rel="noopener noreferrer">FeyaBloom</a> ·
+          Llicència <a href="https://github.com/FeyaBloom/Magic-Snooze/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">GNU AGPL 3.0</a> ·
+          Fet amb 💜 per a tothom qui s'ho mereix
+        </p>
+        <p style="margin-top:0.5rem;">Recorda: Estàs fent millor del que creus. ✨</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       SCRIPTS (no external dependencies)
+  ════════════════════════════════════════════════════════ -->
+  <script>
+    /* Mobile nav toggle */
+    const toggle = document.querySelector('.nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', function () {
+      const isOpen = navLinks.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    /* Close mobile nav when a link is clicked */
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* FAQ accordion */
+    document.querySelectorAll('.faq-question').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(isOpen));
+      });
+    });
+  </script>
+
+</body>
+</html>

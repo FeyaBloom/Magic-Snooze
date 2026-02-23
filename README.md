@@ -208,6 +208,22 @@ Have ideas? Open an issue!
 
 ---
 
+## Landing Page 🌐
+
+A Catalan GitHub Pages landing page lives in the `docs/` folder (`docs/index.html` + `docs/styles.css`).
+
+**To enable GitHub Pages:**
+1. Go to **Settings → Pages** in the GitHub repository.
+2. Under *Source*, choose **Deploy from a branch**.
+3. Select branch **`main`** and folder **`/docs`**, then click **Save**.
+
+The site will be published at:
+**`https://feyabloom.github.io/Magic-Snooze/`**
+
+> Once the app is available on Google Play, replace every `href="#"` on the CTA buttons in `docs/index.html` with the real store URL.
+
+---
+
 ## License 📄
 
 [GNU AGPL 3.0](LICENSE) - free and open source software that protects user freedom.
