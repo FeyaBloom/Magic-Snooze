@@ -317,6 +317,7 @@ section:nth-child(even) { background: var(--purple-pale); }
   gap: 2rem;
   margin-top: 2.5rem;
   counter-reset: steps;
+  list-style: none;
 }
 .step {
   text-align: center;
