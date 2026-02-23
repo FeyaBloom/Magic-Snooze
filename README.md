@@ -1,75 +1,228 @@
-What you can actually do
+# 💜 Magic Snooze
 
-💤 Snooze Day
+**A productivity app that doesn't punish you.**
 
-Pause everything intentionally.
-Routines, streaks, stats — frozen and safe.
-No penalty. No reset. No shame.
+*Made with ❤️ for the ADHD community and anyone tired of guilt-driven to-do apps.*
 
-🧊 Weekly Freeze
+---
 
-If a day passes with zero activity, your system absorbs it — once per week.
-Because life happens.
+## What is Magic Snooze?
 
-✨ Notice tiny victories
+Magic Snooze is a productivity and wellness app designed with **ADHD in mind** (but useful for anyone). My core philosophy is simple: **track progress, not failure**. I assume you're already doing your best and provide structure without rigidity or shame.
 
-Yes, “I got up” counts.
-“Yes, I ate.” counts.
-Small actions matter more than perfect streaks.
-
-⏰️ Routines
-
-Use ready-made morning and evening routines or build your own.
-Add. Remove. Adjust anytime.
-Structure without rigidity.
-
-✅ Tasks
-
-Add one-time tasks with optional dates.
-Keep things simple.
-No complex project boards. No overwhelm.
-Tasks live alongside routines — so your day feels coherent, not fragmented.
-
-🏅 Weekly & Monthly Reflections
-
-Stats focus on what you did.
-Encouraging insights.
-Medals for steady effort — not perfection.
-
-🌸 Tiny Victories Garden
-
-Every completed mini-action grows something.
-You don’t see what you missed.
-You see what you nurtured.
-
-📝 Notes with search
-
-Capture thoughts, plans, brain-dumps.
-Find them instantly when your mind jumps elsewhere.
-
-🎨 Calm, intentional design
-
-Soft gradients. Smooth animations. Thoughtful typography.
-Minimal functionality. Strong aesthetic.
-A shuffle button for a small visual reset when you need it.
-
-🔔 Gentle reminders
-
-No chaotic pop-ups. No gamified pressure.
-Just quiet support when you need it.
+Unlike traditional habit trackers that break your streak and make you feel terrible, I celebrate small wins, protect your consistency on bad days, and make rest **part of the system** instead of a failure.
 
 
-Why it feels different
+---
 
-• Designed with ADHD brains in mind
+## Why Magic Snooze? ✨
 
-• Tracks progress without tracking failure
+**💤 Snooze Days & Weekly Freeze**  
+Intentionally pause for a day (Snooze) or get automatic protection once per week (Freeze). Your streaks remain intact. Because life happens.
 
-• Protects consistency from bad days
+**🎉 Tiny Victories**  
+Celebrate 8 micro-accomplishments: drank water? Had a talk? Took a break? Each deserves confetti. No achievement is too small.
 
-• Makes rest part of the system
+**🔔 Gentle Notifications**  
+Soft reminders only when helpful. No aggressive pings. No anxiety. You can disable them entirely—I won't guilt trip you.
 
-• Looks beautiful without being distracting
+**💾 Privacy-First**  
+All your data stays on your device. No login, no tracking, no servers. It's your journey, your data.
 
-Magic Snooze assumes you’re already doing your best.
-It just holds the structure while you live your life.
+---
+
+## Core Features 🌟
+
+### 💤 **Intentional Snooze Days**
+Press the Snooze button to pause all progress for a day—without breaking your streak or affecting stats. Rest guilt-free.
+
+### 🧊 **Weekly Freeze Protection**
+Miss a day? I absorb it automatically once per week. No penalties, no broken streaks. Resets every Monday.
+
+### ⏰ **Morning & Evening Routines**
+Fully customizable routines with visual progress bars. Default suggestions provided, but make them your own. Auto-reset at midnight.
+
+### ✨ **Tiny Victories**
+8 micro-celebrations in a beautiful modal:
+- 🛏️ Slept well
+- 💧 Drank water
+- 🌬️ Breathed deeply
+- 🍎 Ate on time
+- 🌤 Went outside
+- 😊 Had a talk
+- ❤️ Treated myself
+- ⏸️ Took a break
+
+Each one triggers delightful confetti. Because you deserve celebration.
+
+
+### 🌻 **Victory Garden**
+A visual garden that grows as you celebrate victories. Watch your garden bloom with consistency—a living reminder of your progress.
+
+
+### 🔥 **Smart Streak System**
+Track current and longest streaks with visual fire indicators (🔥). See available freezes with ice icons (🧊). The system protects you, not punishes you.
+
+### 🌟 **Magic Levels & Achievements**
+Earn levels based on monthly engagement:
+- **Novice** (0-24%)
+- **Apprentice** (25-49%)
+- **Mage** (50-74%)
+- **Archmage** (75%+)
+
+Unlock 8 achievements: 👣 First Step, ⚔️ Week Warrior, 🗓️ Month Master, and more.
+
+### 🤗 **Bad Day Toolkit**
+When engagement is low, I offer ultra-simple suggestions: "Take one sip of water", "Open a window", "Breathe slowly 3 times". Plus a reminder: *You're enough, exactly as you are 💜*
+
+### 🎨 **Dynamic Themes**
+Two beautiful themes:
+- **☀️ Daydream** (soft pastels for daytime)
+- **🌙 Night Forest** (deep, cozy tones for evening)
+
+Auto-switch at 7 AM / 7 PM, or control manually. Bonus: **Messy Mode** randomly shuffles colors for chaotic fun.
+
+### 📊 **Pareto Chart**
+Visual bar chart showing your top 3 most celebrated victories of the month. See what brings you joy.
+
+### 🌍 **Multi-Language Support**
+- **Primary:** 🇬🇧 English, 🇦🇩 Catalan (català)
+- **Also supported:** 🇪🇸 Spanish (español), 🇷🇺 Russian (русский)
+
+Auto-detects your device language. Switch anytime in settings.
+
+
+---
+
+## Philosophy 💜
+
+I built Magic Snooze because traditional productivity apps made me feel worse, not better. They punish inconsistency, create anxiety with aggressive notifications, and focus relentlessly on what you *didn't* do.
+
+**My philosophy:**
+- **ADHD-friendly first:** Structure without rigidity. Celebrate without pressure.
+- **No guilt, no shame:** Rest is productive. Pausing is valid. You're not failing.
+- **Progress over perfection:** Small wins matter. Showing up imperfectly beats not showing up at all.
+- **Privacy and respect:** Your data is yours. No tracking, no login, no judgment.
+
+This app is my love letter to anyone who's ever felt broken by a to-do list.
+
+---
+
+## Tech Stack 🛠️
+
+- **React Native** 0.81.5 with **React** 19.1.0
+- **Expo SDK** ~54.0 (iOS, Android, Web)
+- **TypeScript** ~5.9.2
+- **Expo Router** 6.0 (file-based navigation)
+- **AsyncStorage** (local data persistence)
+- **i18next** + **react-i18next** (internationalization)
+- **Lottie** (delightful animations: confetti, stars, clouds)
+- **Lucide React Native** (icons)
+- **Expo Notifications** (gentle, optional reminders)
+- **Custom fonts:** Cormorant (serif titles) + Nunito (sans-serif body)
+
+---
+
+## Getting Started (Developers) 👩‍💻
+
+### Prerequisites
+- Node.js (v18+)
+- Expo CLI: `npm install -g expo-cli`
+
+### Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/FeyaBloom/Magic-Snooze.git
+cd Magic-Snooze
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+```
+
+### Available Scripts
+
+```bash
+npm start          # Start Expo dev server
+npm run android    # Run on Android device/emulator
+npm run web        # Run in web browser
+```
+
+### Project Structure
+
+```
+app/               # Expo Router screens (file-based routing)
+  (tabs)/          # Tab navigation screens
+components/        # Reusable UI components
+  modals/          # Modal components (Victories, DayDetails, etc.)
+  stats/           # Statistics visualizations
+hooks/             # Custom React hooks (business logic)
+locales/           # Translation files (en, es, ru, ca)
+utils/             # Utility functions (date handling, toast, etc.)
+styles/            # Style definitions
+assets/            # Fonts, animations, images
+```
+
+---
+
+## Localization 🌍
+
+**Primary languages:** 🇬🇧 English, 🇦🇩 Catalan (català)  
+**Also supported:** 🇪🇸 Spanish (español), 🇷🇺 Russian (русский)
+
+- Auto-detects device language on first launch
+- Change language anytime in Settings
+- Easily extensible: add JSON files to `locales/` folder
+
+Contributing translations? I'd love your help! Check `locales/en.json` for the structure.
+
+---
+
+## Contributing 🤝
+
+Issues and PRs are welcome! Whether you want to:
+- Fix a bug
+- Add a feature
+- Improve translations
+- Suggest ideas
+
+**Guidelines:**
+- Be kind, be patient
+- Keep the ADHD-friendly philosophy in mind
+- Test on at least one platform (Android/Web)
+
+---
+
+## Roadmap 🗺️
+
+I'm open to community ideas! Some thoughts:
+- ☁️ Optional cloud backup (privacy-respecting)
+- 🎲 Surprise Prompts (fun random suggestions)
+- 📈 More stats visualizations
+- 🎨 User-created themes
+
+Have ideas? Open an issue!
+
+---
+
+## License 📄
+
+[MIT License](LICENSE) - feel free to use, modify, and share.
+
+---
+
+## Support 💜
+
+If Magic Snooze helps you, consider:
+- ⭐ Starring the repo
+- 📢 Sharing with friends who might benefit
+- 🐛 Reporting bugs or suggesting features
+
+---
+
+**Made with 💜 for the ADHD community**
+
+*Remember: You're doing better than you think.* ✨
