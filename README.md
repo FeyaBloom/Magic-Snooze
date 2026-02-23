@@ -210,7 +210,7 @@ Have ideas? Open an issue!
 
 ## License 📄
 
-[MIT License](LICENSE) - feel free to use, modify, and share.
+[GNU AGPL 3.0](LICENSE) - free and open source software that protects user freedom.
 
 ---
 
