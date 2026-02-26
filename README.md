@@ -208,39 +208,6 @@ Have ideas? Open an issue!
 
 ---
 
-## Landing Page 🌐
-
-A bilingual GitHub Pages landing lives in the `docs/` folder:  
-- Catalan: `docs/index.html`  
-- English: `docs/index-en.html`  
-- Shared styles: `docs/styles.css`  
-A `docs/.nojekyll` file is also present so GitHub Pages skips Jekyll processing (prevents CSS variables and HTML being mangled).
-
-**To enable GitHub Pages:**
-1. Go to **Settings → Pages** in the GitHub repository.
-2. Under *Source*, choose **Deploy from a branch**.
-3. Select branch **`main`** and folder **`/docs`**, then click **Save**.
-
-The site will be published at:  
-**`https://feyabloom.github.io/Magic-Snooze/`**
-
-**How to verify the deployment:**
-1. After saving the Pages setting, go to **Settings → Pages** — you should see a banner like *"Your site is being built"* or *"Your site is published at …"*.
-2. Click **Actions** (top menu) and look for a workflow called **pages build and deployment**. Wait for it to show a green ✅. The first deploy usually takes 1–3 minutes.
-3. Open `https://feyabloom.github.io/Magic-Snooze/` in a private/incognito window (avoids cache) and confirm the page loads with the purple Magic Snooze design.
-
-**Common pitfalls:**
-| Pitfall | Fix |
-|---|---|
-| **Wrong source folder** — site returns 404 | In Settings → Pages, make sure the folder is `/docs` (not `/ (root)`) and the branch is `main`. |
-| **Private repository** — Pages not available on free plan | Make the repository public (Settings → General → Danger Zone → Change visibility). |
-| **Jekyll processing breaks CSS variables** | The `docs/.nojekyll` file in this repo disables Jekyll. Do not delete it. |
-| **Stale cache / 404 after first deploy** | GitHub Pages can take up to 10 minutes. Hard-refresh (`Ctrl+Shift+R`) or use incognito mode. |
-| **404 on sub-pages or assets** | All assets use relative paths (`styles.css`, not `/styles.css`), so they resolve correctly under the `/Magic-Snooze/` base path. |
-| **Google Play button goes nowhere** | The CTA `href="#"` is intentional until the app is published. Replace it with the real store URL once available. |
-
-> Once the app is available on Google Play, replace every `href="#"` on the CTA buttons in `docs/index.html` with the real store URL.
-
 ### Google Play compliance docs
 
 - Privacy Policy (public URL, EN):
