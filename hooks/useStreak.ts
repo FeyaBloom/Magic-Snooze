@@ -188,7 +188,7 @@ export function useStreak() {
           freezeAvailable -= 1;
           lastFreezeDate = cursorDate;
           freezeDates.push(cursorDate);
-          currentStreak += 1;
+          // Заморозка сохраняет стрик, но не добавляет день к счетчику
         } else if (cursorDate !== today) {
           // Прошлый день без активности/заморозки/снуза - ломаем стрик
           currentStreak = 0;
