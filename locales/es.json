@@ -44,7 +44,7 @@
 
   "settings": {
     "title": "Configuración",
-    "appPreferences": "Preferencias de la app",
+    "appPreferences": "Apariencia",
     "themeMode": "Modo oscuro",
   "themeModeAuto": "Automático (según la luz del día)",
   "themeModeManual": "Manual",

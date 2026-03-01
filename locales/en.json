@@ -190,7 +190,7 @@
     
   "settings": {
     "title": "Settings",
-    "appPreferences": "App Preferences",
+    "appPreferences": "Appearance",
     "themeMode": "Dark mode",
   "themeModeAuto": "Automatic (sun-based)",
   "themeModeManual": "Manual",

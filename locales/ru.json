@@ -223,7 +223,7 @@
 
   "settings": {
     "title": "Детали и настройки",
-    "appPreferences": "Настройки",
+    "appPreferences": "Внешний вид",
        "themeMode": "Ночной режим",
     "themeModeAuto": "Автоматически (по солнцу)",
     "themeModeManual": "Вручную",
