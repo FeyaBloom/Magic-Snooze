@@ -221,9 +221,14 @@
       "title": "Support this app",
       "description": "Magic Snooze is free, open source, no ads. \nIf it helps you, you can support the project:",
       "starGithub": "Star on Github",
-      "leaveReview": "Leave a review",
+      "donate": "Donate 🥐",
       "reportBugs": "Report bugs",
       "spreadWord": "Spread the word",
+      "donationTitle": "Support with crypto 🪙",
+      "donationDesc": "Your support helps me keep improving the app. Thanks a million! 💜",
+      "network": "Network",
+      "tapToCopy": "Tap to copy",
+      "copied": "Copied!",
       "shareMessage": "Check out Magic Snooze - a gentle productivity app that respects your brain: https://github.com/FeyaBloom/Magic-Snooze"
     }
   },

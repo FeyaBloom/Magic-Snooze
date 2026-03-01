@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, Linking, Switch, View, Alert, Share } from 'react-native';
 import {
   Globe,
@@ -25,6 +25,10 @@ import { createSettingsStyles } from '@/styles/settings';
 import { TOUCHABLE_CONFIG } from '@/styles/touchable';
 import { useNotifications } from '@/hooks/useNotifications';
 import * as Notifications from 'expo-notifications';
+import { DonationModal } from '@/components/modals/DonationModal';
+
+const DONATION_WALLET_ADDRESS = '0x827b0D03A6c74aE8CD3626E741deEa00805590e5';
+const DONATION_NETWORK = 'Polygon';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -34,6 +38,7 @@ export default function SettingsScreen() {
   const textStyles = useTextStyles();
   const styles = createSettingsStyles(colors);
   const notifications = useNotifications();
+  const [isDonationModalVisible, setDonationModalVisible] = useState(false);
 
   // Автоматически выключаем общий тумблер, если оба подтумблера выключены
   useEffect(() => {
@@ -358,14 +363,18 @@ export default function SettingsScreen() {
   <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
       {[
         { emoji: '⭐️', key: 'starGithub', url: 'https://github.com/FeyaBloom/Magic-Snooze' },
-        { emoji: '📋', key: 'leaveReview', url: 'https://play.google.com/store/apps/details?id=YOUR_APP_ID' },
+        { emoji: '🪙', key: 'donate', donation: true },
         { emoji: '🐛', key: 'reportBugs', url: 'https://github.com/FeyaBloom/Magic-Snooze/issues' },
         { emoji: '💬', key: 'spreadWord', share: true },
       ].map((btn, i) => (
         <TouchableOpacity
           key={i}
           style={[styles.infoBox, { flex: 1, minWidth: '47%', backgroundColor: colors.surface }]}
-          onPress={() => btn.share ? Share.share({ message: t('settings.supportApp.shareMessage') }) : btn.url && Linking.openURL(btn.url)}
+          onPress={() => btn.share
+            ? Share.share({ message: t('settings.supportApp.shareMessage') })
+            : btn.donation
+              ? setDonationModalVisible(true)
+              : btn.url && Linking.openURL(btn.url)}
           activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
         >
           <Text style={[textStyles.caption, { color: colors.text, textAlign: 'center' }]}>
@@ -400,6 +409,12 @@ export default function SettingsScreen() {
           </TouchableOpacity>
         </View>*/}
 
+        <DonationModal
+          visible={isDonationModalVisible}
+          onClose={() => setDonationModalVisible(false)}
+          walletAddress={DONATION_WALLET_ADDRESS}
+          network={DONATION_NETWORK}
+        />
       </ContentContainer>
     </ScreenLayout>
   );

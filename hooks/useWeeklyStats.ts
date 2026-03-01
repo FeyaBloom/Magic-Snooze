@@ -4,6 +4,11 @@ import { getLocalDateString } from '@/utils/dateUtils';
 import { DailyProgress } from './useDailyProgress';
 import { useTranslation } from 'react-i18next';
 
+const parseLocalDateString = (dateStr: string) => {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, month - 1, day);
+};
+
 export interface WeeklyStats {
   weekNumber: number;
   startDate: string;
@@ -80,18 +85,15 @@ export function useWeeklyStats() {
       const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
       const allTasks = tasksStr ? JSON.parse(tasksStr) : [];
 
-      // Предзагрузить прогресс и победы по всему месяцу
-      const year = date.getFullYear();
-      const month = date.getMonth();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      // Предзагрузить прогресс и победы по всему отображаемому диапазону недель
       const progressKeys: string[] = [];
       const victoriesKeys: string[] = [];
-      const dateStrings: string[] = [];
 
-      for (let day = 1; day <= daysInMonth; day++) {
-        const d = new Date(year, month, day);
+      const rangeStart = parseLocalDateString(weeks[0].startDate);
+      const rangeEnd = parseLocalDateString(weeks[weeks.length - 1].endDate);
+
+      for (let d = new Date(rangeStart); d <= rangeEnd; d.setDate(d.getDate() + 1)) {
         const dateStr = getLocalDateString(d);
-        dateStrings.push(dateStr);
         progressKeys.push(`progress_${dateStr}`);
         victoriesKeys.push(`victories_${dateStr}`);
       }
@@ -128,8 +130,8 @@ export function useWeeklyStats() {
 
       for (let weekIdx = 0; weekIdx < weeks.length; weekIdx++) {
         const { startDate, endDate } = weeks[weekIdx];
-        const start = new Date(startDate);
-        const end = new Date(endDate);
+        const start = parseLocalDateString(startDate);
+        const end = parseLocalDateString(endDate);
 
         let morningFullDays = 0;
         let eveningFullDays = 0;

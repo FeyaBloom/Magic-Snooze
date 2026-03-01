@@ -4,9 +4,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import { getLocalDateString } from '@/utils/dateUtils';
 
+const LAST_ROUTINE_REMINDER_DATE_KEY = 'lastRoutineReminderDate';
+const ROUTINE_REMINDER_ID_KEY = 'routineReminderNotificationId';
+const ROUTINE_REMINDER_FOR_DATE_KEY = 'routineReminderForDate';
+
 export const useRoutineNotifications = (enabled: boolean) => {
   const { t } = useTranslation();
   const lastCheckDate = useRef<string>('');
+
+  const cancelPlannedReminder = async () => {
+    try {
+      const scheduledId = await AsyncStorage.getItem(ROUTINE_REMINDER_ID_KEY);
+      if (scheduledId) {
+        await Notifications.cancelScheduledNotificationAsync(scheduledId);
+      }
+      await AsyncStorage.multiRemove([ROUTINE_REMINDER_ID_KEY, ROUTINE_REMINDER_FOR_DATE_KEY]);
+    } catch (error) {
+      console.error('Error canceling planned reminder:', error);
+    }
+  };
 
   // Проверка активности за день
   const checkDailyActivity = async (): Promise<boolean> => {
@@ -67,17 +83,20 @@ export const useRoutineNotifications = (enabled: boolean) => {
     try {
       const now = new Date();
       const hours = now.getHours();
-      const minutes = now.getMinutes();
-      
-      // Проверяем только в 20:00 (с погрешностью в минуту)
-      if (hours !== 20 || minutes > 1) {
-        return;
-      }
 
       const today = getLocalDateString();
-      
+      const reminderAt = new Date(now);
+      reminderAt.setHours(20, 0, 0, 0);
+
+      const [scheduledId, scheduledForDate, lastSentDate] = await AsyncStorage.multiGet([
+        ROUTINE_REMINDER_ID_KEY,
+        ROUTINE_REMINDER_FOR_DATE_KEY,
+        LAST_ROUTINE_REMINDER_DATE_KEY,
+      ]).then(entries => entries.map(([, value]) => value));
+
       // Если уже проверяли сегодня - не проверяем снова
-      if (lastCheckDate.current === today) {
+      // До 20:00 нужно периодически проверять, чтобы отменить запланированное при появлении активности
+      if (lastCheckDate.current === today && now >= reminderAt) {
         return;
       }
       
@@ -88,6 +107,48 @@ export const useRoutineNotifications = (enabled: boolean) => {
       
       // Если есть активность - не отправляем уведомление
       if (hasActivity) {
+        if (scheduledForDate === today) {
+          await cancelPlannedReminder();
+        }
+        return;
+      }
+
+      // До 20:00: планируем уведомление на 20:00, чтобы сработало даже при закрытом приложении
+      if (now < reminderAt) {
+        if (scheduledForDate === today && scheduledId) {
+          return;
+        }
+
+        await cancelPlannedReminder();
+
+        const hasFreezeAvailable = await checkFreezeAvailable();
+        const id = await Notifications.scheduleNotificationAsync({
+          content: {
+            title: t('notifications.routineReminder'),
+            body: hasFreezeAvailable
+              ? t('notifications.routineReminderWithFreeze')
+              : t('notifications.routineReminderNoFreeze'),
+          },
+          trigger: {
+            type: Notifications.SchedulableTriggerInputTypes.DATE,
+            date: reminderAt,
+            channelId: 'tasks',
+          },
+        });
+
+        await AsyncStorage.multiSet([
+          [ROUTINE_REMINDER_ID_KEY, id],
+          [ROUTINE_REMINDER_FOR_DATE_KEY, today],
+        ]);
+        return;
+      }
+
+      // После 20:00: если уже было запланировано на сегодня, не дублируем
+      if (scheduledForDate === today) {
+        return;
+      }
+
+      if (lastSentDate === today) {
         return;
       }
 
@@ -101,15 +162,24 @@ export const useRoutineNotifications = (enabled: boolean) => {
             ? t('notifications.routineReminderWithFreeze')
             : t('notifications.routineReminderNoFreeze'),
         },
-        trigger: null, // Отправляем сразу
+        trigger: {
+          type: Notifications.SchedulableTriggerInputTypes.DATE,
+          date: new Date(Date.now() + 1000),
+          channelId: 'tasks',
+        },
       });
+
+      await AsyncStorage.setItem(LAST_ROUTINE_REMINDER_DATE_KEY, today);
     } catch (error) {
       console.error('Error checking and notifying:', error);
     }
   };
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      cancelPlannedReminder();
+      return;
+    }
 
     // Проверяем каждую минуту
     const interval = setInterval(() => {

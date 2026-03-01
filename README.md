@@ -63,12 +63,12 @@ A visual garden that grows as you celebrate victories. Watch your garden bloom w
 ### 🔥 **Smart Streak System**
 Track current and longest streaks with visual fire indicators (🔥). See available freezes with ice icons (🧊). The system protects you, not punishes you.
 
-### 🌟 **Magic Levels & Achievements**
+### 🌟 **Levels & Achievements**
 Earn levels based on monthly engagement:
-- **Novice** (0-24%)
-- **Apprentice** (25-49%)
-- **Mage** (50-74%)
-- **Archmage** (75%+)
+- **Rookie** (0-24%)
+- **Skilled** (25-49%)
+- **Master** (50-74%)
+- **Hero** (75%+)
 
 Unlock 8 achievements: 👣 First Step, ⚔️ Week Warrior, 🗓️ Month Master, and more.
 

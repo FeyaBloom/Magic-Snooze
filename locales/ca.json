@@ -217,10 +217,15 @@
     "supportApp": {
       "title": "Dona-li suport a l'aplicació",
       "description": "Magic Snooze és gratuïta, de codi obert i sense anuncis. Si t'ajuda, pots donar suport al projecte:",
-      "starGithub": "Dona estrella a Github",
-      "leaveReview": "Deixar una ressenya",
-      "reportBugs": "Informar d'errors",
+      "starGithub": "Estrella a Github",
+      "donate": "Fes una donació",
+      "reportBugs": "Informa d'errors",
       "spreadWord": "Comparteix l'app",
+      "donationTitle": "Suport amb cripto 🪙",
+      "donationDesc": "El teu suport m'ajuda a seguir millorant l'app. Gracies infinites! 💜",
+      "network": "Xarxa",
+      "tapToCopy": "Toca per copiar",
+      "copied": "Copiat!",
       "shareMessage": "Prova Magic Snooze - una app de productivitat suau que respecta la teva ment: https://github.com/FeyaBloom/Magic-Snooze"
     }
   },

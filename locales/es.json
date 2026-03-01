@@ -74,10 +74,15 @@
     "supportApp": {
       "title": "Apoyar esta aplicación",
       "description": "Magic Snooze es gratuita, de código abierto y sin anuncios. Si te ayuda, puedes apoyar el proyecto:",
-      "starGithub": "Dar estrella en Github",
-      "leaveReview": "Dejar una reseña",
+      "starGithub": "Estrella en Github",
+      "donate": "Donar 🥐",
       "reportBugs": "Reportar errores",
       "spreadWord": "Comparte la app",
+      "donationTitle": "Apoya con cripto 🪙",
+      "donationDesc": "Tu apoyo me ayuda a seguir mejorando la app. ¡Gracias infinitas! 💜",
+      "network": "Red",
+      "tapToCopy": "Toca para copiar",
+      "copied": "¡Copiado!",
       "shareMessage": "Prueba Magic Snooze - una app de productividad suave que respeta tu mente: https://github.com/FeyaBloom/Magic-Snooze"
     }
   },
