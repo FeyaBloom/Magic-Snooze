@@ -17,12 +17,17 @@ export interface StreakStatus {
   message?: string;
 }
 
+const parseLocalDate = (dateStr: string): Date => {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, (month ?? 1) - 1, day ?? 1);
+};
+
 // Проверка начала новой календарной недели (пн-вс)
 const isNewCalendarWeek = (lastDate: string | null, currentDate: string): boolean => {
   if (!lastDate) return true;
   
-  const last = new Date(lastDate);
-  const current = new Date(currentDate);
+  const last = parseLocalDate(lastDate);
+  const current = parseLocalDate(currentDate);
   
   // Получаем понедельник недели для каждой даты
   const getMondayOfWeek = (date: Date) => {
@@ -164,26 +169,33 @@ export function useStreak() {
       let currentStreak = 0;
       let longestStreak = 0;
       let lastActiveDate: string | null = null;
-      let freezeAvailable = streakData.freezeDaysAvailable;
+      let freezeAvailable = 1;
       let lastFreezeDate: string | null = streakData.lastFreezeDate;
       const freezeDates: string[] = [];
+      let previousDateInLoop: string | null = null;
 
       let cursorDate = earliestDate;
       while (cursorDate <= today) {
+        // Reset freeze at the start of each calendar week (Monday),
+        // regardless of whether today has activity.
+        if (isNewCalendarWeek(previousDateInLoop, cursorDate)) {
+          freezeAvailable = 1;
+        }
+
         const info = await getDayInfo(cursorDate, cursorDate === today ? dayHasActivity : false);
 
         if (info.hasAnyActivity) {
-          // Проверяем начало новой недели при активности
-          if (isNewCalendarWeek(lastActiveDate, cursorDate)) {
-            freezeAvailable = 1;
-          }
-          
           currentStreak += 1;
           lastActiveDate = cursorDate;
         } else if (info.isSnoozed) {
           // Снуз продолжает стрик
           currentStreak += 1;
-        } else if (currentStreak > 0 && freezeAvailable > 0) {
+        } else if (
+          currentStreak > 0 &&
+          freezeAvailable > 0 &&
+          cursorDate !== today &&
+          lastFreezeDate !== getPreviousDay(cursorDate)
+        ) {
           // Используем заморозку
           freezeAvailable -= 1;
           lastFreezeDate = cursorDate;
@@ -200,6 +212,7 @@ export function useStreak() {
           longestStreak = currentStreak;
         }
 
+        previousDateInLoop = cursorDate;
         cursorDate = getNextDay(cursorDate);
       }
 
