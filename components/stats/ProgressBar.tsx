@@ -111,6 +111,9 @@ export const WeekCard = memo(function WeekCard({
   const calendarStyles = createCalendarStyles(colors);
   const statusLabel = t(`calendar.stats.status.${status}`);
   const [svgWidth, setSvgWidth] = useState(0);
+  const showTasksMetric = tasksCompleted > 0;
+  const showVictoriesMetric = victoriesCount > 0;
+  const showBottomMetrics = showTasksMetric || showVictoriesMetric;
 
   const maxDataValue = useMemo(() => {
     return Math.max(...dailyActivity.map(d => d.totalRoutines), 0);
@@ -404,43 +407,52 @@ export const WeekCard = memo(function WeekCard({
             </View>
           )}
 
-          {/* Divider */}
-          <View
-            style={{
-              height: 1,
-              backgroundColor: colors.secondary,
-              opacity: 0.2,
-              marginBottom: 12,
-            }}
-          />
+          {showBottomMetrics && (
+            <>
+              {/* Divider */}
+              <View
+                style={{
+                  height: 1,
+                  backgroundColor: colors.secondary,
+                  opacity: 0.2,
+                  marginBottom: 12,
+                }}
+              />
 
-          {/* Tasks & Victories Count */}
-          <View
-            style={{
-              flexDirection: 'row',
-              gap: 16,
-              justifyContent: 'center',
-            }}
-          >
-            <View style={{ alignItems: 'center', gap: 4 }}>
-              <Text style={{ fontSize: 16 }}>📋</Text>
-              <Text style={[styles.caption, { color: colors.secondary }]}>
-                {t('calendar.stats.tasks')}
-              </Text>
-              <Text style={[styles.h2, { color: colors.primary }]}>
-                {tasksCompleted}
-              </Text>
-            </View>
-            <View style={{ alignItems: 'center', gap: 4 }}>
-              <Text style={{ fontSize: 16 }}>🎉</Text>
-              <Text style={[styles.caption, { color: colors.secondary }]}>
-                {t('calendar.stats.victories')}
-              </Text>
-              <Text style={[styles.h2, { color: colors.primary }]}>
-                {victoriesCount}
-              </Text>
-            </View>
-          </View>
+              {/* Tasks & Victories Count */}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 16,
+                  justifyContent: 'center',
+                }}
+              >
+                {showTasksMetric && (
+                  <View style={{ alignItems: 'center', gap: 4 }}>
+                    <Text style={{ fontSize: 16 }}>📋</Text>
+                    <Text style={[styles.caption, { color: colors.secondary }]}> 
+                      {t('calendar.stats.tasks')}
+                    </Text>
+                    <Text style={[styles.h2, { color: colors.primary }]}> 
+                      {tasksCompleted}
+                    </Text>
+                  </View>
+                )}
+
+                {showVictoriesMetric && (
+                  <View style={{ alignItems: 'center', gap: 4 }}>
+                    <Text style={{ fontSize: 16 }}>🎉</Text>
+                    <Text style={[styles.caption, { color: colors.secondary }]}> 
+                      {t('calendar.stats.victories')}
+                    </Text>
+                    <Text style={[styles.h2, { color: colors.primary }]}> 
+                      {victoriesCount}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </>
+          )}
 
         </>
       )}

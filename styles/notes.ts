@@ -25,6 +25,20 @@ export const createNotesStyles = (colors: ThemeColors) =>
       flex: 1,
       fontSize: 16,
     },
+    tagsCloudSection: {
+      marginBottom: 12,
+    },
+    tagsWrap: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+    },
+    tagChip: {
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+      borderRadius: 999,
+      opacity: 0.9,
+    },
     addNoteButton: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -50,6 +64,39 @@ export const createNotesStyles = (colors: ThemeColors) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+    },
+    noteTagsRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 6,
+      marginTop: -2,
+      marginBottom: 12,
+    },
+    noteTag: {
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 999,
+      opacity: 0.8,
+    },
+    noteMediaPreviewRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      columnGap: 6,
+      rowGap: 6,
+      marginTop: 2,
+      marginBottom: 10,
+    },
+    noteMediaThumb: {
+      width: 52,
+      height: 52,
+      borderRadius: 10,
+    },
+    noteMediaMoreThumb: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    noteAudioSummaryRow: {
+      marginBottom: 12,
     },
     editButton: {
       padding: 8,
@@ -81,6 +128,79 @@ export const createNotesStyles = (colors: ThemeColors) =>
       padding: 12,
       marginBottom: 12,
       fontSize: 16,
+    },
+    mediaSection: {
+      marginBottom: 12,
+      gap: 8,
+    },
+    mediaHeaderRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    mediaAddButton: {
+      alignItems: 'center',
+      borderRadius: 10,
+      paddingVertical: 10,
+      paddingHorizontal: 12,
+    },
+    modalMediaGrid: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      columnGap: 8,
+      rowGap: 8,
+    },
+    modalMediaItem: {
+      position: 'relative',
+    },
+    modalMediaThumb: {
+      width: 72,
+      height: 72,
+      borderRadius: 10,
+    },
+    removeMediaBtn: {
+      position: 'absolute',
+      top: 4,
+      right: 4,
+      borderRadius: 999,
+      padding: 4,
+      opacity: 0.95,
+    },
+    audioList: {
+      gap: 8,
+    },
+    audioItem: {
+      borderRadius: 10,
+      padding: 8,
+      gap: 8,
+    },
+    audioControlsRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    audioPlayBtn: {
+      borderRadius: 8,
+      width: 30,
+      height: 30,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    audioTitleInput: {
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      fontSize: 14,
+    },
+    audioProgressTrack: {
+      height: 6,
+      borderRadius: 999,
+      overflow: 'hidden',
+    },
+    audioProgressFill: {
+      height: '100%',
+      borderRadius: 999,
     },
     contentInput: {
       borderWidth: 2,
@@ -129,6 +249,19 @@ export const createNotesStyles = (colors: ThemeColors) =>
       flexGrow: 1,
       flexShrink: 1,
       marginBottom: 16,
+    },
+    viewScrollContent: {
+      paddingBottom: 8,
+      rowGap: 12,
+    },
+    viewMediaRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      columnGap: 8,
+      rowGap: 8,
+    },
+    viewMediaThumb: {
+      borderRadius: 10,
     },
     closeButton: {
       paddingVertical: 12,
