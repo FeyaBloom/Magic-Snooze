@@ -21,6 +21,7 @@
     "title": "Bon dia, ànima bonica",
     "subtitle": "Ves pas a pas",
     "subtitleSnoozed": "Avui et prens un descans suau",
+    "gentleFallback": "Si avui costa, obre Petites victòries o Pausa Dia.",
     "snoozeToday": "Pausa Dia",
     "resumeToday": "Continua Dia",
     "tinyVictories": "Petites victòries",
@@ -47,16 +48,6 @@
     "food": "Vaig fer una pausa",
     "Tiny Victories": "Petites victòries",
     "Celebrate the small wins!": "Celebra les petites victòries!",
-    "surprize1": "Vols escriure un poema en comptes de fer tasques? 📝",
-    "surprize2": "Dibuixa la teva llista de tasques com monstres! 👹",
-    "surprize3": "I si ballessis durant 30 segons? 💃",
-    "surprize4": "Hora de fer una cara estranya davant del mirall? 🤪",
-    "surprize5": "Què tal taral·lejar la teva cançó preferida? 🎵",
-    "surprize6": "Vols enviar un missatge a algú que estimes? 💕",
-    "surprize7": "Potser estira't com un gat? 🐱",
-    "surprize8": "Et ve de gust inventar una història sobre el teu dia? 📚",
-    "Maybelater": "Potser més tard",
-    "Letsdoit": "Fem-ho!",
     "defaultMorning": {
       "stretch": "Aigua tèbia en dejú",
       "breathing": "Exercici energitzant",
@@ -254,17 +245,6 @@
     "it": { "name": "Italià", "native": "Italiano", "flag": "🇮🇹" },
     "ca": { "name": "Català", "native": "Català", "flag": "🇦🇩" }
   },
-  "badDay": {
-    "title": "Avui, només això",
-    "subtitle": "Quan tot sembla pesat, comença petit:",
-    "drinkWater": "Pren un glop d'aigua",
-    "openWindow": "Obre una finestra per aire fresc",
-    "deepBreath": "Fes 3 respiracions lentes",
-    "lookOutside": "Mira fora un moment",
-    "favoriteSound": "Posa un so que t'agradi",
-    "youreEnough": "Ets suficient, exactament com ets 💜"
-  },
-
   "navigation": {
     "today": "Avui",
     "tasks": "Tasques",
@@ -358,8 +338,6 @@
       "routineReminders": "Recordatoris de Rutina",
       "routineRemindersDesc": "Recordatori a les 20:00 si no hi ha activitat avui",
       "routineReminderTime": "20:00 (si no hi ha activitat avui)",
-      "surprisePrompts": "Missatges Sorpresa",
-      "surprisePromptsDesc": "Missatges aleatoris divertits per alegrar el dia",
       "testNotification": "Enviar Notificació de Prova",
       "testSent": "Notificació de prova enviada! Fes-hi un cop d'ull 🌸",
       "notificationTimes": "Horaris de Notificació",

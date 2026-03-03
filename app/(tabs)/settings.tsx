@@ -135,6 +135,8 @@ export default function SettingsScreen() {
             style={styles.row}
             onPress={() => setOperationMode(operationMode === 'auto' ? 'manual' : 'auto')}
             activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+            accessibilityRole="button"
+            accessibilityLabel={t('settings.themeMode')}
           >
             <View style={styles.leftContent}>
               <Lightbulb color={colors.textSecondary} size={20} />
@@ -169,6 +171,7 @@ export default function SettingsScreen() {
               onValueChange={toggleMessyMode}
               trackColor={{ false: colors.textSecondary, true: colors.primary }}
               thumbColor={isMessyMode ? colors.accent : colors.surface}
+              accessibilityLabel={t('settings.messyMode.title')}
             />
           </View>
         </View>
@@ -183,6 +186,8 @@ export default function SettingsScreen() {
             style={styles.row}
             onPress={showLanguageModal}
             activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+            accessibilityRole="button"
+            accessibilityLabel={t('settings.language.selectLanguage')}
           >
             <View style={styles.leftContent}>
               <Languages color={colors.textSecondary} size={20} />
@@ -235,6 +240,8 @@ export default function SettingsScreen() {
                 style={[styles.button, { backgroundColor: colors.primary }]}
                 onPress={handleRequestPermission}
                 activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                accessibilityRole="button"
+                accessibilityLabel={t('notifications.settings.requestPermission')}
               >
                 <Text style={[textStyles.body, { color: '#fff', fontWeight: '600' }]}>
                   {t('notifications.settings.requestPermission')}
@@ -261,6 +268,7 @@ export default function SettingsScreen() {
                   onValueChange={notifications.toggle}
                   trackColor={{ false: colors.textSecondary, true: colors.primary }}
                   thumbColor="#fff"
+                  accessibilityLabel={t('notifications.settings.masterToggle')}
                 />
               </View>
 
@@ -290,6 +298,7 @@ export default function SettingsScreen() {
                       onValueChange={notifications.toggleTasks}
                       trackColor={{ false: colors.textSecondary, true: colors.primary }}
                       thumbColor="#fff"
+                      accessibilityLabel={t('notifications.settings.taskReminders')}
                     />
                   </View>
 
@@ -311,6 +320,7 @@ export default function SettingsScreen() {
                       onValueChange={notifications.toggleRoutines}
                       trackColor={{ false: colors.textSecondary, true: colors.primary }}
                       thumbColor="#fff"
+                      accessibilityLabel={t('notifications.settings.routineReminders')}
                     />
                   </View>
                 </>
@@ -335,6 +345,8 @@ export default function SettingsScreen() {
             style={styles.row}
             onPress={() => Linking.openURL('https://feya-bloom-studio.lovable.app/')}
             activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+            accessibilityRole="button"
+            accessibilityLabel={t('settings.contactCreator.title')}
           >
             <View style={styles.leftContent}>
               <Globe color={colors.textSecondary} size={20} />
@@ -376,6 +388,8 @@ export default function SettingsScreen() {
               ? setDonationModalVisible(true)
               : btn.url && Linking.openURL(btn.url)}
           activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+          accessibilityRole="button"
+          accessibilityLabel={t(`settings.supportApp.${btn.key}`)}
         >
           <Text style={[textStyles.caption, { color: colors.text, textAlign: 'center' }]}>
             {btn.emoji} {t(`settings.supportApp.${btn.key}`)}

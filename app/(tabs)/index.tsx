@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef, memo } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo, memo } from 'react';
 import {
   View,
   Text,
@@ -17,7 +17,9 @@ import {
 import { useRouter } from 'expo-router';
 import { Plus, Edit, Trash2, Coffee, Moon, Pause, Sparkles, Trophy } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LottieView from 'lottie-react-native';
 import { getLocalDateString } from '@/utils/dateUtils';
+import ConfettiJSON from '@/assets/animations/confetti.json';
 
 // Components
 import { ScreenLayout } from '@/components/ScreenLayout';
@@ -117,6 +119,9 @@ export default function TodayScreen() {
   const streakUpdateTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const saveProgressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingProgress = useRef<{ morning: RoutineStep[]; evening: RoutineStep[] } | null>(null);
+  const routineConfettiTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const completionInitRef = useRef(false);
+  const previousAllCompletedRef = useRef(false);
 
   // State
   const [morningRoutine, setMorningRoutine] = useState<RoutineStep[]>([]);
@@ -130,6 +135,7 @@ export default function TodayScreen() {
   const [isSnoozed, setIsSnoozed] = useState(false);
   const [expandedStepId, setExpandedStepId] = useState<string | null>(null);
   const [isSnoozePressed, setIsSnoozePressed] = useState(false);
+  const [showRoutineConfetti, setShowRoutineConfetti] = useState(false);
   
   const [confirmDialog, setConfirmDialog] = useState({
     visible: false,
@@ -447,8 +453,37 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       if (saveProgressTimer.current) {
         clearTimeout(saveProgressTimer.current);
       }
+      if (routineConfettiTimer.current) {
+        clearTimeout(routineConfettiTimer.current);
+      }
     };
   }, []);
+
+  const allRoutinesCompleted = useMemo(() => {
+    const allSteps = [...morningRoutine, ...eveningRoutine];
+    if (allSteps.length === 0) return false;
+    return allSteps.every((step) => step.completed);
+  }, [morningRoutine, eveningRoutine]);
+
+  useEffect(() => {
+    if (!completionInitRef.current) {
+      completionInitRef.current = true;
+      previousAllCompletedRef.current = allRoutinesCompleted;
+      return;
+    }
+
+    if (!previousAllCompletedRef.current && allRoutinesCompleted && !isSnoozed) {
+      setShowRoutineConfetti(true);
+      if (routineConfettiTimer.current) {
+        clearTimeout(routineConfettiTimer.current);
+      }
+      routineConfettiTimer.current = setTimeout(() => {
+        setShowRoutineConfetti(false);
+      }, 1800);
+    }
+
+    previousAllCompletedRef.current = allRoutinesCompleted;
+  }, [allRoutinesCompleted, isSnoozed]);
 
   useEffect(() => {
     const handleDataReset = (data: { categories: string[], deletedKeys: string[], timestamp: number }) => {
@@ -465,7 +500,6 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
     const listener = DeviceEventEmitter.addListener('dataReset', handleDataReset);
     return () => listener.remove();
   }, []);
-
 
   useEffect(() => {
   const updateDefaultRoutines = async () => {
@@ -518,7 +552,6 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
 
   updateDefaultRoutines();
 }, [i18n.language]); 
-
 
   // Render routine section
   const renderRoutineSection = (
@@ -604,6 +637,25 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
             >
               {isSnoozed ? t('today.subtitleSnoozed') : t('today.subtitle')}
             </Text>
+
+            <View
+              style={{
+                marginTop: 12,
+                paddingVertical: 10,
+                paddingHorizontal: 12,
+                borderRadius: 12,
+                backgroundColor: colors.surface,
+                // @ts-ignore
+                boxShadow: `0 2px 6px ${colors.secondary}22`,
+                opacity: 0.82,
+              }}
+            >
+              <Text
+                style={[textStyles.caption, { color: colors.textSecondary, textAlign: 'center' }]}
+              >
+                {t('today.gentleFallback')}
+              </Text>
+            </View>
           </View>
 
 
@@ -622,6 +674,8 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               }}
               onPress={() => setShowTinyVictories(true)}
               activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+              accessibilityRole="button"
+              accessibilityLabel={t('today.tinyVictories')}
             >
               <Sparkles size={20} color={colors.primary} />
               <Text style={[textStyles.button, { color: colors.text }]}>
@@ -634,6 +688,8 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
                 style={{ backgroundColor: colors.surface, paddingHorizontal: 25, paddingVertical: 12, borderRadius: 12 }}
                 onPress={() => setThemeManual(currentTheme === 'daydream' ? 'nightforest' : 'daydream')}
                 activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                accessibilityRole="button"
+                accessibilityLabel={currentTheme === 'daydream' ? t('today.nightForest') : t('today.dayDream')}
               >
                 <Text style={[textStyles.caption, { color: colors.text }]}>
                   {currentTheme === 'daydream' ? t('today.nightForest') : t('today.dayDream')}
@@ -644,6 +700,8 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
                 style={{ backgroundColor: colors.surface, paddingHorizontal: 25, paddingVertical: 12, borderRadius: 12 }}
                 onPress={() => router.push('/settings')}
                 activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                accessibilityRole="button"
+                accessibilityLabel={t('navigation.settings')}
               >
                 <Text style={[textStyles.caption, { color: colors.text }]}>
                   {t('navigation.settings')}
@@ -660,6 +718,8 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               activeOpacity={1}
               onPressIn={() => setIsSnoozePressed(true)}
               onPressOut={() => setIsSnoozePressed(false)}
+              accessibilityRole="button"
+              accessibilityLabel={t('today.snoozeToday')}
             >
               <Pause size={20}/>
               <Text style={textStyles.button}>
@@ -676,6 +736,8 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               activeOpacity={1}
               onPressIn={() => setIsSnoozePressed(true)}
               onPressOut={() => setIsSnoozePressed(false)}
+              accessibilityRole="button"
+              accessibilityLabel={t('today.resumeToday')}
             >
               <Text style={textStyles.button}>
                 {t('today.resumeToday')}
@@ -700,6 +762,27 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
 
         </ContentContainer>
       </ScrollView>
+
+      {showRoutineConfetti && (
+        <View style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          pointerEvents: 'none',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <LottieView
+            source={ConfettiJSON}
+            autoPlay
+            loop={false}
+            speed={1.15}
+            style={{ width: 420, height: 420 }}
+          />
+        </View>
+      )}
 
       {/* Modals */}
       <VictoriesModal

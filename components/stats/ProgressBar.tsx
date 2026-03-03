@@ -201,6 +201,8 @@ export const WeekCard = memo(function WeekCard({
     <TouchableOpacity
       onPress={onToggle}
       activeOpacity={0.7}
+      accessibilityRole="button"
+      accessibilityLabel={`${t('calendar.stats.week')} ${weekNumber}, ${overallRate}%`}
       style={[
         calendarStyles.rowCard,
         {

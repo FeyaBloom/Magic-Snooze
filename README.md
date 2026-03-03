@@ -72,9 +72,6 @@ Earn levels based on monthly engagement:
 
 Unlock 8 achievements: 👣 First Step, ⚔️ Week Warrior, 🗓️ Month Master, and more.
 
-### 🤗 **Bad Day Toolkit**
-When engagement is low, I offer ultra-simple suggestions: "Take one sip of water", "Open a window", "Breathe slowly 3 times". Plus a reminder: *You're enough, exactly as you are 💜*
-
 ### 🎨 **Dynamic Themes**
 Two beautiful themes:
 - **☀️ Daydream** (soft pastels for daytime)
@@ -200,7 +197,6 @@ Issues and PRs are welcome! Whether you want to:
 
 I'm open to community ideas! Some thoughts:
 - ☁️ Optional cloud backup (privacy-respecting)
-- 🎲 Surprise Prompts (fun random suggestions)
 - 📈 More stats visualizations
 - 🎨 User-created themes
 

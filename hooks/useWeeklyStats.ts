@@ -136,6 +136,10 @@ export function useWeeklyStats() {
         let morningFullDays = 0;
         let eveningFullDays = 0;
         let totalDaysInWeek = 0;
+        let morningDoneTotal = 0;
+        let eveningDoneTotal = 0;
+        let morningPlannedTotal = 0;
+        let eveningPlannedTotal = 0;
         let totalVictories = 0;
         let tasksCompleted = 0;
         const daysToCheck: Date[] = [];
@@ -185,6 +189,11 @@ export function useWeeklyStats() {
               eveningDone = progress.eveningDone || 0;
               totalRoutines = morningDone + eveningDone;
               totalPlanned = (progress.morningTotal || 0) + (progress.eveningTotal || 0);
+
+              morningDoneTotal += morningDone;
+              eveningDoneTotal += eveningDone;
+              morningPlannedTotal += progress.morningTotal || 0;
+              eveningPlannedTotal += progress.eveningTotal || 0;
 
               if (totalRoutines > 0) {
                 hasActivity = true;
@@ -240,14 +249,20 @@ export function useWeeklyStats() {
         }
 
         const morningRate =
-          totalDaysInWeek > 0
-            ? Math.round((morningFullDays / totalDaysInWeek) * 100)
+          morningPlannedTotal > 0
+            ? Math.round((morningDoneTotal / morningPlannedTotal) * 100)
             : 0;
         const eveningRate =
-          totalDaysInWeek > 0
-            ? Math.round((eveningFullDays / totalDaysInWeek) * 100)
+          eveningPlannedTotal > 0
+            ? Math.round((eveningDoneTotal / eveningPlannedTotal) * 100)
             : 0;
-        const overallRate = Math.round((morningRate + eveningRate) / 2);
+
+        const totalPlannedRoutines = morningPlannedTotal + eveningPlannedTotal;
+        const totalDoneRoutines = morningDoneTotal + eveningDoneTotal;
+        const overallRate =
+          totalPlannedRoutines > 0
+            ? Math.round((totalDoneRoutines / totalPlannedRoutines) * 100)
+            : 0;
 
         const { status } = getStatus(overallRate);
 

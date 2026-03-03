@@ -24,6 +24,7 @@ export default function ResetDataComponent() {
   const [showResetModal, setShowResetModal] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [resetting, setResetting] = useState(false);
+  const dangerColor = colors.primary;
 
   const resetOptions: ResetOption[] = [
     {
@@ -152,16 +153,18 @@ export default function ResetDataComponent() {
           alignItems: 'center',
           justifyContent: 'center',
           gap: 10,
-          backgroundColor: '#EF4444',
+          backgroundColor: dangerColor,
           paddingVertical: 14,
           paddingHorizontal: 20,
           borderRadius: 12,
           marginTop: 24,
         }}
         onPress={() => setShowResetModal(true)}
+        accessibilityRole="button"
+        accessibilityLabel={t('reset.button')}
       >
-        <RotateCcw size={20} color="#FFFFFF" />
-        <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+        <RotateCcw size={20} color={colors.surface} />
+        <Text style={[textStyles.button, { color: colors.surface }]}> 
           {t('reset.button')}
         </Text>
       </TouchableOpacity>
@@ -189,7 +192,7 @@ export default function ResetDataComponent() {
             }}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
-              <AlertTriangle size={24} color="#EF4444" />
+              <AlertTriangle size={24} color={dangerColor} />
               <Text
                 style={[
                   textStyles.h2,
@@ -223,6 +226,8 @@ export default function ResetDataComponent() {
                         : colors.surface,
                     }}
                     onPress={() => toggleOption(option.id)}
+                    accessibilityRole="button"
+                    accessibilityLabel={t(option.titleKey)}
                   >
                     <View style={{ flex: 1 }}>
                       <Text style={[textStyles.body, { color: colors.text, fontWeight: '600' }]}>
@@ -245,7 +250,7 @@ export default function ResetDataComponent() {
                       }}
                     >
                       {selectedOptions[option.id] && (
-                        <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: 'bold' }}>✓</Text>
+                        <Text style={{ color: colors.surface, fontSize: 16, fontWeight: 'bold' }}>✓</Text>
                       )}
                     </View>
                   </TouchableOpacity>
@@ -263,6 +268,8 @@ export default function ResetDataComponent() {
                   backgroundColor: colors.background[0],
                 }}
                 onPress={() => setShowResetModal(false)}
+                accessibilityRole="button"
+                accessibilityLabel={t('common.cancel')}
               >
                 <Text style={[textStyles.button, { color: colors.text }]}>
                   {t('common.cancel')}
@@ -278,13 +285,15 @@ export default function ResetDataComponent() {
                   gap: 8,
                   padding: 14,
                   borderRadius: 12,
-                  backgroundColor: '#EF4444',
+                  backgroundColor: dangerColor,
                 }}
                 onPress={confirmReset}
                 disabled={resetting}
+                accessibilityRole="button"
+                accessibilityLabel={resetting ? t('reset.modal.deleting') : t('reset.modal.delete')}
               >
-                <Trash2 size={16} color="#FFFFFF" />
-                <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+                <Trash2 size={16} color={colors.surface} />
+                <Text style={[textStyles.button, { color: colors.surface }]}> 
                   {resetting ? t('reset.modal.deleting') : t('reset.modal.delete')}
                 </Text>
               </TouchableOpacity>
@@ -312,11 +321,11 @@ export default function ResetDataComponent() {
               width: '100%',
               maxWidth: 400,
               borderWidth: 2,
-              borderColor: '#EF4444',
+              borderColor: dangerColor,
             }}
           >
             <View style={{ alignItems: 'center', marginBottom: 16 }}>
-              <AlertTriangle size={48} color="#EF4444" />
+              <AlertTriangle size={48} color={dangerColor} />
             </View>
 
             <Text
@@ -349,6 +358,8 @@ export default function ResetDataComponent() {
                   backgroundColor: colors.background[0],
                 }}
                 onPress={() => setShowConfirmDialog(false)}
+                accessibilityRole="button"
+                accessibilityLabel={t('common.cancel')}
               >
                 <Text style={[textStyles.button, { color: colors.text }]}>
                   {t('common.cancel')}
@@ -364,16 +375,18 @@ export default function ResetDataComponent() {
                   gap: 8,
                   padding: 14,
                   borderRadius: 12,
-                  backgroundColor: '#EF4444',
+                  backgroundColor: dangerColor,
                 }}
                 onPress={() => {
                   setShowConfirmDialog(false);
                   performReset();
                 }}
                 disabled={resetting}
+                accessibilityRole="button"
+                accessibilityLabel={t('reset.confirm.delete')}
               >
-                <Trash2 size={16} color="#FFFFFF" />
-                <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+                <Trash2 size={16} color={colors.surface} />
+                <Text style={[textStyles.button, { color: colors.surface }]}> 
                   {t('reset.confirm.delete')}
                 </Text>
               </TouchableOpacity>

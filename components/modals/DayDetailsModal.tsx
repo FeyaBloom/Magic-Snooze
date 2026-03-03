@@ -177,7 +177,12 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
             <Text style={[styles.title, { color: colors.text }]} numberOfLines={2}>
               {formatDate(date)}
             </Text>
-            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+            <TouchableOpacity
+              onPress={onClose}
+              style={styles.closeButton}
+              accessibilityRole="button"
+              accessibilityLabel={t('common.close')}
+            >
               <X size={24} color={colors.textSecondary} />
             </TouchableOpacity>
           </View>

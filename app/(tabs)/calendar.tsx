@@ -305,6 +305,8 @@ export default function CalendarScreen() {
         onPress={() => handleOpenDay(date)}
         style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}
         activeOpacity={0.7}
+        accessibilityRole="button"
+        accessibilityLabel={`${date.getDate()} ${t(`calendar.legend.${dayStatus}`)}`}
       >
         <View
           style={[

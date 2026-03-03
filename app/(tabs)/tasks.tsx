@@ -247,9 +247,11 @@ export default function TasksScreen() {
             style={[styles.addTaskButton, { backgroundColor: colors.primary }]}
             onPress={() => setShowAddModal(true)}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel={t('tasks.addNew')}
           >
-            <Plus size={24} color="#FFFFFF" />
-            <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+            <Plus size={24} color={colors.surface} />
+            <Text style={[textStyles.button, { color: colors.surface }]}> 
               {t('tasks.addNew')}
             </Text>
           </TouchableOpacity>
@@ -308,6 +310,8 @@ export default function TasksScreen() {
                     }}
                     style={styles.actionButton}
                     activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('common.edit')}
                   >
                     <Edit size={16} color={colors.textSecondary} />
                   </TouchableOpacity>
@@ -351,7 +355,13 @@ export default function TasksScreen() {
                     </View>
                   </TouchableWithoutFeedback>
 
-                  <TouchableOpacity onPress={() => deleteTask(task.id)} style={styles.actionButton} activeOpacity={TOUCHABLE_CONFIG.activeOpacity}>
+                  <TouchableOpacity
+                    onPress={() => deleteTask(task.id)}
+                    style={styles.actionButton}
+                    activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('common.delete')}
+                  >
                     <Trash2 size={16} color="#EF4444" />
                   </TouchableOpacity>
                 </View>
@@ -396,7 +406,12 @@ export default function TasksScreen() {
               autoFocus
               scrollEnabled={true}
             />
-            <TouchableOpacity onPress={() => setShowCalendar(v => !v)} activeOpacity={TOUCHABLE_CONFIG.activeOpacity}>
+            <TouchableOpacity
+              onPress={() => setShowCalendar(v => !v)}
+              activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+              accessibilityRole="button"
+              accessibilityLabel={t('tasks.dueDateOptional')}
+            >
               <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 30 }]}>
                 {newTaskDueDate ? `📅 ${formatDate(newTaskDueDate, i18n.language)}` : t('tasks.dueDateOptional')}
               </Text>
@@ -427,6 +442,8 @@ export default function TasksScreen() {
                   setShowCalendar(false);
                 }}
                 activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                accessibilityRole="button"
+                accessibilityLabel={t('common.cancel')}
               >
                 <Text style={[textStyles.button, { color: colors.text }]}>
                   {t('common.cancel')}
@@ -436,8 +453,10 @@ export default function TasksScreen() {
                 style={[styles.modalButton, { backgroundColor: colors.secondary }]}
                 onPress={addTask}
                 activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                accessibilityRole="button"
+                accessibilityLabel={t('common.add')}
               >
-                <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+                <Text style={[textStyles.button, { color: colors.surface }]}> 
                   {t('common.add')}
                 </Text>
               </TouchableOpacity>
@@ -458,6 +477,8 @@ export default function TasksScreen() {
             <TouchableOpacity
               style={[styles.deleteButton, { marginBottom: 26}]}
               onPress={() => editingTask && deleteTask(editingTask.id)}
+              accessibilityRole="button"
+              accessibilityLabel={t('common.delete')}
             >
               <Trash2 size={20} color="#EF4444" />
             </TouchableOpacity>
@@ -475,7 +496,12 @@ export default function TasksScreen() {
               autoFocus
               scrollEnabled={true}
             />
-            <TouchableOpacity onPress={() => setShowEditCalendar(v => !v)} activeOpacity={TOUCHABLE_CONFIG.activeOpacity}>
+            <TouchableOpacity
+              onPress={() => setShowEditCalendar(v => !v)}
+              activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+              accessibilityRole="button"
+              accessibilityLabel={t('tasks.dueDateOptional')}
+            >
               <Text style={[textStyles.caption, { color: colors.secondary, marginBottom: 30 }]}>
                 {newTaskDueDate ? `📅 ${formatDate(newTaskDueDate, i18n.language)}` : t('tasks.dueDateOptional')}
               </Text>
@@ -507,6 +533,8 @@ export default function TasksScreen() {
                   setShowEditCalendar(false);
                 }}
                 activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                accessibilityRole="button"
+                accessibilityLabel={t('common.cancel')}
               >
                 <Text style={[textStyles.button, { color: colors.text }]}>
                   {t('common.cancel')}
@@ -516,8 +544,10 @@ export default function TasksScreen() {
                 style={[styles.modalButton, { backgroundColor: colors.secondary }]}
                 onPress={editTask}
                 activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                accessibilityRole="button"
+                accessibilityLabel={t('common.save')}
               >
-                <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+                <Text style={[textStyles.button, { color: colors.surface }]}> 
                   {t('common.save')}
                 </Text>
               </TouchableOpacity>

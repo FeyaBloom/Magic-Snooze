@@ -38,12 +38,12 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
     { id: 'food', text: t('today.food'), emoji: '⏸️' },
   ];
 
-  const handleVictory = async (id: string) => {
-    if (celebratedToday.includes(id)) return;
+  const handleVictory = async (victoryId: string) => {
+    if (celebratedToday.includes(victoryId)) return;
 
     try {
-      await onVictoryPress(id);
-      setCelebratedToday(prev => [...prev, id]);
+      await onVictoryPress(victoryId);
+      setCelebratedToday(prev => [...prev, victoryId]);
       
       // show confetti
       setShowConfetti(true);
@@ -70,7 +70,7 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
           {/* Grid 2x4 */}
           <View style={styles.grid}>
             {victories.map((victory, index) => {
-              const isCelebrated = celebratedToday.includes(victory.text);
+              const isCelebrated = celebratedToday.includes(victory.id);
               return (
                 <TouchableOpacity
                   key={index}
@@ -82,16 +82,18 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
                         : colors.background[0] 
                     }
                   ]}
-                  onPress={() => handleVictory(victory.text)}
+                  onPress={() => handleVictory(victory.id)}
                   disabled={isCelebrated}
                   activeOpacity={0.7}
+                  accessibilityRole="button"
+                  accessibilityLabel={victory.text}
                 >
                   <Text style={styles.emoji}>{victory.emoji}</Text>
                   <Text style={[styles.buttonText, { color: colors.text }]}>
                     {victory.text}
                   </Text>
                   {isCelebrated && (
-                    <Text style={styles.checkmark}>✓</Text>
+                    <Text style={[styles.checkmark, { color: colors.primary }]}>✓</Text>
                   )}
                 </TouchableOpacity>
               );
@@ -102,8 +104,10 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
           <TouchableOpacity
             style={[styles.closeButton, { backgroundColor: colors.primary}]}
             onPress={onClose}
+            accessibilityRole="button"
+            accessibilityLabel={t('common.close')}
           >
-            <Text style={[styles.closeText, { color: colors.text }]}>
+            <Text style={[styles.closeText, { color: colors.surface }]}> 
               {t('common.close')}
             </Text>
           </TouchableOpacity>

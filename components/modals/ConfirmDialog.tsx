@@ -43,8 +43,10 @@ export function ConfirmDialog({
             <TouchableOpacity 
               onPress={onCancel} 
               style={[styles.button, { backgroundColor: colors.secondary }]}
+              accessibilityRole="button"
+              accessibilityLabel={cancelText || t('common.no')}
             >
-              <Text style={[textStyles.button, styles.buttonText]}>
+              <Text style={[textStyles.button, { color: colors.surface }]}>
                 {cancelText || t('common.no')}
               </Text>
             </TouchableOpacity>
@@ -52,8 +54,10 @@ export function ConfirmDialog({
             <TouchableOpacity 
               onPress={onConfirm} 
               style={[styles.button, { backgroundColor: colors.primary }]}
+              accessibilityRole="button"
+              accessibilityLabel={confirmText || t('common.yes')}
             >
-              <Text style={[textStyles.button, styles.buttonText]}>
+              <Text style={[textStyles.button, { color: colors.surface }]}>
                 {confirmText || t('common.yes')}
               </Text>
             </TouchableOpacity>
@@ -98,8 +102,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderRadius: 8,
-  },
-  buttonText: {
-    color: '#fff',
   },
 });

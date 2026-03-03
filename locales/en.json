@@ -23,6 +23,7 @@
     "title": "Good day, beautiful soul",
     "subtitle": "Take it one step at a time",
     "subtitleSnoozed": "You're taking a gentle break today",
+    "gentleFallback": "If today feels heavy, open Tiny Victories or Snooze Day.",
     "snoozeToday": "Snooze Day",
     "resumeToday": "Resume Day",
     "tinyVictories": " Tiny Victories",
@@ -49,16 +50,6 @@
   "food": "Took a break",
   "Tiny Victories": "Tiny Victories",
   "Celebrate the small wins!": "Celebrate the small wins!",
-   "surprize1": "Wanna write a poem instead of doing tasks? 📝",
-   "surprize2": "Draw your to-do list as monsters! 👹",
-   "surprize3": "What if you danced for 30 seconds? 💃",
-   "surprize4": "Time to make a weird face in the mirror? 🤪",
-   "surprize5": "How about humming your favorite song? 🎵",
-   "surprize6": "Want to text someone you love? 💕",
-   "surprize7": "Maybe stretch like a cat? 🐱",
-   "surprize8": "Feel like making up a story about your day? 📚",
-    "Maybelater": "Maybe later",
-    "Letsdoit": "Let's do it!",
     "defaultMorning": {
       "stretch": "Glass of warm water first",
       "breathing": "Energizing workout",
@@ -260,17 +251,6 @@
   "it": { "name": "Italian", "native": "Italiano", "flag": "🇮🇹" },
   "ca": { "name": "Catalan", "native": "Català", "flag": "🇦🇩" }
 },
-  "badDay": {
-    "title": "Today, just this",
-    "subtitle": "When everything feels heavy, start tiny:",
-    "drinkWater": "Take a sip of water",
-    "openWindow": "Open a window for fresh air",
-    "deepBreath": "Take 3 slow breaths",
-    "lookOutside": "Look outside for a moment",
-    "favoriteSound": "Play a sound you like",
-    "youreEnough": "You're enough, exactly as you are 💜"
-  },
-
   "navigation": {
   "today": "Today",
   "tasks": "Tasks",
@@ -367,8 +347,6 @@
       "routineReminders": "Routine Reminders",
       "routineRemindersDesc": "Reminder at 20:00 if no activity today",
       "routineReminderTime": "20:00 (if no activity today)",
-      "surprisePrompts": "Surprise Prompts",
-      "surprisePromptsDesc": "Random fun messages to brighten your day",
       "testNotification": "Send Test Notification",
       "testSent": "Test notification sent! Check it out 🌸",
       "notificationTimes": "Notification Times",

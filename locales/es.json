@@ -18,17 +18,6 @@
     "Fri":  "Vie", 
     "Sat": "Sab"
   },
-  "badDay": {
-    "title": "Hoy, solo esto",
-    "subtitle": "Cuando todo se siente pesado, empieza pequeño:",
-    "drinkWater": "Toma un sorbo de agua",
-    "openWindow": "Abre una ventana para aire fresco",
-    "deepBreath": "Haz 3 respiraciones lentas",
-    "lookOutside": "Mira afuera un momento",
-    "favoriteSound": "Pon un sonido que te guste",
-    "youreEnough": "Eres suficiente, exactamente como eres 💜"
-  },
-
   "navigation": {
   "today": "Hoy",
   "tasks": "Tareas",
@@ -125,16 +114,6 @@
 "food": "Tomé un descanso",
 "Tiny Victories": "Pequeñas victorias",
 "Celebrate the small wins!": "¡Celebra los pequeños triunfos!",
-"surprize1": "¿Quieres escribir un poema en lugar de hacer tareas? 📝",
-"surprize2": "¡Dibuja tu lista de tareas como monstruos! 👹",
-"surprize3": "¿Y si bailas durante 30 segundos? 💃",
-"surprize4": "¿Es hora de hacer muecas en el espejo? 🤪",
-"surprize5": "¿Qué tal tararear tu canción favorita? 🎵",
-"surprize6": "¿Quieres escribir a alguien que amas? 💕",
-"surprize7": "¿Te apetece estirarte como un gato? 🐱",
-"surprize8": "¿Te parece inventar una historia sobre tu día? 📚",
-   "Maybelater": "Más tarde",
-    "Letsdoit": "Vamos!",
     "defaultMorning": {
       "stretch": "Agua tibia en ayunas",
       "breathing": "Ejercicio energizante",
@@ -282,6 +261,7 @@
       "title": "Restablecer datos",
       "subtitle": "Selecciona qué datos eliminar:",
       "delete": "ELIMINAR", 
+      "gentleFallback": "Si hoy pesa, abre Pequeñas victorias o Pausa Día.",
       "deleting": "Eliminando..."
     },
     "options": {
@@ -364,9 +344,6 @@
       "routineReminders": "Recordatorios de Rutina",
       "routineRemindersDesc": "Recordatorio a las 20:00 si no hay actividad hoy",
       "routineReminderTime": "20:00 (si no hay actividad hoy)",
-    
-      "surprisePrompts": "Mensajes Sorpresa",
-      "surprisePromptsDesc": "Mensajes aleatorios divertidos para alegrar tu día",
     
       "testNotification": "Enviar Notificación de Prueba",
       "testSent": "¡Notificación de prueba enviada! Échale un vistazo 🌸",

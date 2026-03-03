@@ -224,9 +224,11 @@ export default function NotesScreen() {
             style={[styles.addNoteButton, { backgroundColor: colors.primary }]}
             onPress={() => setShowAddModal(true)}
             activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+            accessibilityRole="button"
+            accessibilityLabel={t('notes.addButton')}
           >
-            <Plus size={24} color="#FFFFFF" />
-            <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+            <Plus size={24} color={colors.surface} />
+            <Text style={[textStyles.button, { color: colors.surface }]}> 
               {t('notes.addButton')}
             </Text>
           </TouchableOpacity>
@@ -243,6 +245,8 @@ export default function NotesScreen() {
                     onPress={() => openNote(note)}
                     activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
                     style={{ flex: 1 }}
+                    accessibilityRole="button"
+                    accessibilityLabel={note.title}
                   >
                     <Text
                       style={[textStyles.h2, { color: colors.text, marginBottom: 8 }]}
@@ -270,6 +274,8 @@ export default function NotesScreen() {
                       }}
                       style={styles.editButton}
                       activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                      accessibilityRole="button"
+                      accessibilityLabel={t('common.edit')}
                     >
                       <Edit size={16} color={colors.textSecondary} />
                     </TouchableOpacity>
@@ -347,6 +353,8 @@ export default function NotesScreen() {
                       setNoteContent('');
                     }}
                     activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('common.cancel')}
                   >
                     <Text style={[textStyles.button, { color: colors.text }]}>
                       {t('common.cancel')}
@@ -356,8 +364,10 @@ export default function NotesScreen() {
                     style={[styles.modalButton, { backgroundColor: colors.primary }]}
                     onPress={addNote}
                     activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('common.add')}
                   >
-                    <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+                    <Text style={[textStyles.button, { color: colors.surface }]}> 
                       {t('common.add')}
                     </Text>
                   </TouchableOpacity>
@@ -387,6 +397,8 @@ export default function NotesScreen() {
                   style={styles.deleteButton}
                   onPress={() => editingNote && deleteNote(editingNote.id)}
                   activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                  accessibilityRole="button"
+                  accessibilityLabel={t('common.delete')}
                 >
                   <Trash2 size={20} color="#EF4444" />
                 </TouchableOpacity>
@@ -419,6 +431,8 @@ export default function NotesScreen() {
                       setNoteContent('');
                       setEditingNote(null);
                     }}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('common.cancel')}
                   >
                     <Text style={[textStyles.button, { color: colors.text }]}>
                       {t('common.cancel')}
@@ -428,8 +442,10 @@ export default function NotesScreen() {
                     style={[styles.modalButton, { backgroundColor: colors.primary }]}
                     onPress={editNote}
                     activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('common.save')}
                   >
-                    <Text style={[textStyles.button, { color: '#FFFFFF' }]}>
+                    <Text style={[textStyles.button, { color: colors.surface }]}> 
                       {t('common.save')}
                     </Text>
                   </TouchableOpacity>
@@ -451,7 +467,13 @@ export default function NotesScreen() {
               >
                 {viewingNote?.title}
               </Text>
-              <TouchableOpacity onPress={openEditFromView} style={styles.editIconButton} activeOpacity={TOUCHABLE_CONFIG.activeOpacity}>
+              <TouchableOpacity
+                onPress={openEditFromView}
+                style={styles.editIconButton}
+                activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+                accessibilityRole="button"
+                accessibilityLabel={t('common.edit')}
+              >
                 <Edit size={20} color={colors.primary} />
               </TouchableOpacity>
             </View>
@@ -473,6 +495,8 @@ export default function NotesScreen() {
                 setViewingNote(null);
               }}
               activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+              accessibilityRole="button"
+              accessibilityLabel={t('common.close')}
             >
               <Text style={[textStyles.button, { color: colors.text }]}>
                 {t('common.close')}

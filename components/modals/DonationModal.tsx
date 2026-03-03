@@ -65,6 +65,8 @@ export function DonationModal({
             style={[styles.addressBox, { borderColor: colors.secondary, backgroundColor: colors.background[0] }]}
             onPress={copyToClipboard}
             activeOpacity={0.85}
+            accessibilityRole="button"
+            accessibilityLabel={t('settings.supportApp.tapToCopy')}
           >
             <Text numberOfLines={1} style={[textStyles.caption, styles.addressText, { color: colors.text }]}> 
               {walletAddress}
@@ -78,8 +80,10 @@ export function DonationModal({
             style={[styles.closeButton, { backgroundColor: colors.primary }]}
             onPress={onClose}
             activeOpacity={0.9}
+            accessibilityRole="button"
+            accessibilityLabel={t('common.close')}
           >
-            <Text style={[textStyles.button, styles.closeButtonText]}>{t('common.close')}</Text>
+            <Text style={[textStyles.button, styles.closeButtonText, { color: colors.surface }]}>{t('common.close')}</Text>
           </TouchableOpacity>
         </View>
       </View>

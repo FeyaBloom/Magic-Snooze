@@ -20,7 +20,7 @@ export const useVictories = () => {
 
   const celebrateVictory = async (victory: string) => {
     try {
-      const newVictories = [...celebratedVictories, victory];
+      const newVictories = Array.from(new Set([...celebratedVictories, victory]));
       setCelebratedVictories(newVictories);
       await AsyncStorage.setItem(`victories_${getLocalDateString()}`, JSON.stringify(newVictories));
       

@@ -20,7 +20,28 @@ export const useTaskNotifications = (tasks: Task[], enabled: boolean) => {
   const NOTIFICATION_IDS_KEY = 'taskNotificationIds';
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      const clearTaskNotifications = async () => {
+        try {
+          const stored = await AsyncStorage.getItem(NOTIFICATION_IDS_KEY);
+          const previousMap: Record<string, string[]> = stored ? JSON.parse(stored) : {};
+
+          await Promise.all(
+            Object.values(previousMap)
+              .flat()
+              .map((id) => Notifications.cancelScheduledNotificationAsync(id))
+          );
+
+          await AsyncStorage.removeItem(NOTIFICATION_IDS_KEY);
+          lastTasksHash.current = '';
+        } catch (error) {
+          console.error('Error clearing task notifications:', error);
+        }
+      };
+
+      clearTaskNotifications();
+      return;
+    }
 
     // Создаем хеш из задач чтобы понять изменились ли они реально
     const tasksHash = tasks
