@@ -122,11 +122,11 @@ export const createNotesStyles = (colors: ThemeColors) =>
       borderWidth: 2,
       borderRadius: 12,
       padding: 12,
-      marginBottom: 12,
+      marginBottom: 0,
       fontSize: 16,
     },
     mediaSection: {
-      marginBottom: 12,
+      marginBottom: 0,
       gap: 8,
     },
     mediaHeaderRow: {
@@ -198,7 +198,7 @@ export const createNotesStyles = (colors: ThemeColors) =>
       padding: 12,
       minHeight: 150,
       textAlignVertical: 'top',
-      marginBottom: 16,
+      marginBottom: 0,
       fontSize: 16,
     },
     modalButtons: {
@@ -258,15 +258,18 @@ export const createNotesStyles = (colors: ThemeColors) =>
 modalContent: {
   width: '100%',
   maxWidth: 600,
-  height: '92%',
+  maxHeight: '92%',
   borderRadius: 24,
   padding: 24,
+  gap: 16,
 },
 formScroll: {
-  flex: 1,
+  flexGrow: 0,
+  flexShrink: 1,
 },
 formScrollContent: {
-  paddingBottom: 8,
+  rowGap: 12,
+  paddingBottom: 4,
 },
 
 // 2. viewModalContent — убрать maxWidth, оставить width: '100%'
