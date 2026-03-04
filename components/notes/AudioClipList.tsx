@@ -9,6 +9,7 @@ interface Props {
   clips: NoteAudioClip[];
   onRemove?: (id: string) => void;
   onRenameTitle?: (id: string, title: string) => void;
+  onTitleFocus?: () => void;
   colors: any;
   textStyles: any;
 }
@@ -18,7 +19,7 @@ function fmt(ms: number) {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 }
 
-export function AudioClipList({ clips, onRemove, onRenameTitle, colors, textStyles }: Props) {
+export function AudioClipList({ clips, onRemove, onRenameTitle, onTitleFocus, colors, textStyles }: Props) {
   const player = useNoteAudioPlayer();
   const styles = createNotesStyles(colors);
 
@@ -33,7 +34,7 @@ export function AudioClipList({ clips, onRemove, onRenameTitle, colors, textStyl
         const progress = dur > 0 ? Math.min(1, pos / dur) : 0;
 
         return (
-          <View key={clip.id} style={[styles.audioItem, { backgroundColor: colors.background[0] }]}>
+          <View key={clip.id} style={[styles.audioItem, { backgroundColor: `${colors.secondary}80` }]}>
             <View style={styles.audioControlsRow}>
               <TouchableOpacity
                 style={[styles.audioPlayBtn, { backgroundColor: colors.surface }]}
@@ -50,6 +51,7 @@ export function AudioClipList({ clips, onRemove, onRenameTitle, colors, textStyl
                   style={[styles.audioTitleInput, { color: colors.text, borderColor: colors.surface, flex: 1 }]}
                   value={clip.title}
                   onChangeText={v => onRenameTitle(clip.id, v)}
+                  onFocus={onTitleFocus}
                   placeholderTextColor={colors.textSecondary}
                 />
               ) : (
@@ -70,7 +72,7 @@ export function AudioClipList({ clips, onRemove, onRenameTitle, colors, textStyl
             </View>
 
             <View style={[styles.audioProgressTrack, { backgroundColor: colors.surface }]}>
-              <View style={[styles.audioProgressFill, { backgroundColor: colors.primary, width: `${progress * 100}%` }]} />
+              <View style={[styles.audioProgressFill, { backgroundColor: colors.secondary, width: `${progress * 100}%` }]} />
             </View>
           </View>
         );

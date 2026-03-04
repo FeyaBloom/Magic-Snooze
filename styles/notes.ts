@@ -46,7 +46,7 @@ export const createNotesStyles = (colors: ThemeColors) =>
       gap: 10,
       paddingVertical: 14,
       borderRadius: 16,
-      marginBottom: 24,
+      marginVertical: 24,
       alignSelf: 'center',
       paddingHorizontal: 20,
     },
@@ -114,6 +114,9 @@ export const createNotesStyles = (colors: ThemeColors) =>
       alignItems: 'center',
       paddingHorizontal: 20,
       paddingVertical: 0,
+    },
+    modalBackdrop: {
+      ...StyleSheet.absoluteFillObject,
     },
     titleInput: {
       borderWidth: 2,
@@ -255,9 +258,15 @@ export const createNotesStyles = (colors: ThemeColors) =>
 modalContent: {
   width: '100%',
   maxWidth: 600,
-  maxHeight: '80%',
+  height: '92%',
   borderRadius: 24,
   padding: 24,
+},
+formScroll: {
+  flex: 1,
+},
+formScrollContent: {
+  paddingBottom: 8,
 },
 
 // 2. viewModalContent — убрать maxWidth, оставить width: '100%'

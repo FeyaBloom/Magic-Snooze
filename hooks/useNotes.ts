@@ -97,6 +97,71 @@ export function parseTags(raw: string): string[] {
   return result;
 }
 
+function normalizeString(value: unknown, fallback = ''): string {
+  return typeof value === 'string' ? value : fallback;
+}
+
+function normalizeIsoDate(value: unknown, fallback: string): string {
+  if (typeof value !== 'string') return fallback;
+  const time = Date.parse(value);
+  return Number.isNaN(time) ? fallback : new Date(time).toISOString();
+}
+
+function normalizeStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === 'string' && item.length > 0);
+}
+
+function normalizeAudioClips(value: unknown): NoteAudioClip[] {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .map((item, index) => {
+      if (!item || typeof item !== 'object') return null;
+      const clip = item as Partial<NoteAudioClip>;
+      const uri = normalizeString(clip.uri, '');
+      if (!uri) return null;
+
+      const now = new Date().toISOString();
+      const durationValue = typeof clip.durationMs === 'number' && Number.isFinite(clip.durationMs)
+        ? Math.max(0, Math.round(clip.durationMs))
+        : 0;
+
+      return {
+        id: normalizeString(clip.id, `${Date.now()}-${index}`),
+        uri,
+        title: normalizeString(clip.title, 'Voice note') || 'Voice note',
+        durationMs: durationValue,
+        createdAt: normalizeIsoDate(clip.createdAt, now),
+      } satisfies NoteAudioClip;
+    })
+    .filter((clip): clip is NoteAudioClip => !!clip);
+}
+
+function normalizeNote(item: unknown, index: number): Note | null {
+  if (!item || typeof item !== 'object') return null;
+  const note = item as Partial<Note>;
+
+  const now = new Date().toISOString();
+  const createdAt = normalizeIsoDate(note.createdAt, now);
+  const updatedAt = normalizeIsoDate(note.updatedAt, createdAt);
+
+  const rawTags = Array.isArray(note.tags)
+    ? note.tags.filter((tag): tag is string => typeof tag === 'string').join(',')
+    : normalizeString(note.tags, '');
+
+  return {
+    id: normalizeString(note.id, `${Date.now()}-${index}`),
+    title: normalizeString(note.title, '').trim() || 'Untitled',
+    content: normalizeString(note.content, ''),
+    tags: parseTags(rawTags),
+    mediaUris: normalizeStringArray(note.mediaUris),
+    audioClips: normalizeAudioClips(note.audioClips),
+    createdAt,
+    updatedAt,
+  };
+}
+
 // ─── hook ─────────────────────────────────────────────────────────────────────
 
 export function useNotes() {
@@ -118,10 +183,21 @@ export function useNotes() {
       try {
         const raw = await AsyncStorage.getItem(STORAGE_KEY);
         if (!raw) return;
-        const parsed: Note[] = JSON.parse(raw);
-        const sorted = parsed.sort(
+        const parsedUnknown = JSON.parse(raw);
+        const parsedArray = Array.isArray(parsedUnknown) ? parsedUnknown : [];
+        const normalized = parsedArray
+          .map((item, index) => normalizeNote(item, index))
+          .filter((item): item is Note => !!item);
+
+        const sorted = normalized.sort(
           (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
         );
+
+        const normalizedRaw = JSON.stringify(sorted);
+        if (normalizedRaw !== raw) {
+          await AsyncStorage.setItem(STORAGE_KEY, normalizedRaw);
+        }
+
         if (!cancelled) setNotes(sorted);
       } catch (e) {
         console.error('useNotes load error:', e);

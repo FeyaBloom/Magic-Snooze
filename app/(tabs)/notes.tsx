@@ -112,19 +112,27 @@ export default function NotesScreen() {
             />
           </View>
 
+          {/* add button */}
+          <TouchableOpacity
+            style={[styles.addNoteButton, { backgroundColor: colors.primary }]}
+            onPress={() => { setEditingNote(null); setShowForm(true); }}
+            activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
+          >
+            <Plus size={22} color={colors.surface} />
+            <Text style={[textStyles.button, { color: colors.surface }]}>{t('notes.addButton')}</Text>
+          </TouchableOpacity>
+
+
           {/* tag cloud */}
           {tagCloud.length > 0 && (
             <View style={styles.tagsCloudSection}>
-              <Text style={[textStyles.caption, { color: colors.textSecondary, marginBottom: 8 }]}>
-                {t('notes.tagsCloudTitle')}
-              </Text>
               <View style={styles.tagsWrap}>
-                {[{ tag: null, label: t('notes.allTags') }, ...tagCloud.map(tc => ({ tag: tc.tag, label: `#${tc.tag} · ${tc.count}` }))].map(({ tag, label }) => {
+                {[{ tag: null, label: t('notes.allTags') }, ...tagCloud.map(tc => ({ tag: tc.tag, label: `${tc.tag} · ${tc.count}` }))].map(({ tag, label }) => {
                   const active = tagFilter === tag;
                   return (
                     <TouchableOpacity
                       key={tag ?? '__all'}
-                      style={[styles.tagChip, { backgroundColor: active ? colors.primary : colors.surface }]}
+                      style={[styles.tagChip, { backgroundColor: active ? colors.secondary : colors.surface }]}
                       onPress={() => setTagFilter(active ? null : tag)}
                       activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
                     >
@@ -138,15 +146,6 @@ export default function NotesScreen() {
             </View>
           )}
 
-          {/* add button */}
-          <TouchableOpacity
-            style={[styles.addNoteButton, { backgroundColor: colors.primary }]}
-            onPress={() => { setEditingNote(null); setShowForm(true); }}
-            activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
-          >
-            <Plus size={22} color={colors.surface} />
-            <Text style={[textStyles.button, { color: colors.surface }]}>{t('notes.addButton')}</Text>
-          </TouchableOpacity>
 
           {/* notes list */}
           {filtered.length > 0 ? (
@@ -169,8 +168,8 @@ export default function NotesScreen() {
                     {note.tags.length > 0 && (
                       <View style={styles.noteTagsRow}>
                         {note.tags.slice(0, 4).map(tag => (
-                          <View key={tag} style={[styles.noteTag, { backgroundColor: colors.background[0] }]}>
-                            <Text style={[textStyles.caption, { color: colors.textSecondary }]}>#{tag}</Text>
+                          <View key={tag} style={[styles.noteTag, { backgroundColor: `${colors.secondary}80` }]}>
+                            <Text style={[textStyles.caption, { color: colors.textSecondary }]}>{tag}</Text>
                           </View>
                         ))}
                       </View>
@@ -259,8 +258,8 @@ export default function NotesScreen() {
               {(viewingNote?.tags ?? []).length > 0 && (
                 <View style={styles.noteTagsRow}>
                   {viewingNote!.tags.map(tag => (
-                    <View key={tag} style={[styles.noteTag, { backgroundColor: colors.background[0] }]}>
-                      <Text style={[textStyles.caption, { color: colors.textSecondary }]}>#{tag}</Text>
+                    <View key={tag} style={[styles.noteTag, { backgroundColor: `${colors.secondary}80` }]}> 
+                      <Text style={[textStyles.caption, { color: colors.textSecondary }]}>{tag}</Text>
                     </View>
                   ))}
                 </View>
@@ -301,11 +300,11 @@ export default function NotesScreen() {
             </ScrollView>
 
             <TouchableOpacity
-              style={[styles.closeButton, { backgroundColor: colors.background[0] }]}
+              style={[styles.closeButton, { backgroundColor: colors.primary }]}
               onPress={() => setViewingNote(null)}
               activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
             >
-              <Text style={[textStyles.button, { color: colors.text }]}>{t('common.close')}</Text>
+              <Text style={[textStyles.button, { color: colors.surface }]}>{t('common.close')}</Text>
             </TouchableOpacity>
           </View>
         </View>

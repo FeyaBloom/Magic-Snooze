@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Modal, View, Text, TextInput, TouchableOpacity, ScrollView,
-  Image, KeyboardAvoidingView, TouchableWithoutFeedback,
-  Keyboard, StyleSheet, Platform,
+  Image, KeyboardAvoidingView, Keyboard, Platform, Pressable,
 } from 'react-native';
 import { Mic, Square, Trash2 } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -40,6 +39,7 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
   const [tagsInput, setTagsInput] = useState('');
   const [images, setImages] = useState<string[]>([]);
   const [clips, setClips] = useState<NoteAudioClip[]>([]);
+  const formScrollRef = useRef<ScrollView>(null);
 
   const recorder = useNoteAudioRecorder(t('notes.audioDefaultTitle'));
 
@@ -122,17 +122,29 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
   const renameClip = (id: string, title: string) =>
     setClips(prev => prev.map(c => c.id === id ? { ...c, title: title || t('notes.audioDefaultTitle') } : c));
 
+  const scrollToBottom = useCallback(() => {
+    setTimeout(() => {
+      formScrollRef.current?.scrollToEnd({ animated: true });
+    }, 120);
+  }, []);
+
+  const scrollSlightlyDown = useCallback(() => {
+    setTimeout(() => {
+      formScrollRef.current?.scrollTo({ y: 140, animated: true });
+    }, 120);
+  }, []);
+
   // ── render ───────────────────────────────────────────────────────────────────
 
   return (
     <Modal visible={visible} animationType="fade" transparent statusBarTranslucent>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView
-          style={styles.modalOverlay}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        >
-          <TouchableWithoutFeedback>
-            <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
+      <KeyboardAvoidingView
+        style={styles.modalOverlay}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 8 : 0}
+      >
+        <Pressable style={styles.modalBackdrop} onPress={Keyboard.dismiss} />
+        <View style={[styles.modalContent, { backgroundColor: colors.surface }]}> 
               {/* header */}
               <View style={styles.modalHeader}>
                 <Text style={[textStyles.h2, { color: colors.text, textAlign: 'center' }]}>
@@ -145,7 +157,15 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
                 )}
               </View>
 
-              <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+              <ScrollView
+                ref={formScrollRef}
+                style={styles.formScroll}
+                contentContainerStyle={styles.formScrollContent}
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+                keyboardDismissMode={Platform.OS === 'ios' ? 'interactive' : 'on-drag'}
+                nestedScrollEnabled
+              >
                 <TextInput
                   style={[styles.titleInput, { color: colors.text, borderColor: colors.primary }]}
                   placeholder={t('notes.titlePlaceholder')}
@@ -166,6 +186,7 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
                   placeholderTextColor={colors.textSecondary}
                   value={content}
                   onChangeText={setContent}
+                  onFocus={scrollSlightlyDown}
                   multiline
                   scrollEnabled
                   autoFocus={!isEdit}
@@ -182,12 +203,12 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
                     </Text>
                   </View>
                   <TouchableOpacity
-                    style={[styles.mediaAddButton, { backgroundColor: colors.background[0], opacity: images.length >= MAX_IMAGES ? 0.4 : 1 }]}
+                    style={[styles.mediaAddButton, { backgroundColor: `${colors.secondary}80`, opacity: images.length >= MAX_IMAGES ? 0.4 : 1 }]}
                     onPress={pickImages}
                     disabled={images.length >= MAX_IMAGES}
                     activeOpacity={0.7}
                   >
-                    <Text style={[textStyles.caption, { color: colors.text }]}>{t('notes.addImageButton')}</Text>
+                    <Text style={[textStyles.caption, { color: colors.surface }]}>{t('notes.addImageButton')}</Text>
                   </TouchableOpacity>
                   {images.length > 0 && (
                     <View style={styles.modalMediaGrid}>
@@ -218,16 +239,16 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                     <TouchableOpacity
-                      style={[styles.mediaAddButton, { backgroundColor: recorder.isRecording ? colors.primary : colors.background[0] }]}
+                      style={[styles.mediaAddButton, { backgroundColor: recorder.isRecording ? colors.secondary : `${colors.secondary}80` }]}
                       onPress={handleRecordToggle}
                       activeOpacity={0.7}
                     >
                       {recorder.isRecording
                         ? <Square size={16} color={colors.surface} />
-                        : <Mic size={16} color={colors.text} />}
+                        : <Mic size={16} color={colors.surface} />}
                     </TouchableOpacity>
                     {recorder.isRecording && (
-                      <Text style={[textStyles.caption, { color: colors.primary }]}>
+                      <Text style={[textStyles.caption, { color: colors.secondary }]}>
                         {fmt(recorder.durationMs)} • REC
                       </Text>
                     )}
@@ -236,6 +257,7 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
                     clips={clips}
                     onRemove={removeClip}
                     onRenameTitle={renameClip}
+                    onTitleFocus={scrollToBottom}
                     colors={colors}
                     textStyles={textStyles}
                   />
@@ -245,14 +267,14 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
               {/* footer */}
               <View style={styles.modalButtons}>
                 <TouchableOpacity
-                  style={[styles.modalButton, { backgroundColor: colors.background[0] }]}
+                  style={[styles.modalButton, { backgroundColor: `${colors.primary}80` }]}
                   onPress={handleClose}
                   activeOpacity={0.7}
                 >
                   <Text style={[textStyles.button, { color: colors.text }]}>{t('common.cancel')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={[styles.modalButton, { backgroundColor: colors.primary }]}
+                  style={[styles.modalButton, { backgroundColor: colors.secondary }]}
                   onPress={handleSave}
                   activeOpacity={0.7}
                 >
@@ -261,10 +283,8 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
                   </Text>
                 </TouchableOpacity>
               </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
+        </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }
