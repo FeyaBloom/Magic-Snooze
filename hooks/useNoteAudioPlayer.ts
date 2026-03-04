@@ -1,8 +1,8 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { createAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 
 export function useNoteAudioPlayer() {
-  const playerRef = useRef(createAudioPlayer({ uri: '' }));
+  const playerRef = useRef(createAudioPlayer());
   const [playingUri, setPlayingUri] = useState<string | null>(null);
   const [fallbackDuration, setFallbackDuration] = useState(0);
 
@@ -35,10 +35,18 @@ export function useNoteAudioPlayer() {
     }
   }, [playingUri, stopPlayer]);
 
-  // auto-stop at end
-  if (playingUri && !status?.playing && dur > 0 && pos >= dur - 100) {
-    setPlayingUri(null);
-  }
+  useEffect(() => {
+    if (playingUri && !status?.playing && dur > 0 && pos >= dur - 100) {
+      setPlayingUri(null);
+    }
+  }, [playingUri, status?.playing, dur, pos]);
+
+  useEffect(() => {
+    return () => {
+      stopPlayer();
+      try { playerRef.current.remove(); } catch {}
+    };
+  }, [stopPlayer]);
 
   const isPlaying = (u: string) => playingUri === u;
   const positionMs = (u: string) => playingUri === u ? pos : 0;

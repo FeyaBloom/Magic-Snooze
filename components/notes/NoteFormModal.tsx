@@ -134,7 +134,7 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
           <TouchableWithoutFeedback>
             <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
               {/* header */}
-              <View style={{ marginBottom: 16 }}>
+              <View style={styles.modalHeader}>
                 <Text style={[textStyles.h2, { color: colors.text, textAlign: 'center' }]}>
                   {isEdit ? t('notes.editModalTitle') : t('notes.addModalTitle')}
                 </Text>

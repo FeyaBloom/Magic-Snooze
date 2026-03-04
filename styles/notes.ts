@@ -202,6 +202,12 @@ export const createNotesStyles = (colors: ThemeColors) =>
       flexDirection: 'row',
       gap: 12,
     },
+    modalHeader: {
+      marginBottom: 16,
+      minHeight: 40,
+      justifyContent: 'center',
+      position: 'relative',
+    },
     modalButton: {
       flex: 1,
       paddingVertical: 12,
@@ -210,8 +216,9 @@ export const createNotesStyles = (colors: ThemeColors) =>
     },
     deleteButton: {
       position: 'absolute',
-      top: 16,
-      right: 16,
+      top: '50%',
+      marginTop: -16,
+      right: 0,
       padding: 8,
       zIndex: 10,
     },
