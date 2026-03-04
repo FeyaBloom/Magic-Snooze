@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { Theme } from '@/components/ThemeProvider';
 
-export const createTasksStyles = (colors: Theme['colors']) => StyleSheet.create({
+export const createTasksStyles = (colors: any) => StyleSheet.create({
   addTaskButton: {
     flexDirection: 'row',
     alignItems: 'center',

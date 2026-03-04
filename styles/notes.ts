@@ -115,13 +115,6 @@ export const createNotesStyles = (colors: ThemeColors) =>
       paddingHorizontal: 20,
       paddingVertical: 0,
     },
-    modalContent: {
-      width: '100%',
-      maxWidth: 400,
-      maxHeight: '80%',
-      borderRadius: 24,
-      padding: 24,
-    },
     titleInput: {
       borderWidth: 2,
       borderRadius: 12,
@@ -137,12 +130,6 @@ export const createNotesStyles = (colors: ThemeColors) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-    },
-    mediaAddButton: {
-      alignItems: 'center',
-      borderRadius: 10,
-      paddingVertical: 10,
-      paddingHorizontal: 12,
     },
     modalMediaGrid: {
       flexDirection: 'row',
@@ -228,14 +215,6 @@ export const createNotesStyles = (colors: ThemeColors) =>
       padding: 8,
       zIndex: 10,
     },
-    viewModalContent: {
-      width: '100%',
-      maxWidth: 500,
-      height: '60%',
-      borderRadius: 24,
-      padding: 24,
-      flexDirection: 'column',
-    },
     viewHeader: {
       flexDirection: 'row',
       alignItems: 'flex-start',
@@ -263,9 +242,40 @@ export const createNotesStyles = (colors: ThemeColors) =>
     viewMediaThumb: {
       borderRadius: 10,
     },
-    closeButton: {
-      paddingVertical: 12,
-      borderRadius: 12,
-      alignItems: 'center',
-    },
+
+
+    // 1. modalContent — убрать maxWidth, оставить width: '100%'
+modalContent: {
+  width: '100%',
+  maxWidth: 600,
+  maxHeight: '80%',
+  borderRadius: 24,
+  padding: 24,
+},
+
+// 2. viewModalContent — убрать maxWidth, оставить width: '100%'
+viewModalContent: {
+  width: '100%',
+  maxWidth: 600,
+  height: '60%',
+  borderRadius: 24,
+  padding: 24,
+  flexDirection: 'column',
+},
+
+// 3. mediaAddButton — убрать alignItems center чтоб не растягивалась
+mediaAddButton: {
+  alignSelf: 'flex-start',
+  borderRadius: 10,
+  paddingVertical: 10,
+  paddingHorizontal: 12,
+},
+
+// 4. closeButton — по ширине текста
+closeButton: {
+  alignSelf: 'center',
+  paddingVertical: 12,
+  paddingHorizontal: 24,
+  borderRadius: 12,
+},
   });
