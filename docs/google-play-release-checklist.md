@@ -1,6 +1,6 @@
 # Google Play Release Checklist — Magic Snooze
 
-Last updated: 2026-02-23
+Last updated: 2026-03-04
 
 ## A) Legal & compliance
 - [ ] Privacy Policy published and publicly reachable
@@ -9,6 +9,7 @@ Last updated: 2026-02-23
 - [ ] Ads declaration set correctly (No, if still no ads)
 - [ ] Content rating questionnaire completed
 - [ ] App access section completed (No restrictions, if applicable)
+- [ ] Privacy Policy explicitly covers optional microphone/gallery permissions for Notes
 
 ## B) Store listing assets
 - [ ] App name and short/long descriptions finalized
@@ -31,6 +32,10 @@ Last updated: 2026-02-23
 - [ ] Core tabs work: routines, tasks, notes, calendar, settings
 - [ ] Notification permission flow works (allow/deny)
 - [ ] App remains usable with notifications disabled
+- [ ] Notes media library permission flow works (allow/deny)
+- [ ] Notes microphone permission flow works (allow/deny)
+- [ ] App remains usable if microphone/gallery permissions are denied
+- [ ] Rich notes work: text, image attachments, and voice notes
 - [ ] Language switching works (ca/en/es/ru)
 - [ ] Data reset flow works as expected
 

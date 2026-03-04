@@ -305,9 +305,7 @@ export function ThemeProvider({
     // Определяем тему для splash: если данные еще не загружены, используем авто-определение по времени
     const splashTheme = currentTheme || getCurrentThemeByTime();
     const splashGradient = themes[splashTheme].background;
-    const splashIcon = splashTheme === 'nightforest'
-      ? require('@/assets/icon-dark.png')
-      : require('@/assets/icon.png');
+    const splashIcon = require('@/assets/icon.png');
 
     return (
       <LinearGradient

@@ -1,6 +1,6 @@
 # Google Play Store Copy Pack — Magic Snooze
 
-Last updated: 2026-02-23
+Last updated: 2026-03-04
 
 This file contains ready-to-paste drafts for Google Play Console.
 
@@ -27,7 +27,7 @@ La majoria d’apps d’hàbits castiguen la inconsistència. Magic Snooze fa el
 - Petites Victòries: microcelebracions amb confeti
 - Rutines: flux de matí i vespre amb progrés visual
 - Tasques: pendents puntuals clars, sense saturació
-- Notes: espai ràpid per capturar pensaments importants
+- Notes: text, imatges i notes de veu en un únic espai
 - Jardí de Victòries, assoliments i nivells
 - Recordatoris suaus i opcionals (pots desactivar-los tots)
 
@@ -35,6 +35,7 @@ La majoria d’apps d’hàbits castiguen la inconsistència. Magic Snooze fa el
 - Sense compte
 - Sense backend propi per al teu progrés personal
 - Les teves rutines, tasques, notes i estadístiques es queden al dispositiu
+- Permisos de micròfon i galeria només es demanen quan uses notes de veu o adjuntes imatges
 
 🌍 Idiomes:
 Català, anglès, espanyol i rus.
@@ -62,7 +63,7 @@ Most habit apps punish inconsistency. Magic Snooze does the opposite: it protect
 - Tiny Victories: celebrate micro-wins with confetti
 - Routines: morning and evening flow with visual progress
 - Tasks: clear one-time tasks without overload
-- Notes: quick brain-dump space for important thoughts
+- Notes: text, image attachments, and voice notes in one place
 - Victory Garden, achievements, and level progression
 - Gentle optional reminders (you can disable all notifications)
 
@@ -70,6 +71,7 @@ Most habit apps punish inconsistency. Magic Snooze does the opposite: it protect
 - No account required
 - No custom backend for your progress data
 - Your routines, tasks, notes, and stats stay on your device
+- Microphone and media-library permissions are requested only when you use voice notes or attach images
 
 🌍 Languages:
 Catalan, English, Spanish, Russian.
@@ -97,7 +99,7 @@ A diferencia de otras apps de hábitos que castigan la inconsistencia, Magic Sno
 - Micro-victorias con confeti
 - Rutinas de mañana y noche
 - Tareas puntuales sin sobrecarga
-- Notas rápidas para vaciar la mente
+- Notas de texto con imágenes y notas de voz
 - Jardín de victorias, niveles y logros
 - Recordatorios suaves y opcionales
 
@@ -105,6 +107,7 @@ A diferencia de otras apps de hábitos que castigan la inconsistencia, Magic Sno
 - Sin cuenta
 - Sin servidores propios para tus datos personales de progreso
 - Tus datos se guardan en tu dispositivo
+- Los permisos de micrófono y galería solo se solicitan al grabar audio o adjuntar imágenes
 
 🌍 Idiomas: catalán, inglés, español y ruso.
 
@@ -129,7 +132,7 @@ Magic Snooze — это приложение для продуктивности
 - Маленькие победы: микро-достижения с конфетти
 - Рутина: утро/вечер с наглядным прогрессом
 - Задачи: разовые дела без перегруза
-- Заметки: быстрый захват мыслей, чтобы ничего не потерять
+- Заметки: текст, вложения изображений и голосовые заметки в одном месте
 - Сад побед, достижения и уровни
 - Мягкие напоминания, которые можно полностью отключить
 
@@ -137,6 +140,7 @@ Magic Snooze — это приложение для продуктивности
 - Без аккаунта
 - Без собственного сервера для ваших личных данных прогресса
 - Рутина, задачи, заметки и статистика хранятся на вашем устройстве
+- Доступ к микрофону и галерее запрашивается только при записи голосовой заметки или добавлении изображения
 
 🌍 Языки: каталанский, английский, испанский, русский.
 

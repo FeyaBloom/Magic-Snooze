@@ -29,6 +29,9 @@ Soft reminders only when helpful. No aggressive pings. No anxiety. You can disab
 **💾 Privacy-First**  
 All your data stays on your device. No login, no tracking, no servers. It's your journey, your data.
 
+**🎙️🖼️ Rich Notes**
+Capture text, attach images, and record voice notes in one place. Permissions are requested only when you use these features.
+
 ---
 
 ## Core Features 🌟
@@ -86,7 +89,15 @@ Visual bar chart showing your top 3 most celebrated victories of the month. See 
 - **Primary:** 🇬🇧 English, 🇦🇩 Catalan (català)
 - **Also supported:** 🇪🇸 Spanish (español), 🇷🇺 Russian (русский)
 
-Auto-detects your device language. Switch anytime in settings.
+Auto-detects your device language on first launch. Switch language anytime in settings.
+
+### 📝 **Rich Notes (Text + Images + Voice)**
+Notes support mixed content so you can capture what matters quickly:
+- Text notes for thoughts and reminders
+- Optional image attachments from your gallery
+- Optional voice notes recorded with microphone access
+
+All note content is stored locally on your device.
 
 
 ---
@@ -178,6 +189,18 @@ Contributing translations? I'd love your help! Check `locales/en.json` for the s
 
 ---
 
+## Permissions 📱
+
+Magic Snooze asks for permissions only when needed for specific optional features:
+
+- **Notifications** (`POST_NOTIFICATIONS`, Android): for optional reminders
+- **Microphone**: only when recording voice notes in Notes
+- **Photos / Media Library**: only when attaching images to Notes
+
+If you deny microphone or gallery access, the rest of the app remains fully usable.
+
+---
+
 ## Contributing 🤝
 
 Issues and PRs are welcome! Whether you want to:
@@ -197,8 +220,8 @@ Issues and PRs are welcome! Whether you want to:
 
 I'm open to community ideas! Some thoughts:
 - ☁️ Optional cloud backup (privacy-respecting)
-- 📈 More stats visualizations
-- 🎨 User-created themes
+- 📈 More improved stats visualization
+- 🎨 Customizable order of items in the Note
 
 Have ideas? Open an issue!
 
@@ -238,4 +261,4 @@ If Magic Snooze helps you, consider:
 
 **Made with 💜 for the ADHD community**
 
-*Remember: You're doing better than you think.* ✨
+*Remember: You're doing better than you think.* 🔥

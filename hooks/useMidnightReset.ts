@@ -40,7 +40,7 @@ export function useMidnightReset(config: MidnightResetConfig) {
   }, [config]);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout | null = null;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
     const scheduleNextReset = () => {
       const now = new Date();

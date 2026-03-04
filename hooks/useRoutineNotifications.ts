@@ -8,8 +8,11 @@ const LAST_ROUTINE_REMINDER_DATE_KEY = 'lastRoutineReminderDate';
 const ROUTINE_REMINDER_ID_KEY = 'routineReminderNotificationId';
 const ROUTINE_REMINDER_FOR_DATE_KEY = 'routineReminderForDate';
 
+// Shared lock across hook instances to avoid duplicate scheduling races.
+let routineCheckInFlight = false;
+
 export const useRoutineNotifications = (enabled: boolean) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const lastCheckDate = useRef<string>('');
 
   const cancelPlannedReminder = async () => {
@@ -80,9 +83,11 @@ export const useRoutineNotifications = (enabled: boolean) => {
 
   // Проверка и отправка уведомления
   const checkAndNotify = async () => {
+    if (routineCheckInFlight) return;
+    routineCheckInFlight = true;
+
     try {
       const now = new Date();
-      const hours = now.getHours();
 
       const today = getLocalDateString();
       const reminderAt = new Date(now);
@@ -172,6 +177,8 @@ export const useRoutineNotifications = (enabled: boolean) => {
       await AsyncStorage.setItem(LAST_ROUTINE_REMINDER_DATE_KEY, today);
     } catch (error) {
       console.error('Error checking and notifying:', error);
+    } finally {
+      routineCheckInFlight = false;
     }
   };
 
@@ -192,5 +199,5 @@ export const useRoutineNotifications = (enabled: boolean) => {
     return () => {
       clearInterval(interval);
     };
-  }, [enabled, t]);
+  }, [enabled, i18n.language]);
 };

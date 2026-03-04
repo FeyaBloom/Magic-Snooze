@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Modal, FlatList, DeviceEventEmitter } fro
 import { Check } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getLocales } from 'expo-localization';
 import { useTheme } from './ThemeProvider';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { createSettingsStyles } from '@/styles/settings';
@@ -19,6 +20,21 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const languageCodes: Language[] = ['en', 'ca', 'es', 'ru'];
 const DEFAULT_LANGUAGE: Language = 'ca';
+
+const normalizeLanguageCode = (value?: string | null): Language | null => {
+  if (!value) return null;
+  const normalized = value.toLowerCase().split(/[-_]/)[0];
+  return languageCodes.includes(normalized as Language) ? (normalized as Language) : null;
+};
+
+const detectDeviceLanguage = (): Language => {
+  const primaryLocale = getLocales()[0];
+  return (
+    normalizeLanguageCode(primaryLocale?.languageCode) ??
+    normalizeLanguageCode(primaryLocale?.languageTag) ??
+    DEFAULT_LANGUAGE
+  );
+};
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const { i18n, t } = useTranslation();
@@ -52,8 +68,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         setLanguage(saved as Language);
         await i18n.changeLanguage(saved);
       } else {
-        setLanguage(DEFAULT_LANGUAGE);
-        await i18n.changeLanguage(DEFAULT_LANGUAGE);
+        const detected = detectDeviceLanguage();
+        setLanguage(detected);
+        await i18n.changeLanguage(detected);
+        await AsyncStorage.setItem('selectedLanguage', detected);
       }
     } catch (error) {
       console.error('Error loading language:', error);
