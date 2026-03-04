@@ -23,12 +23,12 @@ export function useNoteAudioPlayer() {
     try {
       playerRef.current.replace({ uri });
       setFallbackDuration(fallbackDurationMs);
-      setPlayingUri(uri);
 
       // Wait 6s for player to load metadata before starting
       await new Promise<void>(resolve => setTimeout(resolve, 6000));
 
       playerRef.current.play();
+      setPlayingUri(uri);
     } catch (e) {
       console.error('audio player error:', e);
       stopPlayer();
