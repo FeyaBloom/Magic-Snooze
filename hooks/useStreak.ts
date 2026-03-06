@@ -306,45 +306,69 @@ export function useStreak() {
       const firstDay = new Date(year, month, 1);
       const lastDay = new Date(year, month + 1, 0);
 
+      const storedStreak = await AsyncStorage.getItem('streakData');
+      const parsedStreak = storedStreak ? JSON.parse(storedStreak) : {};
+      const freezeDatesSet = new Set<string>(Array.isArray(parsedStreak.freezeDates) ? parsedStreak.freezeDates : []);
+
+      const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
+      const allTasks = tasksStr ? JSON.parse(tasksStr) : [];
+      const completedTasksByDate: Record<string, number> = {};
+      for (const task of allTasks) {
+        if (!task.completed) continue;
+        if (task.completedAt) {
+          completedTasksByDate[task.completedAt] = (completedTasksByDate[task.completedAt] || 0) + 1;
+        }
+        if (task.dueDate) {
+          completedTasksByDate[task.dueDate] = (completedTasksByDate[task.dueDate] || 0) + 1;
+        }
+      }
+
+      const monthDates: string[] = [];
+      for (let d = new Date(firstDay); d <= lastDay; d.setDate(d.getDate() + 1)) {
+        monthDates.push(getLocalDateString(d));
+      }
+
+      const [progressPairs, victoriesPairs] = await Promise.all([
+        AsyncStorage.multiGet(monthDates.map((dateStr) => `progress_${dateStr}`)),
+        AsyncStorage.multiGet(monthDates.map((dateStr) => `victories_${dateStr}`)),
+      ]);
+
+      const progressByDate: Record<string, any> = {};
+      for (const [key, value] of progressPairs) {
+        if (!value) continue;
+        progressByDate[key.replace('progress_', '')] = JSON.parse(value);
+      }
+
+      const victoriesByDate: Record<string, boolean> = {};
+      for (const [key, value] of victoriesPairs) {
+        if (!value) continue;
+        victoriesByDate[key.replace('victories_', '')] = true;
+      }
+
       let maxStreak = 0;
       let currentStreak = 0;
 
-      for (let d = new Date(firstDay); d <= lastDay; d.setDate(d.getDate() + 1)) {
-        const dateStr = getLocalDateString(d);
+      for (const dateStr of monthDates) {
         let dayHasActivity = false;
 
-        const progressKey = `progress_${dateStr}`;
-        const progress = await AsyncStorage.getItem(progressKey);
+        const progress = progressByDate[dateStr];
         if (progress) {
-          const data = JSON.parse(progress);
-          if (data.morningDone > 0 || data.eveningDone > 0 || data.snoozed) {
+          if (progress.morningDone > 0 || progress.eveningDone > 0 || progress.snoozed) {
             dayHasActivity = true;
           }
         }
 
         if (!dayHasActivity) {
-          const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
-          if (tasksStr) {
-            const tasks = JSON.parse(tasksStr);
-            const completedToday = tasks.some((t: any) => {
-              if (!t.completed) return false;
-              if (t.completedAt === dateStr) return true;
-              if (t.dueDate === dateStr) return true;
-              return false;
-            });
-            if (completedToday) dayHasActivity = true;
-          }
+          dayHasActivity = (completedTasksByDate[dateStr] || 0) > 0;
         }
 
-        if (!dayHasActivity) {
-          const victoriesStr = await AsyncStorage.getItem(`victories_${dateStr}`);
-          if (victoriesStr) {
-            dayHasActivity = true;
-          }
-        }
+        if (!dayHasActivity && victoriesByDate[dateStr]) dayHasActivity = true;
 
         if (dayHasActivity) {
           currentStreak += 1;
+          maxStreak = Math.max(maxStreak, currentStreak);
+        } else if (freezeDatesSet.has(dateStr)) {
+          // A freeze preserves the streak but does not increase the streak counter.
           maxStreak = Math.max(maxStreak, currentStreak);
         } else {
           currentStreak = 0;
