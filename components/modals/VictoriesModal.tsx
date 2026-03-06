@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  StatusBar,
 } from 'react-native';
 import { X, Sparkles } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
@@ -54,7 +55,18 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
   };
 
   return (
-    <Modal visible={visible} animationType="fade" transparent={true}>
+    <Modal
+      visible={visible}
+      animationType="fade"
+      transparent={true}
+      statusBarTranslucent
+      onShow={() => StatusBar.setHidden(true, 'none')}
+      onDismiss={() => StatusBar.setHidden(true, 'none')}
+      onRequestClose={() => {
+        StatusBar.setHidden(true, 'none');
+        onClose();
+      }}
+    >
       <View style={styles.overlay}>
         <View style={[styles.container, { backgroundColor: colors.surface }]}>
           {/* Header */}

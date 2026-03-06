@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { View, Text, TouchableOpacity, Modal, FlatList, DeviceEventEmitter } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, FlatList, DeviceEventEmitter, StatusBar } from 'react-native';
 import { Check } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -134,7 +134,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         visible={modalVisible}
         transparent
         animationType="fade"
-        onRequestClose={() => setModalVisible(false)}
+        statusBarTranslucent
+        onShow={() => StatusBar.setHidden(true, 'none')}
+        onDismiss={() => StatusBar.setHidden(true, 'none')}
+        onRequestClose={() => {
+          StatusBar.setHidden(true, 'none');
+          setModalVisible(false);
+        }}
       >
         <TouchableOpacity 
           style={styles.modalOverlay}

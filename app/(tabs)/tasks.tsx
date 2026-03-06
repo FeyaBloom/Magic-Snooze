@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,8 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Platform,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+  StatusBar,
 } from 'react-native';
 import { Plus, Edit, Trash2, Calendar, CalendarCheck, CheckCheck, ChartNoAxesCombined  } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -208,8 +209,25 @@ export default function TasksScreen() {
     return due.getTime() === today.getTime();
   };
 
-  const completedTasks = tasks.filter(task => task.completed);
-  const activeTasks = tasks.filter(task => !task.completed);
+  const activeTasks = useMemo(() => {
+    return tasks
+      .filter(task => !task.completed)
+      .sort((a, b) => {
+        if (a.dueDate && b.dueDate) {
+          const byDueDate = a.dueDate.localeCompare(b.dueDate);
+          if (byDueDate !== 0) return byDueDate;
+        }
+
+        if (a.dueDate && !b.dueDate) return -1;
+        if (!a.dueDate && b.dueDate) return 1;
+
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      });
+  }, [tasks]);
+
+  const completedTasks = useMemo(() => {
+    return tasks.filter(task => task.completed);
+  }, [tasks]);
 
   useEffect(() => {
     loadTasks();
@@ -385,7 +403,18 @@ export default function TasksScreen() {
       </ScrollView>
 
       {/* Add Modal */}
-      <Modal visible={showAddModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
+      <Modal
+        visible={showAddModal}
+        animationType="fade"
+        transparent={true}
+        statusBarTranslucent={true}
+        onShow={() => StatusBar.setHidden(true, 'none')}
+        onDismiss={() => StatusBar.setHidden(true, 'none')}
+        onRequestClose={() => {
+          StatusBar.setHidden(true, 'none');
+          setShowAddModal(false);
+        }}
+      >
         <KeyboardAvoidingView
             behavior="padding"
             keyboardVerticalOffset={0}
@@ -466,7 +495,18 @@ export default function TasksScreen() {
       </Modal>
 
       {/* Edit Modal */}
-      <Modal visible={showEditModal} animationType="fade" transparent={true} statusBarTranslucent={true}>
+      <Modal
+        visible={showEditModal}
+        animationType="fade"
+        transparent={true}
+        statusBarTranslucent={true}
+        onShow={() => StatusBar.setHidden(true, 'none')}
+        onDismiss={() => StatusBar.setHidden(true, 'none')}
+        onRequestClose={() => {
+          StatusBar.setHidden(true, 'none');
+          setShowEditModal(false);
+        }}
+      >
         <KeyboardAvoidingView
             behavior="padding"
             keyboardVerticalOffset={0}

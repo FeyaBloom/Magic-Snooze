@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
-import { Play, Square, Trash2 } from 'lucide-react-native';
+import { Play, Pause, Trash2 } from 'lucide-react-native';
 import { NoteAudioClip } from '@/hooks/useNotes';
 import { useNoteAudioPlayer } from '@/hooks/useNoteAudioPlayer';
 import { createNotesStyles } from '@/styles/notes';
@@ -22,6 +22,7 @@ function fmt(ms: number) {
 export function AudioClipList({ clips, onRemove, onRenameTitle, onTitleFocus, colors, textStyles }: Props) {
   const player = useNoteAudioPlayer();
   const styles = createNotesStyles(colors);
+  const [trackWidths, setTrackWidths] = useState<Record<string, number>>({});
 
   if (!clips.length) return null;
 
@@ -29,6 +30,7 @@ export function AudioClipList({ clips, onRemove, onRenameTitle, onTitleFocus, co
     <View style={styles.audioList}>
       {clips.map(clip => {
         const playing = player.isPlaying(clip.uri);
+        const active = player.isActive(clip.uri);
         const pos = player.positionMs(clip.uri);
         const dur = player.durationMs(clip.uri, clip.durationMs);
         const progress = dur > 0 ? Math.min(1, pos / dur) : 0;
@@ -42,7 +44,7 @@ export function AudioClipList({ clips, onRemove, onRenameTitle, onTitleFocus, co
                 activeOpacity={0.7}
               >
                 {playing
-                  ? <Square size={14} color={colors.text} />
+                  ? <Pause size={14} color={colors.text} />
                   : <Play size={14} color={colors.text} />}
               </TouchableOpacity>
 
@@ -61,7 +63,7 @@ export function AudioClipList({ clips, onRemove, onRenameTitle, onTitleFocus, co
               )}
 
               <Text style={[textStyles.caption, { color: colors.textSecondary }]}>
-                {playing ? `${fmt(pos)} / ${fmt(dur)}` : fmt(dur || clip.durationMs)}
+                {active ? `${fmt(pos)} / ${fmt(dur)}` : fmt(dur || clip.durationMs)}
               </Text>
 
               {onRemove && (
@@ -71,9 +73,25 @@ export function AudioClipList({ clips, onRemove, onRenameTitle, onTitleFocus, co
               )}
             </View>
 
-            <View style={[styles.audioProgressTrack, { backgroundColor: colors.surface }]}>
+            <TouchableOpacity
+              style={[styles.audioProgressTrack, { backgroundColor: colors.surface }]}
+              activeOpacity={0.9}
+              onLayout={(event) => {
+                const width = event.nativeEvent.layout.width;
+                setTrackWidths((prev) => (prev[clip.id] === width ? prev : { ...prev, [clip.id]: width }));
+              }}
+              onPress={(event) => {
+                const width = trackWidths[clip.id] || 0;
+                if (width <= 0 || dur <= 0) return;
+
+                const ratio = Math.max(0, Math.min(1, event.nativeEvent.locationX / width));
+                player.seekToMs(clip.uri, Math.round(dur * ratio), clip.durationMs);
+              }}
+              accessibilityRole="adjustable"
+              accessibilityLabel={clip.title}
+            >
               <View style={[styles.audioProgressFill, { backgroundColor: colors.secondary, width: `${progress * 100}%` }]} />
-            </View>
+            </TouchableOpacity>
           </View>
         );
       })}
