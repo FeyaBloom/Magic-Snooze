@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Modal, View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import QRCode from 'react-native-qrcode-svg';
 import { useTheme } from '@/components/ThemeProvider';
@@ -37,7 +37,18 @@ export function DonationModal({
   };
 
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+    <Modal
+      visible={visible}
+      transparent
+      animationType="slide"
+      statusBarTranslucent
+      onShow={() => StatusBar.setHidden(true, 'none')}
+      onDismiss={() => StatusBar.setHidden(true, 'none')}
+      onRequestClose={() => {
+        StatusBar.setHidden(true, 'none');
+        onClose();
+      }}
+    >
       <View style={styles.overlay}>
         <View style={[styles.modalContainer, { backgroundColor: colors.surface }]}> 
           <Text style={[textStyles.h2, styles.title, { color: colors.text }]}> 

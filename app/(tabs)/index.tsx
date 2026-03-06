@@ -12,7 +12,8 @@ import {
   Platform,
   Keyboard,
   Animated,
-  FlatList
+  FlatList,
+  StatusBar,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Plus, Edit, Trash2, Coffee, Moon, Pause, Sparkles, Trophy } from 'lucide-react-native';
@@ -721,7 +722,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
               accessibilityRole="button"
               accessibilityLabel={t('today.snoozeToday')}
             >
-              <Pause size={20}/>
+              <Pause size={20} color={colors.surface}/>
               <Text style={textStyles.button}>
                 {t('today.snoozeToday')}
               </Text>
@@ -796,6 +797,12 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       animationType="fade" 
       transparent={true} 
       statusBarTranslucent={true}
+      onShow={() => StatusBar.setHidden(true, 'none')}
+      onDismiss={() => StatusBar.setHidden(true, 'none')}
+      onRequestClose={() => {
+        StatusBar.setHidden(true, 'none');
+        setShowAddModal(false);
+      }}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView 
@@ -848,6 +855,12 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       animationType="fade" 
       transparent={true} 
       statusBarTranslucent={true}
+      onShow={() => StatusBar.setHidden(true, 'none')}
+      onDismiss={() => StatusBar.setHidden(true, 'none')}
+      onRequestClose={() => {
+        StatusBar.setHidden(true, 'none');
+        setShowEditModal(false);
+      }}
       >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView 

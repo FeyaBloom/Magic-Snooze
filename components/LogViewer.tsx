@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { Modal, View, Text, ScrollView, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 import { X } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTextStyles } from '@/hooks/useTextStyles';
@@ -103,7 +103,18 @@ export function LogViewer({ visible, onClose }: LogViewerProps) {
   };
 
   return (
-    <Modal visible={visible} animationType="slide" transparent={false} statusBarTranslucent>
+    <Modal
+      visible={visible}
+      animationType="slide"
+      transparent={false}
+      statusBarTranslucent
+      onShow={() => StatusBar.setHidden(true, 'none')}
+      onDismiss={() => StatusBar.setHidden(true, 'none')}
+      onRequestClose={() => {
+        StatusBar.setHidden(true, 'none');
+        onClose();
+      }}
+    >
       <View style={[styles.container, { backgroundColor: colors.surface }]}>
         {/* Header */}
         <View style={[styles.header, { backgroundColor: colors.surface }]}>

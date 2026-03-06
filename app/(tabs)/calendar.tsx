@@ -333,14 +333,10 @@ export default function CalendarScreen() {
           const dateString = getLocalDateString(date);
           const isFrozenDay = (streak.freezeDates || []).includes(dateString);
 
-          // Check for completed tasks
-          const completedTask = (tasksByDate.completed[dateString] || 0) > 0;
-
           // Check for planned (not completed) tasks
           const plannedTask = (tasksByDate.planned[dateString] || 0) > 0;
 
-          // Show completed task icon if any, otherwise show planned task icon
-          const icon = completedTask ? '✅' : plannedTask ? '📋' : null;
+          const icon = plannedTask ? '📋' : null;
           const freezeIcon = isFrozenDay ? '🧊' : null;
 
           return icon || freezeIcon ? (

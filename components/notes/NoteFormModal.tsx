@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Modal, View, Text, TextInput, TouchableOpacity, ScrollView,
-  Image, KeyboardAvoidingView, Keyboard, Platform, Pressable,
+  Image, KeyboardAvoidingView, Keyboard, Platform, Pressable, StatusBar,
 } from 'react-native';
 import { Mic, Square, Trash2 } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -137,7 +137,18 @@ export function NoteFormModal({ visible, note, onSave, onDelete, onClose, colors
   // ── render ───────────────────────────────────────────────────────────────────
 
   return (
-    <Modal visible={visible} animationType="fade" transparent statusBarTranslucent>
+    <Modal
+      visible={visible}
+      animationType="fade"
+      transparent
+      statusBarTranslucent
+      onShow={() => StatusBar.setHidden(true, 'none')}
+      onDismiss={() => StatusBar.setHidden(true, 'none')}
+      onRequestClose={() => {
+        StatusBar.setHidden(true, 'none');
+        handleClose();
+      }}
+    >
       <KeyboardAvoidingView
         style={styles.modalOverlay}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

@@ -3,6 +3,7 @@ import {
   View, Text, ScrollView, TouchableOpacity,
   TextInput, Modal, Image, TouchableWithoutFeedback,
   useWindowDimensions,
+  StatusBar,
 } from 'react-native';
 import { Plus, Edit, Search, BookOpen } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
@@ -235,7 +236,18 @@ export default function NotesScreen() {
       />
 
       {/* view modal */}
-      <Modal visible={!!viewingNote} animationType="fade" transparent statusBarTranslucent>
+      <Modal
+        visible={!!viewingNote}
+        animationType="fade"
+        transparent
+        statusBarTranslucent
+        onShow={() => StatusBar.setHidden(true, 'none')}
+        onDismiss={() => StatusBar.setHidden(true, 'none')}
+        onRequestClose={() => {
+          StatusBar.setHidden(true, 'none');
+          setViewingNote(null);
+        }}
+      >
         <View style={styles.modalOverlay}>
           <View style={[styles.viewModalContent, { backgroundColor: colors.surface }]}>
             <View style={styles.viewHeader}>
@@ -311,7 +323,18 @@ export default function NotesScreen() {
       </Modal>
 
       {/* image preview */}
-      <Modal visible={!!previewUri} animationType="fade" transparent statusBarTranslucent>
+      <Modal
+        visible={!!previewUri}
+        animationType="fade"
+        transparent
+        statusBarTranslucent
+        onShow={() => StatusBar.setHidden(true, 'none')}
+        onDismiss={() => StatusBar.setHidden(true, 'none')}
+        onRequestClose={() => {
+          StatusBar.setHidden(true, 'none');
+          setPreviewUri(null);
+        }}
+      >
         <TouchableWithoutFeedback onPress={() => setPreviewUri(null)}>
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.92)', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 12 }}>
             {previewUri && (
