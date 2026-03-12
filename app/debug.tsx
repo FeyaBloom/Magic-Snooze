@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 import { ChevronLeft } from 'lucide-react-native';
 
 interface StorageData {
@@ -24,11 +25,44 @@ export default function DebugScreen() {
   const [loading, setLoading] = useState(true);
   const [weekDebug, setWeekDebug] = useState<WeekDebugInfo | null>(null);
   const [mockLocale, setMockLocale] = useState<MockLocale>('en');
+  const [notifStatus, setNotifStatus] = useState<{
+    scheduledCount: number;
+    taskIdsCount: number;
+    routineId: string | null;
+    routineForDate: string | null;
+    lastReminderDate: string | null;
+    checkedAt: string;
+  } | null>(null);
+
+  const loadNotificationStatus = async () => {
+    try {
+      const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+      const entries = await AsyncStorage.multiGet([
+        'taskNotificationIds',
+        'routineReminderNotificationId',
+        'routineReminderForDate',
+        'lastRoutineReminderDate',
+      ]);
+      const [taskIdsStr, routineId, routineForDate, lastReminderDate] = entries.map(([, v]) => v);
+      const taskIds: Record<string, string[]> = taskIdsStr ? JSON.parse(taskIdsStr) : {};
+      setNotifStatus({
+        scheduledCount: scheduled.length,
+        taskIdsCount: Object.values(taskIds).flat().length,
+        routineId,
+        routineForDate,
+        lastReminderDate,
+        checkedAt: new Date().toLocaleTimeString(),
+      });
+    } catch (e) {
+      console.error('Error loading notification status', e);
+    }
+  };
 
   useEffect(() => {
     loadAllData();
     calculateWeekDebug();
-  }, []);
+    loadNotificationStatus();
+  }, [])
 
   const calculateWeekDebug = () => {
     const now = new Date();
@@ -842,6 +876,24 @@ export default function DebugScreen() {
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={true}>
+        {/* Notification Status */}
+        {notifStatus && (
+          <View style={[styles.dataItem, { borderLeftColor: '#6366F1', marginBottom: 16 }]}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <Text style={[styles.keyText, { fontSize: 16 }]}>🔔 Notification Status</Text>
+              <TouchableOpacity onPress={loadNotificationStatus} style={{ paddingHorizontal: 8, paddingVertical: 2, backgroundColor: '#6366F1', borderRadius: 6 }}>
+                <Text style={{ color: '#fff', fontSize: 11 }}>Refresh</Text>
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.debugText}>Scheduled in system: {notifStatus.scheduledCount}</Text>
+            <Text style={styles.debugText}>Task IDs in storage: {notifStatus.taskIdsCount}</Text>
+            <Text style={styles.debugText}>Routine ID: {notifStatus.routineId ?? '—'}</Text>
+            <Text style={styles.debugText}>Routine for date: {notifStatus.routineForDate ?? '—'}</Text>
+            <Text style={styles.debugText}>Last reminder sent: {notifStatus.lastReminderDate ?? '—'}</Text>
+            <Text style={[styles.debugText, { color: '#9CA3AF', marginTop: 4 }]}>Checked at {notifStatus.checkedAt}</Text>
+          </View>
+        )}
+
         {/* Week Debug Info */}
         {weekDebug && (
           <View style={[styles.dataItem, { borderLeftColor: '#10B981', marginBottom: 16 }]}>

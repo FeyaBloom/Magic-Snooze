@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { AppState } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +19,17 @@ export const useTaskNotifications = (tasks: Task[], enabled: boolean) => {
   const { t, i18n } = useTranslation();
 
   const NOTIFICATION_IDS_KEY = 'taskNotificationIds';
+
+  // Android 15: сбрасываем хэш при возврате в foreground, чтобы
+  // пересчитать уведомления — AlarmManager сбрасывает их после ребута.
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') {
+        lastTasksHash.current = '';
+      }
+    });
+    return () => sub.remove();
+  }, [])
 
   useEffect(() => {
     if (!enabled) {

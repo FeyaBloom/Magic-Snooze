@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { AppState } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
@@ -193,11 +194,20 @@ export const useRoutineNotifications = (enabled: boolean) => {
       checkAndNotify();
     }, 60 * 1000);
 
+    // Android 15: проверяем при возврате в foreground сразу,
+    // не дожидаясь следующего тика интервала.
+    const appStateSub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') {
+        checkAndNotify();
+      }
+    });
+
     // Проверяем сразу при монтировании
     checkAndNotify();
 
     return () => {
       clearInterval(interval);
+      appStateSub.remove();
     };
   }, [enabled, i18n.language]);
 };
