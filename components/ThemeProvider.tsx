@@ -33,12 +33,12 @@ interface ThemeColors {
 const themes: Record<ThemeMode, ThemeColors> = {
   daydream: {
     primary: '#EC4899',
-    secondary: '#8B5CF6',
+    secondary: '#8c5df5',
     background: ['#FFE5E5', '#E5F3FF', '#F3E5FF'],
     surface: '#FFFFFF',
     text: '#6d6d6d',
     textSecondary: '#6B7280',
-    accent: '#F59E0B',
+    accent: '#FBbf24',
   },
   nightforest: {
     secondary: '#10B981',

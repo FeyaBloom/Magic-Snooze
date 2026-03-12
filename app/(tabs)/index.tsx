@@ -114,7 +114,7 @@ export default function TodayScreen() {
   const { colors, currentTheme, setThemeManual, isMessyMode } = useTheme();
   
   const { progress: todayProgress, loadProgress, saveProgress, getLocalDateString } = useDailyProgress();
-  const { celebrateVictory, resetVictories } = useVictories();
+  const { celebratedVictories, celebrateVictory, resetVictories, loadCelebratedVictories } = useVictories();
   const { snoozeDay: blockDay, unsnoozeDay: unblockDay } = useRoutinesBlock();
   const { updateStreak } = useStreak();
   const streakUpdateTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -552,7 +552,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
   };
 
   updateDefaultRoutines();
-}, [i18n.language]); 
+}, [i18n.language, morningRoutine.length, eveningRoutine.length]); 
 
   // Render routine section
   const renderRoutineSection = (
@@ -647,8 +647,8 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
                 borderRadius: 12,
                 backgroundColor: colors.surface,
                 // @ts-ignore
-                boxShadow: `0 2px 6px ${colors.secondary}22`,
-                opacity: 0.82,
+                //boxShadow: `0 2px 6px ${colors.secondary}22`,
+                opacity: 0.7,
               }}
             >
               <Text
@@ -673,7 +673,10 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
                 paddingHorizontal: 40,
                 borderRadius: 16,
               }}
-              onPress={() => setShowTinyVictories(true)}
+              onPress={async () => {
+                await loadCelebratedVictories();
+                setShowTinyVictories(true);
+              }}
               activeOpacity={TOUCHABLE_CONFIG.activeOpacity}
               accessibilityRole="button"
               accessibilityLabel={t('today.tinyVictories')}
@@ -758,7 +761,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
             t('today.eveningRoutine'),
             eveningRoutine,
             'evening',
-            <Moon size={20} color="#8B5CF6" />
+            <Moon size={20} color="#6366f1" />
           )}
 
         </ContentContainer>
@@ -789,6 +792,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       <VictoriesModal
         visible={showTinyVictories}
         onClose={() => setShowTinyVictories(false)}
+        celebratedVictories={celebratedVictories}
         onVictoryPress={celebrateVictory}
       />
 

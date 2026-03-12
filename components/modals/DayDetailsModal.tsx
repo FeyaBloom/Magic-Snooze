@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Modal,
   View,
@@ -161,7 +161,14 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
       console.error('Error loading day data:', error);
     }
   };
+  const victoriesWithCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    victories.forEach((victoryId) => {
+      counts.set(victoryId, (counts.get(victoryId) || 0) + 1);
+    });
 
+    return Array.from(counts.entries()).map(([id, count]) => ({ id, count }));
+  }, [victories]);
 
   if (!date) return null;
 
@@ -323,7 +330,7 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
             )}
 
             {/* Victories */}
-            {victories.length > 0 && (
+            {victoriesWithCounts.length > 0 && (
               <View style={styles.section}>
                 <View style={styles.sectionHeader}>
                   <Text style={styles.victoryEmoji}>🎉</Text>
@@ -331,11 +338,11 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
                     {t('today.tinyVictories')}
                   </Text>
                 </View>
-                {victories.map((victoryId, index) => (
+                {victoriesWithCounts.map((victory, index) => (
                   <View key={index} style={styles.listItem}>
                     <Text style={styles.victoryBullet}>•</Text>
                     <Text style={[styles.listItemText, { color: colors.text }]}>
-                      {t(`today.${victoryId}`)}
+                      {t(`today.${victory.id}`)} ×{victory.count}
                     </Text>
                   </View>
                 ))}

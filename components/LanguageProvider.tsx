@@ -3,12 +3,12 @@ import { View, Text, TouchableOpacity, Modal, FlatList, DeviceEventEmitter, Stat
 import { Check } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getLocales } from 'expo-localization';
 import { useTheme } from './ThemeProvider';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { createSettingsStyles } from '@/styles/settings';
+import { AppLanguage, SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, detectDeviceLanguage } from '@/utils/language';
 
-type Language = 'en' | 'ca' | 'es' | 'ru';
+type Language = AppLanguage;
 
 interface LanguageContextType {
   language: Language;
@@ -17,24 +17,6 @@ interface LanguageContextType {
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
-
-const languageCodes: Language[] = ['en', 'ca', 'es', 'ru'];
-const DEFAULT_LANGUAGE: Language = 'ca';
-
-const normalizeLanguageCode = (value?: string | null): Language | null => {
-  if (!value) return null;
-  const normalized = value.toLowerCase().split(/[-_]/)[0];
-  return languageCodes.includes(normalized as Language) ? (normalized as Language) : null;
-};
-
-const detectDeviceLanguage = (): Language => {
-  const primaryLocale = getLocales()[0];
-  return (
-    normalizeLanguageCode(primaryLocale?.languageCode) ??
-    normalizeLanguageCode(primaryLocale?.languageTag) ??
-    DEFAULT_LANGUAGE
-  );
-};
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const { i18n, t } = useTranslation();
@@ -64,7 +46,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const loadLanguage = async () => {
     try {
       const saved = await AsyncStorage.getItem('selectedLanguage');
-      if (saved && languageCodes.includes(saved as Language)) {
+      if (saved && SUPPORTED_LANGUAGES.includes(saved as Language)) {
         setLanguage(saved as Language);
         await i18n.changeLanguage(saved);
       } else {
@@ -93,7 +75,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     setModalVisible(true);
   };
 
-  const languages = languageCodes.map((code) => ({
+  const languages = SUPPORTED_LANGUAGES.map((code) => ({
     code,
     flag: t(`languages.${code}.flag`),
     name: t(`languages.${code}.name`),

@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Modal,
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
   StatusBar,
 } from 'react-native';
-import { X, Sparkles } from 'lucide-react-native';
+import { Sparkles } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
 import LottieView from 'lottie-react-native';
@@ -17,16 +16,14 @@ import ConfettiJSON from '@/assets/animations/confetti.json';
 interface Props {
   visible: boolean;
   onClose: () => void;
+  celebratedVictories: string[];
   onVictoryPress: (text: string) => Promise<string[]> | void;
 }
 
-const { width } = Dimensions.get('window');
-
-export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
+export function VictoriesModal({ visible, onClose, celebratedVictories, onVictoryPress }: Props) {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const [showConfetti, setShowConfetti] = useState(false);
-  const [celebratedToday, setCelebratedToday] = useState<string[]>([]);
 
   const victories = [
     { id: 'bed', text: t('today.bed'), emoji: '🛏️' },
@@ -39,14 +36,22 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
     { id: 'food', text: t('today.food'), emoji: '⏸️' },
   ];
 
+  const victoriesCount = useMemo(() => {
+    return celebratedVictories.reduce<Record<string, number>>((acc, victoryId) => {
+      acc[victoryId] = (acc[victoryId] || 0) + 1;
+      return acc;
+    }, {});
+  }, [celebratedVictories]);
+
   const handleVictory = async (victoryId: string) => {
-    if (celebratedToday.includes(victoryId)) return;
+    const currentCount = victoriesCount[victoryId] || 0;
+
+    // "Slept well" is limited to one celebration per day.
+    if (victoryId === 'bed' && currentCount > 0) return;
 
     try {
       await onVictoryPress(victoryId);
-      setCelebratedToday(prev => [...prev, victoryId]);
-      
-      // show confetti
+
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 2000);
     } catch (error) {
@@ -82,7 +87,10 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
           {/* Grid 2x4 */}
           <View style={styles.grid}>
             {victories.map((victory, index) => {
-              const isCelebrated = celebratedToday.includes(victory.id);
+              const count = victoriesCount[victory.id] || 0;
+              const isCelebrated = count > 0;
+              const isDisabled = victory.id === 'bed' && count > 0;
+
               return (
                 <TouchableOpacity
                   key={index}
@@ -95,15 +103,20 @@ export function VictoriesModal({ visible, onClose, onVictoryPress }: Props) {
                     }
                   ]}
                   onPress={() => handleVictory(victory.id)}
-                  disabled={isCelebrated}
+                  disabled={isDisabled}
                   activeOpacity={0.7}
                   accessibilityRole="button"
-                  accessibilityLabel={victory.text}
+                  accessibilityLabel={`${victory.text}. ${count}`}
                 >
                   <Text style={styles.emoji}>{victory.emoji}</Text>
                   <Text style={[styles.buttonText, { color: colors.text }]}>
                     {victory.text}
                   </Text>
+                  {count > 0 && (
+                    <View style={[styles.counterBadge, { backgroundColor: colors.primary }]}> 
+                      <Text style={[styles.counterText, { color: colors.surface }]}>{count}</Text>
+                    </View>
+                  )}
                   {isCelebrated && (
                     <Text style={[styles.checkmark, { color: colors.primary }]}>✓</Text>
                   )}
@@ -172,15 +185,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
   },
-grid: {
+  grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     marginBottom: 24,
   },
   button: {
     width: '48%',
-    aspectRatio: 1.5, 
+    aspectRatio: 1.5,
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
@@ -188,7 +201,7 @@ grid: {
     marginBottom: 12,
     position: 'relative',
   },
-    emoji: {
+  emoji: {
     fontSize: 30,
     marginBottom: 8,
   },
@@ -202,6 +215,22 @@ grid: {
     top: 8,
     right: 8,
     fontSize: 20,
+  },
+  counterBadge: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    minWidth: 22,
+    height: 22,
+    borderRadius: 11,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 6,
+  },
+  counterText: {
+    fontSize: 12,
+    fontWeight: '700',
+    textAlign: 'center',
   },
   closeButton: {
     flexDirection: 'row',

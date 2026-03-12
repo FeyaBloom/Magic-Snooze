@@ -89,6 +89,7 @@
     "title": "Buen día, alma hermosa",
     "subtitle": "Ve paso a paso",
     "subtitleSnoozed": "Te estás tomando un descanso",
+    "gentleFallback": "Si hoy cuesta, abre Pequeñas victorias o Pausa Día.",
     "snoozeToday": "Pausa Día",
     "resumeToday": "Sigue Día",
     "tinyVictories": "Pequeñas victorias",
@@ -228,7 +229,7 @@
       "description": "100 días perfectos"
     },
     "recordHolder": {
-      "name": "Récord",
+      "name": "Recordista",
       "description": "Racha de 30 días"
     },
     "victoryCollector": {

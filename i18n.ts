@@ -5,6 +5,7 @@ import en from '@/locales/en.json';
 import ru from '@/locales/ru.json';
 import es from '@/locales/es.json';
 import ca from '@/locales/ca.json';
+import { detectDeviceLanguage } from '@/utils/language';
 
 i18n
   .use(initReactI18next)
@@ -15,7 +16,7 @@ i18n
       es: { translation: es },
       ca: { translation: ca },
     },
-    lng: 'ca',
+    lng: detectDeviceLanguage(),
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
