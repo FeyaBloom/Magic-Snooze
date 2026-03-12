@@ -21,27 +21,35 @@ function NotificationInitializer() {
   const { shouldShowTasks, shouldShowRoutines } = useNotifications();
   const [tasks, setTasks] = useState([]);
 
-  // Загружаем задачи для уведомлений
-  useEffect(() => {
-    const loadTasks = async () => {
-      try {
-        const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
-        const allTasks = tasksStr ? JSON.parse(tasksStr) : [];
-        setTasks(allTasks);
-      } catch (error) {
-        console.error('Error loading tasks:', error);
-      }
-    };
+  const loadTasks = useCallback(async () => {
+    try {
+      const tasksStr = await AsyncStorage.getItem('oneTimeTasks');
+      const allTasks = tasksStr ? JSON.parse(tasksStr) : [];
+      setTasks(allTasks);
+    } catch (error) {
+      console.error('Error loading tasks:', error);
+    }
+  }, []);
 
+  useEffect(() => {
     loadTasks();
 
     // Подписываемся на изменения задач в реальном времени
-    const subscription = DeviceEventEmitter.addListener('tasksChanged', loadTasks);
+    const taskSubscription = DeviceEventEmitter.addListener('tasksChanged', loadTasks);
+
+    // Android 15: при возврате приложения в foreground перезагружаем задачи,
+    // чтобы пересчитать уведомления — AlarmManager сбрасывает их после ребута.
+    const appStateSubscription = AppState.addEventListener('change', (nextState) => {
+      if (nextState === 'active') {
+        loadTasks();
+      }
+    });
 
     return () => {
-      subscription.remove();
+      taskSubscription.remove();
+      appStateSubscription.remove();
     };
-  }, []);
+  }, [loadTasks]);
 
   // Инициализация уведомлений
   useTaskNotifications(tasks, shouldShowTasks);
