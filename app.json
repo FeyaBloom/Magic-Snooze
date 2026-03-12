@@ -83,7 +83,8 @@
       ],
       "expo-audio",
       "expo-asset",
-      "expo-image-picker"
+      "expo-image-picker",
+      "./plugins/withBootReceiver"
     ],
     "experiments": {
       "typedRoutes": true
