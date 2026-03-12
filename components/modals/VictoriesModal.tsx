@@ -5,7 +5,6 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  StatusBar,
 } from 'react-native';
 import { Sparkles } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
@@ -65,10 +64,7 @@ export function VictoriesModal({ visible, onClose, celebratedVictories, onVictor
       animationType="fade"
       transparent={true}
       statusBarTranslucent
-      onShow={() => StatusBar.setHidden(true, 'none')}
-      onDismiss={() => StatusBar.setHidden(true, 'none')}
       onRequestClose={() => {
-        StatusBar.setHidden(true, 'none');
         onClose();
       }}
     >

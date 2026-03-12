@@ -50,12 +50,6 @@
         }
       ],
       [
-        "expo-navigation-bar",
-        {
-          "visibility": "hidden"
-        }
-      ],
-      [
         "expo-font",
         {
           "assets": [

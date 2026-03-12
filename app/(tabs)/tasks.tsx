@@ -10,7 +10,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   DeviceEventEmitter,
-  StatusBar,
 } from 'react-native';
 import { Plus, Edit, Trash2, Calendar, CalendarCheck, CheckCheck, ChartNoAxesCombined  } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -408,10 +407,7 @@ export default function TasksScreen() {
         animationType="fade"
         transparent={true}
         statusBarTranslucent={true}
-        onShow={() => StatusBar.setHidden(true, 'none')}
-        onDismiss={() => StatusBar.setHidden(true, 'none')}
         onRequestClose={() => {
-          StatusBar.setHidden(true, 'none');
           setShowAddModal(false);
         }}
       >
@@ -500,10 +496,7 @@ export default function TasksScreen() {
         animationType="fade"
         transparent={true}
         statusBarTranslucent={true}
-        onShow={() => StatusBar.setHidden(true, 'none')}
-        onDismiss={() => StatusBar.setHidden(true, 'none')}
         onRequestClose={() => {
-          StatusBar.setHidden(true, 'none');
           setShowEditModal(false);
         }}
       >

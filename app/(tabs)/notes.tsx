@@ -3,7 +3,6 @@ import {
   View, Text, ScrollView, TouchableOpacity,
   TextInput, Modal, Image, TouchableWithoutFeedback,
   useWindowDimensions,
-  StatusBar,
 } from 'react-native';
 import { Plus, Edit, Search, BookOpen } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
@@ -241,10 +240,7 @@ export default function NotesScreen() {
         animationType="fade"
         transparent
         statusBarTranslucent
-        onShow={() => StatusBar.setHidden(true, 'none')}
-        onDismiss={() => StatusBar.setHidden(true, 'none')}
         onRequestClose={() => {
-          StatusBar.setHidden(true, 'none');
           setViewingNote(null);
         }}
       >
@@ -328,10 +324,7 @@ export default function NotesScreen() {
         animationType="fade"
         transparent
         statusBarTranslucent
-        onShow={() => StatusBar.setHidden(true, 'none')}
-        onDismiss={() => StatusBar.setHidden(true, 'none')}
         onRequestClose={() => {
-          StatusBar.setHidden(true, 'none');
           setPreviewUri(null);
         }}
       >

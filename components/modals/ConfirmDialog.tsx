@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTextStyles } from '@/hooks/useTextStyles';
 import { useTranslation } from 'react-i18next';
@@ -33,8 +33,6 @@ export function ConfirmDialog({
       transparent
       animationType="fade"
       statusBarTranslucent
-      onShow={() => StatusBar.setHidden(true, 'none')}
-      onDismiss={() => StatusBar.setHidden(true, 'none')}
     >
       <View style={styles.overlay}>
         <View style={[styles.dialog, { backgroundColor: colors.surface }]}>

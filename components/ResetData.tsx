@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, DeviceEventEmitter, ScrollView, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, DeviceEventEmitter, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Trash2, RotateCcw, AlertTriangle } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
@@ -174,10 +174,7 @@ export default function ResetDataComponent() {
         animationType="fade"
         transparent={true}
         statusBarTranslucent
-        onShow={() => StatusBar.setHidden(true, 'none')}
-        onDismiss={() => StatusBar.setHidden(true, 'none')}
         onRequestClose={() => {
-          StatusBar.setHidden(true, 'none');
           setShowResetModal(false);
         }}
       >
@@ -319,10 +316,7 @@ export default function ResetDataComponent() {
         animationType="fade"
         transparent={true}
         statusBarTranslucent
-        onShow={() => StatusBar.setHidden(true, 'none')}
-        onDismiss={() => StatusBar.setHidden(true, 'none')}
         onRequestClose={() => {
-          StatusBar.setHidden(true, 'none');
           setShowConfirmDialog(false);
         }}
       >

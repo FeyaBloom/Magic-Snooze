@@ -13,7 +13,6 @@ import {
   Keyboard,
   Animated,
   FlatList,
-  StatusBar,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Plus, Edit, Trash2, Coffee, Moon, Pause, Sparkles, Trophy } from 'lucide-react-native';
@@ -801,10 +800,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       animationType="fade" 
       transparent={true} 
       statusBarTranslucent={true}
-      onShow={() => StatusBar.setHidden(true, 'none')}
-      onDismiss={() => StatusBar.setHidden(true, 'none')}
       onRequestClose={() => {
-        StatusBar.setHidden(true, 'none');
         setShowAddModal(false);
       }}
       >
@@ -859,10 +855,7 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
       animationType="fade" 
       transparent={true} 
       statusBarTranslucent={true}
-      onShow={() => StatusBar.setHidden(true, 'none')}
-      onDismiss={() => StatusBar.setHidden(true, 'none')}
       onRequestClose={() => {
-        StatusBar.setHidden(true, 'none');
         setShowEditModal(false);
       }}
       >

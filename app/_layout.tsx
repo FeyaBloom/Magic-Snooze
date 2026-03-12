@@ -1,6 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import * as NavigationBar from 'expo-navigation-bar';
-import { Platform, AppState, Keyboard, DeviceEventEmitter } from 'react-native';
+import { AppState, DeviceEventEmitter } from 'react-native';
 import { Stack } from 'expo-router';
 import { useEffect, useState, useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
@@ -74,40 +72,6 @@ export default function RootLayout() {
   const handleThemeReady = useCallback(() => setThemeReady(true), []);
 
   useEffect(() => {
-    if (Platform.OS === 'android') {
-      NavigationBar.setVisibilityAsync('hidden');
-    }
-  }, []);
-
-  // Fix for edge-to-edge minimizing
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', (nextAppState) => {
-      if (nextAppState === 'active') {
-        NavigationBar.setVisibilityAsync('hidden');
-      }
-    });
-
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-
-  useEffect(() => {
-    const keyboardDidShow = Keyboard.addListener('keyboardDidShow', () => {
-      NavigationBar.setVisibilityAsync('hidden');
-    });
-    
-    const keyboardDidHide = Keyboard.addListener('keyboardDidHide', () => {
-      NavigationBar.setVisibilityAsync('hidden');
-    });
-
-    return () => {
-      keyboardDidShow.remove();
-      keyboardDidHide.remove();
-    };
-  }, []);
-
-  useEffect(() => {
     if ((fontsLoaded || fontError) && themeReady) {
       setTimeout(() => {
         SplashScreen.hideAsync();
@@ -121,7 +85,6 @@ export default function RootLayout() {
 
   return (
     <>
-      <StatusBar hidden={true} />
       <ThemeProvider onReady={handleThemeReady}>
         <LanguageProvider>
           <NotificationInitializer />

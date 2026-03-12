@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  StatusBar,
 } from 'react-native';
 import { X, Coffee, Moon, CheckCircle, Circle, Calendar as CalendarIcon } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -182,10 +181,7 @@ export function DayDetailsModal({ visible, date, onClose }: DayDetailsModalProps
       animationType="fade"
       transparent={true}
       statusBarTranslucent={true}
-      onShow={() => StatusBar.setHidden(true, 'none')}
-      onDismiss={() => StatusBar.setHidden(true, 'none')}
       onRequestClose={() => {
-        StatusBar.setHidden(true, 'none');
         onClose();
       }}
     >
