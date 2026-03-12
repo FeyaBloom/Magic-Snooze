@@ -4,11 +4,19 @@ import { Platform } from 'react-native';
 import { Home, CheckSquare, Calendar, FileText } from 'lucide-react-native';
 import { useTheme } from '@/components/ThemeProvider';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
   const { colors } = useTheme();
   const { t, i18n } = useTranslation();
   const [_, setRerender] = useState(0);
+  const insets = useSafeAreaInsets();
+
+  const baseTabHeight = 56;
+  const bottomPadding =
+    Platform.OS === 'android'
+      ? Math.max(insets.bottom, 10)
+      : Math.max(insets.bottom, 12);
 
   useEffect(() => {
     const handler = () => setRerender((prev) => prev + 1);
@@ -27,10 +35,10 @@ export default function TabLayout() {
             borderTopWidth: 0,
             // @ts-ignore
             boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
-            height: 70,
-            paddingTop: 5,
+            height: baseTabHeight + bottomPadding + 6,
+            paddingTop: 6,
             paddingHorizontal: 20,
-            paddingBottom: Platform.OS === 'android' ? 15 : 25,
+            paddingBottom: bottomPadding,
           },
           tabBarActiveTintColor: colors.secondary,
           tabBarInactiveTintColor: colors.textSecondary,

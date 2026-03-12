@@ -11,6 +11,9 @@ import { useNotifications } from '@/hooks/useNotifications';
 import { useTaskNotifications } from '@/hooks/useTaskNotifications';
 import { useRoutineNotifications } from '@/hooks/useRoutineNotifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationBarScrim } from '@/components/NavigationBarScrim';
+import { SystemBarsSync } from '@/components/SystemBarsSync';
 import '@/i18n';
 
 SplashScreen.preventAutoHideAsync();
@@ -84,16 +87,18 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <SafeAreaProvider>
       <ThemeProvider onReady={handleThemeReady}>
         <LanguageProvider>
           <NotificationInitializer />
+          <SystemBarsSync />
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" />
           </Stack>
+          <NavigationBarScrim />
           <Toast config={AppToastConfig()} />
         </LanguageProvider>
       </ThemeProvider>
-    </>
+    </SafeAreaProvider>
   );
 }

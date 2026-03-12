@@ -34,6 +34,10 @@
         "RECORD_AUDIO"
       ]
     },
+    "androidNavigationBar": {
+      "backgroundColor": "#00000000",
+      "barStyle": "dark-content"
+    },
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -78,7 +82,8 @@
       "expo-asset",
       "expo-image-picker",
       "./plugins/withAndroid15BootCompliance",
-      "./plugins/withLargeScreenOrientationCompliance"
+      "./plugins/withLargeScreenOrientationCompliance",
+      "./plugins/withDynamicSystemBars"
     ],
     "experiments": {
       "typedRoutes": true
