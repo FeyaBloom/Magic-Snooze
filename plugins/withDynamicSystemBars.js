@@ -17,7 +17,7 @@ class ${MODULE_NAME}Module(reactContext: ReactApplicationContext) : ReactContext
 
   @ReactMethod
   fun setNavigationBarIconsDark(darkIcons: Boolean) {
-    val activity = currentActivity ?: return
+    val activity = reactApplicationContext.getCurrentActivity() ?: return
 
     activity.runOnUiThread {
       val window = activity.window ?: return@runOnUiThread

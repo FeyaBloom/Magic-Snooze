@@ -3,6 +3,7 @@ import {
   View,
   Text,
   ScrollView,
+  AppState,
   TouchableOpacity,
   TextInput,
   Modal,
@@ -236,7 +237,7 @@ export default function TodayScreen() {
   // Register midnight reset
   useMidnightReset(midnightResetConfig);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       const currentDate = getLocalDateString();
 
@@ -296,7 +297,7 @@ export default function TodayScreen() {
     } catch (error) {
       console.error('Error loading data:', error);
     }
-  };
+  }, [getLocalDateString, t]);
 
 const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) => {
   try {
@@ -435,10 +436,23 @@ const saveProgressData = async (morning: RoutineStep[], evening: RoutineStep[]) 
 
   // Effects
   useEffect(() => {
-    loadData();
-    loadProgress();
+    void loadData();
+    void loadProgress();
     scheduleStreakUpdate(false);
-  }, []);
+  }, [loadData, loadProgress]);
+
+  useEffect(() => {
+    const appStateSubscription = AppState.addEventListener('change', (nextState) => {
+      if (nextState === 'active') {
+        void loadData();
+        void loadProgress();
+      }
+    });
+
+    return () => {
+      appStateSubscription.remove();
+    };
+  }, [loadData, loadProgress]);
 
   useEffect(() => {
     return () => {
