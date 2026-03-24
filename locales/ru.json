@@ -109,7 +109,7 @@
     "days": "дней",
     "level": "Уровень",
     "tasks": "Задач",
-    "victories": "Минипобед",
+    "victories": "Маленьких побед",
       "levels": {
         "novice": "Новичок",
         "apprentice": "Практик",
@@ -123,7 +123,7 @@
     "focusAll": "Всё",
     "focusStreak": "Серия",
     "focusMagic": "Уровень",
-    "focusVictories": "Минипобеды",
+    "focusVictories": "Победы",
     "celebrateSmallWins": "Каждая победа важна",
     "weekDays": "Эта неделя",
     "victoryGarden": "Сад Побед",
