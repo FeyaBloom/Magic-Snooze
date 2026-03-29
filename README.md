@@ -1,175 +1,138 @@
-# 💜 Magic Snooze
+# Magic Snooze
+### Routines, tasks and notes — gentle, guilt-free relationship with yourself.
 
-**A productivity app that doesn't punish you.**
-
-*Made with ❤️ for the ADHD community and anyone tired of guilt-driven to-do apps.*
+A free, open source productivity app built for anyone who wants to bring a little more kindness and structure into their daily life — at their own pace, without pressure.
 
 ---
 
 ## What is Magic Snooze?
 
-Magic Snooze is a productivity and wellness app designed with **ADHD in mind** (but useful for anyone). My core philosophy is simple: **track progress, not failure**. I assume you're already doing your best and provide structure without rigidity or shame.
+Magic Snooze is a calm, privacy-first app for building routines, managing tasks, and capturing thoughts. It's designed around one simple idea: **progress doesn't have to hurt.**
 
-Unlike traditional habit trackers that break your streak and make you feel terrible, I celebrate small wins, protect your consistency on bad days, and make rest **part of the system** instead of a failure.
+Whether you're rebuilding after a hard season, learning to care for yourself a little better, helping a child find their rhythm, or simply tired of apps that make you feel behind — Magic Snooze meets you where you are.
 
+No punishment for missed days. No rigid schedules. No guilt.
+
+Especially helpful for neurodivergent minds, people recovering from burnout or depression, and anyone whose brain doesn't run on willpower alone.
 
 ---
 
 ## Why Magic Snooze? ✨
 
-**💤 Snooze Days & Weekly Freeze**  
-Intentionally pause for a day (Snooze) or get automatic protection once per week (Freeze). Your streaks remain intact. Because life happens.
+**💤 Snooze Days & Weekly Freeze**
+Intentionally pause for a day, or get automatic streak protection once a week. Because life happens — and that shouldn't cost you your progress.
 
-**🎉 Tiny Victories**  
-Celebrate 8 micro-accomplishments: drank water? Had a talk? Took a break? Each deserves confetti. No achievement is too small.
+**🎉 Tiny Victories**
+Celebrate 8 micro-accomplishments: drank water? Took a break? Had a good talk? Each one deserves confetti. No win is too small.
 
-**🔔 Gentle Notifications**  
-Soft reminders only when helpful. No aggressive pings. No anxiety. You can disable them entirely—I won't guilt trip you.
+**🔔 Gentle Notifications**
+Soft reminders, only when helpful. You can disable them entirely — no guilt either way.
 
-**💾 Privacy-First**  
-All your data stays on your device. No login, no tracking, no servers. It's your journey, your data.
+**💾 Privacy-First**
+All data stays on your device. No login, no tracking, no servers. Ever.
 
 **🎙️🖼️ Rich Notes**
-Capture text, attach images, and record voice notes in one place. Permissions are requested only when you use these features.
+Capture text, attach images, and record voice notes in one place.
 
 ---
 
 ## Core Features 🌟
 
-### 💤 **Intentional Snooze Days**
-Press the Snooze button to pause all progress for a day—without breaking your streak or affecting stats. Rest guilt-free.
+**💤 Intentional Snooze Days**
+Press Snooze to pause all progress for a day — without breaking your streak or affecting stats. Rest is part of the system.
 
-### 🧊 **Weekly Freeze Protection**
-Miss a day? I absorb it automatically once per week. No penalties, no broken streaks. Resets every Monday.
+**🧊 Weekly Freeze Protection**
+Miss a day? The app absorbs it automatically once per week. Resets every Monday.
 
-### ⏰ **Morning & Evening Routines**
-Fully customizable routines with visual progress bars. Default suggestions provided, but make them your own. Auto-reset at midnight.
+**⏰ Morning & Evening Routines**
+Fully customizable with visual progress bars. Default suggestions included — make them your own. Auto-reset at midnight.
 
-### ✨ **Tiny Victories**
-8 micro-celebrations in a beautiful modal:
-- 🛏️ Slept well
-- 💧 Drank water
-- 🌬️ Breathed deeply
-- 🍎 Ate on time
-- 🌤 Went outside
-- 😊 Had a talk
-- ❤️ Treated myself
-- ⏸️ Took a break
+**✨ Tiny Victories**
+8 micro-celebrations: 🛏️ Slept well · 💧 Drank water · 🌬️ Breathed deeply · 🍎 Ate on time · 🌤 Went outside · 😊 Had a talk · ❤️ Treated myself · ⏸️ Took a break. Each triggers confetti. Because you deserve it.
 
-Each one triggers delightful confetti. Because you deserve celebration.
+**🌻 Victory Garden**
+A visual garden that grows as you celebrate. A living reminder of your progress.
 
+**🔥 Smart Streak System**
+Track current and longest streaks. The system protects consistency — it doesn't punish the bad days.
 
-### 🌻 **Victory Garden**
-A visual garden that grows as you celebrate victories. Watch your garden bloom with consistency—a living reminder of your progress.
+**🌟 Levels & Achievements**
+Earn levels based on monthly engagement: Rookie → Skilled → Master → Hero. Unlock 8 achievements along the way.
 
+**🎨 Dynamic Themes**
+☀️ Daydream (soft pastels) and 🌙 Night Forest (deep, cozy tones). Auto-switch at 7AM/7PM, or control manually. Bonus: Messy Mode for chaotic fun.
 
-### 🔥 **Smart Streak System**
-Track current and longest streaks with visual fire indicators (🔥). See available freezes with ice icons (🧊). The system protects you, not punishes you.
+**📊 Pareto Chart**
+Visual bar chart of your top 3 most celebrated victories. See what actually brings you joy.
 
-### 🌟 **Levels & Achievements**
-Earn levels based on monthly engagement:
-- **Rookie** (0-24%)
-- **Skilled** (25-49%)
-- **Master** (50-74%)
-- **Hero** (75%+)
+**📝 Rich Notes**
+Text, images, and voice notes in one place. All stored locally on your device.
 
-Unlock 8 achievements: 👣 First Step, ⚔️ Week Warrior, 🗓️ Month Master, and more.
-
-### 🎨 **Dynamic Themes**
-Two beautiful themes:
-- **☀️ Daydream** (soft pastels for daytime)
-- **🌙 Night Forest** (deep, cozy tones for evening)
-
-Auto-switch at 7 AM / 7 PM, or control manually. Bonus: **Messy Mode** randomly shuffles colors for chaotic fun.
-
-### 📊 **Pareto Chart**
-Visual bar chart showing your top 3 most celebrated victories of the month. See what brings you joy.
-
-### 🌍 **Multi-Language Support**
-- **Primary:** 🇬🇧 English, 🇦🇩 Catalan (català)
-- **Also supported:** 🇪🇸 Spanish (español), 🇷🇺 Russian (русский)
-
-Auto-detects your device language on first launch. Switch language anytime in settings.
-
-### 📝 **Rich Notes (Text + Images + Voice)**
-Notes support mixed content so you can capture what matters quickly:
-- Text notes for thoughts and reminders
-- Optional image attachments from your gallery
-- Optional voice notes recorded with microphone access
-
-All note content is stored locally on your device.
-
+**🌍 Multi-Language Support**
+🇬🇧 English · 🇦🇩 Catalan · 🇪🇸 Spanish · 🇷🇺 Russian
+Auto-detects device language on first launch. Switch anytime in settings.
 
 ---
 
 ## Philosophy 💜
 
-I built Magic Snooze because traditional productivity apps made me feel worse, not better. They punish inconsistency, create anxiety with aggressive notifications, and focus relentlessly on what you *didn't* do.
+Magic Snooze was built out of personal need — by someone with ADHD, during a season when conventional productivity tools made everything harder instead of easier.
 
-**My philosophy:**
-- **ADHD-friendly first:** Structure without rigidity. Celebrate without pressure.
-- **No guilt, no shame:** Rest is productive. Pausing is valid. You're not failing.
-- **Progress over perfection:** Small wins matter. Showing up imperfectly beats not showing up at all.
-- **Privacy and respect:** Your data is yours. No tracking, no login, no judgment.
+The philosophy is simple:
 
-This app is my love letter to anyone who's ever felt broken by a to-do list.
+- **Structure without rigidity.** Routines that bend, not break.
+- **No guilt, no shame.** Rest is valid. Pausing is progress. Showing up imperfectly beats not showing up at all.
+- **Small wins matter.** The brain needs celebration — especially on the hard days.
+- **Your data is yours.** No tracking, no login, no judgment.
+
+This app is for anyone ready to build a kinder relationship with themselves — one small step at a time.
 
 ---
 
 ## Tech Stack 🛠️
 
-- **React Native** 0.81.5 with **React** 19.1.0
-- **Expo SDK** ~54.0 (iOS, Android, Web)
-- **TypeScript** ~5.9.2
-- **Expo Router** 6.0 (file-based navigation)
-- **AsyncStorage** (local data persistence)
-- **i18next** + **react-i18next** (internationalization)
-- **Lottie** (delightful animations: confetti, stars, clouds)
-- **Lucide React Native** (icons)
-- **Expo Notifications** (gentle, optional reminders)
-- **Custom fonts:** Cormorant (serif titles) + Nunito (sans-serif body)
+- React Native 0.81.5 with React 19.1.0
+- Expo SDK ~54.0 (Android, Web)
+- TypeScript ~5.9.2
+- Expo Router 6.0 (file-based navigation)
+- AsyncStorage (local data persistence)
+- i18next + react-i18next (internationalization)
+- Lottie (animations: confetti, stars, clouds)
+- Lucide React Native (icons)
+- Expo Notifications (gentle, optional reminders)
+- Custom fonts: Cormorant (serif titles) + Nunito (sans-serif body)
 
 ---
 
 ## Getting Started (Developers) 👩‍💻
 
-### Prerequisites
+**Prerequisites**
 - Node.js (v18+)
 - Expo CLI: `npm install -g expo-cli`
 
-### Installation
-
+**Installation**
 ```bash
-# Clone the repo
 git clone https://github.com/FeyaBloom/Magic-Snooze.git
 cd Magic-Snooze
-
-# Install dependencies
 npm install
-
-# Start the development server
 npm start
 ```
 
-### Available Scripts
-
+**Available Scripts**
 ```bash
 npm start          # Start Expo dev server
 npm run android    # Run on Android device/emulator
 npm run web        # Run in web browser
 ```
 
-### Project Structure
-
+**Project Structure**
 ```
 app/               # Expo Router screens (file-based routing)
   (tabs)/          # Tab navigation screens
 components/        # Reusable UI components
-  modals/          # Modal components (Victories, DayDetails, etc.)
-  stats/           # Statistics visualizations
 hooks/             # Custom React hooks (business logic)
 locales/           # Translation files (en, es, ru, ca)
-utils/             # Utility functions (date handling, toast, etc.)
+utils/             # Utility functions
 styles/            # Style definitions
 assets/            # Fonts, animations, images
 ```
@@ -178,87 +141,69 @@ assets/            # Fonts, animations, images
 
 ## Localization 🌍
 
-**Primary languages:** 🇬🇧 English, 🇦🇩 Catalan (català)  
-**Also supported:** 🇪🇸 Spanish (español), 🇷🇺 Russian (русский)
+Primary: 🇬🇧 English, 🇦🇩 Catalan
+Also supported: 🇪🇸 Spanish, 🇷🇺 Russian
 
-- Auto-detects device language on first launch
-- Change language anytime in Settings
-- Easily extensible: add JSON files to `locales/` folder
-
-Contributing translations? I'd love your help! Check `locales/en.json` for the structure.
+Auto-detects device language on first launch. Easily extensible — add JSON files to `locales/`. Contributing translations? Check `locales/en.json` for the structure.
 
 ---
 
 ## Permissions 📱
 
-Magic Snooze asks for permissions only when needed for specific optional features:
+Magic Snooze requests permissions only when needed for specific optional features:
 
-- **Notifications** (`POST_NOTIFICATIONS`, Android): for optional reminders
-- **Microphone**: only when recording voice notes in Notes
-- **Photos / Media Library**: only when attaching images to Notes
+- **Notifications** (POST_NOTIFICATIONS): for optional reminders
+- **Microphone**: only when recording voice notes
+- **Photos / Media Library**: only when attaching images to notes
 
-If you deny microphone or gallery access, the rest of the app remains fully usable.
+Denying any permission leaves the rest of the app fully usable.
 
 ---
 
 ## Contributing 🤝
 
-Issues and PRs are welcome! Whether you want to:
-- Fix a bug
-- Add a feature
-- Improve translations
-- Suggest ideas
+Issues and PRs are welcome. Whether you want to fix a bug, add a feature, improve translations, or suggest ideas — come in.
 
 **Guidelines:**
 - Be kind, be patient
-- Keep the ADHD-friendly philosophy in mind
+- Keep the philosophy in mind: gentle, no guilt, privacy-first
 - Test on at least one platform (Android/Web)
 
 ---
 
 ## Roadmap 🗺️
 
-I'm open to community ideas! Some thoughts:
-- ☁️ Optional cloud backup (privacy-respecting)
-- 📈 More improved stats visualization
-- 🎨 Customizable order of items in the Note
+- 🎙️ Offline speech-to-text for voice notes (whisper.rn)
+- ☁️ Optional privacy-respecting cloud backup
+- 📈 Improved stats visualization
+- 🎨 Customizable note item order
 
-Have ideas? Open an issue!
+Have ideas? Open an issue.
 
 ---
 
-### Google Play compliance docs
+## Google Play Compliance
 
-- Privacy Policy (public URL, EN):
-  - `https://feyabloom.github.io/Magic-Snooze/privacy-policy.html`
-- Privacy Policy (public URL, CA):
-  - `https://feyabloom.github.io/Magic-Snooze/privacy-policy-ca.html`
-- License summary in Catalan (informative):
-  - `docs/license-ca.html`
-- Data Safety draft answers:
-  - `docs/google-play-data-safety.md`
-- Store listing copy pack (ready to paste):
-  - `docs/google-play-store-copy.md`
-- Full release checklist:
-  - `docs/google-play-release-checklist.md`
+- [Privacy Policy (EN)](https://feyabloom.github.io/Magic-Snooze/privacy-policy.html)
+- [Privacy Policy (CA)](https://feyabloom.github.io/Magic-Snooze/privacy-policy-ca.html)
+- License summary in Catalan: `docs/license-ca.html`
+- Data Safety draft: `docs/google-play-data-safety.md`
+- Store listing copy: `docs/google-play-store-copy.md`
+- Release checklist: `docs/google-play-release-checklist.md`
 
 ---
 
 ## License 📄
 
-[GNU AGPL 3.0](LICENSE) - free and open source software that protects user freedom.
+GNU AGPL 3.0 — free and open source, protecting user freedom.
 
 ---
 
 ## Support 💜
 
-If Magic Snooze helps you, consider:
-- ⭐ Starring the repo
-- 📢 Sharing with friends who might benefit
-- 🐛 Reporting bugs or suggesting features
+If Magic Snooze helps you:
+- ⭐ Star the repo
+- 📢 Share with someone who might need it
+- 🐛 Report bugs or suggest features
 
----
-
-**Made with 💜 for the ADHD community**
-
-*Remember: You're doing better than you think.* 🔥
+*You're doing better than you think. 🔥*
