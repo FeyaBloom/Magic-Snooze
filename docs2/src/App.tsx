@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   Moon,
   Calendar,
@@ -67,6 +67,8 @@ const messages = {
 } as const;
 
 const LANDING_LANG_KEY = "magic-snooze-landing-lang";
+const PUBLIC_BASE = import.meta.env.BASE_URL;
+const LOGO_SOURCES = [`${PUBLIC_BASE}icon.png?v=20260407`, "/icon.png?v=20260407", "./icon.png?v=20260407"];
 
 const iconMap: Record<IconName, React.ComponentType<{ className?: string }>> = {
   Moon,
@@ -100,9 +102,20 @@ const getIcon = (name: string | null | undefined) => {
   return iconMap[name as IconName] ?? CheckCircle2;
 };
 
-const BrandLogo = ({ className = "" }: { className?: string }) => (
-  <img src="/icon.png" alt="Magic Snooze logo" className={`object-cover ${className}`} />
-);
+const BrandLogo = ({ className = "" }: { className?: string }) => {
+  const [srcIndex, setSrcIndex] = useState(0);
+
+  return (
+    <img
+      src={LOGO_SOURCES[srcIndex]}
+      alt="Magic Snooze logo"
+      className={`object-cover ${className}`}
+      onError={() => {
+        setSrcIndex((prev) => (prev < LOGO_SOURCES.length - 1 ? prev + 1 : prev));
+      }}
+    />
+  );
+};
 
 const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -142,6 +155,7 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
   const [lang, setLang] = useState<Language>("en");
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const observer = new MutationObserver(() => {
@@ -171,6 +185,21 @@ export default function App() {
   }, [lang]);
 
   const t = messages[lang];
+  const privacyPolicyHref = lang === "ca" ? `${PUBLIC_BASE}privacy-policy-ca.html` : `${PUBLIC_BASE}privacy-policy.html`;
+  const licenseHref = `${PUBLIC_BASE}license-ca.html`;
+
+  const reveal = (direction: "up" | "left" | "right" = "up", delay = 0) => {
+    const distance = prefersReducedMotion ? 0 : 28;
+    const x = direction === "left" ? -distance : direction === "right" ? distance : 0;
+    const y = direction === "up" ? distance : 0;
+
+    return {
+      initial: { opacity: 0, x, y },
+      whileInView: { opacity: 1, x: 0, y: 0 },
+      viewport: { once: true, margin: "-50px" },
+      transition: { duration: prefersReducedMotion ? 0.2 : 0.55, delay, ease: "easeOut" as const },
+    };
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-bg-1 via-brand-surface to-brand-bg-2 text-brand-text font-sans selection:bg-brand-bg-2 selection:text-brand-primary">
@@ -257,14 +286,14 @@ export default function App() {
           </div>
         </section>
 
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="bg-brand-bg-2/50 py-24 border-y border-brand-secondary/20"
-        >
-          <div className="max-w-6xl mx-auto px-6">
+        <section className="bg-brand-bg-2/50 py-24 border-y border-brand-secondary/20">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-6xl mx-auto px-6"
+          >
             <div className="text-center max-w-2xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text mb-4">{t.safe.title}</h2>
               <p className="text-lg text-brand-text-muted">{t.safe.subtitle}</p>
@@ -274,8 +303,9 @@ export default function App() {
               {t.safe.items.map((item, i) => {
                 const Icon = getIcon(item.icon);
                 return (
-                  <div
+                  <motion.div
                     key={i}
+                    {...reveal(i % 2 === 0 ? "left" : "right", i * 0.08)}
                     className="bg-brand-surface/60 backdrop-blur-md p-8 rounded-3xl shadow-sm border border-brand-secondary/20"
                   >
                     <div className="w-12 h-12 bg-brand-primary text-white rounded-2xl flex items-center justify-center mb-6 shadow-md">
@@ -283,21 +313,21 @@ export default function App() {
                     </div>
                     <h3 className="text-xl font-serif font-semibold text-brand-text mb-3">{item.title}</h3>
                     <p className="text-brand-text-muted leading-relaxed">{item.desc}</p>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
-          </div>
-        </motion.section>
+          </motion.div>
+        </section>
 
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="py-24 px-6 border-y border-brand-secondary/20 bg-brand-bg-2 dark:bg-[#1F2937]"
-        >
-          <div className="max-w-6xl mx-auto">
+        <section className="py-24 px-6 border-y border-brand-secondary/20 bg-brand-bg-2 dark:bg-[#1F2937]">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-6xl mx-auto"
+          >
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text mb-6">{t.problem.title}</h2>
               <p className="text-lg text-brand-text-muted leading-relaxed">{t.problem.subtitle}</p>
@@ -305,65 +335,71 @@ export default function App() {
 
             <div className="grid md:grid-cols-2 gap-6">
               {t.problem.cards.map((item, i) => (
-                <div
+                <motion.div
                   key={i}
+                  {...reveal(i % 2 === 0 ? "left" : "right", i * 0.07)}
                   className="bg-brand-surface/65 dark:bg-brand-surface/30 backdrop-blur-sm p-8 rounded-3xl border border-brand-secondary/15 shadow-sm"
                 >
                   <div className="text-sm font-bold tracking-wider text-brand-primary uppercase mb-2">{item.title}</div>
                   <h3 className="text-xl font-serif font-semibold text-brand-text mb-3">{item.subtitle}</h3>
                   <p className="text-brand-text-muted leading-relaxed">{item.desc}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
-        </motion.section>
+          </motion.div>
+        </section>
 
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="bg-gradient-to-br from-brand-bg-2 via-brand-bg-3 to-brand-bg-1 text-brand-text py-24 dark:from-[#1F2937] dark:via-[#312E81]/40 dark:to-[#0F172A]"
-        >
-          <div className="max-w-6xl mx-auto px-6">
+        <section className="bg-gradient-to-br from-brand-bg-2 via-brand-bg-3 to-brand-bg-1 text-brand-text py-24 dark:from-[#1F2937] dark:via-[#312E81]/40 dark:to-[#0F172A]">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-6xl mx-auto px-6"
+          >
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">{t.solution.title}</h2>
               <p className="text-lg text-brand-text-muted leading-relaxed mb-8">{t.solution.subtitle}</p>
               <div className="flex flex-wrap justify-center gap-3">
                 {t.solution.tags.map((tag, i) => (
-                  <span
+                  <motion.span
                     key={i}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.4, delay: i * 0.05 }}
                     className="bg-brand-primary/10 border border-brand-primary/20 px-4 py-2 rounded-full text-sm font-medium text-brand-primary"
                   >
                     {tag}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {t.solution.cards.map((item, i) => (
-                <div
+                <motion.div
                   key={i}
+                  {...reveal("up", i * 0.08)}
                   className="bg-brand-surface/40 backdrop-blur-md p-8 rounded-3xl border border-brand-surface/30 shadow-sm"
                 >
                   <h3 className="text-2xl font-serif font-bold mb-2">{item.title}</h3>
                   <div className="text-brand-text font-medium mb-4">{item.subtitle}</div>
                   <p className="text-brand-text-muted leading-relaxed">{item.desc}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
-        </motion.section>
+          </motion.div>
+        </section>
 
-        <motion.section
-          id="how-it-works"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="py-24 max-w-6xl mx-auto px-6"
-        >
+        <section id="how-it-works" className="py-24">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-6xl mx-auto px-6"
+          >
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text mb-4">{t.how.title}</h2>
             <p className="text-lg text-brand-text-muted">{t.how.subtitle}</p>
@@ -371,25 +407,26 @@ export default function App() {
 
           <div className="grid md:grid-cols-4 gap-8">
             {t.how.steps.map((item, i) => (
-              <div key={i} className="relative">
+              <motion.div key={i} {...reveal("up", i * 0.1)} className="relative">
                 <div className="w-12 h-12 bg-brand-primary text-white rounded-full flex items-center justify-center text-xl font-bold mb-6 shadow-md">
                   {item.step}
                 </div>
                 <h3 className="text-xl font-serif font-semibold text-brand-text mb-3">{item.title}</h3>
                 <p className="text-brand-text-muted leading-relaxed">{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </motion.section>
+          </motion.div>
+        </section>
 
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="bg-brand-bg-2 py-24 border-y border-brand-secondary/20"
-        >
-          <div className="max-w-6xl mx-auto px-6">
+        <section className="bg-brand-bg-2 py-24 border-y border-brand-secondary/20">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-6xl mx-auto px-6"
+          >
             <div className="text-center max-w-2xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text mb-4">{t.features.title}</h2>
               <p className="text-lg text-brand-text-muted">{t.features.subtitle}</p>
@@ -401,19 +438,29 @@ export default function App() {
                 const useReverseLayout = sectionIndex % 2 === 1;
                 const imageOrderClass = useReverseLayout ? "order-2 md:order-2" : "order-2 md:order-1";
                 const textOrderClass = useReverseLayout ? "order-1 md:order-1" : "order-1 md:order-2";
+                const featureImageSrc = sectionIndex === 2 ? `${PUBLIC_BASE}smart-notes.png` : null;
 
                 return (
-                  <div key={sectionIndex} className="grid md:grid-cols-2 gap-12 items-center">
-                    <div
-                      className={`${imageOrderClass} bg-brand-surface/60 backdrop-blur-md rounded-3xl p-8 shadow-sm border border-brand-secondary/20 aspect-square flex items-center justify-center`}
+                  <motion.div key={sectionIndex} {...reveal("up", sectionIndex * 0.06)} className="grid md:grid-cols-2 gap-12 items-center">
+                    <motion.div
+                      {...reveal(useReverseLayout ? "right" : "left", 0.05)}
+                      className={`${imageOrderClass} bg-brand-surface/60 backdrop-blur-md p-2 rounded-3xl shadow-sm border border-brand-secondary/20 aspect-square flex items-center justify-center ${featureImageSrc ? "p-0 overflow-hidden" : "p-8"}`}
                     >
-                      <div className="text-center">
-                        <SectionIcon className="w-24 h-24 text-brand-secondary/20 mx-auto mb-4" />
-                        <div className="text-brand-text-muted font-medium">{section.uiLabel}</div>
-                      </div>
-                    </div>
+                      {featureImageSrc ? (
+                        <img
+                          src={featureImageSrc}
+                          alt={section.uiLabel}
+                          className="w-full h-full object-cover rounded-2xl"
+                        />
+                      ) : (
+                        <div className="text-center">
+                          <SectionIcon className="w-24 h-24 text-brand-secondary/20 mx-auto mb-4" />
+                          <div className="text-brand-text-muted font-medium">{section.uiLabel}</div>
+                        </div>
+                      )}
+                    </motion.div>
 
-                    <div className={textOrderClass}>
+                    <motion.div {...reveal(useReverseLayout ? "left" : "right", 0.1)} className={textOrderClass}>
                       <div className="flex items-center gap-2 text-brand-primary font-semibold mb-4">
                         <SectionIcon className="w-5 h-5" />
                         {section.eyebrow}
@@ -425,32 +472,32 @@ export default function App() {
                           const itemIcon = "icon" in item ? item.icon : null;
                           const ItemIcon = getIcon(itemIcon ?? section.listIcon);
                           return (
-                            <li key={itemIndex} className="flex gap-4">
+                            <motion.li key={itemIndex} {...reveal("up", itemIndex * 0.06)} className="flex gap-4">
                               <ItemIcon className="w-6 h-6 text-brand-secondary flex-shrink-0" />
                               <div>
                                 <div className="font-semibold text-brand-text mb-1">{item.title}</div>
                                 <div className="text-brand-text-muted">{item.desc}</div>
                               </div>
-                            </li>
+                            </motion.li>
                           );
                         })}
                       </ul>
-                    </div>
-                  </div>
+                    </motion.div>
+                  </motion.div>
                 );
               })}
             </div>
-          </div>
-        </motion.section>
+          </motion.div>
+        </section>
 
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="py-24 px-6 bg-brand-surface/45 dark:bg-[#111827]/55"
-        >
-          <div className="max-w-6xl mx-auto">
+        <section className="py-24 px-6 bg-brand-surface/45 dark:bg-[#111827]/55">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-6xl mx-auto"
+          >
             <div className="text-center max-w-2xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text mb-4">{t.who.title}</h2>
               <p className="text-lg text-brand-text-muted">{t.who.subtitle}</p>
@@ -460,49 +507,54 @@ export default function App() {
               {t.who.items.map((item, i) => {
                 const Icon = getIcon(item.icon);
                 return (
-                  <div
+                  <motion.div
                     key={i}
+                    {...reveal(i % 2 === 0 ? "left" : "right", i * 0.08)}
                     className="bg-gradient-to-br from-brand-surface/60 to-brand-bg-1/40 backdrop-blur-md p-8 rounded-3xl border border-brand-secondary/20 shadow-sm"
                   >
                     <Icon className="w-8 h-8 text-brand-secondary mb-6" />
                     <h3 className="text-xl font-serif font-semibold text-brand-text mb-3">{item.title}</h3>
                     <p className="text-brand-text-muted leading-relaxed">{item.desc}</p>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
-          </div>
-        </motion.section>
+          </motion.div>
+        </section>
 
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="bg-gradient-to-b from-brand-bg-2/55 to-brand-surface/70 dark:from-[#1F2937]/60 dark:to-[#111827]/65 py-24 border-y border-brand-secondary/15"
-        >
-          <div className="max-w-3xl mx-auto px-6">
+        <section className="bg-gradient-to-b from-brand-bg-2/55 to-brand-surface/70 dark:from-[#1F2937]/60 dark:to-[#111827]/65 py-24 border-y border-brand-secondary/15">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-3xl mx-auto px-6"
+          >
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text mb-4">{t.faq.title}</h2>
             </div>
 
             <div className="bg-brand-surface/50 dark:bg-brand-surface/25 rounded-3xl p-8">
               {t.faq.items.map((faq, i) => (
-                <FAQItem key={i} question={faq.q} answer={faq.a} />
+                <motion.div key={i} {...reveal("up", i * 0.05)}>
+                  <FAQItem question={faq.q} answer={faq.a} />
+                </motion.div>
               ))}
             </div>
-          </div>
-        </motion.section>
+          </motion.div>
+        </section>
 
-        <motion.section
+        <section
           id="download"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
           className="py-24 px-6 text-center bg-gradient-to-b from-brand-bg-1/45 via-brand-surface/75 to-brand-bg-2/45 dark:from-[#312E81]/25 dark:via-[#1F2937]/40 dark:to-[#0F172A]/70"
         >
-          <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-4xl mx-auto"
+          >
           <div className="inline-flex items-center justify-center mb-8">
             <BrandLogo className="w-20 h-20 rounded-3xl shadow-md" />
           </div>
@@ -517,13 +569,20 @@ export default function App() {
           </a>
           <div className="flex flex-wrap justify-center gap-4 text-sm font-medium text-brand-text-muted">
             {t.cta.badges.map((badge, i) => (
-              <span key={i} className="flex items-center gap-1">
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="flex items-center gap-1"
+              >
                 <CheckCircle2 className="w-4 h-4" /> {badge}
-              </span>
+              </motion.span>
             ))}
           </div>
-          </div>
-        </motion.section>
+          </motion.div>
+        </section>
       </main>
 
       <footer className="bg-gradient-to-b from-brand-surface to-brand-bg-3 text-brand-text-muted py-12 border-t border-brand-secondary/20">
@@ -534,20 +593,32 @@ export default function App() {
           </div>
           <div className="text-sm text-center md:text-left">{t.footer.tagline}</div>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <a href="#" className="hover:text-brand-primary transition-colors">
+            <a href={privacyPolicyHref} className="hover:text-brand-primary transition-colors">
               {t.footer.privacy}
             </a>
-            <a href="#" className="hover:text-brand-primary transition-colors flex items-center gap-1">
+            <a
+              href="https://github.com/FeyaBloom/Magic-Snooze"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brand-primary transition-colors flex items-center gap-1"
+            >
               <Github className="w-4 h-4" /> {t.footer.source}
             </a>
-            <a href="#" className="hover:text-brand-primary transition-colors flex items-center gap-1">
+            <a
+              href="https://github.com/FeyaBloom/Magic-Snooze/issues/new/choose"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brand-primary transition-colors flex items-center gap-1"
+            >
               <Bug className="w-4 h-4" /> {t.footer.report}
             </a>
           </div>
         </div>
         <div className="max-w-6xl mx-auto px-6 mt-8 pt-8 border-t border-brand-secondary/20 text-sm text-center md:text-left flex flex-col md:flex-row justify-between gap-4">
           <div>{t.footer.copyright}</div>
-          <div>{t.footer.license}</div>
+          <a href={licenseHref} className="hover:text-brand-primary transition-colors">
+            {t.footer.license}
+          </a>
         </div>
       </footer>
     </div>
