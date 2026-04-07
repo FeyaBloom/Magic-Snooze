@@ -5,7 +5,6 @@ import {
   Trophy,
   CheckSquare,
   FileText,
-  ShieldOff,
   WifiOff,
   Heart,
   BellOff,
@@ -44,7 +43,6 @@ type IconName =
   | "Trophy"
   | "CheckSquare"
   | "FileText"
-  | "ShieldOff"
   | "WifiOff"
   | "Heart"
   | "BellOff"
@@ -76,7 +74,6 @@ const iconMap: Record<IconName, React.ComponentType<{ className?: string }>> = {
   Trophy,
   CheckSquare,
   FileText,
-  ShieldOff,
   WifiOff,
   Heart,
   BellOff,
