@@ -6,7 +6,10 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "site:dev": "cd docs2 && npm run dev",
+    "site:build": "cd docs2 && npm run build",
+    "site:preview": "cd docs2 && npm run preview"
   },
   "dependencies": {
     "@expo-google-fonts/cormorant": "^0.4.2",

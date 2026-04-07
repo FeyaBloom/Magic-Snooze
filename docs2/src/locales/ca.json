@@ -1,0 +1,309 @@
+{
+  "meta": {
+    "lang": "ca"
+  },
+  "nav": {
+    "download": "Descarrega",
+    "languageAria": "Canvia l'idioma",
+    "language": {
+      "ca": "CA",
+      "en": "EN"
+    }
+  },
+  "hero": {
+    "titleLine1": "Rutines, tasques i notes",
+    "titleAccent": "sense culpa",
+    "subtitle": "Alguns dies, només començar ja és prou. Magic Snooze et troba on ets i creix amb tu al teu ritme.",
+    "ctaDownload": "Descarrega per a Android",
+    "ctaHow": "Com funciona",
+    "pills": [
+      { "icon": "Moon", "text": "Dies de descans" },
+      { "icon": "Calendar", "text": "Freeze setmanal" },
+      { "icon": "Trophy", "text": "Petites victòries" },
+      { "icon": "CheckSquare", "text": "Tasques clares" },
+      { "icon": "ShieldOff", "text": "Privadesa per defecte" },
+      { "icon": "WifiOff", "text": "Funciona sense internet" },
+      { "icon": "Heart", "text": "Gratuït i de codi obert" },
+      { "icon": "Globe", "text": "Multiidioma" }
+    ]
+  },
+  "safe": {
+    "title": "Dissenyat per fer-te sentir segur/a",
+    "subtitle": "Les opcions més importants venen activades per defecte. Aquestes decisions redueixen la pressió des del primer dia i mantenen una experiència calmada.",
+    "items": [
+      {
+        "icon": "BellOff",
+        "title": "Notificacions DESACTIVADES",
+        "desc": "Activa només els recordatoris que realment t'ajudin."
+      },
+      {
+        "icon": "Globe",
+        "title": "Idioma detectat automàticament",
+        "desc": "Català, anglès, espanyol o rus des del primer inici."
+      },
+      {
+        "icon": "Lock",
+        "title": "Offline i privat",
+        "desc": "Sense compte, sense núvol, sense rastreig. Les teves dades es queden al dispositiu."
+      },
+      {
+        "icon": "SunMoon",
+        "title": "Mode dia/nit automàtic",
+        "desc": "Canvia automàticament per defecte, o el pots ajustar manualment segons la teva preferència."
+      }
+    ]
+  },
+  "problem": {
+    "title": "Quan la productivitat sembla un càstig, començar costa més",
+    "subtitle": "Si perdre un dia et fa sentir que has fracassat, el problema és el sistema, no tu. El progrés ha de ser flexible, no fràgil. El suport ha de reduir pressió, no augmentar-la.",
+    "cards": [
+      {
+        "title": "Perds un dia",
+        "subtitle": "La lògica del tot o res trenca l'impuls",
+        "desc": "Els sistemes de ratxa tradicionals sovint converteixen un dia perdut en fracàs total, i reprendre es fa emocionalment car."
+      },
+      {
+        "title": "Massa soroll",
+        "subtitle": "Els horaris rígids poden crear bucles d'ansietat",
+        "desc": "Recordatoris constants i planificació agressiva poden saturar l'atenció en lloc d'ajudar-te a enfocar."
+      },
+      {
+        "title": "Sobrecàrrega mental",
+        "subtitle": "Els pensaments necessiten un lloc segur",
+        "desc": "Quan tot es queda al cap, tasques i idees es converteixen en fricció. Necessites captura ràpida, no més pressió."
+      },
+      {
+        "title": "La vida passa",
+        "subtitle": "Les persones travessen etapes",
+        "desc": "Burnout, recuperació, criança i setmanes difícils demanen flexibilitat. Els sistemes rígids solen confondre flexibilitat amb fracàs."
+      }
+    ]
+  },
+  "solution": {
+    "title": "Una estructura petita i amable en què pots créixer",
+    "subtitle": "Magic Snooze et troba on ets i t'ajuda a continuar des d'allà.",
+    "tags": ["Amigable amb TDAH", "Sense culpa", "Comença petit", "Al teu ritme", "Baixa fricció", "Flux calmat"],
+    "cards": [
+      {
+        "title": "Comença des d'ara",
+        "subtitle": "Sense càstig per dies perduts",
+        "desc": "Els dies difícils formen part de la vida. L'app està feta perquè un retrocés no esborri la sensació de progrés."
+      },
+      {
+        "title": "Fes-ho simple",
+        "subtitle": "Rutines suaus + tasques simples + notes tranquil·les",
+        "desc": "Tens tres espais clars que redueixen la sobrecàrrega en lloc de multiplicar decisions."
+      },
+      {
+        "title": "Creix gradualment",
+        "subtitle": "Les accions petites compten",
+        "desc": "Comença petit. Celebra les coses petites. Descansa quan calgui. Torna demà sense vergonya."
+      }
+    ]
+  },
+  "how": {
+    "title": "Simple, suau i realista",
+    "subtitle": "Quatre passos per als dies amb energia i per als dies sense.",
+    "steps": [
+      {
+        "step": "1",
+        "title": "Comença amb una rutina suau",
+        "desc": "Crea rutines de matí o de nit amb passos que realment puguis mantenir, fins i tot amb poca energia."
+      },
+      {
+        "step": "2",
+        "title": "Afegeix tasques simples",
+        "desc": "Allibera el que tens al cap, tria la següent acció i redueix el soroll mental."
+      },
+      {
+        "step": "3",
+        "title": "Captura pensaments a Notes",
+        "desc": "Text, fotos i notes de veu donen a les idees un lloc segur on aterrar."
+      },
+      {
+        "step": "4",
+        "title": "Descansa i torna",
+        "desc": "Fes servir Rest Day quan calgui, celebra petites victòries i continua demà sense culpa."
+      }
+    ]
+  },
+  "features": {
+    "title": "Tot el que necessites, res del que no",
+    "subtitle": "Eines dissenyades per com funciona el teu cervell, no en contra.",
+    "sections": [
+      {
+        "icon": "Shield",
+        "eyebrow": "Protecció contra la culpa",
+        "title": "Protecció contra les espirals de culpa",
+        "desc": "Els dies difícils no esborren el teu progrés. L'app està pensada per mantenir la teva confiança intacta.",
+        "uiLabel": "Interfície de protecció contra la culpa",
+        "listIcon": "CheckCircle2",
+        "items": [
+          {
+            "title": "Petites victòries",
+            "desc": "Vuit celebracions petites amb confeti reforcen l'impuls, fins i tot en dies de poca energia."
+          },
+          {
+            "title": "Dies de descans",
+            "desc": "Pausa sense penalització, mantén la ratxa i torna quan recuperis energia."
+          },
+          {
+            "title": "Freeze setmanal",
+            "desc": "Una falta per setmana es pot absorbir automàticament com a coixí de seguretat."
+          }
+        ]
+      },
+      {
+        "icon": "Puzzle",
+        "eyebrow": "Estructura diària",
+        "title": "Estructura suau per al dia a dia",
+        "desc": "Pots tornar a començar en segons. Sense sobrecàrrega, sense configuracions gegants, sense mecàniques de càstig.",
+        "uiLabel": "Interfície d'estructura diària",
+        "listIcon": "CheckCircle2",
+        "items": [
+          {
+            "title": "Rutines personalitzades",
+            "desc": "Construeix piles de matí i nit que es reinicien automàticament a mitjanit."
+          },
+          {
+            "title": "Tasques sense sobrecàrrega",
+            "desc": "Afegeix només el que importa avui i completa el que puguis sense culpa."
+          },
+          {
+            "title": "Recordatoris suaus",
+            "desc": "Notificacions opcionals que t'ajuden a tornar amb calma en lloc d'imposar urgència."
+          }
+        ]
+      },
+      {
+        "icon": "FileText",
+        "eyebrow": "Notes intel·ligents",
+        "title": "Captura pensaments abans que desapareguin",
+        "desc": "Guarda idees, notes de veu i referències visuals en un sol lloc per reduir càrrega mental.",
+        "uiLabel": "Interfície de notes intel·ligents",
+        "listIcon": null,
+        "items": [
+          {
+            "title": "Notes de text",
+            "desc": "Escriu pensaments ràpids, recordatoris i plans en un editor net.",
+            "icon": "FileText"
+          },
+          {
+            "title": "Clips de veu",
+            "desc": "Grava quan escriure costa massa i revisa-ho després quan et vagi bé.",
+            "icon": "Mic"
+          },
+          {
+            "title": "Adjunts de foto",
+            "desc": "Afegeix referències visuals perquè els detalls no es perdin.",
+            "icon": "ImageIcon"
+          }
+        ]
+      },
+      {
+        "icon": "TrendingUp",
+        "eyebrow": "Progrés segur",
+        "title": "Progrés que se sent segur",
+        "desc": "Les estadístiques destaquen la constància i les victòries, no el càstig ni la vergonya.",
+        "uiLabel": "Interfície de progrés segur",
+        "listIcon": "CheckCircle2",
+        "items": [
+          {
+            "title": "Estadístiques positives",
+            "desc": "Veu tendències de completitud que posen el focus en el que et funciona."
+          },
+          {
+            "title": "Jardí de victòries",
+            "desc": "El creixement visual converteix les petites victòries en una cosa tangible i motivadora."
+          },
+          {
+            "title": "Ratxes intel·ligents",
+            "desc": "Segueix la ratxa actual i la millor amb xarxes de seguretat integrades."
+          }
+        ]
+      }
+    ]
+  },
+  "who": {
+    "title": "Per a qui és",
+    "subtitle": "Vides diferents, mateixa necessitat: una relació més calmada amb l'estructura.",
+    "items": [
+      {
+        "icon": "Brain",
+        "title": "Ments neurodivergents",
+        "desc": "Tens TDAH o un ritme cognitiu diferent, i les apps clàssiques de productivitat mai no t'han encaixat."
+      },
+      {
+        "icon": "BatteryCharging",
+        "title": "Reinici després d'una etapa dura",
+        "desc": "Necessites una manera suau de tornar a la rutina sense sentir-te castigat/da per cada interrupció."
+      },
+      {
+        "icon": "Baby",
+        "title": "Famílies que acompanyen un infant",
+        "desc": "Ajudeu un infant a construir ritme sense pressió, por ni vergonya."
+      },
+      {
+        "icon": "Wind",
+        "title": "Ansietat al voltant de la productivitat",
+        "desc": "Vols rutines que redueixin la pressió i facin més fàcil començar."
+      },
+      {
+        "icon": "Lock",
+        "title": "Usuaris orientats a la privadesa",
+        "desc": "Vols eines local-first que mantinguin les teves dades al teu dispositiu."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Preguntes freqüents",
+    "items": [
+      {
+        "q": "Magic Snooze és completament gratuït?",
+        "a": "Sí, Magic Snooze és 100% gratuït i de codi obert. No hi ha anuncis, subscripcions ni costos ocults."
+      },
+      {
+        "q": "Les meves dades estan segures? Qui les pot veure?",
+        "a": "Les teves dades estan completament segures perquè no surten del teu dispositiu. Magic Snooze és offline-first, sense núvol i sense comptes."
+      },
+      {
+        "q": "Cal tenir TDAH per fer servir l'app?",
+        "a": "No! Tot i que està dissenyada per ser amigable amb TDAH, qualsevol persona que vulgui una productivitat més suau i sense culpa la trobarà útil."
+      },
+      {
+        "q": "Quina diferència hi ha entre Rest Day i Weekly Freeze?",
+        "a": "Rest Day és una pausa que tries activament quan la necessites. Weekly Freeze és una xarxa de seguretat automàtica que absorbeix una falta setmanal sense trencar la ratxa."
+      },
+      {
+        "q": "Necessito internet per usar Magic Snooze?",
+        "a": "No. Magic Snooze funciona completament offline. No necessites connexió a internet per a cap funcionalitat."
+      },
+      {
+        "q": "Quins idiomes estan disponibles?",
+        "a": "Actualment suporta català, anglès, espanyol i rus. L'app detecta automàticament l'idioma del dispositiu al primer inici."
+      },
+      {
+        "q": "Per què l'app demana accés al micròfon o a les fotos?",
+        "a": "Aquests permisos només es demanen si decideixes fer servir notes de veu o adjunts de foto. Les gravacions i fotos es queden al teu dispositiu."
+      },
+      {
+        "q": "Puc contribuir al projecte?",
+        "a": "Sí! Magic Snooze és codi obert. Pots trobar el repositori a GitHub i contribuir amb codi, traduccions o reports d'errors."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Comença petit. Torna-ho a provar demà.",
+    "subtitle": "Rutines suaus, tasques simples i notes que t'ajuden a tornar a començar amb calma.",
+    "download": "Descarrega per a Android",
+    "badges": ["Gratuït", "Sense anuncis", "Codi obert", "Offline-first"]
+  },
+  "footer": {
+    "tagline": "Rutines, tasques i notes per a una relació més amable amb tu mateix/a.",
+    "privacy": "Política de privadesa",
+    "source": "Codi a GitHub",
+    "report": "Reporta un error",
+    "copyright": "© 2026 Feya Bloom Studio",
+    "license": "Llicència oficial GNU AGPL 3.0 (EN)"
+  }
+}

@@ -184,12 +184,8 @@ Have ideas? Open an issue.
 
 ## Google Play Compliance
 
-- [Privacy Policy (EN)](https://feyabloom.github.io/Magic-Snooze/privacy-policy.html)
-- [Privacy Policy (CA)](https://feyabloom.github.io/Magic-Snooze/privacy-policy-ca.html)
-- License summary in Catalan: `docs/license-ca.html`
-- Data Safety draft: `docs/google-play-data-safety.md`
-- Store listing copy: `docs/google-play-store-copy.md`
-- Release checklist: `docs/google-play-release-checklist.md`
+- Landing source: `docs2/`
+- GitHub Pages deploy: `.github/workflows/deploy-pages.yml`
 
 ---
 

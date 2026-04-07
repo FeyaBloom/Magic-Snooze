@@ -1,0 +1,309 @@
+{
+  "meta": {
+    "lang": "en"
+  },
+  "nav": {
+    "download": "Download",
+    "languageAria": "Switch language",
+    "language": {
+      "ca": "CA",
+      "en": "EN"
+    }
+  },
+  "hero": {
+    "titleLine1": "Routines, tasks and notes",
+    "titleAccent": "without guilt",
+    "subtitle": "Some days, just getting started is enough. Magic Snooze meets you where you are, then grows with you at your own pace.",
+    "ctaDownload": "Download for Android",
+    "ctaHow": "How it works",
+    "pills": [
+      { "icon": "Moon", "text": "Rest days" },
+      { "icon": "Calendar", "text": "Weekly freeze" },
+      { "icon": "Trophy", "text": "Tiny wins" },
+      { "icon": "CheckSquare", "text": "Clear tasks" },
+      { "icon": "ShieldOff", "text": "Private by default" },
+      { "icon": "WifiOff", "text": "Works offline" },
+      { "icon": "Heart", "text": "Free and open source" },
+      { "icon": "Globe", "text": "Multi-language" }
+    ]
+  },
+  "safe": {
+    "title": "Designed To Feel Safe",
+    "subtitle": "The most important things are on by default. These choices reduce pressure from day one and keep your experience calm.",
+    "items": [
+      {
+        "icon": "BellOff",
+        "title": "Notifications OFF",
+        "desc": "Enable only the reminders that genuinely help."
+      },
+      {
+        "icon": "Globe",
+        "title": "Language auto-detected",
+        "desc": "Catalan, English, Spanish, or Russian from first launch."
+      },
+      {
+        "icon": "Lock",
+        "title": "Offline and private",
+        "desc": "No account, no cloud, no tracking. Your data stays local."
+      },
+      {
+        "icon": "SunMoon",
+        "title": "Auto day/night mode",
+        "desc": "Switches automatically by default, or set it manually to match your preference."
+      }
+    ]
+  },
+  "problem": {
+    "title": "When productivity feels like punishment, starting gets harder",
+    "subtitle": "If one missed day feels like failure, the system is the problem, not you. Momentum should bend, not break. Support should reduce pressure, not raise it. Your pace can change and still be valid.",
+    "cards": [
+      {
+        "title": "Miss one day",
+        "subtitle": "All-or-nothing logic kills momentum",
+        "desc": "Traditional streak systems often frame one missed day as total failure, making restart emotionally expensive."
+      },
+      {
+        "title": "Too much noise",
+        "subtitle": "Rigid schedules can become anxiety loops",
+        "desc": "Constant reminders and aggressive planning can overwhelm attention instead of helping focus."
+      },
+      {
+        "title": "Mental overload",
+        "subtitle": "Thoughts need a safe landing place",
+        "desc": "When everything stays in your head, tasks and ideas become friction. You need quick capture, not more pressure."
+      },
+      {
+        "title": "Real life happens",
+        "subtitle": "People move through seasons",
+        "desc": "Burnout, recovery, parenting, and hard weeks require flexibility. Static systems usually confuse flexibility with failure."
+      }
+    ]
+  },
+  "solution": {
+    "title": "A small, kind structure you can grow into",
+    "subtitle": "Magic Snooze meets you where you are, then helps you continue from there.",
+    "tags": ["ADHD-friendly", "No guilt", "Start small", "Pace yourself", "Low friction", "Calm flow"],
+    "cards": [
+      {
+        "title": "Start from now",
+        "subtitle": "No punishment for missed days",
+        "desc": "Hard days are part of life. The app is built so a setback does not erase your sense of progress."
+      },
+      {
+        "title": "Keep it simple",
+        "subtitle": "Soft routines + simple tasks + quiet notes",
+        "desc": "You get three clear spaces that reduce overload instead of multiplying decisions."
+      },
+      {
+        "title": "Grow gradually",
+        "subtitle": "Small actions count as real progress",
+        "desc": "Start small. Celebrate tiny things. Rest when needed. Return tomorrow without shame."
+      }
+    ]
+  },
+  "how": {
+    "title": "Simple, gentle, and realistic",
+    "subtitle": "Four steps for days with energy, and days without it.",
+    "steps": [
+      {
+        "step": "1",
+        "title": "Start with one soft routine",
+        "desc": "Create morning or evening routines with steps you can actually keep, even on low-energy days."
+      },
+      {
+        "step": "2",
+        "title": "Add simple tasks",
+        "desc": "Offload what's in your head, choose one next action, and reduce mental noise."
+      },
+      {
+        "step": "3",
+        "title": "Capture thoughts in Notes",
+        "desc": "Text, photos, and voice notes give your ideas a safe place to land."
+      },
+      {
+        "step": "4",
+        "title": "Rest, then return",
+        "desc": "Use Rest Day when needed, celebrate tiny wins, and continue tomorrow without guilt."
+      }
+    ]
+  },
+  "features": {
+    "title": "Everything you need, nothing you don't",
+    "subtitle": "Tools designed for how your brain works, not against it.",
+    "sections": [
+      {
+        "icon": "Shield",
+        "eyebrow": "Guilt Protection",
+        "title": "Protection from guilt spirals",
+        "desc": "Difficult days do not erase your progress. The app is built to keep your confidence intact.",
+        "uiLabel": "Guilt Protection UI",
+        "listIcon": "CheckCircle2",
+        "items": [
+          {
+            "title": "Tiny Victories",
+            "desc": "Eight tiny celebrations with confetti reinforce momentum, even on low-energy days."
+          },
+          {
+            "title": "Rest Days",
+            "desc": "Pause without penalty, keep your streak, and return when your energy comes back."
+          },
+          {
+            "title": "Weekly Freeze",
+            "desc": "One missed day each week can be automatically absorbed as a safety cushion."
+          }
+        ]
+      },
+      {
+        "icon": "Puzzle",
+        "eyebrow": "Daily Structure",
+        "title": "Soft structure for daily life",
+        "desc": "You can restart in seconds. No overload, no giant setup, no punishment mechanics.",
+        "uiLabel": "Daily Structure UI",
+        "listIcon": "CheckCircle2",
+        "items": [
+          {
+            "title": "Custom Routines",
+            "desc": "Build morning and evening stacks that reset automatically at midnight."
+          },
+          {
+            "title": "Tasks Without Overload",
+            "desc": "Add only what matters today and complete what you can without guilt."
+          },
+          {
+            "title": "Gentle Reminders",
+            "desc": "Optional notifications help you return softly instead of forcing urgency."
+          }
+        ]
+      },
+      {
+        "icon": "FileText",
+        "eyebrow": "Smart Notes",
+        "title": "Capture thoughts before they vanish",
+        "desc": "Keep ideas, voice snippets, and visual notes in one place to reduce mental load.",
+        "uiLabel": "Smart Notes UI",
+        "listIcon": null,
+        "items": [
+          {
+            "title": "Text Notes",
+            "desc": "Write fast thoughts, reminders, and plans in a clean editor.",
+            "icon": "FileText"
+          },
+          {
+            "title": "Voice Clips",
+            "desc": "Record when typing is too much, then revisit when you are ready.",
+            "icon": "Mic"
+          },
+          {
+            "title": "Photo Attachments",
+            "desc": "Attach visual references so details are not lost later.",
+            "icon": "ImageIcon"
+          }
+        ]
+      },
+      {
+        "icon": "TrendingUp",
+        "eyebrow": "Safe Progress",
+        "title": "Progress that feels safe",
+        "desc": "Stats are framed around consistency and wins, not punishment and shame.",
+        "uiLabel": "Safe Progress UI",
+        "listIcon": "CheckCircle2",
+        "items": [
+          {
+            "title": "Positive Stats",
+            "desc": "See completion trends that emphasize what worked for you."
+          },
+          {
+            "title": "Victory Garden",
+            "desc": "Visual growth turns tiny wins into something tangible and motivating."
+          },
+          {
+            "title": "Smart Streaks",
+            "desc": "Track current and best streak with built-in safety nets."
+          }
+        ]
+      }
+    ]
+  },
+  "who": {
+    "title": "Who It's For",
+    "subtitle": "Different lives, same need: a calmer relationship with structure.",
+    "items": [
+      {
+        "icon": "Brain",
+        "title": "Neurodivergent minds",
+        "desc": "You have ADHD or a different cognitive rhythm, and classic productivity apps never really fit."
+      },
+      {
+        "icon": "BatteryCharging",
+        "title": "Rebuilding after a hard season",
+        "desc": "You need a gentle way back into routine without feeling punished for every interruption."
+      },
+      {
+        "icon": "Baby",
+        "title": "Parents supporting a child",
+        "desc": "You're helping a child build rhythm without pressure, fear, or shame."
+      },
+      {
+        "icon": "Wind",
+        "title": "Anxiety around productivity",
+        "desc": "You want routines that lower pressure and make starting easier instead of heavier."
+      },
+      {
+        "icon": "Lock",
+        "title": "Privacy-first users",
+        "desc": "You want local-first tools that keep your data on your device."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "q": "Is Magic Snooze completely free?",
+        "a": "Yes, Magic Snooze is 100% free and open source. There are no ads, no subscriptions, and no hidden fees."
+      },
+      {
+        "q": "Is my data safe? Who can see it?",
+        "a": "Your data is completely safe because it never leaves your device. Magic Snooze is an offline-first app with no cloud syncing and no accounts."
+      },
+      {
+        "q": "Do I need to have ADHD to use the app?",
+        "a": "Not at all! While it's designed to be ADHD-friendly, anyone who wants a gentler, guilt-free approach to productivity will find it helpful."
+      },
+      {
+        "q": "What's the difference between a Rest Day and Weekly Freeze?",
+        "a": "A Rest Day is something you actively choose when you need a break. A Weekly Freeze is an automatic safety net that absorbs one missed day per week without breaking your streak."
+      },
+      {
+        "q": "Do I need internet to use Magic Snooze?",
+        "a": "No. Magic Snooze works completely offline. You don't need an internet connection to use any of its features."
+      },
+      {
+        "q": "What languages are supported?",
+        "a": "Currently, it supports Catalan, English, Spanish, and Russian. The app will automatically detect your device's language on first launch or set it in English if your language is not supported."
+      },
+      {
+        "q": "Why does the app ask for microphone or photo access?",
+        "a": "These permissions are only requested if you choose to use the voice notes or photo attachment features. Your recordings and photos stay strictly on your device."
+      },
+      {
+        "q": "Can I contribute to the project?",
+        "a": "Yes! Magic Snooze is open source. You can find my repository on GitHub and contribute code, translations, or bug reports."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Start small. Try again tomorrow.",
+    "subtitle": "Soft routines, simple tasks, and notes that help you restart gently.",
+    "download": "Download for Android",
+    "badges": ["Free", "No ads", "Open source", "Offline-first"]
+  },
+  "footer": {
+    "tagline": "Routines, tasks and notes for a gentler relationship with yourself.",
+    "privacy": "Privacy Policy",
+    "source": "Source on GitHub",
+    "report": "Report a bug",
+    "copyright": "© 2026 Feya Bloom Studio",
+    "license": "Official license GNU AGPL 3.0 (EN)"
+  }
+}

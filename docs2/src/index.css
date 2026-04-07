@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400..700;1,400..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: 236 72 153;
+  --secondary: 139 92 246;
+  --bg-1: 255 229 229;
+  --bg-2: 229 243 255;
+  --bg-3: 220 252 231;
+  --surface: 255 255 255;
+  --text: 55 65 81;
+  --text-secondary: 75 85 99;
+  --accent: 251 191 36;
+  
+  color-scheme: light;
+}
+
+.dark {
+  --primary: 99 102 241;
+  --secondary: 16 185 129;
+  --bg-1: 6 78 59;
+  --bg-2: 31 41 55;
+  --bg-3: 55 65 81;
+  --surface: 31 41 55;
+  --text: 255 255 255;
+  --text-secondary: 209 213 219;
+  --accent: 251 191 36;
+  
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply antialiased;
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes float-cloud {
+  0% { transform: translateX(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateX(120vw); opacity: 0; }
+}
+
+@keyframes firefly-float {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translate(30px, -50px); opacity: 0; }
+}
