@@ -13,8 +13,8 @@
   "hero": {
     "titleLine1": "Rutines, tasques i notes",
     "titleAccent": "sense culpa",
-    "subtitle": "Alguns dies, només començar ja és prou. Magic Snooze et troba on ets i creix amb tu al teu ritme.",
-    "ctaDownload": "Descarrega per a Android",
+    "subtitle": "Alguns dies, només amb començar ja n'hi ha prou. Magic Snooze et troba on ets i creix amb tu al teu ritme.",
+    "ctaDownload": "Baixa per a Android",
     "ctaHow": "Com funciona",
     "pills": [
       { "icon": "Moon", "text": "Dies de descans" },
@@ -24,7 +24,7 @@
       { "icon": "ShieldOff", "text": "Privadesa per defecte" },
       { "icon": "WifiOff", "text": "Funciona sense internet" },
       { "icon": "Heart", "text": "Gratuït i de codi obert" },
-      { "icon": "Globe", "text": "Multiidioma" }
+      { "icon": "Globe", "text": "Multilenguatge" }
     ]
   },
   "safe": {
@@ -239,7 +239,7 @@
     "items": [
       {
         "q": "Magic Snooze és completament gratuït?",
-        "a": "Sí, Magic Snooze és 100% gratuït i de codi obert. No hi ha anuncis, subscripcions ni costos ocults."
+        "a": "Sí, Magic Snooze és 100% gratuït — no hi ha cap anuncis, subscripcions ni costos ocults."
       },
       {
         "q": "Les meves dades estan segures? Qui les pot veure?",
@@ -272,9 +272,9 @@
     ]
   },
   "cta": {
-    "title": "Comença petit. Torna-ho a provar demà.",
+    "title": "Comença a poc a poc. Torna-ho a provar demà.",
     "subtitle": "Rutines suaus, tasques simples i notes que t'ajuden a tornar a començar amb calma.",
-    "download": "Descarrega per a Android",
+    "download": "Baixa per a Android",
     "badges": ["Gratuït", "Sense anuncis", "Codi obert", "Offline-first"]
   },
   "footer": {
@@ -283,6 +283,6 @@
     "source": "Codi a GitHub",
     "report": "Reporta un error",
     "copyright": "© 2026 Feya Bloom Studio",
-    "license": "Llicència oficial GNU AGPL 3.0 (EN)"
+    "license": "Llicència oficial GNU AGPL 3.0"
   }
 }
