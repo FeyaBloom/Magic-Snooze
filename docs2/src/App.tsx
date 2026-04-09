@@ -218,7 +218,7 @@ export default function App() {
             />
             <ThemeToggle />
             <a
-              href="#download"
+              href="https://play.google.com/store/apps/details?id=com.feya_bloom.magic_snooze"
               className="bg-brand-primary hover:bg-brand-secondary text-white px-4 py-2 rounded-full transition-colors flex items-center gap-2"
             >
               <Download className="w-4 h-4" />
@@ -250,7 +250,7 @@ export default function App() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
                 <a
-                  href="#download"
+                  href="https://play.google.com/store/apps/details?id=com.feya_bloom.magic_snooze"
                   className="w-full sm:w-auto bg-brand-primary hover:bg-brand-secondary text-white px-8 py-4 rounded-full text-lg font-serif font-medium transition-all hover:shadow-lg hover:shadow-brand-secondary/25 flex items-center justify-center gap-2"
                 >
                   <Download className="w-5 h-5" />
@@ -541,7 +541,7 @@ export default function App() {
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-text mb-6">{t.cta.title}</h2>
           <p className="text-xl text-brand-text-muted mb-10 leading-relaxed max-w-2xl mx-auto">{t.cta.subtitle}</p>
           <a
-            href="#"
+            href="https://play.google.com/store/apps/details?id=com.feya_bloom.magic_snooze"
             className="inline-flex items-center justify-center gap-2 bg-brand-primary hover:bg-brand-secondary text-white px-8 py-4 rounded-full text-lg font-serif font-medium transition-all hover:shadow-lg hover:shadow-brand-secondary/35 mb-8"
           >
             <Download className="w-5 h-5" />
