@@ -83,27 +83,6 @@
     "title": "Una estructura petita i amable en què pots créixer",
     "subtitle": "Magic Snooze et troba on ets i t'ajuda a continuar des d'allà.",
     "tags": ["Amigable amb TDAH", "Sense culpa", "Comença petit", "Al teu ritme", "Baixa fricció", "Flux calmat"],
-    "cards": [
-      {
-        "title": "Comença des d'ara",
-        "subtitle": "Sense càstig per dies perduts",
-        "desc": "Els dies difícils formen part de la vida. L'app està feta perquè un retrocés no esborri la sensació de progrés."
-      },
-      {
-        "title": "Fes-ho simple",
-        "subtitle": "Rutines suaus + tasques simples + notes tranquil·les",
-        "desc": "Tens tres espais clars que redueixen la sobrecàrrega en lloc de multiplicar decisions."
-      },
-      {
-        "title": "Creix gradualment",
-        "subtitle": "Les accions petites compten",
-        "desc": "Comença petit. Celebra les coses petites. Descansa quan calgui. Torna demà sense vergonya."
-      }
-    ]
-  },
-  "how": {
-    "title": "Simple, suau i realista",
-    "subtitle": "Quatre passos per als dies amb energia i per als dies sense.",
     "steps": [
       {
         "step": "1",

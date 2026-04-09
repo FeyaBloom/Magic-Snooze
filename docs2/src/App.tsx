@@ -286,7 +286,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="bg-brand-bg-2/50 py-24 border-y border-brand-secondary/20">
+        <section className="bg-brand-bg-2 py-24 border-y border-brand-secondary/20 dark:bg-brand-bg-2/50">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -320,7 +320,7 @@ export default function App() {
           </motion.div>
         </section>
 
-        <section className="py-24 px-6 border-y border-brand-secondary/20 bg-brand-bg-2 dark:bg-[#1F2937]">
+        <section className="py-24 px-6 border-y border-brand-secondary/20 bg-brand-bg-2/50 dark:bg-[#1F2937]">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -349,7 +349,10 @@ export default function App() {
           </motion.div>
         </section>
 
-        <section className="bg-gradient-to-br from-brand-bg-2 via-brand-bg-3 to-brand-bg-1 text-brand-text py-24 dark:from-[#1F2937] dark:via-[#312E81]/40 dark:to-[#0F172A]">
+        <section
+          id="how-it-works"
+          className="bg-gradient-to-br from-brand-bg-2 via-brand-bg-3 to-brand-bg-1 text-brand-text py-24 dark:from-[#1F2937] dark:via-[#312E81]/40 dark:to-[#0F172A]"
+        >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -376,46 +379,17 @@ export default function App() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {t.solution.cards.map((item, i) => (
-                <motion.div
-                  key={i}
-                  {...reveal("up", i * 0.08)}
-                  className="bg-brand-surface/40 backdrop-blur-md p-8 rounded-3xl border border-brand-surface/30 shadow-sm"
-                >
-                  <h3 className="text-2xl font-serif font-bold mb-2">{item.title}</h3>
-                  <div className="text-brand-text font-medium mb-4">{item.subtitle}</div>
+            <div className="grid md:grid-cols-4 gap-8">
+              {t.solution.steps.map((item, i) => (
+                <motion.div key={i} {...reveal("up", i * 0.1)} className="relative">
+                  <div className="w-12 h-12 bg-brand-primary text-white rounded-full flex items-center justify-center text-xl font-bold mb-6 shadow-md">
+                    {item.step}
+                  </div>
+                  <h3 className="text-xl font-serif font-semibold text-brand-text mb-3">{item.title}</h3>
                   <p className="text-brand-text-muted leading-relaxed">{item.desc}</p>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
-        </section>
-
-        <section id="how-it-works" className="py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="max-w-6xl mx-auto px-6"
-          >
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text mb-4">{t.how.title}</h2>
-            <p className="text-lg text-brand-text-muted">{t.how.subtitle}</p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            {t.how.steps.map((item, i) => (
-              <motion.div key={i} {...reveal("up", i * 0.1)} className="relative">
-                <div className="w-12 h-12 bg-brand-primary text-white rounded-full flex items-center justify-center text-xl font-bold mb-6 shadow-md">
-                  {item.step}
-                </div>
-                <h3 className="text-xl font-serif font-semibold text-brand-text mb-3">{item.title}</h3>
-                <p className="text-brand-text-muted leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
           </motion.div>
         </section>
 
@@ -438,7 +412,13 @@ export default function App() {
                 const useReverseLayout = sectionIndex % 2 === 1;
                 const imageOrderClass = useReverseLayout ? "order-2 md:order-2" : "order-2 md:order-1";
                 const textOrderClass = useReverseLayout ? "order-1 md:order-1" : "order-1 md:order-2";
-                const featureImageSrc = sectionIndex === 2 ? `${PUBLIC_BASE}smart-notes.png` : null;
+                const featureSectionImages = [
+                  `${PUBLIC_BASE}guilt-protection.png`,
+                  `${PUBLIC_BASE}soft-structure.png`,
+                  `${PUBLIC_BASE}smart-notes.png`,
+                  `${PUBLIC_BASE}safe-progress.png`,
+                ];
+                const featureImageSrc = featureSectionImages[sectionIndex] ?? null;
 
                 return (
                   <motion.div key={sectionIndex} {...reveal("up", sectionIndex * 0.06)} className="grid md:grid-cols-2 gap-12 items-center">

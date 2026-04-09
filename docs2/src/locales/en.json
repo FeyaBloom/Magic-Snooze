@@ -83,27 +83,6 @@
     "title": "A small, kind structure you can grow into",
     "subtitle": "Magic Snooze meets you where you are, then helps you continue from there.",
     "tags": ["ADHD-friendly", "No guilt", "Start small", "Pace yourself", "Low friction", "Calm flow"],
-    "cards": [
-      {
-        "title": "Start from now",
-        "subtitle": "No punishment for missed days",
-        "desc": "Hard days are part of life. The app is built so a setback does not erase your sense of progress."
-      },
-      {
-        "title": "Keep it simple",
-        "subtitle": "Soft routines + simple tasks + quiet notes",
-        "desc": "You get three clear spaces that reduce overload instead of multiplying decisions."
-      },
-      {
-        "title": "Grow gradually",
-        "subtitle": "Small actions count as real progress",
-        "desc": "Start small. Celebrate tiny things. Rest when needed. Return tomorrow without shame."
-      }
-    ]
-  },
-  "how": {
-    "title": "Simple, gentle, and realistic",
-    "subtitle": "Four steps for days with energy, and days without it.",
     "steps": [
       {
         "step": "1",
